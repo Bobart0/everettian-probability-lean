@@ -10,6 +10,27 @@ on:
   push:
   pull_request:
 
+# **FR.** `ci.yml` et `lean.yml` construisent tous deux le projet via
+# `leanprover/lean-action@v1` sur le même push ; sans coordination, leurs
+# jobs `build` se disputent la création du même cache Lake pour le même
+# commit (« Unable to reserve cache ... another job may be creating this
+# cache »), ce qui échoue de façon cosmétique (toutes les étapes réussissent,
+# seule la sauvegarde du cache entre en conflit) mais fait passer le run à
+# `failure`. Un groupe de concurrence partagé avec `lean.yml`, clé sur le
+# SHA, les sérialise sans en annuler aucun (`cancel-in-progress` reste à
+# `false`).
+#
+# **EN.** `ci.yml` and `lean.yml` both build the project via
+# `leanprover/lean-action@v1` on the same push; without coordination,
+# their `build` jobs race to create the same Lake cache for the same
+# commit ("Unable to reserve cache ... another job may be creating this
+# cache"), which fails cosmetically (every step succeeds, only the cache
+# save conflicts) but still flips the run to `failure`. A concurrency
+# group shared with `lean.yml`, keyed on the SHA, serializes them without
+# cancelling either (`cancel-in-progress` stays `false`).
+concurrency:
+  group: lean-build-${{ github.sha }}
+
 jobs:
   guard:
     runs-on: ubuntu-latest

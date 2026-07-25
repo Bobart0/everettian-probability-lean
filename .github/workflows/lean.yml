@@ -21,6 +21,12 @@ on:
       - master
   workflow_dispatch:
 
+# See ci.yml for why this concurrency group (shared with that workflow,
+# keyed on the commit SHA) exists: it serializes the two workflows' Lake
+# cache saves for the same commit instead of letting them race.
+concurrency:
+  group: lean-build-${{ github.sha }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
