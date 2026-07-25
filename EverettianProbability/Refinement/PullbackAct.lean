@@ -28,7 +28,7 @@ still an open goal at this stage. Relying on a still-open upstream
 specification is legitimate (the "skeleton first, proofs later" pattern)
 and introduces no new open goal in this file; `#print axioms` on
 `pullbackAct_agree_of_agree` reveals the residual dependency on the
-admitted-goal marker axiom (see `Audit/MainResults.lean`).
+admitted-open-goal marker (see `Audit/MainResults.lean`).
 -/
 
 namespace EverettianProbability.Refinement

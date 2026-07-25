@@ -19,7 +19,7 @@ Nonvacuity.lean` (`uniformExpectationFamily`, at `n = 3`) and produces a
 concrete real number for any perspective and any cell — the definition is
 not vacuous, even though its behavior (does it satisfy `AxGrain`,
 `AxPos`, etc.?) remains open as long as `Preference.exists_unique_weights`
-is itself an open goal (see `MILESTONES.md`). No axiom proof is attempted here: that
+is itself an open goal (see `MILESTONES.md`). No axiom-satisfaction proof is attempted here: that
 would pre-empt `RefinementImpliesGrain.lean`.
 -/
 

@@ -30,5 +30,5 @@ module of the P1 milestone, in dependency order: `Core` (interface, acts,
 parent map), `Refinement` (pullback, invariance), `Preference` (rational
 expectation, representation), `BornCalibration` (contextual weight, bridge
 to Grain, Born expectation, non-circularity), `Rivals` (naive counting),
-`Audit` (axiom audit).
+`Audit` (axioms audit).
 -/
