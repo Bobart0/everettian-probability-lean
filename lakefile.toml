@@ -4,7 +4,7 @@ defaultTargets = ["EverettianProbability"]
 [[require]]
 name = "quantum_foundations"
 git = "https://github.com/Bobart0/quantum-foundations-lean.git"
-rev = "v1.0.1-fop-companion"
+rev = "v1.1.0-probability-api"
 
 [[lean_lib]]
 name = "EverettianProbability"

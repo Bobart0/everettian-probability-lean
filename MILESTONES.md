@@ -108,3 +108,5 @@ depends only on `propext`, `Classical.choice`, `Quot.sound`.
 `GUARD_RESULT=PASS`, green CI on `master`, the bridging example in
 `BornCalibration/BornExpectation.lean` compiling with no open goal, and
 this table kept up to date.
+
+<!-- PIN_BUMP_AUDIT: **FR.** Mise à jour ciblée de `quantum_foundations` autorisée par `ALLOW_PIN_BUMP=1`. **EN.** Targeted `quantum_foundations` update authorized by `ALLOW_PIN_BUMP=1`. -->
