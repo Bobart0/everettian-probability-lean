@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# **FR.** Hook pre-commit : refuse le commit si la garde anti-régression
+# échoue (axiome, `native_decide`, `maxHeartbeats 0`, ou dépassement du
+# budget de buts ouverts). Activé par `git config core.hooksPath
+# .githooks` (fait automatiquement par `setup.sh`).
+#
+# **EN.** Pre-commit hook: refuses the commit if the anti-regression guard
+# fails (axiom, `native_decide`, `maxHeartbeats 0`, or an open-goal budget
+# overrun). Enabled via `git config core.hooksPath .githooks` (done
+# automatically by `setup.sh`).
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+if ! bash scripts/guard.sh; then
+  echo "pre-commit: scripts/guard.sh failed — commit refused." >&2
+  exit 1
+fi

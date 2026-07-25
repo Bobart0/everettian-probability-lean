@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata in this file."
+title: "Everettian Probability in Lean: Refinement-Invariant Rational Expectation"
+type: software
+authors:
+  - family-names: Dalimier
+    given-names: Bertrand
+    affiliation: Independent Researcher
+    city: Nogent-sur-Marne
+    country: FR
+    orcid: "https://orcid.org/0009-0000-2457-375X"
+abstract: >-
+  A Lean 4 and Mathlib formalization of a decision-theoretic layer built on
+  top of the grain-coherence-to-Born representation theorem of
+  quantum-foundations-lean: acts, consequences, refinement invariance,
+  rational expectation, and Bornian calibration. Results are under
+  construction; see MILESTONES.md for status. Not to be cited as
+  established until milestone P11 closes.
+keywords:
+  - quantum foundations
+  - Born rule
+  - Everett interpretation
+  - decision theory
+  - Gleason theorem
+  - Lean 4
+  - formal verification
+license: Apache-2.0
+version: 0.1.0-dev
+date-released: 2026-07-25
+repository-code: "https://github.com/Bobart0/everettian-probability-lean"

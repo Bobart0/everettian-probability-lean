@@ -1,0 +1,29 @@
+# **FR.** CI courte : garde source (axiomes, native_decide, maxHeartbeats,
+# budget de buts ouverts) avant de lancer le build complet, qui dépend
+# donc de la garde.
+#
+# **EN.** Short CI: source guard (axioms, native_decide, maxHeartbeats,
+# open-goal budget) before running the full build, which therefore
+# depends on the guard.
+name: CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Anti-regression guard
+        run: bash scripts/guard.sh
+
+  build:
+    runs-on: ubuntu-latest
+    needs: guard
+    steps:
+      - uses: actions/checkout@v4
+      # leanprover/lean-action détecte le workspace Lake, récupère le cache Mathlib
+      # (lake exe cache get) et lance `lake build` — aucune option supplémentaire
+      # nécessaire pour ce projet (config par défaut vérifiée).
+      - uses: leanprover/lean-action@v1

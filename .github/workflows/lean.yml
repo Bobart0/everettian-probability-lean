@@ -1,0 +1,42 @@
+# **FR.** Validation continue minimale : construit le paquet
+# `EverettianProbability`, exécute l'audit des axiomes consolidé, fait
+# tourner la garde source anti-régression, et vérifie l'hygiène des
+# diffs. S'appuie uniquement sur la chaîne d'outils Lean et les révisions
+# de dépendances déjà épinglées dans ce dépôt (`lean-toolchain`,
+# `lakefile.toml`) ; ce workflow ne les modifie jamais.
+#
+# **EN.** Minimal continuous validation: builds the `EverettianProbability`
+# package, runs the consolidated axiom audit, runs the anti-regression
+# source guard, and checks diff hygiene. Relies only on the Lean toolchain
+# and dependency revisions already pinned in this repository
+# (`lean-toolchain`, `lakefile.toml`); this workflow never updates them.
+name: Lean
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: leanprover/lean-action@v1
+
+      - name: Build the EverettianProbability package
+        run: lake build EverettianProbability
+
+      - name: Consolidated axiom audit
+        run: lake env lean EverettianProbability/Audit/MainResults.lean
+
+      - name: Source guard (no axiom, no native_decide, no maxHeartbeats 0, open-goal budget respected)
+        run: bash scripts/guard.sh
+
+      - name: Whitespace and diff hygiene check
+        run: git diff --check

@@ -1,0 +1,30 @@
+{
+  "title": "Everettian Probability in Lean: Refinement-Invariant Rational Expectation",
+  "description": "A Lean 4 and Mathlib formalization of a decision-theoretic layer built on top of the grain-coherence-to-Born representation theorem of quantum-foundations-lean: acts, consequences, refinement invariance, rational expectation, and Bornian calibration. Results are under construction; see MILESTONES.md for status. Not to be cited as established until milestone P11 closes.",
+  "creators": [
+    {
+      "name": "Dalimier, Bertrand",
+      "affiliation": "Independent Researcher",
+      "orcid": "0009-0000-2457-375X"
+    }
+  ],
+  "license": "Apache-2.0",
+  "upload_type": "software",
+  "version": "0.1.0-dev",
+  "keywords": [
+    "quantum foundations",
+    "Born rule",
+    "Everett interpretation",
+    "decision theory",
+    "Gleason theorem",
+    "Lean 4",
+    "formal verification"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Bobart0/quantum-foundations-lean",
+      "relation": "isDerivedFrom",
+      "scheme": "url"
+    }
+  ]
+}
