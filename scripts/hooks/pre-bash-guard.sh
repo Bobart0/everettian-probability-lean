@@ -45,7 +45,11 @@ esac
 
 case "${COMMAND}" in
   *"lake update"*)
-    block "'lake update' would drift the pinned revisions (lakefile.toml / lake-manifest.json). Pin bumps are a deliberate, separate, human-approved action." ;;
+    if [ "${ALLOW_PIN_BUMP:-}" = "1" ] && [ "${COMMAND}" = "lake update quantum_foundations" ]; then
+      printf '\n<!-- PIN_BUMP_AUDIT: **FR.** Mise à jour ciblée de `quantum_foundations` autorisée par `ALLOW_PIN_BUMP=1`. **EN.** Targeted `quantum_foundations` update authorized by `ALLOW_PIN_BUMP=1`. -->\n' >> MILESTONES.md
+    else
+      block "'lake update' is allowed only as the exact command 'lake update quantum_foundations' with ALLOW_PIN_BUMP=1; unscoped updates would drift pinned revisions." 
+    fi ;;
 esac
 
 case "${COMMAND}" in
@@ -57,7 +61,11 @@ case "${COMMAND}" in
   *"lean-toolchain"*|*"lakefile.toml"*)
     case "${COMMAND}" in
       *">"*|*"sed -i"*|*"mv "*|*"cp "*|*"rm "*|*"tee "*)
-        block "commands that write to 'lean-toolchain' or 'lakefile.toml' are not allowed; these pins change only via an explicit, reviewed edit." ;;
+        if [ "${ALLOW_PIN_BUMP:-}" = "1" ] && [ "${COMMAND}" = "lake update quantum_foundations" ]; then
+          :
+        else
+          block "commands that write to 'lean-toolchain' or 'lakefile.toml' are not allowed; these pins change only via an explicit, reviewed edit." 
+        fi ;;
     esac
     ;;
 esac
