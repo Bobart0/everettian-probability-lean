@@ -1,0 +1,7 @@
+.lake/
+.claude/settings.local.json
+.DS_Store
+Thumbs.db
+/build/
+*.olean
+.env

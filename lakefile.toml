@@ -1,0 +1,10 @@
+name = "everettian_probability"
+defaultTargets = ["EverettianProbability"]
+
+[[require]]
+name = "quantum_foundations"
+git = "https://github.com/Bobart0/quantum-foundations-lean.git"
+rev = "v1.0.1-fop-companion"
+
+[[lean_lib]]
+name = "EverettianProbability"
