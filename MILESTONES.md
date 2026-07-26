@@ -7,8 +7,8 @@
 | Jalon | Objet | Statut | Date | Buts ouverts introduits | Buts ouverts fermés |
 |---|---|---|---|---|---|
 | P0 | Red team sur papier (portée, décisions P0.2/P0.3) | Préalable, hors dépôt (`PLAN_REVISE_everettian-probability-lean.md`) | — | — | — |
-| P1 | Infrastructure du dépôt, squelette compilable | 🚧 EN COURS | 2026-07-25 | 7 | 0 |
-| P2 | Invariance sous raffinement ⟹ Grain (preuve réelle) | Non ouvert | — | — | — |
+| P1 | Infrastructure du dépôt, squelette compilable | ✅ CLOS | 2026-07-25 | 7 | 0 |
+| P2 | Modèle fini des actes et invariance sous raffinement | ⛔ BLOQUÉ PAR L'API AMONT | 2026-07-26 | 0 | 3 |
 | P3 | Théorème de représentation (preuve réelle) | Non ouvert | — | — | — |
 | P4 | Espérance de Born (preuve réelle) | Non ouvert | — | — | — |
 | P5 | Non-circularité (témoin qubit non bornien) | Non ouvert | — | — | — |
@@ -19,9 +19,8 @@
 | P10 | Confirmation empirique | Non ouvert | — | — | — |
 | P11 | Calibration approximative, clôture | Non ouvert | — | — | — |
 
-Seul **P1** est ouvert. Les jalons P2–P11 seront détaillés (stratégie,
-sous-étapes, blueprint mathématique) à leur ouverture, sur le modèle des
-sections « Jalons — … » de `quantum-foundations-lean/MILESTONES.md`.
+P1 est clos. P2 est ouvert mais ne peut pas être clos avant une seconde
+itération additive de l'API amont, détaillée ci-dessous. P3 n'est pas ouvert.
 
 ### P1 — Infrastructure et squelette compilable
 
@@ -54,6 +53,23 @@ de `propext`, `Classical.choice`, `Quot.sound`.
 `BornCalibration/BornExpectation.lean` compile sans but ouvert, et cette
 table à jour.
 
+### P2 — État après jonction de l'API
+
+Le pin vise `v1.1.0-probability-api`; le manifeste ne change que pour
+`quantum_foundations`. `Core/Parent.lean` a été supprimé au profit de
+`parentOf`. Les trois buts `parent_mem`, `parent_le`, `parent_unique` ont donc
+disparu et le budget global passe de 7 à 4. `Core/` et les lemmes actuellement
+présents dans `Refinement/` ne contiennent aucun `sorry`.
+
+P2 reste néanmoins **non clos** : la non-vacuité forte demandée doit prouver
+l'invariance de l'espérance bornienne sous un raffinement arbitraire. Cette
+preuve requiert le résultat amont déjà existant
+`QuantumFoundations.BornRule.refine_filter_sup_eq`, ou son corollaire
+`E₀_isGrain`. Aucun des deux n'est atteignable depuis l'unique point d'entrée
+`QuantumFoundations.ProbabilityAPI`. Les réimporter directement violerait la
+frontière d'API; les reprouver en aval violerait la règle de non-duplication.
+Une release additive amont doit donc les réexporter avant la reprise de P2.
+
 ## English
 
 ### Milestone table
@@ -61,8 +77,8 @@ table à jour.
 | Milestone | Subject | Status | Date | Open goals introduced | Open goals closed |
 |---|---|---|---|---|---|
 | P0 | Paper red team (scope, decisions P0.2/P0.3) | Prerequisite, outside the repository (`PLAN_REVISE_everettian-probability-lean.md`) | — | — | — |
-| P1 | Repository infrastructure, compilable skeleton | 🚧 IN PROGRESS | 2026-07-25 | 7 | 0 |
-| P2 | Refinement invariance ⟹ Grain (real proof) | Not opened | — | — | — |
+| P1 | Repository infrastructure, compilable skeleton | ✅ CLOSED | 2026-07-25 | 7 | 0 |
+| P2 | Finite act model and refinement invariance | ⛔ BLOCKED BY UPSTREAM API | 2026-07-26 | 0 | 3 |
 | P3 | Representation theorem (real proof) | Not opened | — | — | — |
 | P4 | Born expectation (real proof) | Not opened | — | — | — |
 | P5 | Non-circularity (non-Born qubit witness) | Not opened | — | — | — |
@@ -73,10 +89,8 @@ table à jour.
 | P10 | Empirical confirmation | Not opened | — | — | — |
 | P11 | Approximate calibration, closure | Not opened | — | — | — |
 
-Only **P1** is open. Milestones P2–P11 will be detailed (strategy,
-sub-steps, mathematical blueprint) when they open, following the
-"Milestones — …" section pattern of
-`quantum-foundations-lean/MILESTONES.md`.
+P1 is closed. P2 is open but cannot be closed before a second additive
+upstream API iteration, detailed below. P3 has not been opened.
 
 ### P1 — Infrastructure and compilable skeleton
 
@@ -108,5 +122,22 @@ depends only on `propext`, `Classical.choice`, `Quot.sound`.
 `GUARD_RESULT=PASS`, green CI on `master`, the bridging example in
 `BornCalibration/BornExpectation.lean` compiling with no open goal, and
 this table kept up to date.
+
+### P2 — State after the API junction
+
+The pin targets `v1.1.0-probability-api`; only `quantum_foundations` changes
+in the manifest. `Core/Parent.lean` was deleted in favor of `parentOf`. The
+three goals `parent_mem`, `parent_le`, and `parent_unique` therefore vanished,
+reducing the global budget from 7 to 4. `Core/` and the lemmas currently
+present in `Refinement/` contain no `sorry`.
+
+P2 nevertheless remains **open**: the requested strong nonvacuity result must
+prove that Born expectation is invariant under an arbitrary refinement. That
+proof requires the existing upstream result
+`QuantumFoundations.BornRule.refine_filter_sup_eq`, or its corollary
+`E₀_isGrain`. Neither is reachable from the sole entry point
+`QuantumFoundations.ProbabilityAPI`. Importing either directly would breach
+the API boundary; reproving either downstream would breach the no-duplication
+rule. An additive upstream release must re-export them before P2 resumes.
 
 <!-- PIN_BUMP_AUDIT: **FR.** Mise à jour ciblée de `quantum_foundations` autorisée par `ALLOW_PIN_BUMP=1`. **EN.** Targeted `quantum_foundations` update authorized by `ALLOW_PIN_BUMP=1`. -->

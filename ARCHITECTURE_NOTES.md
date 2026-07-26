@@ -21,19 +21,14 @@ de coercions entre `Act D₁` et `Act D₂` pour deux perspectives différentes,
 qui aurait rendu `pullbackAct` et `PayoffPreserving` beaucoup plus lourds
 à énoncer.
 
-### 2. Carte parent : `Classical.choice` + `Perspective.unique_parent`, `Refines` étant `∀∃`
+### 2. Carte parent : réutilisation de l'API amont
 
-`Refines D' D` (amont) est une relation `∀∃` — elle affirme l'existence
-d'un parent pour chaque cellule fine, sans fournir de fonction. `Core/
-Parent.lean` construit `parent r : Submodule ℂ (H n) → Submodule ℂ (H n)`
-par `Classical.choice` sur cette existence, valeur poubelle `⊥` hors
-domaine. Les trois lemmes de spécification (`parent_mem`, `parent_le`,
-`parent_unique`) sont laissés comme buts ouverts en P1 (voir
-`MILESTONES.md`) : leur contenu est immédiat une fois déballé
-(`Classical.choose_spec` pour les deux premiers, `Perspective.
-unique_parent` plus `D'.nz` pour le troisième), mais leur clôture est
-différée pour garder P1 strictement infrastructurel, sans aucune preuve
-mathématique.
+Depuis `v1.1.0-probability-api`, `parentOf`, `parentOf_mem`, `parentOf_le` et
+`parentOf_eq_of_le` sont publics via `QuantumFoundations.ProbabilityAPI`.
+`Core/Parent.lean` a donc été supprimé : conserver sa construction locale par
+choix classique aurait dupliqué l'amont et créé deux cartes parents sans
+garantie d'égalité définitionnelle. `pullbackAct` compose désormais directement
+avec `parentOf`.
 
 ### 3. Type d'atterrissage du poids contextuel
 
@@ -61,6 +56,16 @@ dépendance résiduelle (voir `Audit/MainResults.lean`). Ce choix minimise
 le budget de buts ouverts sans jamais affaiblir un énoncé, conformément à
 la règle 3 de `AGENTS.md`.
 
+### 5. P0.3 différé par une lacune de la façade publique
+
+L'interface abstraite projective/effets n'a pas été gravée dans ce jalon
+partiel. Avant l'étape P0.3, la preuve de consistance bornienne a révélé que
+`refine_filter_sup_eq` et `E₀_isGrain`, bien que déjà prouvés en amont, ne sont
+pas atteignables depuis `QuantumFoundations.ProbabilityAPI`. La règle
+« point d'entrée unique, aucune réimportation directe » impose l'arrêt et une
+seconde release additive. Aucun sous-type n'a été introduit dans `Act`, qui
+reste la fonction totale `Submodule ℂ (H n) → ℝ`.
+
 ## English
 
 Memory of the gaps between the announced plan (P1 bootstrap prompt) and
@@ -81,18 +86,14 @@ dependent types and coercions between `Act D₁` and `Act D₂` for two
 different perspectives, which would have made `pullbackAct` and
 `PayoffPreserving` far heavier to state.
 
-### 2. Parent map: `Classical.choice` + `Perspective.unique_parent`, `Refines` being `∀∃`
+### 2. Parent map: reuse of the upstream API
 
-`Refines D' D` (upstream) is a `∀∃` relation — it asserts the existence of
-a parent for every fine cell, without furnishing a function. `Core/
-Parent.lean` builds `parent r : Submodule ℂ (H n) → Submodule ℂ (H n)` by
-`Classical.choice` on that existence, junk value `⊥` outside the domain.
-The three specification lemmas (`parent_mem`, `parent_le`,
-`parent_unique`) are left as open goals in P1 (see `MILESTONES.md`): their
-content is immediate once unpacked (`Classical.choose_spec` for the first
-two, `Perspective.unique_parent` plus `D'.nz` for the third), but closing
-them is deferred to keep P1 strictly infrastructural, with no
-mathematical proof whatsoever.
+Since `v1.1.0-probability-api`, `parentOf`, `parentOf_mem`, `parentOf_le`, and
+`parentOf_eq_of_le` are public through `QuantumFoundations.ProbabilityAPI`.
+`Core/Parent.lean` was therefore deleted: keeping its local classical-choice
+construction would duplicate upstream and create two parent maps with no
+definitional-equality guarantee. `pullbackAct` now composes directly with
+`parentOf`.
 
 ### 3. Landing type of the contextual weight
 
@@ -118,3 +119,13 @@ file — `#print axioms` on `pullbackAct_agree_of_agree` simply reveals the
 residual dependency (see `Audit/MainResults.lean`). This choice minimizes
 the open-goal budget without ever weakening a statement, in accordance
 with rule 3 of `AGENTS.md`.
+
+### 5. P0.3 deferred by a public-facade gap
+
+The projective/effect abstract interface was not cast in this partial
+milestone. Before P0.3, the Born consistency proof revealed that
+`refine_filter_sup_eq` and `E₀_isGrain`, although already proved upstream,
+are not reachable from `QuantumFoundations.ProbabilityAPI`. The “single entry
+point, no direct re-import” rule requires stopping for a second additive
+release. No subtype was introduced into `Act`, which remains the total
+function `Submodule ℂ (H n) → ℝ`.

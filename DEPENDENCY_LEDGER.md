@@ -2,51 +2,66 @@
 
 ## Français
 
-Registre anti-circularité. Pour chaque déclaration publique, note si elle
-utilise — directement ou par une hypothèse qu'elle prend en argument — la
-norme hilbertienne, la notion d'orthogonalité, la décohérence, la trace,
-**la mesure de Born**, la typicalité, ou une norme de rationalité. **Toute
-déclaration qui utiliserait la mesure de Born en amont de sa propre
-dérivation doit être signalée ci-dessous par 🔴.** Aucune entrée n'est
-actuellement rouge : P1 ne contient aucun contenu scientifique, seulement
-des définitions et des lemmes de compatibilité triviaux (voir
-`ARCHITECTURE_NOTES.md`).
+Toutes les déclarations amont réellement référencées par le code aval passent
+par l'unique import `QuantumFoundations.ProbabilityAPI`. « Structurel » signifie
+que la propriété est enfermée dans une structure amont reçue en argument, sans
+être utilisée comme prémisse physique par la preuve aval.
 
-| Déclaration | Norme hilbertienne ? | Orthogonalité ? | Décohérence ? | Trace ? | Mesure de Born ? | Typicalité ? | Rationalité ? |
+| Déclaration amont utilisée | Norme hilbertienne | Orthogonalité | Décohérence | Trace | Mesure de Born | Typicalité | Rationalité |
 |---|---|---|---|---|---|---|---|
-| `Core.Act` (type, `AgreeOn`, `const`, `indicator`, `PointwiseLE`, `convComb`) | Non | Non | Non | Non | Non | Non | Non |
-| `Core.parent` | Non (`Perspective` amont l'utilise en interne, pas ici) | Structurel seulement (via `Perspective`) | Non | Non | Non | Non | Non |
-| `Refinement.pullbackAct` | Non | Non | Non | Non | Non | Non | Non |
-| `Refinement.PayoffPreserving` | Non | Non | Non | Non | Non | Non | Oui (prémisse normative, voir `docs/SCOPE_AND_LIMITATIONS.md`) |
-| `Preference.RationalExpectationFamily` | Non | Non | Non | Non | Non | Non | Oui (affinité, monotonie, normalisation) |
-| `Preference.uniformExpectationFamily` (témoin P1) | Non (comptage uniforme, délibérément dégénéré) | Non | Non | Non | Non | Non | Oui (témoin) |
-| `Preference.exists_unique_weights` (but ouvert) | Non | Non | Non | Non | Non | Non | Oui |
-| `BornCalibration.contextualWeight` | Non par elle-même (hérite du type `Perspective n → Submodule ℂ (H n) → ℝ` amont) | Non | Non | Non | Non | Non | Oui |
-| `BornCalibration.refinement_invariant_implies_grain` (but ouvert) | Non | Non | Non | Non | Non (conclut `AxGrain`, n'utilise pas Born en prémisse) | Non | Oui |
-| `BornCalibration.born_expectation_formula` (but ouvert) | Oui, via `grainCoherenceTheorem_projector` amont, cité comme conclusion, jamais comme prémisse | Oui (héritée de la conclusion amont) | Non | Non | Oui — **en conclusion uniquement**, jamais en prémisse | Non | Oui |
-| `Rivals.naiveCounting` | Non | Non | Non | Non | Non | Non | Non (délibérément non rationnel — c'est l'objet de la réfutation) |
+| `Gleason.H` | Non | Non | Non | Non | Non | Non | Non |
+| `Gleason.projL` | Oui | Non | Non | Non | Oui, uniquement dans les conclusions et témoins | Non | Non |
+| `BornRule.Perspective` | Non | Structurel | Non | Non | Non | Non | Non |
+| `Perspective.binary` | Non | Structurel | Non | Non | Non | Non | Non |
+| `BornRule.Refines` | Non | Structurel | Non | Non | Non | Non | Non |
+| `Refines.refl` | Non | Non | Non | Non | Non | Non | Non |
+| `Refines.trans` | Non | Non | Non | Non | Non | Non | Non |
+| `parentOf` | Non | Structurel | Non | Non | Non | Non | Non |
+| `parentOf_mem` | Non | Structurel | Non | Non | Non | Non | Non |
+| `parentOf_le` | Non | Non | Non | Non | Non | Non | Non |
+| `parentOf_eq_of_le` | Non | Structurel | Non | Non | Non | Non | Non |
+| `coarseCells` | Non | Non | Non | Non | Non | Non | Non |
+| `coarseCells_eq_fiber_parentOf` | Non | Structurel | Non | Non | Non | Non | Non |
+| `refinePerspective` | Non | Structurel | Non | Non | Non | Non | Non |
+| `refinePerspective_refines` | Non | Structurel | Non | Non | Non | Non | Non |
+| `line_ne_bot`, `line_ne_top` | Non | Non | Non | Non | Non | Non | Non |
+| `AxGrain`, `AxNorm`, `AxPos`, `AxNul` | Selon l'estimateur | Structurel | Non | Non | Non par définition | Non | Non |
+| `grainCoherenceTheorem_projector` | Oui | Oui | Non | Non | Oui, en conclusion seulement | Non | Non |
+
+La prémisse `Refinement.PayoffPreserving` est normative et relève de la
+rationalité. Le témoin fort bornien n'a pas été ajouté : le faire sans le
+réexport amont indiqué dans `MILESTONES.md` introduirait soit une dépendance
+hors façade, soit une duplication de preuve.
 
 ## English
 
-Anti-circularity registry. For each public declaration, notes whether it
-uses — directly, or via a hypothesis it takes as an argument — the
-Hilbert-space norm, orthogonality, decoherence, trace, **the Born
-measure**, typicality, or a rationality norm. **Any declaration that would
-use the Born measure upstream of its own derivation must be flagged below
-with 🔴.** No entry is currently red: P1 contains no scientific content,
-only definitions and trivial compatibility lemmas (see
-`ARCHITECTURE_NOTES.md`).
+Every upstream declaration actually referenced by downstream code passes
+through the single `QuantumFoundations.ProbabilityAPI` import. “Structural”
+means that the property is packaged in an upstream structure received as an
+argument, rather than used as a physical premise by the downstream proof.
 
-| Declaration | Hilbert norm? | Orthogonality? | Decoherence? | Trace? | Born measure? | Typicality? | Rationality? |
+| Used upstream declaration | Hilbert norm | Orthogonality | Decoherence | Trace | Born measure | Typicality | Rationality |
 |---|---|---|---|---|---|---|---|
-| `Core.Act` (type, `AgreeOn`, `const`, `indicator`, `PointwiseLE`, `convComb`) | No | No | No | No | No | No | No |
-| `Core.parent` | No (`Perspective` upstream uses it internally, not here) | Structural only (via `Perspective`) | No | No | No | No | No |
-| `Refinement.pullbackAct` | No | No | No | No | No | No | No |
-| `Refinement.PayoffPreserving` | No | No | No | No | No | No | Yes (normative premise, see `docs/SCOPE_AND_LIMITATIONS.md`) |
-| `Preference.RationalExpectationFamily` | No | No | No | No | No | No | Yes (affinity, monotonicity, normalization) |
-| `Preference.uniformExpectationFamily` (P1 witness) | No (uniform count, deliberately degenerate) | No | No | No | No | No | Yes (witness) |
-| `Preference.exists_unique_weights` (open goal) | No | No | No | No | No | No | Yes |
-| `BornCalibration.contextualWeight` | Not by itself (inherits the upstream type `Perspective n → Submodule ℂ (H n) → ℝ`) | No | No | No | No | No | Yes |
-| `BornCalibration.refinement_invariant_implies_grain` (open goal) | No | No | No | No | No (concludes `AxGrain`, does not take Born as a premise) | No | Yes |
-| `BornCalibration.born_expectation_formula` (open goal) | Yes, via upstream `grainCoherenceTheorem_projector`, cited as a conclusion, never as a premise | Yes (inherited from the upstream conclusion) | No | No | Yes — **as a conclusion only**, never as a premise | No | Yes |
-| `Rivals.naiveCounting` | No | No | No | No | No | No | No (deliberately non-rational — that is the point of the refutation) |
+| `Gleason.H` | No | No | No | No | No | No | No |
+| `Gleason.projL` | Yes | No | No | No | Yes, only in conclusions and witnesses | No | No |
+| `BornRule.Perspective` | No | Structural | No | No | No | No | No |
+| `Perspective.binary` | No | Structural | No | No | No | No | No |
+| `BornRule.Refines` | No | Structural | No | No | No | No | No |
+| `Refines.refl` | No | No | No | No | No | No | No |
+| `Refines.trans` | No | No | No | No | No | No | No |
+| `parentOf` | No | Structural | No | No | No | No | No |
+| `parentOf_mem` | No | Structural | No | No | No | No | No |
+| `parentOf_le` | No | No | No | No | No | No | No |
+| `parentOf_eq_of_le` | No | Structural | No | No | No | No | No |
+| `coarseCells` | No | No | No | No | No | No | No |
+| `coarseCells_eq_fiber_parentOf` | No | Structural | No | No | No | No | No |
+| `refinePerspective` | No | Structural | No | No | No | No | No |
+| `refinePerspective_refines` | No | Structural | No | No | No | No | No |
+| `line_ne_bot`, `line_ne_top` | No | No | No | No | No | No | No |
+| `AxGrain`, `AxNorm`, `AxPos`, `AxNul` | Depends on estimator | Structural | No | No | Not by definition | No | No |
+| `grainCoherenceTheorem_projector` | Yes | Yes | No | No | Yes, in the conclusion only | No | No |
+
+The `Refinement.PayoffPreserving` premise is normative and belongs in the
+rationality column. The strong Born witness was not added: doing so without
+the upstream re-export recorded in `MILESTONES.md` would introduce either an
+off-facade dependency or a duplicated proof.
