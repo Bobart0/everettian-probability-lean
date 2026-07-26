@@ -4,10 +4,8 @@ import EverettianProbability.Core.Nonvacuity
 /-!
 **FR.** # Non-vacuité — `Refinement`
 
-Témoin concret : tout acte constant est préservant les conséquences sous
-raffinement, pour n'importe quelle perspective et n'importe quel
-raffinement — la composition par `parent r` ne change rien à une fonction
-constante. Preuve complète, aucun but ouvert.
+Témoin concret : deux actes constants de même valeur sont localement
+équivalents pour n'importe quel raffinement. Preuve complète, aucun but ouvert.
 
 Le témoin fort fixe en outre le premier vecteur de base de `H 3`, la
 perspective binaire explicite de `Core.Nonvacuity` et son raffinement concret.
@@ -16,10 +14,8 @@ constant unité sont calculées à `1` des deux côtés du raffinement.
 
 **EN.** # Nonvacuity — `Refinement`
 
-Concrete witness: every constant act is payoff-preserving under
-refinement, for any perspective and any refinement — composing with
-`parent r` does not change a constant function. Full proof, no goal left
-open.
+Concrete witness: two constant acts with the same value are locally equivalent
+for any refinement. Full proof, no goal left open.
 
 The strong witness additionally fixes the first basis vector of `H 3`, the
 explicit binary perspective from `Core.Nonvacuity`, and its concrete
@@ -33,8 +29,12 @@ open QuantumFoundations.BornRule Gleason EverettianProbability.Core
 
 variable {n : ℕ}
 
-theorem const_payoffPreserving (k : ℝ) : PayoffPreserving (Act.const k : Act n) := by
-  intro D' D r c' _hc'
+/-- **FR.** Deux descriptions constantes identiques sont équivalentes.
+
+**EN.** Two identical constant descriptions are equivalent. -/
+theorem const_payoffEquivalentAt {D' D : Perspective n} (r : Refines D' D) (k : ℝ) :
+    PayoffEquivalentAt r (Act.const k) (Act.const k : Act n) := by
+  intro c' _hc'
   rfl
 
 /-- Concrete unit state: the first standard basis vector of `H 3`. -/
@@ -46,8 +46,8 @@ theorem exampleState_norm : ‖exampleState‖ = 1 := by
 
 /-- A concrete inhabitant of the central normative premise. -/
 theorem exampleBorn_refinementInvariant :
-    RefinementInvariant (bornExpectation exampleState) :=
-  bornExpectation_refinementInvariant exampleState
+    RefinementInvariantLocal (bornExpectation exampleState) :=
+  bornExpectation_refinementInvariantLocal exampleState
 
 private theorem exampleBornExpectation_const_one (D : Perspective 3) :
     bornExpectation exampleState D (Act.const 1) = 1 := by

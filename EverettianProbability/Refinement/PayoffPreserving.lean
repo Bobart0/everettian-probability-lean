@@ -1,40 +1,37 @@
 import EverettianProbability.Refinement.PullbackAct
+import EverettianProbability.Preference.ExpectationFunctional
 
 /-!
-**FR.** # Invariance sous raffinement préservant les conséquences
+**FR.** # Équivalence locale des conséquences
 
-Un acte est « préservant les conséquences sous raffinement » si sa valeur
-sur toute cellule fine coïncide avec sa valeur tirée-en-arrière depuis la
-perspective grossière : le paiement associé à une conséquence ne dépend pas
-de la perspective utilisée pour la décrire, seulement de la branche
-effectivement réalisée. C'est la prémisse normative centrale de l'article
-II — voir l'encart « Frontière de portée » de `AGENTS.md` et
-`docs/SCOPE_AND_LIMITATIONS.md` : cette invariance n'est *dérivée* d'aucune
-propriété de la dynamique unitaire, elle est *assumée*.
+Deux descriptions sont équivalentes à un raffinement donné lorsqu'elles
+attribuent le même paiement à chaque cellule fine. L'invariance correspondante
+est la prémisse normative centrale de l'article II ; elle n'est dérivée
+d'aucune propriété dynamique.
 
-**EN.** # Refinement invariance preserving consequences
+**EN.** # Local payoff equivalence
 
-An act is "payoff-preserving under refinement" if its value on every fine
-cell coincides with its value pulled back from the coarse perspective: the
-payoff attached to a consequence does not depend on the perspective used to
-describe it, only on the branch actually realized. This is the central
-normative premise of paper II — see the "Scope boundary" box in
-`AGENTS.md` and `docs/SCOPE_AND_LIMITATIONS.md`: this invariance is not
-*derived* from any property of the unitary dynamics, it is *assumed*.
+Two descriptions are equivalent at a given refinement when they assign the
+same payoff to every fine cell. The corresponding invariance is the central
+normative premise of paper II; it is not derived from any dynamical property.
 -/
 
 namespace EverettianProbability.Refinement
 
 open QuantumFoundations.BornRule Gleason EverettianProbability.Core
+open EverettianProbability.Preference
 open scoped Classical
 
 variable {n : ℕ}
 
-/-- An act `a` is payoff-preserving under refinement if, for every
-refinement `r : Refines D' D`, `a` agrees with its own pullback along `r`
-on the fine perspective `D'`. -/
-def PayoffPreserving (a : Act n) : Prop :=
-  ∀ {D' D : Perspective n} (r : Refines D' D), Act.AgreeOn D' a (pullbackAct r a)
+/-- **FR.** Deux descriptions attribuent les mêmes conséquences à chaque
+branche fine. Prémisse normative, non théorème dynamique.
+
+**EN.** Two descriptions assign the same consequences to every fine branch.
+This is a normative premise, not a dynamical theorem. -/
+def PayoffEquivalentAt {D' D : Perspective n} (r : Refines D' D)
+    (a' a : Act n) : Prop :=
+  Act.AgreeOn D' a' (pullbackAct r a)
 
 /-- A family of expectation functionals is invariant under refinement when
 evaluating a coarse act or its pullback to any finer perspective gives the
@@ -43,6 +40,30 @@ def RefinementInvariant
     (V : Perspective n → Act n → ℝ) : Prop :=
   ∀ {D' D : Perspective n} (r : Refines D' D) (a : Act n),
     V D' (pullbackAct r a) = V D a
+
+/-- **FR.** Invariance sous toute redescription localement équivalente.
+
+**EN.** Invariance under every locally equivalent redescription. -/
+def RefinementInvariantLocal
+    (V : Perspective n → Act n → ℝ) : Prop :=
+  ∀ {D' D : Perspective n} (r : Refines D' D) (a' a : Act n),
+    PayoffEquivalentAt r a' a → V D' a' = V D a
+
+/-- **FR.** Pour une famille rationnelle, la forme locale est équivalente à
+l'invariance évaluée sur le tiré-en-arrière canonique.
+
+**EN.** For a rational family, the local form is equivalent to invariance
+evaluated on the canonical pullback. -/
+theorem refinementInvariantLocal_iff_pullback (F : RationalExpectationFamily n) :
+    RefinementInvariantLocal F.V ↔ RefinementInvariant F.V := by
+  constructor
+  · intro h D' D r a
+    exact h r (pullbackAct r a) a (Act.agreeOn_refl D' (pullbackAct r a))
+  · intro h D' D r a' a ha
+    calc
+      F.V D' a' = F.V D' (pullbackAct r a) :=
+        V_congr_of_agreeOn F D' ha
+      _ = F.V D a := h r a
 
 /-- Born expectation of an act in the state vector `v`. -/
 noncomputable def bornExpectation (v : H n) (D : Perspective n) (a : Act n) : ℝ :=
@@ -84,5 +105,22 @@ theorem bornExpectation_refinementInvariant (v : H n) :
     RefinementInvariant (bornExpectation v) := by
   intro D' D r a
   exact bornExpectation_pullback_eq v D' D r a
+
+/-- **FR.** Non-vacuité de la prémisse locale : l'espérance bornienne la
+satisfait pour tout vecteur d'état.
+
+**EN.** Nonvacuity of the local premise: Born expectation satisfies it for
+every state vector. -/
+theorem bornExpectation_refinementInvariantLocal (v : H n) :
+    RefinementInvariantLocal (bornExpectation v) := by
+  intro D' D r a' a ha
+  calc
+    bornExpectation v D' a' =
+        bornExpectation v D' (pullbackAct r a) := by
+      unfold bornExpectation
+      apply Finset.sum_congr rfl
+      intro c hc
+      rw [ha c hc]
+    _ = bornExpectation v D a := bornExpectation_pullback_eq v D' D r a
 
 end EverettianProbability.Refinement

@@ -49,11 +49,17 @@ coincides with the Born expectation, on every perspective and every act. -/
 theorem born_expectation_formula (F : RationalExpectationFamily n) (hn3 : 3 ≤ n)
     (hNorm : AxNorm (canonicalWeight F)) (hPos : AxPos (canonicalWeight F))
     {v : H n} (hv : ‖v‖ = 1) (hNul : AxNul (canonicalWeight F) v)
-    (hinv : ∀ {D' D : Perspective n} (r : Refines D' D) (a : Act n),
-      PayoffPreserving a → F.V D' (pullbackAct r a) = F.V D a)
+    (hinv : RefinementInvariantLocal F.V)
     (D : Perspective n) (a : Act n) :
     F.V D a = ∑ c ∈ D.cells, ‖projL c v‖ ^ 2 * a c := by
-  sorry
+  have hgrain : AxGrain (canonicalWeight F) :=
+    refinement_invariant_implies_grain F hinv
+  have hborn := grainCoherenceTheorem_projector
+    (canonicalWeight F) hn3 hgrain hNorm hPos hv hNul
+  rw [represents F D a]
+  apply Finset.sum_congr rfl
+  intro c hc
+  rw [hborn D hc]
 
 /-- Exit-criterion example (P1, section 8): `grainCoherenceTheorem_projector`
 is importable from the new repository, through public upstream imports

@@ -3,6 +3,7 @@ import EverettianProbability.Core.Act
 import EverettianProbability.Core.Nonvacuity
 import EverettianProbability.Refinement.PullbackAct
 import EverettianProbability.Refinement.PayoffPreserving
+import EverettianProbability.Refinement.GlobalPayoffVacuity
 import EverettianProbability.Refinement.Nonvacuity
 import EverettianProbability.Preference.ExpectationFunctional
 import EverettianProbability.Preference.Representation

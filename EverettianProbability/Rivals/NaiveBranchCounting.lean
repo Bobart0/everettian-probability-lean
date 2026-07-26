@@ -1,4 +1,5 @@
 import QuantumFoundations.ProbabilityAPI
+import EverettianProbability.Core.Nonvacuity
 
 /-!
 **FR.** # Comptage naïf des branches (règle rivale)
@@ -21,6 +22,59 @@ this is a mathematical result (albeit a short one) out of scope for P1.
 namespace EverettianProbability.Rivals
 
 open QuantumFoundations.BornRule Gleason
+open EverettianProbability.Core
+open scoped Classical
+
+private theorem exampleLine_finrank : Module.finrank ℂ exampleLine = 1 := by
+  apply finrank_span_singleton
+  intro hzero
+  have hnorm := (EuclideanSpace.basisFun (Fin 3) ℂ).orthonormal.1 (0 : Fin 3)
+  rw [hzero, norm_zero] at hnorm
+  norm_num at hnorm
+
+private theorem exampleLine_ne_orthogonal : exampleLine ≠ exampleLineᗮ := by
+  intro h
+  have hsum := Submodule.finrank_add_finrank_orthogonal exampleLine
+  have hfr := congrArg
+    (fun K : Submodule ℂ (H 3) => Module.finrank ℂ K) h
+  rw [exampleLine_finrank] at hfr hsum
+  simp at hsum
+  omega
+
+private theorem cellLines_card (c : Submodule ℂ (H 3)) :
+    (cellLines c).card = Module.finrank ℂ c := by
+  unfold cellLines
+  rw [Finset.card_image_of_injective]
+  · simp
+  · intro i j hij
+    exact cellLines_injective c (by simp) (by simp) hij
+
+private theorem exampleFine_card : exampleFine.cells.card = 3 := by
+  have hdisjoint : ∀ c ∈ exampleCoarse.cells, ∀ d ∈ exampleCoarse.cells,
+      c ≠ d → Disjoint (cellLines c) (cellLines d) := by
+    intro c hc d hd hcd
+    rw [Finset.disjoint_left]
+    intro x hxc hxd
+    exact (hcd (exampleCoarse.unique_parent hc hd
+      (cellLines_ne_bot c x hxc) (cellLines_le c x hxc) (cellLines_le d x hxd))).elim
+  have hsum : Module.finrank ℂ exampleLine + Module.finrank ℂ exampleLineᗮ = 3 := by
+    rw [Submodule.finrank_add_finrank_orthogonal]
+    simp
+  rw [exampleLine_finrank] at hsum
+  change (exampleCoarse.cells.biUnion cellLines).card = 3
+  rw [Finset.card_biUnion hdisjoint]
+  change (∑ c ∈ exampleCoarse.cells, (cellLines c).card) = 3
+  rw [show exampleCoarse.cells = {exampleLine, exampleLineᗮ} by rfl]
+  rw [Finset.sum_insert]
+  · simp only [Finset.sum_singleton, cellLines_card, exampleLine_finrank]
+    exact hsum
+  · simpa only [Finset.mem_singleton] using exampleLine_ne_orthogonal
+
+private theorem exampleCoarse_card : exampleCoarse.cells.card = 2 := by
+  change ({exampleLine, exampleLineᗮ} : Finset (Submodule ℂ (H 3))).card = 2
+  rw [Finset.card_insert_of_notMem]
+  · simp
+  · simpa only [Finset.mem_singleton] using exampleLine_ne_orthogonal
 
 /-- Naive branch counting: every cell of a perspective counts equally. -/
 noncomputable def naiveCounting (n : ℕ) : Perspective n → Submodule ℂ (H n) → ℝ :=
@@ -32,6 +86,21 @@ additive coherence across the refinement. Witnessed concretely at `n = 3`
 via the binary-split / basis-refinement pair already used in
 `Core/Nonvacuity.lean`. -/
 theorem naiveCounting_violates_grain : ¬ AxGrain (naiveCounting 3) := by
-  sorry
+  intro hgrain
+  have h := hgrain exampleFine exampleCoarse exampleFine_refines
+    exampleLine exampleLine_mem_exampleCoarse
+  change 1 / (exampleCoarse.cells.card : ℝ) =
+    ∑ c' ∈ exampleFine.cells.filter (· ≤ exampleLine),
+      1 / (exampleFine.cells.card : ℝ) at h
+  unfold exampleFine at h
+  rw [refine_filter_eq_cellLines exampleCoarse exampleLine
+    exampleLine_mem_exampleCoarse] at h
+  have hfine := exampleFine_card
+  unfold exampleFine at hfine
+  rw [exampleCoarse_card, hfine] at h
+  have hline : (cellLines exampleLine).card = 1 := by
+    rw [cellLines_card, exampleLine_finrank]
+  rw [Finset.sum_const, hline] at h
+  norm_num at h
 
 end EverettianProbability.Rivals

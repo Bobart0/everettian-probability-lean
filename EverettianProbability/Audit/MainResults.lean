@@ -2,6 +2,7 @@ import EverettianProbability.BornCalibration.BornExpectation
 import EverettianProbability.BornCalibration.Nonvacuity
 import EverettianProbability.Core.Interface
 import EverettianProbability.Refinement.Nonvacuity
+import EverettianProbability.Refinement.GlobalPayoffVacuity
 import EverettianProbability.Preference.Nonvacuity
 import EverettianProbability.Rivals.NaiveBranchCounting
 import EverettianProbability.Rivals.Nonvacuity
@@ -39,9 +40,15 @@ open EverettianProbability.Rivals
 -- No-open-goal declarations: must show only propext / Classical.choice / Quot.sound.
 #print axioms pullbackAct_const
 #print axioms pullbackAct_agree_of_agree
-#print axioms const_payoffPreserving
+#print axioms const_payoffEquivalentAt
 #print axioms bornExpectation_pullback_eq
 #print axioms bornExpectation_refinementInvariant
+#print axioms bornExpectation_refinementInvariantLocal
+#print axioms refinementInvariantLocal_iff_pullback
+#print axioms globallyPayoffPreserving_const
+#print axioms not_globallyPayoffPreserving_indicator
+#print axioms globalPremise_vacuous
+#print axioms uniformExpectationFamily_globalPremise_vacuous
 #print axioms uniformExpectationFamily
 #print axioms represents
 #print axioms weights_unique_on_cells
@@ -49,8 +56,6 @@ open EverettianProbability.Rivals
 #print axioms EverettianProbability.Abstract.expectation_refinementInvariant
 #print axioms EverettianProbability.Abstract.Projective.born_refinementInvariant
 #print axioms EverettianProbability.Abstract.Effects.pureState_refinementInvariant
-
--- Open-goal-carrying declarations (directly or transitively): must show `sorryAx`.
 #print axioms refinement_invariant_implies_grain
 #print axioms born_expectation_formula
 #print axioms naiveCounting_violates_grain

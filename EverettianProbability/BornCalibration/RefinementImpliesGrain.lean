@@ -5,8 +5,8 @@ import EverettianProbability.Refinement.PayoffPreserving
 **FR.** # L'invariance sous raffinement force Grain
 
 Le résultat pivot de l'article II : si la fonctionnelle d'espérance `V`
-d'une famille rationnelle est invariante sous raffinement pour tout acte
-préservant les conséquences (`PayoffPreserving`), alors le poids contextuel
+d'une famille rationnelle est invariante sous toute redescription localement
+équivalente (`RefinementInvariantLocal`), alors le poids contextuel
 qu'elle induit satisfait l'axiome `AxGrain` de la caractérisation de mesure
 amont. Une fois ce pont établi, `grainCoherenceTheorem_projector`
 (`QuantumFoundations.BornRule.Assembly`, déjà prouvé, jamais re-prouvé
@@ -18,8 +18,8 @@ premier théorème scientifique du programme, hors de portée de P1
 **EN.** # Refinement invariance forces Grain
 
 The pivotal result of paper II: if the expectation functional `V` of a
-rational family is refinement-invariant for every payoff-preserving act
-(`PayoffPreserving`), then the contextual weight it induces satisfies the
+rational family is invariant under every locally equivalent redescription
+(`RefinementInvariantLocal`), then the contextual weight it induces satisfies the
 upstream measure characterization's `AxGrain` axiom. Once this bridge is
 established, `grainCoherenceTheorem_projector`
 (`QuantumFoundations.BornRule.Assembly`, already proved, never re-proved
@@ -36,12 +36,49 @@ open EverettianProbability.Core EverettianProbability.Preference EverettianProba
 
 variable {n : ℕ}
 
-/-- If `F.V` is invariant, along every refinement, for every
-payoff-preserving act, then `canonicalWeight F` satisfies `AxGrain`. -/
+private theorem indicator_sum_eq (F : RationalExpectationFamily n)
+    (D : Perspective n) {c : Submodule ℂ (H n)} (hc : c ∈ D.cells) :
+    (∑ d ∈ D.cells, canonicalWeight F D d * Act.indicator c d) =
+      canonicalWeight F D c := by
+  classical
+  rw [Finset.sum_eq_single c]
+  · simp only [Act.indicator_self, mul_one]
+  · intro d hd hdc
+    rw [Act.indicator_of_ne hdc, mul_zero]
+  · exact fun hnot => (hnot hc).elim
+
+private theorem pullback_indicator_sum_eq (F : RationalExpectationFamily n)
+    {D' D : Perspective n} (r : Refines D' D)
+    {c : Submodule ℂ (H n)} (hc : c ∈ D.cells) :
+    (∑ c' ∈ D'.cells,
+        canonicalWeight F D' c' * pullbackAct r (Act.indicator c) c') =
+      ∑ c' ∈ coarseCells D' c, canonicalWeight F D' c' := by
+  classical
+  rw [coarseCells_eq_fiber_parentOf r hc]
+  rw [Finset.sum_filter]
+  apply Finset.sum_congr rfl
+  intro c' hc'
+  unfold pullbackAct Act.indicator
+  simp only [Function.comp_apply]
+  by_cases hp : parentOf r c' = c
+  · simp only [hp, if_true, mul_one]
+  · simp only [hp, if_false, mul_zero]
+
+/-- **FR.** L'invariance locale sous tous les raffinements force l'axiome
+`AxGrain` pour le poids canonique.
+
+**EN.** Local invariance under all refinements forces `AxGrain` for the
+canonical weight. -/
 theorem refinement_invariant_implies_grain (F : RationalExpectationFamily n)
-    (hinv : ∀ {D' D : Perspective n} (r : Refines D' D) (a : Act n),
-      PayoffPreserving a → F.V D' (pullbackAct r a) = F.V D a) :
+    (hinv : RefinementInvariantLocal F.V) :
     AxGrain (canonicalWeight F) := by
-  sorry
+  apply (axGrain_iff_coarseCells (canonicalWeight F)).2
+  intro D' D r c hc
+  have h := hinv r (pullbackAct r (Act.indicator c)) (Act.indicator c)
+    (Act.agreeOn_refl D' (pullbackAct r (Act.indicator c)))
+  rw [represents F D' (pullbackAct r (Act.indicator c)),
+    represents F D (Act.indicator c),
+    pullback_indicator_sum_eq F r hc, indicator_sum_eq F D hc] at h
+  exact h.symm
 
 end EverettianProbability.BornCalibration
