@@ -41,9 +41,11 @@ def RefinementInvariant
   ∀ {D' D : Perspective n} (r : Refines D' D) (a : Act n),
     V D' (pullbackAct r a) = V D a
 
-/-- **FR.** Invariance sous toute redescription localement équivalente.
+/-- **FR.** `PREMISE` normative : invariance sous toute redescription
+localement équivalente.
 
-**EN.** Invariance under every locally equivalent redescription. -/
+**EN.** Normative `PREMISE`: invariance under every locally equivalent
+redescription. -/
 def RefinementInvariantLocal
     (V : Perspective n → Act n → ℝ) : Prop :=
   ∀ {D' D : Perspective n} (r : Refines D' D) (a' a : Act n),

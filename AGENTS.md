@@ -79,6 +79,11 @@ héritées »), plus trois spécifiques à ce dépôt :
     `UNKNOWN`. La garde échoue si cette annotation manque. Cette convention ne
     rend pas le but acceptable : elle distingue une dette prouvablement
     cohérente d'une contamination potentielle par un énoncé faux.
+12. **NonTriviality** : toute structure d'hypothèses destinée à servir de
+    prémisse reçoit, dans le même commit, **deux** témoins concrets : un objet
+    qui la satisfait (`Nonvacuity`) et un objet qui ne la satisfait pas
+    (`NonTriviality`). Une prémisse sans témoin négatif est présumée sans force
+    tant que le contraire n'est pas établi.
 
 ### Conventions héritées (patrons anti-lenteur, `gleason`/`quantum-foundations-lean`)
 
@@ -198,6 +203,11 @@ section), plus three specific to this repository:
     convention does not make an open goal acceptable; it distinguishes a
     demonstrably consistent debt from possible contamination by a false
     statement.
+12. **NonTriviality**: every hypothesis structure intended to serve as a
+    premise receives, in the same commit, **two** concrete witnesses: one
+    object satisfying it (`Nonvacuity`) and one object not satisfying it
+    (`NonTriviality`). A premise without a negative witness is presumed
+    force-free until the contrary is established.
 
 ### Inherited conventions (anti-slowness patterns, `gleason`/`quantum-foundations-lean`)
 

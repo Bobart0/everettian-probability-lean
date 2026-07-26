@@ -43,6 +43,67 @@ while IFS=: read -r sorry_file sorry_line _; do
   fi
 done < <(grep -rn '\bsorry\b' "${SRC_DIRS[@]}" 2>/dev/null || true)
 
+# **FR.** Discipline de non-trivialité, actuellement en observation : une
+# définition propositionnelle dont le docstring porte le marqueur `PREMISE`
+# doit avoir une entrée nommée dans `NonTriviality.lean` du même répertoire.
+# Ces écarts sont volontairement des avertissements, pas encore des échecs de
+# CI, afin de mesurer les faux positifs avant de rendre la règle bloquante.
+#
+# **EN.** Nontriviality discipline, currently in observation mode: a
+# propositional definition whose docstring carries the `PREMISE` marker must
+# have a named entry in `NonTriviality.lean` in the same directory. These
+# discrepancies are deliberately warnings, not CI failures yet, so that false
+# positives can be measured before the rule becomes blocking.
+NONTRIVIALITY_WARNINGS=0
+while IFS=: read -r premise_file premise_name; do
+  [ -n "${premise_file}" ] || continue
+  premise_dir=$(dirname "${premise_file}")
+  witness_file="${premise_dir}/NonTriviality.lean"
+  if [ ! -f "${witness_file}" ] || ! grep -qF "${premise_name}" "${witness_file}"; then
+    echo "NONTRIVIALITY_MISSING=${premise_file}:${premise_name}"
+    NONTRIVIALITY_WARNINGS=$((NONTRIVIALITY_WARNINGS + 1))
+  fi
+done < <(
+  find EverettianProbability -name '*.lean' -type f -exec awk '
+    /\/--/ {
+      in_doc = 1
+      has_premise = index($0, "PREMISE") > 0
+    }
+    in_doc {
+      if (index($0, "PREMISE") > 0) has_premise = 1
+      if (index($0, "-/") > 0) {
+        in_doc = 0
+        if (has_premise) awaiting_def = 1
+      }
+      next
+    }
+    awaiting_def {
+      if ($0 ~ /^[[:space:]]*$/) next
+      if ($0 ~ /^[[:space:]]*(noncomputable[[:space:]]+)?def[[:space:]]+/) {
+        line = $0
+        sub(/^[[:space:]]*/, "", line)
+        sub(/^noncomputable[[:space:]]+/, "", line)
+        sub(/^def[[:space:]]+/, "", line)
+        split(line, pieces, /[^[:alnum:]_\047]/)
+        def_name = pieces[1]
+        def_signature = $0
+        awaiting_def = 0
+        in_def = 1
+      } else {
+        awaiting_def = 0
+      }
+      next
+    }
+    in_def {
+      def_signature = def_signature " " $0
+      if (index($0, ":=") > 0) {
+        if (def_signature ~ /:[[:space:]]*Prop/) print FILENAME ":" def_name
+        in_def = 0
+      }
+    }
+  ' {} +
+)
+
 if [ -f SORRY_BUDGET ]; then
   SORRY_BUDGET_VALUE=$(tr -d '[:space:]' < SORRY_BUDGET)
 else
@@ -54,6 +115,7 @@ echo "NATIVE_DECIDE_HITS=${NATIVE_DECIDE_HITS}"
 echo "MAXHEARTBEATS_ZERO_HITS=${MAXHEARTBEATS_ZERO_HITS}"
 echo "SORRY_COUNT=${SORRY_COUNT}"
 echo "SORRY_ANNOTATION_MISSING=${SORRY_ANNOTATION_MISSING}"
+echo "NONTRIVIALITY_WARNINGS=${NONTRIVIALITY_WARNINGS}"
 echo "SORRY_BUDGET=${SORRY_BUDGET_VALUE}"
 
 if [ "${AXIOM_HITS}" -eq 0 ] && [ "${NATIVE_DECIDE_HITS}" -eq 0 ] \

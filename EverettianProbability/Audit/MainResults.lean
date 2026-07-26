@@ -2,6 +2,7 @@ import EverettianProbability.BornCalibration.BornExpectation
 import EverettianProbability.BornCalibration.Nonvacuity
 import EverettianProbability.Core.Interface
 import EverettianProbability.Refinement.Nonvacuity
+import EverettianProbability.Refinement.NonTriviality
 import EverettianProbability.Refinement.GlobalPayoffVacuity
 import EverettianProbability.Preference.Nonvacuity
 import EverettianProbability.Rivals.NaiveBranchCounting
@@ -44,6 +45,7 @@ open EverettianProbability.Rivals
 #print axioms bornExpectation_pullback_eq
 #print axioms bornExpectation_refinementInvariant
 #print axioms bornExpectation_refinementInvariantLocal
+#print axioms uniform_not_refinementInvariantLocal
 #print axioms refinementInvariantLocal_iff_pullback
 #print axioms globallyPayoffPreserving_const
 #print axioms not_globallyPayoffPreserving_indicator
@@ -57,6 +59,7 @@ open EverettianProbability.Rivals
 #print axioms EverettianProbability.Abstract.Projective.born_refinementInvariant
 #print axioms EverettianProbability.Abstract.Effects.pureState_refinementInvariant
 #print axioms refinement_invariant_implies_grain
+#print axioms born_expectation_of_invariance
 #print axioms born_expectation_formula
 #print axioms naiveCounting_violates_grain
 

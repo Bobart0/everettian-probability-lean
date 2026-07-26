@@ -49,6 +49,15 @@ private theorem cellLines_card (c : Submodule ℂ (H 3)) :
   · intro i j hij
     exact cellLines_injective c (by simp) (by simp) hij
 
+/-- **FR.** Le nombre de lignes de la décomposition de base d'une cellule est
+sa dimension hilbertienne finie.
+
+**EN.** The number of lines in a cell's basis decomposition is its finite
+Hilbert dimension. -/
+theorem cellLines_card_eq_finrank (c : Submodule ℂ (H 3)) :
+    (cellLines c).card = Module.finrank ℂ c :=
+  cellLines_card c
+
 private theorem exampleFine_card : exampleFine.cells.card = 3 := by
   have hdisjoint : ∀ c ∈ exampleCoarse.cells, ∀ d ∈ exampleCoarse.cells,
       c ≠ d → Disjoint (cellLines c) (cellLines d) := by
@@ -75,6 +84,22 @@ private theorem exampleCoarse_card : exampleCoarse.cells.card = 2 := by
   rw [Finset.card_insert_of_notMem]
   · simp
   · simpa only [Finset.mem_singleton] using exampleLine_ne_orthogonal
+
+/-- **FR.** Cardinal de la perspective binaire explicite, exposé pour les
+tests concrets de règles d'espérance sur la même paire de perspectives.
+
+**EN.** Cardinality of the explicit binary perspective, exposed for concrete
+tests of expectation rules on the same pair of perspectives. -/
+theorem exampleCoarse_cells_card : exampleCoarse.cells.card = 2 :=
+  exampleCoarse_card
+
+/-- **FR.** Cardinal de son raffinement explicite en trois lignes, exposé
+pour les tests concrets de règles d'espérance.
+
+**EN.** Cardinality of its explicit three-line refinement, exposed for
+concrete tests of expectation rules. -/
+theorem exampleFine_cells_card : exampleFine.cells.card = 3 :=
+  exampleFine_card
 
 /-- Naive branch counting: every cell of a perspective counts equally. -/
 noncomputable def naiveCounting (n : ℕ) : Perspective n → Submodule ℂ (H n) → ℝ :=
