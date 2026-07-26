@@ -86,6 +86,17 @@ héritées »), plus trois spécifiques à ce dépôt :
     qui la satisfait (`Nonvacuity`) et un objet qui ne la satisfait pas
     (`NonTriviality`). Une prémisse sans témoin négatif est présumée sans force
     tant que le contraire n'est pas établi.
+13. **Nommage** : le nom d'une déclaration ne doit jamais raconter une histoire
+    physique ou interprétative que sa signature ne porte pas. Un type
+    `Submodule ℂ (H n)` ne devient pas une « ancilla », un « détecteur » ou un
+    « pointeur de mesure » du seul fait qu'un commentaire le décrit ainsi : le
+    nom décrit ce que le type affirme, la prose (docstring, `.md`) interprète
+    ce que ce fait signifie physiquement. Découvert à l'occasion du
+    renommage de `AncillaNotInRecordAlgebra` en `RefinementNotInRecordAlgebra`
+    (`PhysicalRefinement/RecordNeutralWitness.lean`) : le nom promettait une
+    factorisation tensorielle système/ancilla que `H 3` ne porte pas — la
+    seule chose que le type affirmait était qu'une cellule produite par le
+    raffinement n'appartient pas à l'algèbre de records stipulée.
 
 ### Conventions héritées (patrons anti-lenteur, `gleason`/`quantum-foundations-lean`)
 
@@ -213,6 +224,17 @@ section), plus three specific to this repository:
     object satisfying it (`Nonvacuity`) and one object not satisfying it
     (`NonTriviality`). A premise without a negative witness is presumed
     force-free until the contrary is established.
+13. **Naming**: a declaration's name must never tell a physical or
+    interpretive story that its signature does not carry. A
+    `Submodule ℂ (H n)` does not become an "ancilla," a "detector," or a
+    "measurement pointer" merely because a comment describes it that way:
+    the name describes what the type states, the prose (docstring, `.md`)
+    interprets what that fact means physically. Discovered when renaming
+    `AncillaNotInRecordAlgebra` to `RefinementNotInRecordAlgebra`
+    (`PhysicalRefinement/RecordNeutralWitness.lean`): the name promised a
+    system/ancilla tensor factorization that `H 3` does not carry — all the
+    type actually stated was that a cell produced by the refinement does
+    not belong to the stipulated record algebra.
 
 ### Inherited conventions (anti-slowness patterns, `gleason`/`quantum-foundations-lean`)
 

@@ -49,7 +49,7 @@
   tensorielle explicite système/ancilla, ni dynamique temporelle, ni
   décohérence, et la désignation de l'algèbre des records
   (`coarsePerspective.cells`) y est *stipulée* — via l'hypothèse nommée
-  `AncillaNotInRecordAlgebra` — plutôt que dérivée d'un principe physique
+  `RefinementNotInRecordAlgebra` — plutôt que dérivée d'un principe physique
   indépendant. La brique manquante identifiée pour dépasser ce caractère
   schématique est nommée : une porte de rotation d'amplitude *contrôlée*,
   combinant le contrôle à deux sites de `ControlledBitFlip`
@@ -106,7 +106,7 @@
   system/ancilla tensor factorization, no temporal dynamics, no
   decoherence, and the designation of the record algebra
   (`coarsePerspective.cells`) is *stipulated* there — via the named
-  hypothesis `AncillaNotInRecordAlgebra` — rather than derived from an
+  hypothesis `RefinementNotInRecordAlgebra` — rather than derived from an
   independent physical principle. The missing brick identified to move
   past this schematic character is named: a *controlled* amplitude-rotation
   gate, combining `ControlledBitFlip`'s two-site control

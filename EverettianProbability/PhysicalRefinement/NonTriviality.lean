@@ -10,7 +10,7 @@ cellules de la perspective fine serait aveugle à ce témoin, car
 verdicts différents avant et après un raffinement record-neutre, bien que le
 record accessible soit inchangé. Le comptage exige donc une information —
 laquelle des cellules d'ancilla est effectivement peuplée — dont
-`AncillaNotInRecordAlgebra` prive précisément l'agent.
+`RefinementNotInRecordAlgebra` prive précisément l'agent.
 
 **EN.** # Nontriviality — `PhysicalRefinement`
 
@@ -20,7 +20,7 @@ perspective would be blind to this witness, since `finePerspective` has
 three cells both before and after the coupling) gives different verdicts
 before and after a record-neutral refinement, even though the accessible
 record is unchanged. Counting therefore requires information — which
-ancilla cell is actually populated — that `AncillaNotInRecordAlgebra`
+ancilla cell is actually populated — that `RefinementNotInRecordAlgebra`
 precisely denies the agent.
 -/
 

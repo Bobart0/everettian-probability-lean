@@ -81,7 +81,7 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms recordNeutral_record_eq
 #print axioms recordNeutral_payoff_eq
 #print axioms recordNeutral_bornWeight_eq
-#print axioms ancillaNotInRecordAlgebra_holds
+#print axioms refinementNotInRecordAlgebra_holds
 #print axioms born_insensitive_to_recordNeutral_refinement
 #print axioms born_determined_by_accessible_record
 #print axioms counting_sensitive_to_recordNeutral_refinement

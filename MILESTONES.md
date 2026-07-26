@@ -92,8 +92,8 @@ Budget toujours à `0` ; aucun `sorry` introduit par cette reprise.
   poids borniens des deux cellules grossières sont inchangés). L'hypothèse
   qui fait de ce raffinement un témoin *record-neutre* — les lignes
   d'ancilla ne sont pas des cellules de l'algèbre de records — est rendue
-  explicite et nommée : `AncillaNotInRecordAlgebra`, prouvée dans ce modèle
-  par `ancillaNotInRecordAlgebra_holds`.
+  explicite et nommée : `RefinementNotInRecordAlgebra`, prouvée dans ce modèle
+  par `refinementNotInRecordAlgebra_holds`.
 - **`NonTriviality.lean`** : le comptage uniforme *restreint aux cellules
   actives* (`activeCells`, `uniformCredence` — un comptage sur toutes les
   cellules de `finePerspective` serait aveugle, puisque son cardinal ne
@@ -203,8 +203,8 @@ Budget still `0`; no `sorry` introduced by this resumption.
   two coarse cells are unchanged). The hypothesis that makes this
   refinement a *record-neutral* witness — the ancilla lines are not cells
   of the record algebra — is made explicit and named:
-  `AncillaNotInRecordAlgebra`, proved for this model by
-  `ancillaNotInRecordAlgebra_holds`.
+  `RefinementNotInRecordAlgebra`, proved for this model by
+  `refinementNotInRecordAlgebra_holds`.
 - **`NonTriviality.lean`**: uniform counting *restricted to active cells*
   (`activeCells`, `uniformCredence` — counting over every cell of
   `finePerspective` would be blind, since its cardinality never changes)
