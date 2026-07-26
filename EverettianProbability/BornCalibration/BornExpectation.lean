@@ -44,22 +44,44 @@ open EverettianProbability.Core EverettianProbability.Preference EverettianProba
 
 variable {n : ℕ}
 
-/-- The rational expectation functional of a refinement-invariant family
-coincides with the Born expectation, on every perspective and every act. -/
-theorem born_expectation_formula (F : RationalExpectationFamily n) (hn3 : 3 ≤ n)
-    (hNorm : AxNorm (canonicalWeight F)) (hPos : AxPos (canonicalWeight F))
-    {v : H n} (hv : ‖v‖ = 1) (hNul : AxNul (canonicalWeight F) v)
+/-- **FR.** RÉSULTAT PORTANT UNE PRÉMISSE (`PREMISE-BEARING RESULT`). Les
+axiomes généraux de rationalité, l'invariance locale normative et la nullité
+physique du poids canonique entraînent l'espérance de Born. La positivité et
+la normalisation de ce poids sont dérivées, non supposées.
+
+**EN.** `PREMISE-BEARING RESULT`. General rationality axioms, normative local
+invariance, and physical null support for the canonical weight entail Born
+expectation. Positivity and normalization of that weight are derived rather
+than assumed. -/
+theorem born_expectation_of_invariance (F : RationalExpectationFamily n) (hn3 : 3 ≤ n)
     (hinv : RefinementInvariantLocal F.V)
+    {v : H n} (hv : ‖v‖ = 1) (hNul : AxNul (canonicalWeight F) v)
     (D : Perspective n) (a : Act n) :
     F.V D a = ∑ c ∈ D.cells, ‖projL c v‖ ^ 2 * a c := by
   have hgrain : AxGrain (canonicalWeight F) :=
     refinement_invariant_implies_grain F hinv
   have hborn := grainCoherenceTheorem_projector
-    (canonicalWeight F) hn3 hgrain hNorm hPos hv hNul
+    (canonicalWeight F) hn3 hgrain (canonicalWeight_axNorm F)
+      (canonicalWeight_axPos F) hv hNul
   rw [represents F D a]
   apply Finset.sum_congr rfl
   intro c hc
   rw [hborn D hc]
+
+/-- **FR.** Corollaire de compatibilité de l'ancienne formulation : les
+hypothèses `AxNorm` et `AxPos` explicites sont désormais redondantes, car
+elles sont dérivées de `RationalExpectationFamily`.
+
+**EN.** Compatibility corollary for the former formulation: explicit
+`AxNorm` and `AxPos` assumptions are now redundant, because they follow from
+`RationalExpectationFamily`. -/
+theorem born_expectation_formula (F : RationalExpectationFamily n) (hn3 : 3 ≤ n)
+    (_hNorm : AxNorm (canonicalWeight F)) (_hPos : AxPos (canonicalWeight F))
+    {v : H n} (hv : ‖v‖ = 1) (hNul : AxNul (canonicalWeight F) v)
+    (hinv : RefinementInvariantLocal F.V)
+    (D : Perspective n) (a : Act n) :
+    F.V D a = ∑ c ∈ D.cells, ‖projL c v‖ ^ 2 * a c :=
+  born_expectation_of_invariance F hn3 hinv hv hNul D a
 
 /-- Exit-criterion example (P1, section 8): `grainCoherenceTheorem_projector`
 is importable from the new repository, through public upstream imports

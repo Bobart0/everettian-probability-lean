@@ -114,4 +114,34 @@ theorem weights_unique_on_cells (F : RationalExpectationFamily n)
     rw [Act.indicator_of_ne hdc, mul_zero]
   · exact fun hnot => (hnot hc).elim
 
+/-- **FR.** La positivité du poids canonique est dérivée de la monotonie
+locale : l'indicatrice d'une cellule domine l'acte constant nul sur les
+cellules de la perspective.
+
+**EN.** Positivity of the canonical weight follows from local monotonicity:
+a cell indicator dominates the zero constant on the perspective's cells. -/
+theorem canonicalWeight_axPos (F : RationalExpectationFamily n) :
+    AxPos (canonicalWeight F) := by
+  intro D c hc
+  rw [show canonicalWeight F D c = F.V D (Act.indicator c) by
+    simp only [canonicalWeight, if_pos hc]]
+  rw [← F.normalized_const D 0]
+  apply F.monotone D (Act.const 0) (Act.indicator c)
+  intro d hd
+  unfold Act.const Act.indicator
+  split_ifs <;> norm_num
+
+/-- **FR.** La normalisation du poids canonique est dérivée de la
+normalisation des actes constants, via la représentation appliquée à l'acte
+constant unitaire.
+
+**EN.** Normalization of the canonical weight follows from normalization of
+constant acts, via representation applied to the unit constant act. -/
+theorem canonicalWeight_axNorm (F : RationalExpectationFamily n) :
+    AxNorm (canonicalWeight F) := by
+  intro D
+  have h := represents F D (Act.const 1)
+  rw [F.normalized_const D 1] at h
+  simpa only [Act.const, mul_one] using h.symm
+
 end EverettianProbability.Preference
