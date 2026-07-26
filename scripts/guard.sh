@@ -33,6 +33,15 @@ AXIOM_HITS=$(grep -rnE '(^|[^[:alnum:]_])axiom[[:space:]]' "${SRC_DIRS[@]}" 2>/d
 NATIVE_DECIDE_HITS=$(grep -rn 'native_decide' "${SRC_DIRS[@]}" 2>/dev/null | wc -l | tr -d ' ' || true)
 MAXHEARTBEATS_ZERO_HITS=$(grep -rnE 'maxHeartbeats[[:space:]]+0\b' "${SRC_DIRS[@]}" 2>/dev/null | wc -l | tr -d ' ' || true)
 SORRY_COUNT=$(grep -rno '\bsorry\b' "${SRC_DIRS[@]}" 2>/dev/null | wc -l | tr -d ' ' || true)
+SORRY_ANNOTATION_MISSING=0
+while IFS=: read -r sorry_file sorry_line _; do
+  [ -n "${sorry_file}" ] || continue
+  previous_line=$(sed -n "$((sorry_line - 1))p" "${sorry_file}")
+  if ! printf '%s\n' "${previous_line}" | grep -qE '^[[:space:]]*--[[:space:]]+SATISFIABILITY:'; then
+    echo "UNANNOTATED_SORRY=${sorry_file}:${sorry_line}"
+    SORRY_ANNOTATION_MISSING=$((SORRY_ANNOTATION_MISSING + 1))
+  fi
+done < <(grep -rn '\bsorry\b' "${SRC_DIRS[@]}" 2>/dev/null || true)
 
 if [ -f SORRY_BUDGET ]; then
   SORRY_BUDGET_VALUE=$(tr -d '[:space:]' < SORRY_BUDGET)
@@ -44,10 +53,12 @@ echo "AXIOM_HITS=${AXIOM_HITS}"
 echo "NATIVE_DECIDE_HITS=${NATIVE_DECIDE_HITS}"
 echo "MAXHEARTBEATS_ZERO_HITS=${MAXHEARTBEATS_ZERO_HITS}"
 echo "SORRY_COUNT=${SORRY_COUNT}"
+echo "SORRY_ANNOTATION_MISSING=${SORRY_ANNOTATION_MISSING}"
 echo "SORRY_BUDGET=${SORRY_BUDGET_VALUE}"
 
 if [ "${AXIOM_HITS}" -eq 0 ] && [ "${NATIVE_DECIDE_HITS}" -eq 0 ] \
   && [ "${MAXHEARTBEATS_ZERO_HITS}" -eq 0 ] \
+  && [ "${SORRY_ANNOTATION_MISSING}" -eq 0 ] \
   && [ "${SORRY_COUNT}" -le "${SORRY_BUDGET_VALUE}" ]; then
   echo "GUARD_RESULT=PASS"
   exit 0

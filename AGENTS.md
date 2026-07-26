@@ -16,17 +16,15 @@ cette espérance en espérance de Born.
 dans `MILESTONES.md`) :
 
 - **P0** — red team sur papier (portée, décisions P0.2/P0.3). Préalable à P1.
-- **P1** — infrastructure du dépôt et squelette compilable. 🚧 EN COURS.
-  Dix-neuf fichiers Lean (`Core`, `Refinement`, `Preference`,
-  `BornCalibration`, `Rivals`, `Audit`), sept buts ouverts budgétés
-  (`SORRY_BUDGET`), aucun résultat scientifique prouvé.
-- **P2–P11** — non ouverts. Voir `CLAIM_MATRIX.md` pour la table vide
-  colonnée qui les attend.
+- **P1–P4** — clos, y compris représentation canonique et
+  invariance locale ⇒ Grain ⇒ Born. Budget de `sorry` nul.
+- **P5–P11** — non ouverts, sauf le calcul scalaire d’exclusion du comptage
+  naïf demandé avec P4. Voir `CLAIM_MATRIX.md`.
 
 ## Dépendance `quantum_foundations`
 
 Le paquet `quantum_foundations` est une dépendance Lake épinglée sur le tag
-`v1.0.1-fop-companion` (`lakefile.toml`). Il tire lui-même `gleason`
+`v1.1.1-probability-api` (`lakefile.toml`). Il tire lui-même `gleason`
 (`v1.0-gleason`) et `mathlib` (rev figée) : Lake les résout
 transitivement, ils ne sont **jamais** redéclarés ici. **NE JAMAIS
 re-prouver ce qui existe déjà en amont** : importer directement
@@ -48,9 +46,9 @@ héritées »), plus trois spécifiques à ce dépôt :
   `Perspective n → Submodule ℂ (H n) → ℝ`, afin que
   `grainCoherenceTheorem_projector` s'applique sans adaptateur
   (`BornCalibration/ContextualWeight.lean`).
-- **`Refines` est une relation `∀∃`**, pas une fonction : toute carte
-  parent passe par `Classical.choice` plus `Perspective.unique_parent`,
-  avec lemmes de spécification séparés (`Core/Parent.lean`).
+- **`Refines` est une relation `∀∃`**, pas une fonction : la carte parent
+  aval est exclusivement l’API publique `parentOf`, avec ses lemmes de
+  spécification. Aucune réimplémentation locale n’est admise.
 
 ## Règles absolues
 
@@ -76,6 +74,11 @@ héritées »), plus trois spécifiques à ce dépôt :
 10. Aucune signature n'est devinée : avant d'écrire du code contre l'API
     du dépôt amont, elle est vérifiée par `grep` puis par
     `lake env lean --stdin`.
+11. Tout `sorry` subsistant doit être précédé **immédiatement** d'un commentaire
+    `-- SATISFIABILITY:` donnant un témoin, un argument de satisfaisabilité, ou
+    `UNKNOWN`. La garde échoue si cette annotation manque. Cette convention ne
+    rend pas le but acceptable : elle distingue une dette prouvablement
+    cohérente d'une contamination potentielle par un énoncé faux.
 
 ### Conventions héritées (patrons anti-lenteur, `gleason`/`quantum-foundations-lean`)
 
@@ -100,7 +103,7 @@ héritées »), plus trois spécifiques à ce dépôt :
 
 > Aucun théorème de ce dépôt ne dérive une norme de rationalité de la
 > seule dynamique unitaire ; l'invariance sous raffinement
-> (`PayoffPreserving`, préservée par la fonctionnelle d'espérance `V`)
+> (`RefinementInvariantLocal`, satisfaite par la fonctionnelle bornienne)
 > est une **prémisse normative**, assumée comme telle et jamais dérivée.
 > Détail complet dans `docs/SCOPE_AND_LIMITATIONS.md`.
 
@@ -133,17 +136,15 @@ that expectation into a Born expectation.
 `MILESTONES.md`):
 
 - **P0** — paper red team (scope, decisions P0.2/P0.3). Prerequisite to P1.
-- **P1** — repository infrastructure and compilable skeleton. 🚧 IN
-  PROGRESS. Nineteen Lean files (`Core`, `Refinement`, `Preference`,
-  `BornCalibration`, `Rivals`, `Audit`), seven budgeted open goals
-  (`SORRY_BUDGET`), no scientific result proved.
-- **P2–P11** — not opened. See `CLAIM_MATRIX.md` for the empty, columned
-  table awaiting them.
+- **P1–P4** — closed, including canonical representation and local
+  invariance ⇒ Grain ⇒ Born. The `sorry` budget is zero.
+- **P5–P11** — not opened, except for the scalar exclusion calculation for
+  naive counting requested together with P4. See `CLAIM_MATRIX.md`.
 
 ## `quantum_foundations` dependency
 
 The `quantum_foundations` package is a Lake dependency pinned to tag
-`v1.0.1-fop-companion` (`lakefile.toml`). It itself pulls `gleason`
+`v1.1.1-probability-api` (`lakefile.toml`). It itself pulls `gleason`
 (`v1.0-gleason`) and `mathlib` (fixed revision): Lake resolves them
 transitively, they are **never** redeclared here. **NEVER re-prove what
 already exists upstream**: import `Perspective`, `Refines`,
@@ -165,9 +166,9 @@ section), plus three specific to this repository:
   `Perspective n → Submodule ℂ (H n) → ℝ`, so that
   `grainCoherenceTheorem_projector` applies with no adapter
   (`BornCalibration/ContextualWeight.lean`).
-- **`Refines` is a `∀∃` relation**, not a function: every parent map goes
-  through `Classical.choice` plus `Perspective.unique_parent`, with
-  separate specification lemmas (`Core/Parent.lean`).
+- **`Refines` is a `∀∃` relation**, not a function: the downstream parent
+  map is exclusively the public `parentOf` API with its specification
+  lemmas. No local reimplementation is allowed.
 
 ## Absolute rules
 
@@ -191,6 +192,12 @@ section), plus three specific to this repository:
 10. No signature is ever guessed: before writing code against the
     upstream repository's API, it is checked via `grep` then via
     `lake env lean --stdin`.
+11. Every remaining `sorry` must be preceded **immediately** by a
+    `-- SATISFIABILITY:` comment giving a witness, a satisfiability argument,
+    or `UNKNOWN`. The guard fails when this annotation is missing. This
+    convention does not make an open goal acceptable; it distinguishes a
+    demonstrably consistent debt from possible contamination by a false
+    statement.
 
 ### Inherited conventions (anti-slowness patterns, `gleason`/`quantum-foundations-lean`)
 
@@ -213,8 +220,8 @@ section), plus three specific to this repository:
 ## Scope boundary
 
 > No theorem in this repository derives a rationality norm from unitary
-> dynamics alone; refinement invariance (`PayoffPreserving`, preserved by
-> the expectation functional `V`) is a **normative premise**, assumed as
+> dynamics alone; refinement invariance (`RefinementInvariantLocal`,
+> satisfied by the Born functional) is a **normative premise**, assumed as
 > such and never derived. Full detail in
 > `docs/SCOPE_AND_LIMITATIONS.md`.
 
