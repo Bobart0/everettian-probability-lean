@@ -11,7 +11,7 @@
 | P2 | Actes finis, tiré-en-arrière, non-vacuité bornienne | Clos | 0 |
 | P3 | Représentation affine canonique | Clos | 1 |
 | P4 | Invariance locale ⇔ Grain ⇒ Born (**équivalence**, pas seulement implication) | Clos, non vacueux et non trivial | 2 |
-| P6 | Exclusion du comptage naïf | Résultat scalaire clos ; P6a non ouverte | 1 |
+| P6 | Exclusion du comptage naïf | Résultat scalaire clos ; **P6a close** (témoin d'existence) | 2 |
 | P5, P7–P11 | Jalons ultérieurs | Non ouverts (rapport de faisabilité route effets/qubit dans `docs/QUBIT_FEASIBILITY_REPORT.md`) | 0 |
 
 ### Fermetures de la reprise P3/P4
@@ -73,6 +73,45 @@ uniforme.
 
 Budget toujours à `0` ; aucun `sorry` introduit par cette reprise.
 
+### Reprise du 2026-07-26 (suite 2) — P6a, témoin physique de raffinement record-neutre
+
+- **`EverettianProbability/PhysicalRefinement/`** (nouveau répertoire,
+  route B — construction autonome sur Mathlib, sans dépendance amont
+  supplémentaire) : témoin concret, à amplitudes inégales (`3/5`, `4/5`),
+  qu'un raffinement peut redécrire les branches plus finement sans en créer
+  de nouvelles au sens physique. Dans `H 3`, un ancilla à deux niveaux
+  (`b 1`, `b 2`) initialisé sur `b 1` est couplé par une rotation unitaire
+  `coupleU` à la branche observée `b 0`, sans jamais faire sortir la
+  population de la cellule grossière complémentaire `label1Space`.
+- **`RecordNeutralWitness.lean`** : les quatre théorèmes demandés, sans
+  `sorry` — `recordNeutral_refines` (le raffinement en trois lignes
+  raffine bien la perspective binaire grossière), `recordNeutral_record_eq`
+  (le record accessible, restreint aux deux cellules grossières, est
+  inchangé), `recordNeutral_payoff_eq` (le paiement tiré en arrière vaut
+  `1` sur les deux cellules d'ancilla), `recordNeutral_bornWeight_eq` (les
+  poids borniens des deux cellules grossières sont inchangés). L'hypothèse
+  qui fait de ce raffinement un témoin *record-neutre* — les lignes
+  d'ancilla ne sont pas des cellules de l'algèbre de records — est rendue
+  explicite et nommée : `AncillaNotInRecordAlgebra`, prouvée dans ce modèle
+  par `ancillaNotInRecordAlgebra_holds`.
+- **`NonTriviality.lean`** : le comptage uniforme *restreint aux cellules
+  actives* (`activeCells`, `uniformCredence` — un comptage sur toutes les
+  cellules de `finePerspective` serait aveugle, puisque son cardinal ne
+  change pas) distingue avant et après le couplage (`1/2 ≠ 1/3`,
+  `counting_sensitive_to_recordNeutral_refinement`), et la forme
+  existentielle demandée `counting_underdetermined_by_accessible_record`
+  exhibe deux états (`psiBefore`, `psiAfter = coupleU psiBefore`) au même
+  record accessible mais à des verdicts de comptage différents.
+- **`Nonvacuity.lean`** : le pendant bornien —
+  `born_insensitive_to_recordNeutral_refinement` et sa généralisation
+  `born_determined_by_accessible_record` — montre que l'espérance
+  bornienne, à la différence du comptage, est entièrement déterminée par le
+  record accessible.
+- **Portée** : ce témoin établit une **existence**, pas une universalité ;
+  voir l'encart dédié dans `docs/SCOPE_AND_LIMITATIONS.md`.
+
+Budget toujours à `0` ; aucun `sorry` introduit.
+
 ## English
 
 ### Status on 2026-07-26
@@ -84,7 +123,7 @@ Budget toujours à `0` ; aucun `sorry` introduit par cette reprise.
 | P2 | Finite acts, pullback, Born nonvacuity | Closed | 0 |
 | P3 | Canonical affine representation | Closed | 1 |
 | P4 | Local invariance ⇔ Grain ⇒ Born (**equivalence**, not just implication) | Closed, nonvacuous, and nontrivial | 2 |
-| P6 | Exclusion of naive counting | Scalar result closed; P6a not opened | 1 |
+| P6 | Exclusion of naive counting | Scalar result closed; **P6a closed** (existence witness) | 2 |
 | P5, P7–P11 | Later milestones | Not opened (effect/qubit route feasibility report in `docs/QUBIT_FEASIBILITY_REPORT.md`) | 0 |
 
 ### P3/P4 resumption closures
@@ -144,3 +183,42 @@ therefore has both its positive Born witness and its negative uniform witness.
   of `RefinementInvariantLocal`.
 
 Budget still `0`; no `sorry` introduced by this resumption.
+
+### 2026-07-26 resumption (continued 2) — P6a, physical witness of a record-neutral refinement
+
+- **`EverettianProbability/PhysicalRefinement/`** (new directory, Route B —
+  self-contained construction on Mathlib, no additional upstream
+  dependency): a concrete witness, with unequal amplitudes (`3/5`, `4/5`),
+  that a refinement can redescribe branches more finely without physically
+  creating new ones. In `H 3`, a two-level ancilla (`b 1`, `b 2`)
+  initialized on `b 1` is coupled by a unitary rotation `coupleU` to the
+  observed branch `b 0`, never moving population out of the complementary
+  coarse cell `label1Space`.
+- **`RecordNeutralWitness.lean`**: the four required theorems, with no
+  `sorry` — `recordNeutral_refines` (the three-line refinement does refine
+  the coarse binary perspective), `recordNeutral_record_eq` (the
+  accessible record, restricted to the two coarse cells, is unchanged),
+  `recordNeutral_payoff_eq` (the pulled-back payoff equals `1` on both
+  ancilla cells), `recordNeutral_bornWeight_eq` (the Born weights of the
+  two coarse cells are unchanged). The hypothesis that makes this
+  refinement a *record-neutral* witness — the ancilla lines are not cells
+  of the record algebra — is made explicit and named:
+  `AncillaNotInRecordAlgebra`, proved for this model by
+  `ancillaNotInRecordAlgebra_holds`.
+- **`NonTriviality.lean`**: uniform counting *restricted to active cells*
+  (`activeCells`, `uniformCredence` — counting over every cell of
+  `finePerspective` would be blind, since its cardinality never changes)
+  discriminates before and after the coupling (`1/2 ≠ 1/3`,
+  `counting_sensitive_to_recordNeutral_refinement`), and the requested
+  existential form `counting_underdetermined_by_accessible_record`
+  exhibits two states (`psiBefore`, `psiAfter = coupleU psiBefore`) with
+  the same accessible record but different counting verdicts.
+- **`Nonvacuity.lean`**: the Born counterpart —
+  `born_insensitive_to_recordNeutral_refinement` and its generalization
+  `born_determined_by_accessible_record` — shows that Born expectation,
+  unlike counting, is fully determined by the accessible record.
+- **Scope**: this witness establishes an **existence**, not a
+  universality claim; see the dedicated caveat in
+  `docs/SCOPE_AND_LIMITATIONS.md`.
+
+Budget still `0`; no `sorry` introduced.

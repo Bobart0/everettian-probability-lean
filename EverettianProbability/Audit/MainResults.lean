@@ -9,6 +9,9 @@ import EverettianProbability.Preference.Nonvacuity
 import EverettianProbability.Preference.NonTriviality
 import EverettianProbability.Rivals.NaiveBranchCounting
 import EverettianProbability.Rivals.Nonvacuity
+import EverettianProbability.PhysicalRefinement.RecordNeutralWitness
+import EverettianProbability.PhysicalRefinement.Nonvacuity
+import EverettianProbability.PhysicalRefinement.NonTriviality
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -38,7 +41,7 @@ namespace EverettianProbability.Audit
 
 open EverettianProbability.Core EverettianProbability.Refinement
 open EverettianProbability.Preference EverettianProbability.BornCalibration
-open EverettianProbability.Rivals
+open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 
 -- No-open-goal declarations: must show only propext / Classical.choice / Quot.sound.
 #print axioms pullbackAct_const
@@ -74,5 +77,14 @@ open EverettianProbability.Rivals
 #print axioms maxExpectation_monotone
 #print axioms maxExpectation_normalized_const
 #print axioms maxExpectation_not_affine
+#print axioms recordNeutral_refines
+#print axioms recordNeutral_record_eq
+#print axioms recordNeutral_payoff_eq
+#print axioms recordNeutral_bornWeight_eq
+#print axioms ancillaNotInRecordAlgebra_holds
+#print axioms born_insensitive_to_recordNeutral_refinement
+#print axioms born_determined_by_accessible_record
+#print axioms counting_sensitive_to_recordNeutral_refinement
+#print axioms counting_underdetermined_by_accessible_record
 
 end EverettianProbability.Audit

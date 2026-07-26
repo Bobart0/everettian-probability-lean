@@ -11,7 +11,7 @@
 | Témoin de non-trivialité | `uniform_not_refinementInvariantLocal` | Perspective binaire explicite et raffinement en trois lignes | La famille uniforme viole la prémisse locale (`1/2 ≠ 2/3`) | Clos |
 | Résultat négatif original | `globalPremise_vacuous` et `uniformExpectationFamily_globalPremise_vacuous` | Ancienne lecture globale | Toute famille rationnelle satisfait la prémisse filtrée ; la famille uniforme viole Grain | Clos |
 | P6 | `naiveCounting_violates_grain` | Perspective binaire et raffinement en trois lignes | Le comptage uniforme viole Grain (`1/2 ≠ 1/3`) | Clos |
-| P6a | Réalisabilité physique record-neutre | Non formulée ici | Pont futur vers Grain complet depuis une invariance restreinte | Non ouvert |
+| P6a | `recordNeutral_refines`, `recordNeutral_record_eq`, `recordNeutral_payoff_eq`, `recordNeutral_bornWeight_eq` | Couplage unitaire concret dans `H 3`, amplitudes inégales (3/5, 4/5), hypothèse nommée `AncillaNotInRecordAlgebra` | Un raffinement peut redécrire les branches plus finement sans en créer de nouvelles au sens physique ; le comptage actif y est sensible (`counting_underdetermined_by_accessible_record`), l'espérance bornienne non (`born_determined_by_accessible_record`) | Clos — témoin d'existence, pas d'universalité |
 | P5, P7–P11 | Extensions | — | — | Non ouvertes |
 
 Décision P0.3 : l’interface commune reste en aval ; les actes sont totaux et
@@ -28,7 +28,7 @@ les sous-types de cellules servent uniquement à l’énumération.
 | Nontriviality witness | `uniform_not_refinementInvariantLocal` | Explicit binary perspective and three-line refinement | The uniform family violates the local premise (`1/2 ≠ 2/3`) | Closed |
 | Original negative result | `globalPremise_vacuous` and `uniformExpectationFamily_globalPremise_vacuous` | Former global reading | Every rational family satisfies the filtered premise; the uniform family violates Grain | Closed |
 | P6 | `naiveCounting_violates_grain` | Binary perspective and three-line refinement | Uniform counting violates Grain (`1/2 ≠ 1/3`) | Closed |
-| P6a | Record-neutral physical realizability | Not formulated here | Future bridge from restricted invariance to full Grain | Not opened |
+| P6a | `recordNeutral_refines`, `recordNeutral_record_eq`, `recordNeutral_payoff_eq`, `recordNeutral_bornWeight_eq` | Concrete unitary coupling in `H 3`, unequal amplitudes (3/5, 4/5), named hypothesis `AncillaNotInRecordAlgebra` | A refinement can redescribe branches more finely without physically creating new ones; active counting is sensitive to it (`counting_underdetermined_by_accessible_record`), Born expectation is not (`born_determined_by_accessible_record`) | Closed — existence witness, not universality |
 | P5, P7–P11 | Extensions | — | — | Not opened |
 
 Decision P0.3: the common interface remains downstream; acts are total and

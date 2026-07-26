@@ -34,9 +34,30 @@
   théorème projectif.
 - La lecture globale antérieure est formalisée uniquement comme résultat
   négatif dans `GlobalPayoffVacuity.lean`; elle ne sert plus de prémisse.
-- Une restriction future aux raffinements préservant les records demanderait
-  le pont de réalisabilité physique P6a. Ce pont n’est ni supposé ni ouvert
-  ici, et `RestrictedRecordSectors` n’est pas utilisé.
+- **P6a** (`PhysicalRefinement/`) établit qu'un raffinement peut redécrire
+  les branches plus finement sans en créer de nouvelles au sens physique
+  — un raffinement *record-neutre* est physiquement réalisable par un
+  couplage unitaire à un ancilla. C'est une preuve d'**existence**, pas
+  d'**universalité** : le témoin montre qu'*au moins un* raffinement de ce
+  type existe dans `H 3`, il ne classifie pas tous les raffinements
+  projectifs selon qu'ils sont record-neutres, et il ne prétend pas que
+  *tout* raffinement admet une telle réalisation physique. `RestrictedRecordSectors`
+  n'est pas utilisé, et aucun pont général vers une restriction de
+  `RefinementInvariantLocal` aux seuls raffinements record-neutres n'est
+  ouvert par ce témoin.
+- Le témoin P6a est en outre **schématique** : `H 3` n'a ni factorisation
+  tensorielle explicite système/ancilla, ni dynamique temporelle, ni
+  décohérence, et la désignation de l'algèbre des records
+  (`coarsePerspective.cells`) y est *stipulée* — via l'hypothèse nommée
+  `AncillaNotInRecordAlgebra` — plutôt que dérivée d'un principe physique
+  indépendant. La brique manquante identifiée pour dépasser ce caractère
+  schématique est nommée : une porte de rotation d'amplitude *contrôlée*,
+  combinant le contrôle à deux sites de `ControlledBitFlip`
+  (`Complexity/Gates/ControlledBitFlip.lean`, amont) avec le mélange
+  d'amplitude de `AmplitudeRotation`
+  (`Complexity/Gates/AmplitudeRotation.lean`, amont) — à construire et à
+  exporter en amont ; elle n'existe pas aujourd'hui sous cette forme
+  combinée.
 
 ## English
 
@@ -70,6 +91,26 @@
   projective theorem.
 - The former global reading is formalized only as a negative result in
   `GlobalPayoffVacuity.lean`; it is no longer used as a premise.
-- A future restriction to record-preserving refinements would require P6a’s
-  physical-realizability bridge. That bridge is neither assumed nor opened
-  here, and `RestrictedRecordSectors` is not used.
+- **P6a** (`PhysicalRefinement/`) establishes that a refinement can
+  redescribe branches more finely without physically creating new ones —
+  a *record-neutral* refinement is physically realizable through a
+  unitary ancilla coupling. This is an **existence** proof, not a
+  **universality** one: the witness shows that *at least one* refinement
+  of this kind exists in `H 3`; it does not classify every projective
+  refinement by whether it is record-neutral, and it does not claim that
+  *every* refinement admits such a physical realization.
+  `RestrictedRecordSectors` is not used, and no general bridge restricting
+  `RefinementInvariantLocal` to record-neutral refinements alone is opened
+  by this witness.
+- The P6a witness is furthermore **schematic**: `H 3` has no explicit
+  system/ancilla tensor factorization, no temporal dynamics, no
+  decoherence, and the designation of the record algebra
+  (`coarsePerspective.cells`) is *stipulated* there — via the named
+  hypothesis `AncillaNotInRecordAlgebra` — rather than derived from an
+  independent physical principle. The missing brick identified to move
+  past this schematic character is named: a *controlled* amplitude-rotation
+  gate, combining `ControlledBitFlip`'s two-site control
+  (`Complexity/Gates/ControlledBitFlip.lean`, upstream) with
+  `AmplitudeRotation`'s amplitude mixing
+  (`Complexity/Gates/AmplitudeRotation.lean`, upstream) — to be built and
+  exported upstream; it does not exist today in this combined form.

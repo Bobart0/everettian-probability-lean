@@ -17,6 +17,9 @@ import EverettianProbability.BornCalibration.NonCircularity
 import EverettianProbability.BornCalibration.Nonvacuity
 import EverettianProbability.Rivals.NaiveBranchCounting
 import EverettianProbability.Rivals.Nonvacuity
+import EverettianProbability.PhysicalRefinement.RecordNeutralWitness
+import EverettianProbability.PhysicalRefinement.Nonvacuity
+import EverettianProbability.PhysicalRefinement.NonTriviality
 import EverettianProbability.Audit.MainResults
 
 /-!
@@ -25,12 +28,14 @@ modules du jalon P1, dans l'ordre de dépendance : `Core` (interface,
 actes, carte parent), `Refinement` (tiré-en-arrière, invariance),
 `Preference` (espérance rationnelle, représentation), `BornCalibration`
 (poids contextuel, pont vers Grain, espérance de Born, non-circularité),
-`Rivals` (comptage naïf), `Audit` (audit des axiomes).
+`Rivals` (comptage naïf), `PhysicalRefinement` (témoin physique du
+raffinement record-neutre, P6a), `Audit` (audit des axiomes).
 
 **EN.** Entry point of the `EverettianProbability` package. Imports every
 module of the P1 milestone, in dependency order: `Core` (interface, acts,
 parent map), `Refinement` (pullback, invariance), `Preference` (rational
 expectation, representation), `BornCalibration` (contextual weight, bridge
 to Grain, Born expectation, non-circularity), `Rivals` (naive counting),
-`Audit` (axioms audit).
+`PhysicalRefinement` (physical witness of the record-neutral refinement,
+P6a), `Audit` (axioms audit).
 -/
