@@ -1,6 +1,5 @@
 import EverettianProbability.Core.Interface
 import EverettianProbability.Core.Act
-import EverettianProbability.Core.Parent
 import EverettianProbability.Core.Nonvacuity
 import EverettianProbability.Refinement.PullbackAct
 import EverettianProbability.Refinement.PayoffPreserving

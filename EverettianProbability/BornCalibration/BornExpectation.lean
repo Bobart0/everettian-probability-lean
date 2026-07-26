@@ -1,5 +1,5 @@
 import EverettianProbability.BornCalibration.RefinementImpliesGrain
-import QuantumFoundations.BornRule.Assembly
+import QuantumFoundations.ProbabilityAPI
 
 /-!
 **FR.** # Espérance de Born

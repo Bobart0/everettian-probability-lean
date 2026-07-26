@@ -43,9 +43,6 @@ open EverettianProbability.Rivals
 #print axioms naiveCounting_axPos
 
 -- Open-goal-carrying declarations (directly or transitively): must show `sorryAx`.
-#print axioms parent_mem
-#print axioms parent_le
-#print axioms parent_unique
 #print axioms exists_unique_weights
 #print axioms refinement_invariant_implies_grain
 #print axioms born_expectation_formula

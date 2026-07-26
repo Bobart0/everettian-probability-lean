@@ -1,6 +1,5 @@
-import QuantumFoundations.BornRule.Perspective
+import QuantumFoundations.ProbabilityAPI
 import EverettianProbability.Core.Act
-import EverettianProbability.Core.Parent
 
 /-!
 **FR.** # Non-vacuité — `Core`
@@ -25,7 +24,7 @@ open: every statement below is proved in full.
 
 namespace EverettianProbability.Core
 
-open QuantumFoundations.BornRule Gleason
+open QuantumFoundations.ProbabilityAPI
 open scoped Classical
 
 /-- A concrete nonzero, proper subspace of `H 3`: the line spanned by the
@@ -34,10 +33,11 @@ noncomputable def exampleLine : Submodule ℂ (H 3) :=
   ℂ ∙ ((EuclideanSpace.basisFun (Fin 3) ℂ) 0 : H 3)
 
 theorem exampleLine_ne_bot : exampleLine ≠ ⊥ :=
-  line_ne_bot (EuclideanSpace.basisFun (Fin 3) ℂ) 0
+  QuantumFoundations.BornRule.line_ne_bot (EuclideanSpace.basisFun (Fin 3) ℂ) 0
 
 theorem exampleLine_ne_top : exampleLine ≠ ⊤ :=
-  line_ne_top (by norm_num) (EuclideanSpace.basisFun (Fin 3) ℂ) 0
+  QuantumFoundations.BornRule.line_ne_top (by norm_num)
+    (EuclideanSpace.basisFun (Fin 3) ℂ) 0
 
 /-- A concrete coarse perspective: the binary split
 `{exampleLine, exampleLineᗮ}`. -/
@@ -54,12 +54,21 @@ theorem exampleFine_refines : Refines exampleFine exampleCoarse :=
 /-- A concrete act: the indicator of `exampleLine`. -/
 noncomputable def exampleAct : Act 3 := Act.indicator exampleLine
 
-/-- `Core.parent` is usable on a genuinely nontrivial refinement: applying
+/-- Upstream `parentOf` is usable on a genuinely nontrivial refinement: applying
 it to any cell of the fine perspective type-checks and produces a subspace
 of `H 3`. Its exact value is not yet pinned down (`parent_mem`,
 `parent_le`, `parent_unique` are still open goals in `Core/Parent.lean` —
 see `MILESTONES.md`), but the definition itself is not vacuous. -/
 noncomputable example (c' : Submodule ℂ (H 3)) : Submodule ℂ (H 3) :=
-  parent exampleFine_refines c'
+  parentOf exampleFine_refines c'
+
+theorem exampleLine_mem_exampleCoarse : exampleLine ∈ exampleCoarse.cells := by
+  simp only [exampleCoarse, Perspective.binary, Finset.mem_insert, Finset.mem_singleton,
+    true_or]
+
+theorem exampleAct_at_exampleLine : exampleAct exampleLine = 1 := by
+  simp only [exampleAct, Act.indicator_self]
+
+theorem exampleConst_at_exampleLine : (Act.const 7 : Act 3) exampleLine = 7 := rfl
 
 end EverettianProbability.Core

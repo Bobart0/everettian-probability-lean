@@ -1,59 +1,83 @@
-import EverettianProbability.Core.Parent
+import EverettianProbability.Core.Act
 
 /-!
 **FR.** # Tiré-en-arrière d'un acte
 
-`pullbackAct r a` réévalue un acte `a`, défini au niveau de la perspective
-grossière `D`, au niveau de la perspective fine `D'`, en composant par la
-carte parent. Les deux lemmes de compatibilité ci-dessous sont prouvés
-**en entier** (aucun but ouvert dans ce fichier) : `pullbackAct_const` est
-immédiat par calcul, et `pullbackAct_agree_of_agree` ne fait qu'appliquer
-la spécification `parent_mem` de `Core/Parent.lean` — laquelle est,
-elle, encore un but ouvert à ce stade. S'appuyer sur une spécification
-amont encore ouverte est légitime (patron « squelette d'abord, preuves
-ensuite ») et ne fait apparaître aucun nouveau but ouvert dans ce fichier ;
-`#print axioms` sur `pullbackAct_agree_of_agree` révèle la dépendance
-résiduelle à l'axiome interne des buts admis (voir
-`Audit/MainResults.lean`).
+Le tiré-en-arrière compose un acte total avec la carte parent totale de
+l'API amont. Les lois de réflexivité et de composition sont énoncées sur les
+cellules pertinentes, là où la valeur poubelle de `parentOf` n'intervient pas.
 
 **EN.** # Pullback of an act
 
-`pullbackAct r a` re-evaluates an act `a`, defined at the level of the
-coarse perspective `D`, at the level of the fine perspective `D'`, by
-composing with the parent map. The two compatibility lemmas below are
-proved **in full** (no goal left open in this file): `pullbackAct_const` is
-immediate by computation, and `pullbackAct_agree_of_agree` merely applies
-the `parent_mem` specification from `Core/Parent.lean` — which is itself
-still an open goal at this stage. Relying on a still-open upstream
-specification is legitimate (the "skeleton first, proofs later" pattern)
-and introduces no new open goal in this file; `#print axioms` on
-`pullbackAct_agree_of_agree` reveals the residual dependency on the
-admitted-open-goal marker (see `Audit/MainResults.lean`).
+Pullback composes a total act with the upstream API's total parent map. The
+identity and composition laws are stated on the relevant cells, where
+`parentOf`'s junk value is immaterial.
 -/
 
 namespace EverettianProbability.Refinement
 
-open QuantumFoundations.BornRule Gleason EverettianProbability.Core
+open QuantumFoundations.ProbabilityAPI EverettianProbability.Core
+open scoped Classical
 
 variable {n : ℕ}
 
-/-- Pulling an act back along a refinement: re-express `a`, defined on the
-coarse perspective, as an act on the fine one, by routing every fine cell
-through its parent. -/
-noncomputable def pullbackAct {D' D : Perspective n} (r : Refines D' D) (a : Act n) : Act n :=
-  a ∘ parent r
+/-- Pull an act on `D` back to a refinement `D'`. -/
+noncomputable def pullbackAct {D' D : Perspective n} (r : Refines D' D)
+    (a : Act n) : Act n := a ∘ parentOf r
 
-/-- A constant act is unaffected by any pullback. -/
+/-- The indicator of the fiber of `parentOf r` above `c`. -/
+noncomputable def fiberIndicator {D' D : Perspective n} (r : Refines D' D)
+    (c : Submodule ℂ (H n)) : Act n :=
+  fun c' => if parentOf r c' = c then 1 else 0
+
 theorem pullbackAct_const {D' D : Perspective n} (r : Refines D' D) (k : ℝ) :
     pullbackAct r (Act.const k) = Act.const k := rfl
 
-/-- Pulling back preserves agreement: if `a` and `b` agree on the coarse
-perspective `D`, their pullbacks agree on the fine perspective `D'`. -/
 theorem pullbackAct_agree_of_agree {D' D : Perspective n} (r : Refines D' D)
     {a b : Act n} (h : Act.AgreeOn D a b) :
     Act.AgreeOn D' (pullbackAct r a) (pullbackAct r b) := by
   intro c' hc'
-  show a (parent r c') = b (parent r c')
-  exact h (parent r c') (parent_mem r hc')
+  exact h (parentOf r c') (parentOf_mem r hc')
+
+/-- Pullback along a reflexive refinement acts as the identity on cells. -/
+theorem pullbackAct_refl_agree (D : Perspective n) (a : Act n) :
+    Act.AgreeOn D (pullbackAct (Refines.refl D) a) a := by
+  intro c hc
+  change a (parentOf (Refines.refl D) c) = a c
+  rw [parentOf_eq_of_le (Refines.refl D) hc hc (le_refl c)]
+
+/-- Pullback is compatible with transitive composition on fine cells. -/
+theorem pullbackAct_trans_agree {D'' D' D : Perspective n}
+    (r₁ : Refines D'' D') (r₂ : Refines D' D) (a : Act n) :
+    Act.AgreeOn D'' (pullbackAct (Refines.trans r₁ r₂) a)
+      (pullbackAct r₁ (pullbackAct r₂ a)) := by
+  intro c'' hc''
+  change a (parentOf (Refines.trans r₁ r₂) c'') =
+    a (parentOf r₂ (parentOf r₁ c''))
+  rw [parentOf_eq_of_le (Refines.trans r₁ r₂) hc''
+    (parentOf_mem r₂ (parentOf_mem r₁ hc''))
+    ((parentOf_le r₁ hc'').trans (parentOf_le r₂ (parentOf_mem r₁ hc'')))]
+
+/-- Pulling back an indicator gives exactly the indicator of its parent
+fiber, as total acts. -/
+theorem pullbackAct_indicator {D' D : Perspective n} (r : Refines D' D)
+    (c : Submodule ℂ (H n)) :
+    pullbackAct r (Act.indicator c) = fiberIndicator r c := rfl
+
+/-- On fine cells, the pulled-back indicator is one exactly on the
+`coarseCells` fiber supplied by the upstream API. -/
+theorem pullbackAct_indicator_eq_one_iff {D' D : Perspective n}
+    (r : Refines D' D) {c : Submodule ℂ (H n)} (hc : c ∈ D.cells)
+    {c' : Submodule ℂ (H n)} (hc' : c' ∈ D'.cells) :
+    pullbackAct r (Act.indicator c) c' = 1 ↔ c' ∈ coarseCells D' c := by
+  rw [coarseCells_eq_fiber_parentOf r hc]
+  simp only [Finset.mem_filter, hc', true_and, pullbackAct, Function.comp_apply,
+    Act.indicator]
+  constructor
+  · by_cases hparent : parentOf r c' = c
+    · exact fun _ => hparent
+    · simp only [hparent, if_false, zero_ne_one, false_implies]
+  · intro hparent
+    simp only [hparent, if_true]
 
 end EverettianProbability.Refinement

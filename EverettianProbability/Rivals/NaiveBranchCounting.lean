@@ -1,4 +1,4 @@
-import QuantumFoundations.BornRule.Assembly
+import QuantumFoundations.ProbabilityAPI
 
 /-!
 **FR.** # Comptage naïf des branches (règle rivale)
