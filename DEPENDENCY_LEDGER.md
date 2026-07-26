@@ -13,6 +13,7 @@ transportée par le type reçu, sans prémisse physique supplémentaire.
 | `Gleason.projL` | Oui | Non | Non | Non | Oui | Non | Non |
 | `BornRule.Perspective` | Non | Structurel | Non | Non | Non | Non | Non |
 | `Perspective.binary` | Non | Structurel | Non | Non | Non | Non | Non |
+| `Perspective.unique_parent` | Non | Structurel | Non | Non | Non | Non | Non |
 | `BornRule.Refines` | Non | Structurel | Non | Non | Non | Non | Non |
 | `Refines.refl` | Non | Non | Non | Non | Non | Non | Non |
 | `Refines.trans` | Non | Non | Non | Non | Non | Non | Non |
@@ -26,6 +27,11 @@ transportée par le type reçu, sans prémisse physique supplémentaire.
 | `axGrain_iff_coarseCells` | Selon le poids | Structurel | Non | Non | Non par définition | Non | Non |
 | `refinePerspective` | Non | Structurel | Non | Non | Non | Non | Non |
 | `refinePerspective_refines` | Non | Structurel | Non | Non | Non | Non | Non |
+| `refine_filter_eq_cellLines` | Non | Structurel | Non | Non | Non | Non | Non |
+| `cellLines` | Non | Structurel | Non | Non | Non | Non | Non |
+| `cellLines_le` | Non | Structurel | Non | Non | Non | Non | Non |
+| `cellLines_ne_bot` | Non | Structurel | Non | Non | Non | Non | Non |
+| `cellLines_injective` | Non | Structurel | Non | Non | Non | Non | Non |
 | `line_ne_bot` | Non | Non | Non | Non | Non | Non | Non |
 | `line_ne_top` | Non | Non | Non | Non | Non | Non | Non |
 | `AxGrain` | Selon le poids | Structurel | Non | Non | Non par définition | Non | Norme d'invariance lorsqu'assumée |
@@ -47,7 +53,7 @@ transportée par le type reçu, sans prémisse physique supplémentaire.
 | `ProbabilityAPI.EffectPerspectives.pureStateEstimationRule` | Oui | Non | Non | Non | Oui, témoin | Non | Non |
 
 `RestrictedRecordSectors` n'est ni importé ni utilisé. La prémisse
-`RefinementInvariant` est normative; elle n'est dérivée d'aucune dynamique,
+`RefinementInvariantLocal` est normative; elle n'est dérivée d'aucune dynamique,
 décohérence, typicalité ou hypothèse de saturation physique.
 
 ## English
@@ -63,6 +69,7 @@ type, without an additional physical premise.
 | `Gleason.projL` | Yes | No | No | No | Yes | No | No |
 | `BornRule.Perspective` | No | Structural | No | No | No | No | No |
 | `Perspective.binary` | No | Structural | No | No | No | No | No |
+| `Perspective.unique_parent` | No | Structural | No | No | No | No | No |
 | `BornRule.Refines` | No | Structural | No | No | No | No | No |
 | `Refines.refl` | No | No | No | No | No | No | No |
 | `Refines.trans` | No | No | No | No | No | No | No |
@@ -76,6 +83,11 @@ type, without an additional physical premise.
 | `axGrain_iff_coarseCells` | Depends on weight | Structural | No | No | Not by definition | No | No |
 | `refinePerspective` | No | Structural | No | No | No | No | No |
 | `refinePerspective_refines` | No | Structural | No | No | No | No | No |
+| `refine_filter_eq_cellLines` | No | Structural | No | No | No | No | No |
+| `cellLines` | No | Structural | No | No | No | No | No |
+| `cellLines_le` | No | Structural | No | No | No | No | No |
+| `cellLines_ne_bot` | No | Structural | No | No | No | No | No |
+| `cellLines_injective` | No | Structural | No | No | No | No | No |
 | `line_ne_bot` | No | No | No | No | No | No | No |
 | `line_ne_top` | No | No | No | No | No | No | No |
 | `AxGrain` | Depends on weight | Structural | No | No | Not by definition | No | Invariance norm when assumed |
@@ -97,5 +109,5 @@ type, without an additional physical premise.
 | `ProbabilityAPI.EffectPerspectives.pureStateEstimationRule` | Yes | No | No | No | Yes, witness | No | No |
 
 `RestrictedRecordSectors` is neither imported nor used. The
-`RefinementInvariant` premise is normative; it is not derived from dynamics,
+`RefinementInvariantLocal` premise is normative; it is not derived from dynamics,
 decoherence, typicality, or a physical saturation assumption.

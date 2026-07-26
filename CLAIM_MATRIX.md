@@ -2,30 +2,32 @@
 
 ## Français
 
-| Jalon | Problème | Résultat | Prémisses | Conclusion | Rivale exclue | Reste ouvert |
-|---|---|---|---|---|---|---|
-| P2 | Consistance de l'invariance sous raffinement | `bornExpectation_pullback_eq`, témoin concret en `H 3`, interface abstraite à deux instances | Grain amont pour `E₀`; invariance reconnue comme prémisse normative | La fonctionnelle bornienne satisfait réellement l'invariance; la prémisse centrale n'est pas vide | Aucune | Arbitrage comptable/spécification décrit dans `MILESTONES.md` |
-| P3 | Représentation affine | Non ouvert | — | — | — | Corriger en session dédiée la notion d'unicité hors `D.cells` |
-| P4 | Invariance ⟹ Grain ⟹ Born | Non ouvert, mais désormais non vacueux | Rationalité, invariance normative, représentation P3 | La prémisse possède le témoin bornien fort de P2 | — | Localité de `PayoffPreserving`, puis P3 et preuve P4 |
-| P5 | Non-circularité | Non ouvert | — | — | — | P0.4 |
-| P6 | Comptage naïf | Non ouvert | — | — | — | `naiveCounting_violates_grain` |
-| P7–P11 | Extensions | Non ouvertes | — | — | — | Sessions ultérieures |
+| Jalon | Résultat | Prémisses | Conclusion | Statut |
+|---|---|---|---|---|
+| P2 | `bornExpectation_pullback_eq` | Grain du poids bornien amont | L’espérance bornienne est invariante par tiré-en-arrière | Clos |
+| P3 | `represents`, `weights_unique_on_cells` | Affinité, monotonie locale, normalisation | Représentation par le poids canonique, unique sur les cellules | Clos |
+| P4 | `refinement_invariant_implies_grain` | `RationalExpectationFamily`, `RefinementInvariantLocal` | `AxGrain (canonicalWeight F)` | Clos et non vacueux |
+| P4 | `born_expectation_formula` | Grain dérivé, Norm, Pos, Null, `3 ≤ n` | Formule d’espérance de Born | Clos et non vacueux |
+| Résultat négatif original | `globalPremise_vacuous` et `uniformExpectationFamily_globalPremise_vacuous` | Ancienne lecture globale | Toute famille rationnelle satisfait la prémisse filtrée ; la famille uniforme viole Grain | Clos |
+| P6 | `naiveCounting_violates_grain` | Perspective binaire et raffinement en trois lignes | Le comptage uniforme viole Grain (`1/2 ≠ 1/3`) | Clos |
+| P6a | Réalisabilité physique record-neutre | Non formulée ici | Pont futur vers Grain complet depuis une invariance restreinte | Non ouvert |
+| P5, P7–P11 | Extensions | — | — | Non ouvertes |
 
-Décision P0.3 : l'interface commune vit uniquement en aval. Les cellules
-peuvent être dépendantes pour l'énumération, mais les actes restent des
-fonctions totales sur un espace ambiant.
+Décision P0.3 : l’interface commune reste en aval ; les actes sont totaux et
+les sous-types de cellules servent uniquement à l’énumération.
 
 ## English
 
-| Milestone | Problem | Result | Premises | Conclusion | Rival excluded | Still open |
-|---|---|---|---|---|---|---|
-| P2 | Consistency of refinement invariance | `bornExpectation_pullback_eq`, concrete `H 3` witness, two-instance abstract interface | Upstream Grain for `E₀`; invariance recognized as normative | The Born functional really satisfies invariance; the central premise is not empty | None | Accounting/specification decision recorded in `MILESTONES.md` |
-| P3 | Affine representation | Not opened | — | — | — | Fix off-`D.cells` uniqueness in a dedicated session |
-| P4 | Invariance ⟹ Grain ⟹ Born | Not opened, but now nonvacuous | Rationality, normative invariance, P3 representation | The premise has P2's strong Born witness | — | Locality of `PayoffPreserving`, then P3 and the P4 proof |
-| P5 | Non-circularity | Not opened | — | — | — | P0.4 |
-| P6 | Naive counting | Not opened | — | — | — | `naiveCounting_violates_grain` |
-| P7–P11 | Extensions | Not opened | — | — | — | Later sessions |
+| Milestone | Result | Premises | Conclusion | Status |
+|---|---|---|---|---|
+| P2 | `bornExpectation_pullback_eq` | Upstream Grain for Born weights | Born expectation is pullback-invariant | Closed |
+| P3 | `represents`, `weights_unique_on_cells` | Affinity, local monotonicity, normalization | Representation by the canonical weight, unique on cells | Closed |
+| P4 | `refinement_invariant_implies_grain` | `RationalExpectationFamily`, `RefinementInvariantLocal` | `AxGrain (canonicalWeight F)` | Closed and nonvacuous |
+| P4 | `born_expectation_formula` | Derived Grain, Norm, Pos, Null, `3 ≤ n` | Born expectation formula | Closed and nonvacuous |
+| Original negative result | `globalPremise_vacuous` and `uniformExpectationFamily_globalPremise_vacuous` | Former global reading | Every rational family satisfies the filtered premise; the uniform family violates Grain | Closed |
+| P6 | `naiveCounting_violates_grain` | Binary perspective and three-line refinement | Uniform counting violates Grain (`1/2 ≠ 1/3`) | Closed |
+| P6a | Record-neutral physical realizability | Not formulated here | Future bridge from restricted invariance to full Grain | Not opened |
+| P5, P7–P11 | Extensions | — | — | Not opened |
 
-Decision P0.3: the common interface lives downstream only. Cells may be
-dependent for enumeration, while acts remain total functions on an ambient
-space.
+Decision P0.3: the common interface remains downstream; acts are total and
+cell subtypes are used only for enumeration.
