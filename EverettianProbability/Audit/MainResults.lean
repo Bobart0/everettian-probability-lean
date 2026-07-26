@@ -1,5 +1,6 @@
 import EverettianProbability.BornCalibration.BornExpectation
 import EverettianProbability.BornCalibration.Nonvacuity
+import EverettianProbability.Core.Interface
 import EverettianProbability.Refinement.Nonvacuity
 import EverettianProbability.Preference.Nonvacuity
 import EverettianProbability.Rivals.NaiveBranchCounting
@@ -39,8 +40,13 @@ open EverettianProbability.Rivals
 #print axioms pullbackAct_const
 #print axioms pullbackAct_agree_of_agree
 #print axioms const_payoffPreserving
+#print axioms bornExpectation_pullback_eq
+#print axioms bornExpectation_refinementInvariant
 #print axioms uniformExpectationFamily
 #print axioms naiveCounting_axPos
+#print axioms EverettianProbability.Abstract.expectation_refinementInvariant
+#print axioms EverettianProbability.Abstract.Projective.born_refinementInvariant
+#print axioms EverettianProbability.Abstract.Effects.pureState_refinementInvariant
 
 -- Open-goal-carrying declarations (directly or transitively): must show `sorryAx`.
 #print axioms exists_unique_weights
