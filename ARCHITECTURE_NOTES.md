@@ -2,130 +2,115 @@
 
 ## Français
 
-Mémoire des écarts entre le plan annoncé (prompt de bootstrap P1) et le
-code réellement écrit. Chaque entrée explique une décision, pas seulement
-son résultat.
+### 1. Actes totaux
 
-### 1. Acte : fonction totale plutôt que sous-type
+`Core/Act.lean` conserve la convention P1 :
+`Act n = Submodule ℂ (H n) → ℝ`. Une valeur hors perspective est une valeur
+poubelle; `AgreeOn D` exprime la seule égalité pertinente. Aucun type d'acte
+ne dépend d'une perspective.
 
-Le plan aurait pu représenter un acte comme un sous-type dépendant d'une
-perspective (`{a : Submodule ℂ (H n) → ℝ // ...}` indexé par `D`). Choix
-retenu (`Core/Act.lean`) : une fonction **totale**
-`Submodule ℂ (H n) → ℝ`, avec valeur poubelle hors des cellules de la
-perspective effectivement considérée, et une relation `AgreeOn D a b`
-distincte pour comparer deux actes *sur* une perspective. Raison :
-c'est le patron « définition totale + valeur poubelle + lemmes de
-spécification sous hypothèse » déjà utilisé partout en amont (`parent`
-suit le même patron) — il évite la prolifération de types dépendants et
-de coercions entre `Act D₁` et `Act D₂` pour deux perspectives différentes,
-qui aurait rendu `pullbackAct` et `PayoffPreserving` beaucoup plus lourds
-à énoncer.
+### 2. Carte parent amont
 
-### 2. Carte parent : réutilisation de l'API amont
+Depuis `v1.1.0-probability-api`, `parentOf` et ses lemmes de spécification
+sont publics. `Core/Parent.lean` a été supprimé pour éviter deux choix
+classiques concurrents. Tous les tirés-en-arrière projectifs utilisent
+désormais `parentOf`.
 
-Depuis `v1.1.0-probability-api`, `parentOf`, `parentOf_mem`, `parentOf_le` et
-`parentOf_eq_of_le` sont publics via `QuantumFoundations.ProbabilityAPI`.
-`Core/Parent.lean` a donc été supprimé : conserver sa construction locale par
-choix classique aurait dupliqué l'amont et créé deux cartes parents sans
-garantie d'égalité définitionnelle. `pullbackAct` compose désormais directement
-avec `parentOf`.
+### 3. Le pont mesure → fonctionnelle n'est pas définitionnel
 
-### 3. Type d'atterrissage du poids contextuel
+`E₀_isGrain` porte sur les poids `‖projL c v‖²`; le résultat aval porte sur
+la fonctionnelle totale
+`∑ c ∈ D.cells, ‖projL c v‖² * a c`. La preuve de
+`bornExpectation_pullback_eq` regroupe explicitement la somme fine par les
+fibres de `parentOf`, sort le paiement constant de chaque fibre, identifie
+la fibre à `coarseCells`, puis applique Grain. Cette étape est la preuve de
+consistance de la prémisse normative, pas une simple réécriture.
 
-`BornCalibration/ContextualWeight.lean` fixe `contextualWeight F` au type
-**exact** `Perspective n → Submodule ℂ (H n) → ℝ` — le type de `Est` dans
-`AxGrain`/`AxNorm`/`AxPos`/`AxNul` et dans
-`grainCoherenceTheorem_projector` en amont. Alternative rejetée : un type
-enrichi (par exemple `Perspective n → {c // c ∈ D.cells} → ℝ`, dépendant
-de `D`), plus proche de l'intuition « poids défini seulement sur les
-cellules réelles », mais qui aurait exigé un adaptateur avant de brancher
-le théorème amont — exactement ce que ce choix de type évite.
+### 4. Décision P0.3 : interface commune avec actes ambiants
 
-### 4. Lemmes de compatibilité de `pullbackAct` : prouvés, pas laissés en but ouvert
+La décision retenue est une interface abstraite en aval. Elle sépare :
 
-Le prompt de bootstrap suggérait des « lemmes de compatibilité en but
-ouvert » pour `Refinement/PullbackAct.lean`. En pratique,
-`pullbackAct_const` est immédiat par calcul (`rfl`), et
-`pullbackAct_agree_of_agree` se déduit directement de `parent_mem` — dont
-la preuve est elle-même différée, mais dont l'*énoncé* existe déjà. Les
-deux lemmes sont donc prouvés en entier ici : citer une spécification
-amont encore ouverte (patron « squelette d'abord, preuves ensuite ») est
-légitime et ne fait apparaître aucun nouveau but ouvert dans ce fichier —
-`#print axioms` sur `pullbackAct_agree_of_agree` révèle simplement la
-dépendance résiduelle (voir `Audit/MainResults.lean`). Ce choix minimise
-le budget de buts ouverts sans jamais affaiblir un énoncé, conformément à
-la règle 3 de `AGENTS.md`.
+- `Outcome`, espace ambiant sur lequel les actes sont totaux;
+- `Cell D`, type fini dépendant servant uniquement à l'énumération;
+- `Refinement fine coarse`, avec cartes parent sur l'espace ambiant et sur
+  les cellules, reliées par une loi de spécification;
+- le type des règles d'estimation et leur poids cellulaire.
 
-### 5. P0.3 différé par une lacune de la façade publique
+Le tiré-en-arrière, `Grain`, l'espérance pondérée et l'invariance sont
+formulés une seule fois. Le théorème abstrait
+`expectation_refinementInvariant` établit Grain → invariance.
 
-L'interface abstraite projective/effets n'a pas été gravée dans ce jalon
-partiel. Avant l'étape P0.3, la preuve de consistance bornienne a révélé que
-`refine_filter_sup_eq` et `E₀_isGrain`, bien que déjà prouvés en amont, ne sont
-pas atteignables depuis `QuantumFoundations.ProbabilityAPI`. La règle
-« point d'entrée unique, aucune réimportation directe » impose l'arrêt et une
-seconde release additive. Aucun sous-type n'a été introduit dans `Act`, qui
-reste la fonction totale `Submodule ℂ (H n) → ℝ`.
+L'instance projective prend `Outcome = Submodule ℂ (H n)` et
+`Cell D = {c // c ∈ D.cells}`; ce sous-type reste confiné à la somme finie et
+ne contamine pas `Act`. L'instance effets prend `Outcome = ℕ` et
+`Cell D = Fin D.outcomes`, avec le champ natif `Refines.parent`. Les témoins
+`E₀` et `pureStateEstimationRule` valident respectivement les deux routes.
+La condition d'arrêt « sous-type dans le type des actes » n'a donc pas été
+déclenchée.
+
+### 5. Diagnostic de spécification avant P4
+
+Deux problèmes doivent être arbitrés avant de prétendre clore les théorèmes
+P4. Premièrement, `exists_unique_weights` demande l'unicité d'une fonction
+totale alors que sa propriété ne contraint ses valeurs que sur `D.cells`;
+une normalisation hors cellules ou une notion d'équivalence sera nécessaire
+en P3. Deuxièmement, `PayoffPreserving a` quantifie sur tous les raffinements.
+Les indicatrices nécessaires à Grain ne sont pas globalement préservantes.
+Une prémisse locale au raffinement, ou une autre formulation explicite, doit
+être choisie avant la preuve. Aucun de ces énoncés n'a été modifié dans P2.
 
 ## English
 
-Memory of the gaps between the announced plan (P1 bootstrap prompt) and
-the code actually written. Each entry explains a decision, not just its
-outcome.
+### 1. Total acts
 
-### 1. Act: total function rather than subtype
+`Core/Act.lean` keeps the P1 convention:
+`Act n = Submodule ℂ (H n) → ℝ`. A value outside the perspective is junk;
+`AgreeOn D` expresses the only relevant equality. No act type depends on a
+perspective.
 
-The plan could have represented an act as a subtype depending on a
-perspective (`{a : Submodule ℂ (H n) → ℝ // ...}` indexed by `D`). Choice
-made (`Core/Act.lean`): a **total** function `Submodule ℂ (H n) → ℝ`, with
-a junk value outside the cells of the perspective actually under
-consideration, and a separate `AgreeOn D a b` relation to compare two acts
-*on* a perspective. Reason: this is the "total definition + junk value +
-spec lemmas under hypothesis" pattern already used throughout upstream
-(`parent` follows the same pattern) — it avoids the proliferation of
-dependent types and coercions between `Act D₁` and `Act D₂` for two
-different perspectives, which would have made `pullbackAct` and
-`PayoffPreserving` far heavier to state.
+### 2. Upstream parent map
 
-### 2. Parent map: reuse of the upstream API
+Since `v1.1.0-probability-api`, `parentOf` and its specification lemmas are
+public. `Core/Parent.lean` was deleted to avoid two competing classical
+choices. Every projective pullback now uses `parentOf`.
 
-Since `v1.1.0-probability-api`, `parentOf`, `parentOf_mem`, `parentOf_le`, and
-`parentOf_eq_of_le` are public through `QuantumFoundations.ProbabilityAPI`.
-`Core/Parent.lean` was therefore deleted: keeping its local classical-choice
-construction would duplicate upstream and create two parent maps with no
-definitional-equality guarantee. `pullbackAct` now composes directly with
-`parentOf`.
+### 3. The measure-to-functional bridge is not definitional
 
-### 3. Landing type of the contextual weight
+`E₀_isGrain` concerns the weights `‖projL c v‖²`; the downstream result
+concerns the total functional
+`∑ c ∈ D.cells, ‖projL c v‖² * a c`.
+The proof of `bornExpectation_pullback_eq` explicitly groups the fine sum by
+`parentOf` fibres, extracts the constant payoff on each fibre, identifies
+the fibre with `coarseCells`, and then applies Grain. This is the consistency
+proof for the normative premise, not a mere rewrite.
 
-`BornCalibration/ContextualWeight.lean` fixes `contextualWeight F` at the
-**exact** type `Perspective n → Submodule ℂ (H n) → ℝ` — the type of `Est`
-in `AxGrain`/`AxNorm`/`AxPos`/`AxNul` and in
-`grainCoherenceTheorem_projector` upstream. Rejected alternative: a richer
-type (e.g. `Perspective n → {c // c ∈ D.cells} → ℝ`, depending on `D`),
-closer to the intuition "weight defined only on the actual cells," but one
-that would have required an adapter before wiring in the upstream
-theorem — exactly what this type choice avoids.
+### 4. Decision P0.3: common interface with ambient acts
 
-### 4. `pullbackAct` compatibility lemmas: proved outright, not left as open goals
+The chosen design is a downstream abstract interface. It separates:
 
-The bootstrap prompt suggested "compatibility lemmas left as open goals"
-for `Refinement/PullbackAct.lean`. In practice, `pullbackAct_const` is
-immediate by computation (`rfl`), and `pullbackAct_agree_of_agree` follows
-directly from `parent_mem` — whose proof is itself deferred, but whose
-*statement* already exists. Both lemmas are therefore proved in full here:
-citing a still-open upstream specification (the "skeleton first, proofs
-later" pattern) is legitimate and introduces no new open goal in this
-file — `#print axioms` on `pullbackAct_agree_of_agree` simply reveals the
-residual dependency (see `Audit/MainResults.lean`). This choice minimizes
-the open-goal budget without ever weakening a statement, in accordance
-with rule 3 of `AGENTS.md`.
+- `Outcome`, the ambient space on which acts are total;
+- `Cell D`, a dependent finite type used only for enumeration;
+- `Refinement fine coarse`, with parent maps on ambient outcomes and cells,
+  related by a specification law;
+- the estimation-rule type and its cell weight.
 
-### 5. P0.3 deferred by a public-facade gap
+Pullback, `Grain`, weighted expectation, and invariance are stated once. The
+abstract theorem `expectation_refinementInvariant` proves Grain → invariance.
 
-The projective/effect abstract interface was not cast in this partial
-milestone. Before P0.3, the Born consistency proof revealed that
-`refine_filter_sup_eq` and `E₀_isGrain`, although already proved upstream,
-are not reachable from `QuantumFoundations.ProbabilityAPI`. The “single entry
-point, no direct re-import” rule requires stopping for a second additive
-release. No subtype was introduced into `Act`, which remains the total
-function `Submodule ℂ (H n) → ℝ`.
+The projective instance uses `Outcome = Submodule ℂ (H n)` and
+`Cell D = {c // c ∈ D.cells}`; this subtype remains confined to finite
+summation and never enters `Act`. The effect instance uses `Outcome = ℕ` and
+`Cell D = Fin D.outcomes`, with the native `Refines.parent` field. The `E₀`
+and `pureStateEstimationRule` witnesses validate the two routes. The stop
+condition “subtype in the act type” was therefore not triggered.
+
+### 5. Specification diagnosis before P4
+
+Two issues require an explicit decision before the P4 theorems can honestly
+be closed. First, `exists_unique_weights` asks for uniqueness of a total
+function although its property constrains values only on `D.cells`; P3 will
+need an off-cell normalization or an equivalence notion. Second,
+`PayoffPreserving a` quantifies over every refinement. The indicators needed
+for Grain are not globally payoff-preserving. A refinement-local premise or
+another explicit formulation must be chosen before the proof. Neither
+statement was changed in P2.
