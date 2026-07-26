@@ -141,3 +141,5 @@ the API boundary; reproving either downstream would breach the no-duplication
 rule. An additive upstream release must re-export them before P2 resumes.
 
 <!-- PIN_BUMP_AUDIT: **FR.** Mise à jour ciblée de `quantum_foundations` autorisée par `ALLOW_PIN_BUMP=1`. **EN.** Targeted `quantum_foundations` update authorized by `ALLOW_PIN_BUMP=1`. -->
+
+<!-- PIN_BUMP_AUDIT: **FR.** Mise à jour ciblée de `quantum_foundations` autorisée par `ALLOW_PIN_BUMP=1`. **EN.** Targeted `quantum_foundations` update authorized by `ALLOW_PIN_BUMP=1`. -->
