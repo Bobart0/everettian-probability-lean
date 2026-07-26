@@ -47,4 +47,15 @@ structure RationalExpectationFamily (n : ℕ) where
   /-- Normalization: the expectation of a certain payoff is that payoff. -/
   normalized_const : ∀ (D : Perspective n) (k : ℝ), V D (Act.const k) = k
 
+/-- **FR.** La monotonie locale force la fonctionnelle à ne dépendre que des
+valeurs de l'acte sur les cellules de la perspective.
+
+**EN.** Local monotonicity forces the functional to depend only on the act's
+values on the cells of the perspective. -/
+theorem V_congr_of_agreeOn (F : RationalExpectationFamily n) (D : Perspective n)
+    {a b : Act n} (h : Act.AgreeOn D a b) : F.V D a = F.V D b := by
+  apply le_antisymm
+  · exact F.monotone D a b fun c hc => (h c hc).le
+  · exact F.monotone D b a fun c hc => (h c hc).ge
+
 end EverettianProbability.Preference
