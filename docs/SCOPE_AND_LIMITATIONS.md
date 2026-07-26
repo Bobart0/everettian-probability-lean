@@ -4,6 +4,18 @@
 
 - Aucune norme de rationalité n’est dérivée de la seule dynamique unitaire.
   `RefinementInvariantLocal` est une prémisse normative assumée.
+- Le théorème principal (`born_expectation_of_invariance`) repose sur
+  **deux** prémisses-ponts, non sur une seule : l’indifférence aux
+  raffinements (`RefinementInvariantLocal`, normative pure), et le respect
+  du support de l’état (`hNul : AxNul (canonicalWeight F) v`, une
+  contrainte sur les poids de l’agent qui référence l’état physique `v` —
+  c’est le seul endroit où `v` entre dans les hypothèses du théorème). La
+  seconde est défendable — un agent n’affecte pas de valeur à des branches
+  d’amplitude nulle — mais elle est **assumée**, non dérivée ; elle n’est
+  ni purement normative ni purement physique, mais un pont normatif-physique
+  entre les deux. `AxNorm` et `AxPos` sur `canonicalWeight F`, en
+  revanche, sont **dérivées** des axiomes de `RationalExpectationFamily`,
+  pas assumées séparément.
 - La prémisse adoptée quantifie sur **tous** les raffinements projectifs. Elle
   est la *branching indifference* de Wallace transposée au cadre projectif :
   ni plus faible, ni plus neutre. Le dépôt ne revendique pas une prémisse
@@ -30,6 +42,17 @@
 
 - No rationality norm is derived from unitary dynamics alone.
   `RefinementInvariantLocal` is an assumed normative premise.
+- The headline theorem (`born_expectation_of_invariance`) rests on **two**
+  bridge premises, not one: indifference to refinement
+  (`RefinementInvariantLocal`, purely normative), and respect for the
+  state's support (`hNul : AxNul (canonicalWeight F) v`, a constraint on
+  the *agent's* weights that references the physical state `v` — the only
+  place `v` enters the theorem's hypotheses). The second is defensible —
+  an agent assigns no value to zero-amplitude branches — but it is
+  **assumed**, not derived; it is neither purely normative nor purely
+  physical, but a normative-physical bridge between the two. `AxNorm` and
+  `AxPos` on `canonicalWeight F`, by contrast, are **derived** from
+  `RationalExpectationFamily`'s axioms, not separately assumed.
 - The adopted premise quantifies over **all** projective refinements. It is
   Wallace’s *branching indifference* transposed to the projective setting:
   neither weaker nor more neutral. The repository claims not a weakened

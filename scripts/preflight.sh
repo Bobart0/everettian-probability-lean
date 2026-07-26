@@ -12,7 +12,6 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 EXPECTED_TOOLCHAIN="leanprover/lean4:v4.32.0-rc1"
-EXPECTED_UPSTREAM_REV="v1.0.1-fop-companion"
 FAIL=0
 
 fail() {
@@ -30,19 +29,25 @@ else
   fi
 fi
 
-# 2. lakefile.toml pins quantum_foundations on the expected tag
+# 2. lakefile.toml pins quantum_foundations to an explicit rev. The rev
+#    itself is not hardcoded here (it legitimately moves on approved pin
+#    bumps): check 3 verifies it against what lake actually resolved.
+LAKEFILE_REV=""
 if [ ! -f lakefile.toml ]; then
   fail "lakefile.toml is missing"
 else
   if ! grep -q "name = \"quantum_foundations\"" lakefile.toml; then
     fail "lakefile.toml does not require 'quantum_foundations'"
   fi
-  if ! grep -q "rev = \"${EXPECTED_UPSTREAM_REV}\"" lakefile.toml; then
-    fail "lakefile.toml does not pin quantum_foundations to '${EXPECTED_UPSTREAM_REV}'"
+  LAKEFILE_REV=$(grep -A2 "name = \"quantum_foundations\"" lakefile.toml \
+    | grep '^rev' | sed -E 's/rev = "([^"]*)"/\1/' | tr -d '[:space:]' || true)
+  if [ -z "${LAKEFILE_REV}" ]; then
+    fail "lakefile.toml does not pin quantum_foundations to an explicit rev"
   fi
 fi
 
-# 3. lake-manifest.json exists and references gleason and mathlib
+# 3. lake-manifest.json exists, references gleason and mathlib, and its
+#    resolved quantum_foundations revision matches lakefile.toml's pin.
 if [ ! -f lake-manifest.json ]; then
   fail "lake-manifest.json is missing (run 'lake exe cache get' first)"
 else
@@ -51,6 +56,10 @@ else
   fi
   if ! grep -q '"name": "mathlib"' lake-manifest.json; then
     fail "lake-manifest.json does not reference 'mathlib'"
+  fi
+  if [ -n "${LAKEFILE_REV}" ] && ! grep -A6 '"name": "quantum_foundations"' lake-manifest.json \
+      | grep -q "\"inputRev\": \"${LAKEFILE_REV}\""; then
+    fail "lake-manifest.json's resolved quantum_foundations revision does not match lakefile.toml's pin ('${LAKEFILE_REV}')"
   fi
 fi
 

@@ -15,11 +15,13 @@ cette espérance en espérance de Born.
 **État d'avancement par jalon** (détail et suivi du budget de buts ouverts
 dans `MILESTONES.md`) :
 
-- **P0** — red team sur papier (portée, décisions P0.2/P0.3). Préalable à P1.
+- **P0** — red team sur papier et témoin de non-circularité en `n = 2`
+  (P0.2–P0.4). Clos.
 - **P1–P4** — clos, y compris représentation canonique et
-  invariance locale ⇒ Grain ⇒ Born. Budget de `sorry` nul.
+  invariance locale ⇔ Grain ⇒ Born (équivalence). Budget de `sorry` nul.
 - **P5–P11** — non ouverts, sauf le calcul scalaire d’exclusion du comptage
-  naïf demandé avec P4. Voir `CLAIM_MATRIX.md`.
+  naïf demandé avec P4. Voir `CLAIM_MATRIX.md`. Rapport de faisabilité pour
+  la route effets/qubit dans `docs/QUBIT_FEASIBILITY_REPORT.md`.
 
 ## Dépendance `quantum_foundations`
 
@@ -140,11 +142,14 @@ that expectation into a Born expectation.
 **Milestone status** (detail and open-goal budget tracking in
 `MILESTONES.md`):
 
-- **P0** — paper red team (scope, decisions P0.2/P0.3). Prerequisite to P1.
+- **P0** — paper red team and the `n = 2` non-circularity witness
+  (P0.2–P0.4). Closed.
 - **P1–P4** — closed, including canonical representation and local
-  invariance ⇒ Grain ⇒ Born. The `sorry` budget is zero.
+  invariance ⇔ Grain ⇒ Born (equivalence). The `sorry` budget is zero.
 - **P5–P11** — not opened, except for the scalar exclusion calculation for
-  naive counting requested together with P4. See `CLAIM_MATRIX.md`.
+  naive counting requested together with P4. See `CLAIM_MATRIX.md`. See
+  `docs/QUBIT_FEASIBILITY_REPORT.md` for the effect/qubit route
+  feasibility report.
 
 ## `quantum_foundations` dependency
 

@@ -6,13 +6,13 @@
 
 | Jalon | Objet | Statut | Buts fermés dans cette reprise |
 |---|---|---|---:|
-| P0 | Décisions d’architecture | P0.3 tranchée en aval ; P0.4 ouverte | 0 |
+| P0 | Décisions d’architecture | P0.3 et **P0.4 closes** | 0 |
 | P1 | Infrastructure et squelette | Clos | 0 |
 | P2 | Actes finis, tiré-en-arrière, non-vacuité bornienne | Clos | 0 |
 | P3 | Représentation affine canonique | Clos | 1 |
-| P4 | Invariance locale ⇒ Grain ⇒ Born | Clos, non vacueux et non trivial | 2 |
+| P4 | Invariance locale ⇔ Grain ⇒ Born (**équivalence**, pas seulement implication) | Clos, non vacueux et non trivial | 2 |
 | P6 | Exclusion du comptage naïf | Résultat scalaire clos ; P6a non ouverte | 1 |
-| P5, P7–P11 | Jalons ultérieurs | Non ouverts | 0 |
+| P5, P7–P11 | Jalons ultérieurs | Non ouverts (rapport de faisabilité route effets/qubit dans `docs/QUBIT_FEASIBILITY_REPORT.md`) | 0 |
 
 ### Fermetures de la reprise P3/P4
 
@@ -39,19 +39,53 @@ famille uniforme donne `1/2` côté grossier et `2/3` côté fin. La prémisse
 locale possède donc à la fois son témoin positif bornien et son témoin négatif
 uniforme.
 
+### Reprise du 2026-07-26 (suite) — équivalence, P0.4, classification, non-trivialité
+
+- **`refinementInvariantLocal_iff_axGrain`** (`BornCalibration/
+  RefinementImpliesGrain.lean`) : la prémisse normative n'est plus
+  seulement suffisante pour Grain, elle lui est **équivalente**. Le sens
+  réciproque combine `represents` avec une nouvelle identité de sommation
+  générique (`grain_pullback_sum_eq`, généralisant
+  `bornExpectation_pullback_eq` à tout poids satisfaisant `AxGrain`).
+- **P0.4 close** : `BornCalibration/NonCircularity.lean` contient
+  désormais `perspective_two_cases` (classification structurelle en
+  `n = 2`) et `skewWeight` — une règle non bornienne satisfaisant
+  `AxGrain`, `AxNorm`, `AxPos`, `AxNul` — avec le témoin explicite
+  `grain_does_not_imply_born_at_two` (`witnessState = (3/5, 4/5)`,
+  `skewF(9/25) = 81/337 ≠ 9/25`). Le fichier n'est plus un placeholder.
+- **Classification de `hNul`** corrigée dans `CLAIM_MATRIX.md`,
+  `docs/THEOREM_MAP.md`, `docs/SCOPE_AND_LIMITATIONS.md` : le théorème
+  principal repose sur deux prémisses-ponts, pas une seule — l'invariance
+  locale (normative pure) et `hNul` (normative-physique, seul point
+  d'entrée de l'état `v`).
+- **`maxExpectation_not_affine`** (`Preference/NonTriviality.lean`) :
+  témoin négatif manquant identifié par l'audit rétroactif
+  (`ARCHITECTURE_NOTES.md`) — le maximum sur les cellules est monotone et
+  normalisé mais viole l'affinité, et ne peut donc pas compléter une
+  `RationalExpectationFamily`.
+- **Rapport de faisabilité route effets/qubit** :
+  `docs/QUBIT_FEASIBILITY_REPORT.md`. Aucun code ouvert ; identifie une
+  brique amont manquante nommée (`projectionEffect_weight_eq_born`/
+  `contextual_projection_weight_eq_born`, déjà prouvées pour `n ≥ 1` en
+  amont mais non réexportées) et trois différences structurelles de
+  `Refines` empêchant une transposition telle quelle de
+  `RefinementInvariantLocal`.
+
+Budget toujours à `0` ; aucun `sorry` introduit par cette reprise.
+
 ## English
 
 ### Status on 2026-07-26
 
 | Milestone | Subject | Status | Goals closed in this resumption |
 |---|---|---|---:|
-| P0 | Architecture decisions | P0.3 settled downstream; P0.4 open | 0 |
+| P0 | Architecture decisions | P0.3 and **P0.4 closed** | 0 |
 | P1 | Infrastructure and skeleton | Closed | 0 |
 | P2 | Finite acts, pullback, Born nonvacuity | Closed | 0 |
 | P3 | Canonical affine representation | Closed | 1 |
-| P4 | Local invariance ⇒ Grain ⇒ Born | Closed, nonvacuous, and nontrivial | 2 |
+| P4 | Local invariance ⇔ Grain ⇒ Born (**equivalence**, not just implication) | Closed, nonvacuous, and nontrivial | 2 |
 | P6 | Exclusion of naive counting | Scalar result closed; P6a not opened | 1 |
-| P5, P7–P11 | Later milestones | Not opened | 0 |
+| P5, P7–P11 | Later milestones | Not opened (effect/qubit route feasibility report in `docs/QUBIT_FEASIBILITY_REPORT.md`) | 0 |
 
 ### P3/P4 resumption closures
 
@@ -76,3 +110,37 @@ The nontriviality resumption adds `uniform_not_refinementInvariantLocal`: on
 the complement cell of the explicit dimension-three pair, the uniform family
 gives `1/2` on the coarse side and `2/3` on the fine side. The local premise
 therefore has both its positive Born witness and its negative uniform witness.
+
+### 2026-07-26 resumption (continued) — equivalence, P0.4, classification, nontriviality
+
+- **`refinementInvariantLocal_iff_axGrain`** (`BornCalibration/
+  RefinementImpliesGrain.lean`): the normative premise is no longer just
+  sufficient for Grain, it is **equivalent** to it. The converse combines
+  `represents` with a new generic summation identity
+  (`grain_pullback_sum_eq`, generalizing `bornExpectation_pullback_eq` to
+  any weight satisfying `AxGrain`).
+- **P0.4 closed**: `BornCalibration/NonCircularity.lean` now contains
+  `perspective_two_cases` (structural classification at `n = 2`) and
+  `skewWeight` — a non-Born rule satisfying `AxGrain`, `AxNorm`, `AxPos`,
+  `AxNul` — with the explicit witness
+  `grain_does_not_imply_born_at_two` (`witnessState = (3/5, 4/5)`,
+  `skewF(9/25) = 81/337 ≠ 9/25`). The file is no longer a placeholder.
+- **`hNul` classification** corrected in `CLAIM_MATRIX.md`,
+  `docs/THEOREM_MAP.md`, `docs/SCOPE_AND_LIMITATIONS.md`: the headline
+  theorem rests on two bridge premises, not one — local invariance
+  (purely normative) and `hNul` (normative-physical, the only entry
+  point for the state `v`).
+- **`maxExpectation_not_affine`** (`Preference/NonTriviality.lean`): the
+  missing negative witness identified by the retroactive audit
+  (`ARCHITECTURE_NOTES.md`) — the max over cells is monotone and
+  normalized but violates affinity, and therefore cannot complete a
+  `RationalExpectationFamily`.
+- **Effect/qubit route feasibility report**:
+  `docs/QUBIT_FEASIBILITY_REPORT.md`. No work opened; identifies one
+  named missing upstream brick
+  (`projectionEffect_weight_eq_born`/`contextual_projection_weight_eq_born`,
+  already proved for `n ≥ 1` upstream but not re-exported) and three
+  structural differences in `Refines` preventing a direct transposition
+  of `RefinementInvariantLocal`.
+
+Budget still `0`; no `sorry` introduced by this resumption.
