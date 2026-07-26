@@ -58,6 +58,39 @@ d’ancilla. L’architecture cible est donc :
 P6a n’est pas ouverte dans cette session et `RestrictedRecordSectors` n’est
 ni importé ni utilisé.
 
+### 2026-07-26 — discipline NonTriviality et audit rétroactif
+
+La non-vacuité ne suffit pas à établir la force d'une prémisse :
+`bornExpectation_refinementInvariantLocal` avait un habitant positif, alors
+que la lecture globale précédente restait sans pouvoir discriminant. La
+discipline `NonTriviality` exige désormais, dans le même commit que toute
+prémisse, un témoin concret positif (`Nonvacuity`) et un témoin concret
+négatif (`NonTriviality`). Elle aurait détecté la vacuité de
+`GloballyPayoffPreserving` dès son introduction.
+
+Le témoin négatif de la prémisse adoptée est
+`uniform_not_refinementInvariantLocal` : la cellule complémentaire dans la
+perspective binaire reçoit `1/2` pour la règle uniforme et `2/3` après son
+raffinement en trois lignes. La garde repère déjà, en avertissement, les
+`def … : Prop` documentées par le marqueur `PREMISE` qui n'ont pas d'entrée
+correspondante dans un `NonTriviality.lean` voisin.
+
+Audit rétrospectif des structures effectivement employées comme hypothèses :
+
+| Structure | Témoin positif | Témoin négatif | État |
+|---|---|---|---|
+| `RationalExpectationFamily` | `uniformExpectationFamily` | absent : aucune fonctionnelle candidate échouant explicitement un axiome n'est encore nommée | À prioriser si la structure devient une cible de comparaison autonome |
+| `RefinementInvariantLocal` | `bornExpectation_refinementInvariantLocal` | `uniform_not_refinementInvariantLocal` | Complet |
+| `RefinementInvariant` | `bornExpectation_refinementInvariant` | dérivé de l'équivalence avec la forme locale et du témoin uniforme ; pas encore nommé séparément | Couvert par équivalence, à nommer si cette forme redevient publique |
+| `GloballyPayoffPreserving` | non requis : lecture archivée, non admise comme prémisse | `not_globallyPayoffPreserving_indicator` | Résultat négatif conservé |
+| `Abstract.RefinementInvariant` | témoins projectif et effets | absent | Hors de la chaîne P3–P4 ; ne pas ouvrir cette extension ici |
+
+La CI distante du dépôt privé est une vérification manuelle à la charge du
+mainteneur : cet environnement ne dispose ni de `gh` ni d'un jeton GitHub pour
+lire les runs. Les critères automatisés de cette session sont donc `lake build`,
+l'audit local des axiomes et `scripts/guard.sh`; la vérification de la CI ne
+leur est pas substituée.
+
 ## English
 
 ### Acts, upstream parent map, and the P0.3 interface
@@ -113,3 +146,36 @@ is therefore:
 
 P6a is not opened in this session, and `RestrictedRecordSectors` is neither
 imported nor used.
+
+### 2026-07-26 — NonTriviality discipline and retroactive audit
+
+Nonvacuity alone does not establish the force of a premise:
+`bornExpectation_refinementInvariantLocal` had a positive inhabitant while
+the former global reading still had no discriminating power. The
+`NonTriviality` discipline now requires, in the same commit as every premise,
+a concrete positive (`Nonvacuity`) and negative (`NonTriviality`) witness. It
+would have detected the vacuity of `GloballyPayoffPreserving` when that
+definition was introduced.
+
+The negative witness for the adopted premise is
+`uniform_not_refinementInvariantLocal`: the complement cell of the binary
+perspective receives `1/2` under the uniform rule and `2/3` after its
+three-line refinement. The guard already reports, as a warning, `def … : Prop`
+declarations documented with the `PREMISE` marker that lack a corresponding
+entry in a neighbouring `NonTriviality.lean`.
+
+Retroactive audit of structures actually used as hypotheses:
+
+| Structure | Positive witness | Negative witness | State |
+|---|---|---|---|
+| `RationalExpectationFamily` | `uniformExpectationFamily` | absent: no candidate functional explicitly failing an axiom is named yet | Prioritize if the structure becomes an autonomous comparison target |
+| `RefinementInvariantLocal` | `bornExpectation_refinementInvariantLocal` | `uniform_not_refinementInvariantLocal` | Complete |
+| `RefinementInvariant` | `bornExpectation_refinementInvariant` | derived from equivalence with the local form and the uniform witness; not separately named yet | Covered by equivalence; name it if this form becomes public again |
+| `GloballyPayoffPreserving` | not required: archived reading, not an admitted premise | `not_globallyPayoffPreserving_indicator` | Retained negative result |
+| `Abstract.RefinementInvariant` | projective and effect witnesses | absent | Outside the P3–P4 chain; do not open this extension here |
+
+Remote CI for the private repository is a manual verification owned by the
+maintainer: this environment has neither `gh` nor a GitHub token able to read
+runs. The automated criteria for this session are therefore `lake build`, the
+local axiom audit, and `scripts/guard.sh`; remote CI is not silently replaced
+by them.

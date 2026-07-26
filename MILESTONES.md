@@ -10,7 +10,7 @@
 | P1 | Infrastructure et squelette | Clos | 0 |
 | P2 | Actes finis, tiré-en-arrière, non-vacuité bornienne | Clos | 0 |
 | P3 | Représentation affine canonique | Clos | 1 |
-| P4 | Invariance locale ⇒ Grain ⇒ Born | Clos et non vacueux | 2 |
+| P4 | Invariance locale ⇒ Grain ⇒ Born | Clos, non vacueux et non trivial | 2 |
 | P6 | Exclusion du comptage naïf | Résultat scalaire clos ; P6a non ouverte | 1 |
 | P5, P7–P11 | Jalons ultérieurs | Non ouverts | 0 |
 
@@ -33,6 +33,12 @@ satisfait l’invariance locale. Le fichier `GlobalPayoffVacuity.lean` conserve
 séparément l’ancienne lecture globale comme résultat négatif et exhibe
 `uniformExpectationFamily` comme contre-témoin à Grain.
 
+La reprise de non-trivialité ajoute `uniform_not_refinementInvariantLocal` :
+sur la cellule complémentaire de la paire explicite en dimension trois, la
+famille uniforme donne `1/2` côté grossier et `2/3` côté fin. La prémisse
+locale possède donc à la fois son témoin positif bornien et son témoin négatif
+uniforme.
+
 ## English
 
 ### Status on 2026-07-26
@@ -43,7 +49,7 @@ séparément l’ancienne lecture globale comme résultat négatif et exhibe
 | P1 | Infrastructure and skeleton | Closed | 0 |
 | P2 | Finite acts, pullback, Born nonvacuity | Closed | 0 |
 | P3 | Canonical affine representation | Closed | 1 |
-| P4 | Local invariance ⇒ Grain ⇒ Born | Closed and nonvacuous | 2 |
+| P4 | Local invariance ⇒ Grain ⇒ Born | Closed, nonvacuous, and nontrivial | 2 |
 | P6 | Exclusion of naive counting | Scalar result closed; P6a not opened | 1 |
 | P5, P7–P11 | Later milestones | Not opened | 0 |
 
@@ -65,3 +71,8 @@ Nonvacuity accompanies the adopted premise:
 satisfies local invariance. `GlobalPayoffVacuity.lean` separately retains the
 former global reading as a negative result and exhibits
 `uniformExpectationFamily` as a counter-witness to Grain.
+
+The nontriviality resumption adds `uniform_not_refinementInvariantLocal`: on
+the complement cell of the explicit dimension-three pair, the uniform family
+gives `1/2` on the coarse side and `2/3` on the fine side. The local premise
+therefore has both its positive Born witness and its negative uniform witness.

@@ -2,61 +2,42 @@
 
 ## Français
 
-Ce document enregistrera, pour chaque théorème utilisé substantiellement
-dans l'article II, sa déclaration Lean exacte, son module, son statut
-mathématique, ses dépendances principales, ses hypothèses de dimension,
-son exactitude, le statut de son audit d'axiomes, et sa limite de portée —
-sur le modèle de `quantum-foundations-lean/docs/FOP_THEOREM_MAP.md`. **Vide
-en P1** : aucun théorème scientifique n'y est encore prouvé (voir
-`MILESTONES.md`).
+| Statut | Déclaration | Module | Dépendances directes | Limite de portée | Audit |
+|---|---|---|---|---|---|
+| Résultat original | `born_expectation_of_invariance` | `BornCalibration/BornExpectation.lean` | `RationalExpectationFamily`, `RefinementInvariantLocal`, `AxNul (canonicalWeight F) v`, `‖v‖ = 1`, `3 ≤ n` | Route projective uniquement ; invariance sur **tous** les raffinements projectifs, sans restriction de records ; n'affirme aucune dérivation dynamique de la prémisse normative | `[propext, Classical.choice, Quot.sound]` |
+| Théorème de connexion | `refinement_invariant_implies_grain` | `BornCalibration/RefinementImpliesGrain.lean` | Représentation canonique et invariance locale | Même quantification projective non restreinte | `[propext, Classical.choice, Quot.sound]` |
+| Théorème de représentation | `represents` | `Preference/Representation.lean` | Affinité, monotonie locale, normalisation | Perspectives finies ; les actes restent totaux | `[propext, Classical.choice, Quot.sound]` |
+| Témoin de non-vacuité | `bornExpectation_refinementInvariantLocal` | `Refinement/PayoffPreserving.lean` | Cohérence Grain de Born amont | Montre seulement l'existence d'un habitant de la prémisse | `[propext, Classical.choice, Quot.sound]` |
+| Témoin de non-trivialité | `uniform_not_refinementInvariantLocal` | `Refinement/NonTriviality.lean` | Famille uniforme et paire explicite binaire / trois lignes dans `H 3` | Calcul spécifique à `n = 3` : `1 / 2 ≠ 2 / 3` | `[propext, Classical.choice, Quot.sound]` |
+| Résultat négatif original | `globalPremise_vacuous` | `Refinement/GlobalPayoffVacuity.lean` | Raffinement vers `{⊤}` | Porte sur l'ancienne lecture globale, explicitement non employée comme prémisse | `[propext, Classical.choice, Quot.sound]` |
 
-Catégories de statut utilisées (reprises telles quelles de l'amont) :
+L'énoncé principal exact est :
 
-- **résultat original** — un théorème dont l'énoncé et la preuve sont
-  originaux à ce développement formel.
-- **théorème de connexion** — un théorème qui relie deux développements
-  jusque-là séparés, sans re-prouver ni l'un ni l'autre.
-- **nouvelle réduction à un théorème connu** — un théorème qui réduit une
-  nouvelle hypothèse ou un nouveau cadre à un théorème déjà formalisé,
-  sans le re-prouver.
-- **formalisation d'un théorème connu** — une formalisation Lean directe
-  d'un théorème déjà établi dans la littérature.
-- **théorème opérationnel auxiliaire** — un résultat de soutien établissant
-  une réalisation opérationnelle, pas lui-même un théorème de
-  représentation ou de poids.
-- **contraste conceptuel** — une formalisation présentée pour contraster
-  avec le développement branchial, pas comme une prémisse de celui-ci.
-- **témoin de non-vacuité** — un habitant concret établissant qu'une
-  structure d'hypothèses n'est pas vacueuse.
-
-*(Table à remplir au fil des jalons P2–P11.)*
+```lean
+theorem born_expectation_of_invariance (F : RationalExpectationFamily n) (hn3 : 3 ≤ n)
+    (hinv : RefinementInvariantLocal F.V)
+    {v : H n} (hv : ‖v‖ = 1) (hNul : AxNul (canonicalWeight F) v)
+    (D : Perspective n) (a : Act n) :
+    F.V D a = ∑ c ∈ D.cells, ‖projL c v‖ ^ 2 * a c
+```
 
 ## English
 
-This document will record, for every theorem used substantively in paper
-II, its exact Lean declaration, module, mathematical status, principal
-dependencies, dimension assumptions, exactness, axiom-audit status, and
-scope limitation — following the pattern of
-`quantum-foundations-lean/docs/FOP_THEOREM_MAP.md`. **Empty at P1**: no
-scientific theorem is proved here yet (see `MILESTONES.md`).
+| Status | Declaration | Module | Direct dependencies | Scope limitation | Audit |
+|---|---|---|---|---|---|
+| Original result | `born_expectation_of_invariance` | `BornCalibration/BornExpectation.lean` | `RationalExpectationFamily`, `RefinementInvariantLocal`, `AxNul (canonicalWeight F) v`, `‖v‖ = 1`, `3 ≤ n` | Projective route only; invariance over **all** projective refinements, with no record restriction; it does not derive the normative premise dynamically | `[propext, Classical.choice, Quot.sound]` |
+| Connection theorem | `refinement_invariant_implies_grain` | `BornCalibration/RefinementImpliesGrain.lean` | Canonical representation and local invariance | Same unrestricted projective quantification | `[propext, Classical.choice, Quot.sound]` |
+| Representation theorem | `represents` | `Preference/Representation.lean` | Affinity, local monotonicity, normalization | Finite perspectives; acts remain total | `[propext, Classical.choice, Quot.sound]` |
+| Nonvacuity witness | `bornExpectation_refinementInvariantLocal` | `Refinement/PayoffPreserving.lean` | Upstream Born Grain coherence | Establishes only that the premise has an inhabitant | `[propext, Classical.choice, Quot.sound]` |
+| Nontriviality witness | `uniform_not_refinementInvariantLocal` | `Refinement/NonTriviality.lean` | Uniform family and the explicit binary / three-line pair in `H 3` | Dimension-specific calculation at `n = 3`: `1 / 2 ≠ 2 / 3` | `[propext, Classical.choice, Quot.sound]` |
+| Original negative result | `globalPremise_vacuous` | `Refinement/GlobalPayoffVacuity.lean` | Refinement to `{⊤}` | Concerns the former global reading, explicitly not used as a premise | `[propext, Classical.choice, Quot.sound]` |
 
-Status categories used (carried over as-is from upstream):
+The exact headline statement is:
 
-- **original result** — a theorem whose statement and proof are original
-  to this formal development.
-- **connection theorem** — a theorem that connects two previously
-  separate developments without reproving either.
-- **new reduction to a known theorem** — a theorem that reduces a new
-  hypothesis or setting to an already-formalized theorem, without
-  reproving that theorem.
-- **formalization of a known theorem** — a direct Lean formalization of a
-  theorem already established in the literature.
-- **auxiliary operational theorem** — a supporting result establishing an
-  operational realization, not itself a representation or weight
-  theorem.
-- **conceptual contrast** — a formalization presented to contrast with
-  the branch-theoretic development, not as a premise of it.
-- **nonvacuity witness** — a concrete inhabitant establishing that a
-  hypothesis structure is not vacuous.
-
-*(Table to be filled in as milestones P2–P11 close.)*
+```lean
+theorem born_expectation_of_invariance (F : RationalExpectationFamily n) (hn3 : 3 ≤ n)
+    (hinv : RefinementInvariantLocal F.V)
+    {v : H n} (hv : ‖v‖ = 1) (hNul : AxNul (canonicalWeight F) v)
+    (D : Perspective n) (a : Act n) :
+    F.V D a = ∑ c ∈ D.cells, ‖projL c v‖ ^ 2 * a c
+```
