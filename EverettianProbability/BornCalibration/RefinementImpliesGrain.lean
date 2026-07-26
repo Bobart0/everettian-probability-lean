@@ -1,4 +1,4 @@
-import EverettianProbability.BornCalibration.ContextualWeight
+import EverettianProbability.Preference.Representation
 import EverettianProbability.Refinement.PayoffPreserving
 
 /-!
@@ -37,11 +37,11 @@ open EverettianProbability.Core EverettianProbability.Preference EverettianProba
 variable {n : ℕ}
 
 /-- If `F.V` is invariant, along every refinement, for every
-payoff-preserving act, then `contextualWeight F` satisfies `AxGrain`. -/
+payoff-preserving act, then `canonicalWeight F` satisfies `AxGrain`. -/
 theorem refinement_invariant_implies_grain (F : RationalExpectationFamily n)
     (hinv : ∀ {D' D : Perspective n} (r : Refines D' D) (a : Act n),
       PayoffPreserving a → F.V D' (pullbackAct r a) = F.V D a) :
-    AxGrain (contextualWeight F) := by
+    AxGrain (canonicalWeight F) := by
   sorry
 
 end EverettianProbability.BornCalibration

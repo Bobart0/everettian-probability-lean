@@ -1,30 +1,18 @@
-import EverettianProbability.Preference.Representation
+import EverettianProbability.Preference.ExpectationFunctional
 
 /-!
-**FR.** # Poids contextuel
+**FR.** # Poids contextuel canonique
 
-Le poids contextuel associé à une famille d'espérance rationnelle `F` est
-le témoin de poids `p_D` fourni par le théorème de représentation
-(`Preference.exists_unique_weights`), vu comme une fonction des deux
-arguments `(D, c)`. Son type est **exactement**
-`Perspective n → Submodule ℂ (H n) → ℝ` : c'est le type de `Est` dans
-`AxGrain`/`AxNorm`/`AxPos`/`AxNul` et dans
-`grainCoherenceTheorem_projector`, en amont
-(`QuantumFoundations.BornRule.Assembly`). Ce choix de type — décision
-consignée dans `ARCHITECTURE_NOTES.md` — permet de brancher directement le
-théorème amont sur `contextualWeight F`, sans adaptateur.
+Le poids contextuel est défini directement comme la valeur de l'acte
+indicateur. Il est nul hors des cellules de la perspective. Cette définition
+canonique évite tout choix d'un représentant d'une classe de fonctions qui ne
+sont observées que sur `D.cells`.
 
-**EN.** # Contextual weight
+**EN.** # Canonical contextual weight
 
-The contextual weight attached to a rational expectation family `F` is the
-weight witness `p_D` furnished by the representation theorem
-(`Preference.exists_unique_weights`), viewed as a function of both
-arguments `(D, c)`. Its type is **exactly**
-`Perspective n → Submodule ℂ (H n) → ℝ`: this is the type of `Est` in
-`AxGrain`/`AxNorm`/`AxPos`/`AxNul` and in `grainCoherenceTheorem_projector`
-upstream (`QuantumFoundations.BornRule.Assembly`). This type choice —
-decision recorded in `ARCHITECTURE_NOTES.md` — lets the upstream theorem
-be applied directly to `contextualWeight F`, with no adapter.
+The contextual weight is defined directly as the value of the indicator act.
+It is zero outside the perspective's cells. This canonical definition avoids
+choosing a representative from functions that are observed only on `D.cells`.
 -/
 
 namespace EverettianProbability.BornCalibration
@@ -34,11 +22,21 @@ open EverettianProbability.Core EverettianProbability.Preference
 
 variable {n : ℕ}
 
-/-- The contextual weight of a rational expectation family: the
-representing-weight function, of type `Perspective n → Submodule ℂ (H n) →
-ℝ`, ready to be checked against `AxGrain`/`AxNorm`/`AxPos`/`AxNul`. -/
-noncomputable def contextualWeight (F : RationalExpectationFamily n) :
+/-- **FR.** Le poids canonique : la valeur de l'acte indicateur, nulle hors
+`D.cells`.
+
+**EN.** The canonical weight: the value of the indicator act, zero outside
+`D.cells`. -/
+noncomputable def canonicalWeight (F : RationalExpectationFamily n) :
     Perspective n → Submodule ℂ (H n) → ℝ :=
-  fun D => Classical.choose (exists_unique_weights F D)
+  fun D c => if c ∈ D.cells then F.V D (Act.indicator c) else 0
+
+/-- **FR.** Le poids canonique est nul hors des cellules de la perspective.
+
+**EN.** The canonical weight vanishes outside the perspective's cells. -/
+theorem canonicalWeight_zero_outside (F : RationalExpectationFamily n)
+    (D : Perspective n) {c : Submodule ℂ (H n)} (hc : c ∉ D.cells) :
+    canonicalWeight F D c = 0 := by
+  simp only [canonicalWeight, if_neg hc]
 
 end EverettianProbability.BornCalibration

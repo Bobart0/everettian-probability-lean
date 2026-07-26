@@ -47,8 +47,8 @@ variable {n : ℕ}
 /-- The rational expectation functional of a refinement-invariant family
 coincides with the Born expectation, on every perspective and every act. -/
 theorem born_expectation_formula (F : RationalExpectationFamily n) (hn3 : 3 ≤ n)
-    (hNorm : AxNorm (contextualWeight F)) (hPos : AxPos (contextualWeight F))
-    {v : H n} (hv : ‖v‖ = 1) (hNul : AxNul (contextualWeight F) v)
+    (hNorm : AxNorm (canonicalWeight F)) (hPos : AxPos (canonicalWeight F))
+    {v : H n} (hv : ‖v‖ = 1) (hNul : AxNul (canonicalWeight F) v)
     (hinv : ∀ {D' D : Perspective n} (r : Refines D' D) (a : Act n),
       PayoffPreserving a → F.V D' (pullbackAct r a) = F.V D a)
     (D : Perspective n) (a : Act n) :

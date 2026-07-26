@@ -43,13 +43,14 @@ open EverettianProbability.Rivals
 #print axioms bornExpectation_pullback_eq
 #print axioms bornExpectation_refinementInvariant
 #print axioms uniformExpectationFamily
+#print axioms represents
+#print axioms weights_unique_on_cells
 #print axioms naiveCounting_axPos
 #print axioms EverettianProbability.Abstract.expectation_refinementInvariant
 #print axioms EverettianProbability.Abstract.Projective.born_refinementInvariant
 #print axioms EverettianProbability.Abstract.Effects.pureState_refinementInvariant
 
 -- Open-goal-carrying declarations (directly or transitively): must show `sorryAx`.
-#print axioms exists_unique_weights
 #print axioms refinement_invariant_implies_grain
 #print axioms born_expectation_formula
 #print axioms naiveCounting_violates_grain
