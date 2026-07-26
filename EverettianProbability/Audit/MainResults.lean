@@ -1,4 +1,5 @@
 import EverettianProbability.BornCalibration.BornExpectation
+import EverettianProbability.BornCalibration.NonCircularity
 import EverettianProbability.BornCalibration.Nonvacuity
 import EverettianProbability.Core.Interface
 import EverettianProbability.Refinement.Nonvacuity
@@ -63,5 +64,11 @@ open EverettianProbability.Rivals
 #print axioms born_expectation_of_invariance
 #print axioms born_expectation_formula
 #print axioms naiveCounting_violates_grain
+#print axioms perspective_two_cases
+#print axioms skewWeight_axPos
+#print axioms skewWeight_axNul
+#print axioms skewWeight_axNorm
+#print axioms skewWeight_axGrain
+#print axioms grain_does_not_imply_born_at_two
 
 end EverettianProbability.Audit
