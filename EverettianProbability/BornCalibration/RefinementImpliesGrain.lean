@@ -81,4 +81,65 @@ theorem refinement_invariant_implies_grain (F : RationalExpectationFamily n)
     pullback_indicator_sum_eq F r hc, indicator_sum_eq F D hc] at h
   exact h.symm
 
+/-- **FR.** Pour toute règle d'estimation cohérente sous Grain, la somme
+pondérée d'un acte tiré-en-arrière égale la somme pondérée de l'acte sur la
+perspective grossière — la même identité de sommation que
+`bornExpectation_pullback_eq`, mais pour un poids `Est` arbitraire satisfaisant
+`AxGrain`, pas seulement pour le poids bornien.
+
+**EN.** For any Grain-coherent estimation rule, the weighted sum of a
+pulled-back act equals the weighted sum of the act on the coarse
+perspective — the same summation identity as `bornExpectation_pullback_eq`,
+but for an arbitrary `Est` satisfying `AxGrain`, not only the Born weight. -/
+private theorem grain_pullback_sum_eq
+    (Est : Perspective n → Submodule ℂ (H n) → ℝ) (hEst : AxGrain Est)
+    {D' D : Perspective n} (r : Refines D' D) (a : Act n) :
+    (∑ c' ∈ D'.cells, Est D' c' * pullbackAct r a c') =
+      ∑ c ∈ D.cells, Est D c * a c := by
+  unfold pullbackAct
+  simp only [Function.comp_apply]
+  rw [← Finset.sum_fiberwise_of_maps_to
+    (fun c' hc' => parentOf_mem r hc')
+    (fun c' => Est D' c' * a (parentOf r c'))]
+  apply Finset.sum_congr rfl
+  intro c hc
+  rw [← coarseCells_eq_fiber_parentOf r hc]
+  calc
+    (∑ c' ∈ coarseCells D' c, Est D' c' * a (parentOf r c')) =
+        ∑ c' ∈ coarseCells D' c, Est D' c' * a c := by
+      apply Finset.sum_congr rfl
+      intro c' hc'
+      obtain ⟨hc'mem, hc'le⟩ := (mem_coarseCells_iff D' c c').mp hc'
+      rw [parentOf_eq_of_le r hc'mem hc hc'le]
+    _ = (∑ c' ∈ coarseCells D' c, Est D' c') * a c := by rw [Finset.sum_mul]
+    _ = Est D c * a c := by
+      have hgrain := (axGrain_iff_coarseCells Est).mp hEst D' D r c hc
+      rw [← hgrain]
+
+/-- **FR.** `EQUIVALENCE`. La prémisse normative d'invariance locale sous
+raffinement est **exactement** l'axiome `AxGrain` sur le poids canonique : ni
+plus forte, ni plus faible. Le sens direct est
+`refinement_invariant_implies_grain` ; la réciproque combine `represents` (la
+fonctionnelle rationnelle est la somme pondérée par son poids canonique) avec
+`grain_pullback_sum_eq` (Grain fait coïncider les deux sommes pondérées de part
+et d'autre d'un raffinement), puis retombe sur la forme locale via
+`refinementInvariantLocal_iff_pullback`.
+
+**EN.** `EQUIVALENCE`. The normative premise of local refinement invariance
+is **exactly** `AxGrain` on the canonical weight: neither stronger nor
+weaker. The forward direction is `refinement_invariant_implies_grain`;
+the converse combines `represents` (the rational functional is the sum
+weighted by its canonical weight) with `grain_pullback_sum_eq` (Grain makes
+the two weighted sums coincide across a refinement), then falls back to the
+local form via `refinementInvariantLocal_iff_pullback`. -/
+theorem refinementInvariantLocal_iff_axGrain (F : RationalExpectationFamily n) :
+    RefinementInvariantLocal F.V ↔ AxGrain (canonicalWeight F) := by
+  constructor
+  · exact refinement_invariant_implies_grain F
+  · intro hGrain
+    rw [refinementInvariantLocal_iff_pullback]
+    intro D' D r a
+    rw [represents F D' (pullbackAct r a), represents F D a]
+    exact grain_pullback_sum_eq (canonicalWeight F) hGrain r a
+
 end EverettianProbability.BornCalibration

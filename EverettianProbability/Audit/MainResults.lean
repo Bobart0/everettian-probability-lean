@@ -59,6 +59,7 @@ open EverettianProbability.Rivals
 #print axioms EverettianProbability.Abstract.Projective.born_refinementInvariant
 #print axioms EverettianProbability.Abstract.Effects.pureState_refinementInvariant
 #print axioms refinement_invariant_implies_grain
+#print axioms refinementInvariantLocal_iff_axGrain
 #print axioms born_expectation_of_invariance
 #print axioms born_expectation_formula
 #print axioms naiveCounting_violates_grain
