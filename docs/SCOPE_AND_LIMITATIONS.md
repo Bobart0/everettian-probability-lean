@@ -10,7 +10,11 @@
   affaiblie, mais son isolement, sa formalisation, et la démonstration qu’elle
   suffit.
 - L’affinité de `RationalExpectationFamily` est une hypothèse forte. Les
-  théories non linéaires de l’utilité espérée restent hors de portée.
+  théories non linéaires de l’utilité espérée (dépendantes du rang :
+  Quiggin 1982, Yaari 1987) restent hors de portée — `maxExpectation`
+  (`Preference/NonTriviality.lean`), le maximum sur les cellules, en est le
+  témoin négatif explicite : monotone et normalisé, mais provablement non
+  affine (`maxExpectation_not_affine`).
 - Lean ne tranche pas l’interprétation philosophique de l’incertitude
   personnelle ; il vérifie seulement les implications entre prémisses.
 - La conclusion projective de Born utilise `3 ≤ n`. La route effets reste
@@ -31,7 +35,11 @@
   neither weaker nor more neutral. The repository claims not a weakened
   premise, but its isolation, formalization, and a proof that it suffices.
 - Affinity of `RationalExpectationFamily` is a strong assumption. Nonlinear
-  expected-utility theories remain outside the scope.
+  (rank-dependent: Quiggin 1982, Yaari 1987) expected-utility theories
+  remain outside the scope — `maxExpectation`
+  (`Preference/NonTriviality.lean`), the max over cells, is its explicit
+  negative witness: monotone and normalized, but provably not affine
+  (`maxExpectation_not_affine`).
 - Lean does not settle the philosophical interpretation of personal
   uncertainty; it verifies only implications between premises.
 - The projective Born conclusion uses `3 ≤ n`. The effect route remains

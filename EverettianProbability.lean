@@ -9,6 +9,7 @@ import EverettianProbability.Refinement.NonTriviality
 import EverettianProbability.Preference.ExpectationFunctional
 import EverettianProbability.Preference.Representation
 import EverettianProbability.Preference.Nonvacuity
+import EverettianProbability.Preference.NonTriviality
 import EverettianProbability.BornCalibration.ContextualWeight
 import EverettianProbability.BornCalibration.RefinementImpliesGrain
 import EverettianProbability.BornCalibration.BornExpectation

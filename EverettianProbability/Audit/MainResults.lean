@@ -6,6 +6,7 @@ import EverettianProbability.Refinement.Nonvacuity
 import EverettianProbability.Refinement.NonTriviality
 import EverettianProbability.Refinement.GlobalPayoffVacuity
 import EverettianProbability.Preference.Nonvacuity
+import EverettianProbability.Preference.NonTriviality
 import EverettianProbability.Rivals.NaiveBranchCounting
 import EverettianProbability.Rivals.Nonvacuity
 
@@ -70,5 +71,8 @@ open EverettianProbability.Rivals
 #print axioms skewWeight_axNorm
 #print axioms skewWeight_axGrain
 #print axioms grain_does_not_imply_born_at_two
+#print axioms maxExpectation_monotone
+#print axioms maxExpectation_normalized_const
+#print axioms maxExpectation_not_affine
 
 end EverettianProbability.Audit

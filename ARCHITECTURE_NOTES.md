@@ -79,7 +79,7 @@ Audit rétrospectif des structures effectivement employées comme hypothèses :
 
 | Structure | Témoin positif | Témoin négatif | État |
 |---|---|---|---|
-| `RationalExpectationFamily` | `uniformExpectationFamily` | absent : aucune fonctionnelle candidate échouant explicitement un axiome n'est encore nommée | À prioriser si la structure devient une cible de comparaison autonome |
+| `RationalExpectationFamily` | `uniformExpectationFamily` | `maxExpectation_not_affine` (`Preference/NonTriviality.lean`) : le maximum sur les cellules est monotone et normalisé, mais viole l'affinité (`1/2 ≠ 1`, perspective binaire explicite) | Complet |
 | `RefinementInvariantLocal` | `bornExpectation_refinementInvariantLocal` | `uniform_not_refinementInvariantLocal` | Complet |
 | `RefinementInvariant` | `bornExpectation_refinementInvariant` | dérivé de l'équivalence avec la forme locale et du témoin uniforme ; pas encore nommé séparément | Couvert par équivalence, à nommer si cette forme redevient publique |
 | `GloballyPayoffPreserving` | non requis : lecture archivée, non admise comme prémisse | `not_globallyPayoffPreserving_indicator` | Résultat négatif conservé |
@@ -168,7 +168,7 @@ Retroactive audit of structures actually used as hypotheses:
 
 | Structure | Positive witness | Negative witness | State |
 |---|---|---|---|
-| `RationalExpectationFamily` | `uniformExpectationFamily` | absent: no candidate functional explicitly failing an axiom is named yet | Prioritize if the structure becomes an autonomous comparison target |
+| `RationalExpectationFamily` | `uniformExpectationFamily` | `maxExpectation_not_affine` (`Preference/NonTriviality.lean`): the max over cells is monotone and normalized, but violates affinity (`1/2 ≠ 1`, explicit binary perspective) | Complete |
 | `RefinementInvariantLocal` | `bornExpectation_refinementInvariantLocal` | `uniform_not_refinementInvariantLocal` | Complete |
 | `RefinementInvariant` | `bornExpectation_refinementInvariant` | derived from equivalence with the local form and the uniform witness; not separately named yet | Covered by equivalence; name it if this form becomes public again |
 | `GloballyPayoffPreserving` | not required: archived reading, not an admitted premise | `not_globallyPayoffPreserving_indicator` | Retained negative result |
