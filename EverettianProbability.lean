@@ -34,6 +34,7 @@ import EverettianProbability.EffectCalibration.Nonvacuity
 import EverettianProbability.EffectCalibration.NonTriviality
 import EverettianProbability.Diachronic.Conditioning
 import EverettianProbability.Diachronic.NonTriviality
+import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Audit.MainResults
 
 /-!

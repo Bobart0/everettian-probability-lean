@@ -20,6 +20,7 @@ import EverettianProbability.EffectCalibration.Nonvacuity
 import EverettianProbability.EffectCalibration.NonTriviality
 import EverettianProbability.Diachronic.Conditioning
 import EverettianProbability.Diachronic.NonTriviality
+import EverettianProbability.Frequency.HammingCells
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -147,5 +148,13 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Diachronic.uniform_conditionalWeight_trans_fiber_lhs
 #print axioms EverettianProbability.Diachronic.uniform_conditionalWeight_trans_fiber_rhs
 #print axioms EverettianProbability.Diachronic.uniform_conditionalWeight_trans_fiber_fails
+
+#print axioms EverettianProbability.Frequency.configurationBasis_mem_frequencySitesCell
+#print axioms EverettianProbability.Frequency.frequencySitesCell_ortho
+#print axioms EverettianProbability.Frequency.configurationBranch_norm
+#print axioms EverettianProbability.Frequency.configurationBranch_ne_zero
+#print axioms EverettianProbability.Frequency.configurationBranch_inner_eq_zero_of_ne
+#print axioms EverettianProbability.Frequency.configurationBranch_mem_frequencyCell
+#print axioms EverettianProbability.Frequency.frequencyCell_ortho
 
 end EverettianProbability.Audit
