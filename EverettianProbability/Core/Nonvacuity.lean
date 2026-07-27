@@ -54,11 +54,15 @@ theorem exampleFine_refines : Refines exampleFine exampleCoarse :=
 /-- A concrete act: the indicator of `exampleLine`. -/
 noncomputable def exampleAct : Act 3 := Act.indicator exampleLine
 
-/-- Upstream `parentOf` is usable on a genuinely nontrivial refinement: applying
-it to any cell of the fine perspective type-checks and produces a subspace
-of `H 3`. Its exact value is not yet pinned down (`parent_mem`,
-`parent_le`, `parent_unique` are still open goals in `Core/Parent.lean` —
-see `MILESTONES.md`), but the definition itself is not vacuous. -/
+/-- Upstream `parentOf` is usable on a genuinely nontrivial refinement:
+applying it to any cell of the fine perspective type-checks and produces a
+subspace of `H 3`. Its governing lemmas (`parentOf_mem`, `parentOf_le`,
+`parentOf_eq_of_le`) are proved upstream and imported directly, not
+reproved here. The local `Core/Parent.lean` this docstring once pointed to
+(a P1-era scaffold carrying `parent_mem`/`parent_le`/`parent_unique` as
+open goals) was deleted once the API junction adopted upstream `parentOf`
+directly; every pullback in `EverettianProbability` now uses it as is (see
+`ARCHITECTURE_NOTES.md`). -/
 noncomputable example (c' : Submodule ℂ (H 3)) : Submodule ℂ (H 3) :=
   parentOf exampleFine_refines c'
 

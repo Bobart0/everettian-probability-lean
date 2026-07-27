@@ -19,9 +19,10 @@ fiches de veille, à formaliser aux jalons qui leur seront dédiés.
   (`PayoffPreserving`) : raffiner une perspective change le nombre de
   cellules, donc le poids uniforme, sans que la conséquence sous-jacente
   ait changé.
-- **Statut.** Formalisé (`Rivals/NaiveBranchCounting.lean`) ; la
-  violation de `AxGrain` est un but ouvert budgété (P1, voir
-  `MILESTONES.md`, clôture prévue P6).
+- **Statut.** Formalisé et clos (`Rivals/NaiveBranchCounting.lean :
+  naiveCounting_violates_grain`, jalon P6, voir `MILESTONES.md` et
+  `CLAIM_MATRIX.md`) : la violation de `AxGrain` est intégralement prouvée,
+  sans `sorry`, sur la paire binaire/trois-lignes explicite en `H 3`.
 
 ### Comptage local (Saunders 2021a)
 
@@ -120,9 +121,10 @@ watch-list entries, to be formalized at their dedicated milestones.
 - **Violated premise.** Refinement invariance (`PayoffPreserving`):
   refining a perspective changes the number of cells, hence the uniform
   weight, without the underlying consequence having changed.
-- **Status.** Formalized (`Rivals/NaiveBranchCounting.lean`); the
-  violation of `AxGrain` is a budgeted open goal (P1, see
-  `MILESTONES.md`, planned closure P6).
+- **Status.** Formalized and closed (`Rivals/NaiveBranchCounting.lean :
+  naiveCounting_violates_grain`, milestone P6, see `MILESTONES.md` and
+  `CLAIM_MATRIX.md`): the violation of `AxGrain` is fully proved, with no
+  `sorry`, on the explicit binary/three-line pair in `H 3`.
 
 ### Local counting (Saunders 2021a)
 

@@ -4,37 +4,52 @@ import QuantumFoundations.ProbabilityAPI
 /-!
 **FR.** # Espérance de Born
 
-Le résultat de clôture de l'article II : sous les hypothèses de
-`refinement_invariant_implies_grain`, plus (Norm), (Pos), (Null) et le
-théorème de représentation, la fonctionnelle d'espérance rationnelle `F.V`
-coïncide, sur toute perspective, avec l'espérance de Born
-`∑ c ∈ D.cells, ‖projL c v‖² * a c`. Énoncé comme but ouvert : résultat
-scientifique hors de portée de P1.
+Le résultat de clôture de l'article II, **prouvé sans but ouvert** depuis
+la reprise P3/P4 (voir `MILESTONES.md`) : sous **deux prémisses-ponts**
+distinctes — l'invariance locale sous raffinement
+(`RefinementInvariantLocal`, purement normative) et la nullité du poids
+canonique sur le support de l'état (`AxNul (canonicalWeight F) v`, un pont
+normatif-physique, seul point d'entrée de l'état `v` dans les hypothèses)
+— plus `RationalExpectationFamily` et **`3 ≤ n`**, la fonctionnelle
+d'espérance rationnelle `F.V` coïncide, sur toute perspective, avec
+l'espérance de Born `∑ c ∈ D.cells, ‖projL c v‖² * a c`. `AxNorm` et
+`AxPos` ne sont pas des hypothèses supplémentaires : elles sont dérivées de
+`RationalExpectationFamily` (`canonicalWeight_axNorm`,
+`canonicalWeight_axPos`). La restriction `3 ≤ n` n'est pas une formalité :
+`grain_does_not_imply_born_at_two` (`NonCircularity.lean`) montre qu'elle
+est nécessaire, puisqu'en `n = 2` Grain seul n'implique pas Born.
 
-L'`example` ci-dessous, en revanche, **compile sans laisser aucun but
-ouvert** : c'est le
-critère de sortie du jalon P1 (section 8 du prompt de bootstrap). Il ne
-dépend d'aucune définition propre à ce dépôt — seulement de
-`grainCoherenceTheorem_projector`, déjà prouvé en amont
+L'`example` ci-dessous reste, par construction, indépendant de ce résultat :
+c'est le critère de sortie du jalon P1 (section 8 du prompt de bootstrap),
+toujours valide. Il ne dépend d'aucune définition propre à ce dépôt —
+seulement de `grainCoherenceTheorem_projector`, déjà prouvé en amont
 (`QuantumFoundations.BornRule.Assembly`) — et atteste que le pin Lake vers
 `quantum_foundations` expose bien ce théorème avec la signature attendue.
 
 **EN.** # Born expectation
 
-The closing result of paper II: under the hypotheses of
-`refinement_invariant_implies_grain`, plus (Norm), (Pos), (Null), and the
-representation theorem, the rational expectation functional `F.V`
-coincides, on every perspective, with the Born expectation
-`∑ c ∈ D.cells, ‖projL c v‖² * a c`. Stated as an open goal: a scientific
-result out of scope for P1.
+The closing result of paper II, **proved with no open goal** since the
+P3/P4 resumption (see `MILESTONES.md`): under **two distinct bridge
+premises** — local invariance under refinement
+(`RefinementInvariantLocal`, purely normative) and null canonical weight on
+the state's support (`AxNul (canonicalWeight F) v`, a normative-physical
+bridge, the only place the state `v` enters the hypotheses) — plus
+`RationalExpectationFamily` and **`3 ≤ n`**, the rational expectation
+functional `F.V` coincides, on every perspective, with the Born expectation
+`∑ c ∈ D.cells, ‖projL c v‖² * a c`. `AxNorm` and `AxPos` are not extra
+hypotheses: they are derived from `RationalExpectationFamily`
+(`canonicalWeight_axNorm`, `canonicalWeight_axPos`). The `3 ≤ n`
+restriction is not a formality: `grain_does_not_imply_born_at_two`
+(`NonCircularity.lean`) shows it is necessary, since at `n = 2` Grain alone
+does not imply Born.
 
-The `example` below, by contrast, **compiles with no goal left open**: this is
-the P1 milestone's exit criterion (section 8 of the bootstrap prompt). It
-depends on no definition specific to this repository — only on
-`grainCoherenceTheorem_projector`, already proved upstream
-(`QuantumFoundations.BornRule.Assembly`) — and certifies that the Lake pin
-to `quantum_foundations` does expose that theorem with the expected
-signature.
+The `example` below remains, by construction, independent of this result:
+it is the P1 milestone's exit criterion (section 8 of the bootstrap
+prompt), still valid. It depends on no definition specific to this
+repository — only on `grainCoherenceTheorem_projector`, already proved
+upstream (`QuantumFoundations.BornRule.Assembly`) — and certifies that the
+Lake pin to `quantum_foundations` does expose that theorem with the
+expected signature.
 -/
 
 namespace EverettianProbability.BornCalibration
