@@ -282,5 +282,109 @@ theorem frequencyCell_ne_bot
       (prefixConfiguration R k))
       (by simpa using hmem)
 
+/-- **FR.** Deux indices de fréquence distincts définissent deux cellules
+distinctes.
+
+**EN.** Distinct frequency indices define distinct cells. -/
+theorem frequencyCell_injective (R : ℕ) :
+    Function.Injective
+      (fun k : Fin (R + 1) => frequencyCell R k.val) := by
+  intro k l hEq
+  change frequencyCell R k.val = frequencyCell R l.val at hEq
+  by_contra hkl
+  have hval : k.val ≠ l.val := by
+    intro h
+    exact hkl (Fin.ext h)
+  have horth :
+      frequencyCell R l.val ⟂ frequencyCell R l.val := by
+    have h :=
+      frequencyCell_ortho
+        (R := R) (k := k.val) (l := l.val) hval
+    rwa [hEq] at h
+  have hbot :
+      frequencyCell R l.val = ⊥ :=
+    Submodule.isOrtho_self.mp horth
+  exact frequencyCell_ne_bot R l hbot
+
+/-- **FR.** Les cellules de poids de Hamming possibles, indexées par
+`Fin (R + 1)`, forment une perspective projective finie.
+
+**EN.** The possible Hamming-weight cells, indexed by `Fin (R + 1)`,
+form a finite projective perspective. -/
+noncomputable def frequencyPerspective (R : ℕ) :
+    Perspective (2 ^ R) where
+  cells :=
+    Finset.univ.image
+      (fun k : Fin (R + 1) => frequencyCell R k.val)
+  nz := by
+    intro c hc
+    simp only [
+      Finset.mem_image,
+      Finset.mem_univ,
+      true_and
+    ] at hc
+    obtain ⟨k, rfl⟩ := hc
+    exact frequencyCell_ne_bot R k
+  ortho := by
+    intro c hc d hd hcd
+    simp only [
+      Finset.mem_image,
+      Finset.mem_univ,
+      true_and
+    ] at hc hd
+    obtain ⟨k, rfl⟩ := hc
+    obtain ⟨l, rfl⟩ := hd
+    have hkl : k ≠ l := by
+      intro h
+      apply hcd
+      rw [h]
+    have hval : k.val ≠ l.val := by
+      intro h
+      exact hkl (Fin.ext h)
+    exact
+      (frequencyCell_ortho
+        (R := R) (k := k.val) (l := l.val) hval).le
+  span := by
+    show
+      sSup
+        ((Finset.univ.image
+          (fun k : Fin (R + 1) =>
+            frequencyCell R k.val) :
+          Finset (Submodule ℂ (H (2 ^ R)))) :
+          Set (Submodule ℂ (H (2 ^ R)))) = ⊤
+    have himage :
+        ((Finset.univ.image
+          (fun k : Fin (R + 1) =>
+            frequencyCell R k.val) :
+          Finset (Submodule ℂ (H (2 ^ R)))) :
+          Set (Submodule ℂ (H (2 ^ R)))) =
+        Set.range
+          (fun k : Fin (R + 1) =>
+            frequencyCell R k.val) := by
+      ext c
+      simp [Set.mem_range]
+    rw [himage, sSup_range, frequencyCell_iSup_fin]
+
+/-- **FR.** Chaque cellule finiment indexée appartient à la perspective de
+fréquence.
+
+**EN.** Every finitely indexed cell belongs to the frequency perspective. -/
+theorem frequencyCell_mem_frequencyPerspective
+    (R : ℕ) (k : Fin (R + 1)) :
+    frequencyCell R k.val ∈
+      (frequencyPerspective R).cells := by
+  simp [frequencyPerspective]
+
+/-- **FR.** La perspective de fréquence contient exactement `R + 1`
+cellules.
+
+**EN.** The frequency perspective contains exactly `R + 1` cells. -/
+theorem frequencyPerspective_cells_card (R : ℕ) :
+    (frequencyPerspective R).cells.card = R + 1 := by
+  unfold frequencyPerspective
+  rw [Finset.card_image_of_injective]
+  · simp
+  · exact frequencyCell_injective R
+
 end
 end EverettianProbability.Frequency

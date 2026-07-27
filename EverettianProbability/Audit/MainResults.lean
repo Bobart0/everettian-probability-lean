@@ -165,5 +165,9 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.frequencyCell_iSup_fin
 #print axioms EverettianProbability.Frequency.hammingWeight_prefixConfiguration
 #print axioms EverettianProbability.Frequency.frequencyCell_ne_bot
+#print axioms EverettianProbability.Frequency.frequencyCell_injective
+#print axioms EverettianProbability.Frequency.frequencyPerspective
+#print axioms EverettianProbability.Frequency.frequencyCell_mem_frequencyPerspective
+#print axioms EverettianProbability.Frequency.frequencyPerspective_cells_card
 
 end EverettianProbability.Audit
