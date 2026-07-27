@@ -21,6 +21,7 @@ import EverettianProbability.EffectCalibration.NonTriviality
 import EverettianProbability.Diachronic.Conditioning
 import EverettianProbability.Diachronic.NonTriviality
 import EverettianProbability.Frequency.HammingCells
+import EverettianProbability.Frequency.RepetitionVector
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -169,5 +170,11 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.frequencyPerspective
 #print axioms EverettianProbability.Frequency.frequencyCell_mem_frequencyPerspective
 #print axioms EverettianProbability.Frequency.frequencyPerspective_cells_card
+
+#print axioms EverettianProbability.Frequency.repetitionSitesVector_apply
+#print axioms EverettianProbability.Frequency.sitesEquivR_repetitionVector
+#print axioms EverettianProbability.Frequency.repetitionAmplitude_eq_of_hammingWeight_eq
+#print axioms EverettianProbability.Frequency.repetitionSitesVector_eq_of_hammingWeight_eq
+#print axioms EverettianProbability.Frequency.repetitionAmplitude_prefixConfiguration
 
 end EverettianProbability.Audit
