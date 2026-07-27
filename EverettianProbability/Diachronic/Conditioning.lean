@@ -198,4 +198,62 @@ theorem conditionalExpectation_total
   · rw [conditionalExpectation_pullback_eq_of_weight_ne_zero
       F hinv hInjAll r c a hc]
 
+/-- **FR.** Un raffinement ultérieur redistribue exactement, sur la fibre
+d'une cellule intermédiaire, le poids déjà conditionné par une cellule
+grossière. Portée : aucun temps ni aucune dynamique ne sont formalisés ; un
+raffinement ne reçoit qu'une lecture diachronique interprétative.
+
+**EN.** A later refinement redistributes exactly, over an intermediate cell's
+fibre, the weight already conditioned by a coarse cell. Scope: no time or
+dynamics is formalized; a refinement receives only an interpretive diachronic
+reading. -/
+theorem conditionalWeight_trans_fiber
+    (F : RationalExpectationFamily I)
+    (hinv : RefinementInvariantLocal F.V)
+    (hInjAll : ∀ D : I.Perspective, Function.Injective (@I.outcome D))
+    {fine mid coarse : I.Perspective}
+    (s : I.Refinement fine mid) (r : I.Refinement mid coarse)
+    (c : I.Cell coarse) (j : I.Cell mid)
+    (hc : canonicalWeight F coarse c ≠ 0) :
+    conditionalWeight F r c j =
+      ∑ i : I.Cell fine,
+        if I.parentCell s i = j then
+          conditionalWeight F (I.trans s r) c i
+        else 0 := by
+  by_cases hjc : I.parentCell r j = c
+  · have hgrain := canonicalWeight_grain F hinv hInjAll s j
+    calc
+      conditionalWeight F r c j =
+          canonicalWeight F mid j / canonicalWeight F coarse c := by
+            simp only [conditionalWeight, hc, ↓reduceIte, hjc]
+      _ = (∑ i : I.Cell fine,
+            if I.parentCell s i = j then canonicalWeight F fine i else 0) /
+          canonicalWeight F coarse c := by
+            rw [← hgrain]
+      _ = ∑ i : I.Cell fine,
+            if I.parentCell s i = j then
+              conditionalWeight F (I.trans s r) c i
+            else 0 := by
+            rw [Finset.sum_div]
+            apply Finset.sum_congr rfl
+            intro i _
+            by_cases hsj : I.parentCell s i = j
+            · have htrans : I.parentCell (I.trans s r) i = c := by
+                rw [I.parentCell_trans s r i, hsj, hjc]
+              simp only [hsj, ↓reduceIte, conditionalWeight, hc, htrans]
+            · simp only [if_neg hsj, zero_div]
+  · rw [conditionalWeight_zero_of_not_in_fiber F r c j hjc]
+    symm
+    apply Finset.sum_eq_zero
+    intro i _
+    by_cases hsj : I.parentCell s i = j
+    · rw [if_pos hsj]
+      have htrans : I.parentCell (I.trans s r) i ≠ c := by
+        intro h
+        apply hjc
+        rw [I.parentCell_trans s r i, hsj] at h
+        exact h
+      exact conditionalWeight_zero_of_not_in_fiber F (I.trans s r) c i htrans
+    · simp only [if_neg hsj]
+
 end EverettianProbability.Abstract
