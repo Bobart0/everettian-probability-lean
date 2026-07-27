@@ -45,10 +45,10 @@ contextuel, pont vers Grain, espérance de Born, non-circularité, et leurs
 levées abstraites), `Rivals` (comptage naïf), `PhysicalRefinement` (témoin
 physique du raffinement record-neutre, P6a), `EffectCalibration` (route
 qubit : empaquetage en règle d'estimation d'effets, espérance de Born
-côté effets pour tout `n ≥ 1`, témoin concret en `n = 2`), `Audit` (audit
-des axiomes), puis `Diachronic` (conditionnement statique sur fibres de
-raffinement : aucune dynamique temporelle, aucun continuateur et aucun record
-accessible ne sont formalisés).
+côté effets pour tout `n ≥ 1`, témoin concret en `n = 2`), `Diachronic`
+(conditionnement statique sur fibres de raffinement : aucune dynamique
+temporelle, aucun continuateur et aucun record accessible ne sont formalisés),
+puis `Audit` (audit des axiomes).
 
 **EN.** Entry point of the `EverettianProbability` package. Imports every
 module, in dependency order: `Core` (interface, acts, parent map,
@@ -59,7 +59,7 @@ expectation, non-circularity, and their abstract lifts), `Rivals` (naive
 counting), `PhysicalRefinement` (physical witness of the record-neutral
 refinement, P6a), `EffectCalibration` (qubit route: packaging into an
 effect estimation rule, effect-side Born expectation for every `n ≥ 1`,
-concrete `n = 2` witness), `Audit` (axioms audit), then `Diachronic`
-(static conditioning on refinement fibers: no temporal dynamics, continuator,
-or accessible record is formalized).
+concrete `n = 2` witness), `Diachronic` (static conditioning on refinement
+fibers: no temporal dynamics, continuator, or accessible record is
+formalized), then `Audit` (axioms audit).
 -/

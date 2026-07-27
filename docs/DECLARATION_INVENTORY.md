@@ -5,14 +5,14 @@
 > omises ici mais aucune n'a été laissée sans lecture — voir la note de bas
 > de tableau par fichier quand leur omission mérite d'être signalée. Les
 > `example` anonymes (non nommés) ne sont pas des déclarations publiques
-> au sens strict ; les deux qui portent un rôle de témoin sont listées en
+> au sens strict ; les trois qui portent un rôle de témoin sont listées en
 > note à la fin de chaque langue.
 >
 > One line per public declaration (non-`private`, non-anonymous) in the
 > repository. `private` declarations are internal computation steps; they
 > are omitted here, but none went unread — see the per-file footnote when
 > an omission is worth flagging. Anonymous `example`s are not public
-> declarations in the strict sense; the two that carry a witness role are
+> declarations in the strict sense; the three that carry a witness role are
 > listed in a note at the end of each language section.
 
 ## Français
@@ -68,8 +68,6 @@ auxiliaire*, *définition*.
 | `exampleAct` | Core/Nonvacuity.lean | Acte concret : l'indicatrice de `exampleLine`. | — | — | définition |
 | `exampleLine_mem_exampleCoarse` | Core/Nonvacuity.lean | `exampleLine` est bien une cellule de `exampleCoarse`. | — | Prouvé. | API auxiliaire |
 | `exampleAct_at_exampleLine`, `exampleConst_at_exampleLine` | Core/Nonvacuity.lean | Valeurs concrètes de `exampleAct` et de l'acte constant sur `exampleLine`. | — | Prouvé. | API auxiliaire |
-
-**Note.** Le docstring de ce fichier (lignes 57–61) affirme que `parent_mem`, `parent_le`, `parent_unique` « sont encore des buts ouverts dans `Core/Parent.lean` ». Ce fichier n'existe pas : `ARCHITECTURE_NOTES.md` («Actes, carte parent et interface P0.3») confirme explicitement que `Core/Parent.lean` **a été supprimé** et que tous les tirés-en-arrière utilisent désormais `parentOf` amont. Le docstring n'a pas été mis à jour depuis cette suppression — référence morte, décrite en détail dans le rapport de session.
 
 ### `Refinement/PullbackAct.lean`
 
@@ -180,8 +178,6 @@ auxiliaire*, *définition*.
 | `born_expectation_of_invariance` | BornCalibration/BornExpectation.lean | Sous les axiomes généraux de rationalité, l'invariance locale normative et la nullité physique du poids canonique (`AxNul`), la fonctionnelle d'espérance coïncide avec l'espérance de Born, sur toute perspective. | `F : RationalExpectationFamily n`, `3 ≤ n`, `RefinementInvariantLocal F.V`, `‖v‖ = 1`, `AxNul (canonicalWeight F) v`. | Prouvé. Route projective seulement ; `AxNorm`/`AxPos` sont **dérivées**, non assumées ; ne dérive dynamiquement ni prémisse-pont. | résultat original |
 | `born_expectation_formula` | BornCalibration/BornExpectation.lean | Corollaire de compatibilité : la même conclusion, avec `AxNorm`/`AxPos` explicites (désormais redondantes). | Comme ci-dessus, plus `AxNorm`, `AxPos` explicites (ignorées dans la preuve). | Prouvé ; strictement un corollaire, sans contenu supplémentaire. | résultat original |
 
-**Note.** Le docstring de module (lignes 5–20) qualifie encore `born_expectation_of_invariance` de « résultat de clôture... énoncé comme but ouvert : résultat scientifique hors de portée de P1 ». C'est faux depuis la reprise P3/P4 : la déclaration est intégralement prouvée, sans `sorry`. Le docstring n'a pas été mis à jour depuis la clôture — décrit en détail dans le rapport de session. L'`example` anonyme du critère de sortie P1 (ligne 89) est authentique et toujours valide ; voir la note de fin de section.
-
 ### `BornCalibration/NonCircularity.lean`
 
 | Déclaration | Fichier | Ce qu'elle affirme | Hypothèses | Portée / limitations | Catégorie |
@@ -208,8 +204,6 @@ Ce fichier ne contient qu'un `example` anonyme (voir note de fin de section) ; a
 | `exampleCoarse_cells_card`, `exampleFine_cells_card` | Rivals/NaiveBranchCounting.lean | Cardinaux concrets (`2` et `3`) de la paire binaire/trois-lignes explicite en `H 3`. | Fixé à `n = 3`. | Prouvé ; exposés pour réutilisation par d'autres fichiers de témoins. | API auxiliaire |
 | `naiveCounting` | Rivals/NaiveBranchCounting.lean | Règle rivale : chaque cellule reçoit le poids uniforme `1/|D.cells|`, indépendamment de tout contenu hilbertien. | — | Définition, pour tout `n`. | définition |
 | `naiveCounting_violates_grain` | Rivals/NaiveBranchCounting.lean | Le comptage naïf viole `AxGrain`, sur la paire binaire/trois-lignes explicite en `H 3`. | Fixé à `n = 3`. | Prouvé. | résultat négatif |
-
-**Note.** `docs/RIVAL_RULES.md` qualifie encore ce résultat de « but ouvert budgété (P1... clôture prévue P6) », alors que `naiveCounting_violates_grain` est intégralement prouvé et clos depuis la reprise P3/P4 (confirmé par `CLAIM_MATRIX.md`, `MILESTONES.md`). Référence obsolète, décrite dans le rapport de session.
 
 ### `Rivals/Nonvacuity.lean`
 
@@ -260,10 +254,10 @@ Aucune déclaration propre : uniquement une suite de commandes `#print axioms` s
 
 ### Note — `example` anonymes portant un rôle de témoin
 
-Deux `example` (non nommés, donc non listés ci-dessus comme déclarations publiques au sens strict) portent un rôle significatif :
+Trois `example` (non nommés, donc non listés ci-dessus comme déclarations publiques au sens strict) portent un rôle significatif :
 
 - `BornCalibration/BornExpectation.lean`, ligne 89 : critère de sortie du jalon P1 — atteste que `grainCoherenceTheorem_projector` est importable avec exactement la signature attendue, sans aucune définition propre à ce dépôt. Toujours valide.
-- `Core/Nonvacuity.lean`, ligne 62 : atteste que `parentOf` s'applique sans erreur de type à un raffinement non trivial concret. Toujours valide, mais son docstring adjacent est la référence morte à `Core/Parent.lean` déjà signalée.
+- `Core/Nonvacuity.lean`, ligne 62 : atteste que `parentOf` s'applique sans erreur de type à un raffinement non trivial concret. Toujours valide.
 - `BornCalibration/Nonvacuity.lean`, ligne 24 : atteste que `canonicalWeight` produit un réel concret sur `uniformExpectationFamily`. Toujours valide.
 
 ## English
@@ -318,8 +312,6 @@ Categories: *original result*, *connection theorem*, *nonvacuity witness*,
 | `exampleAct` | Core/Nonvacuity.lean | Concrete act: the indicator of `exampleLine`. | — | — | definition |
 | `exampleLine_mem_exampleCoarse` | Core/Nonvacuity.lean | `exampleLine` is indeed a cell of `exampleCoarse`. | — | Proved. | auxiliary API |
 | `exampleAct_at_exampleLine`, `exampleConst_at_exampleLine` | Core/Nonvacuity.lean | Concrete values of `exampleAct` and the constant act on `exampleLine`. | — | Proved. | auxiliary API |
-
-**Note.** This file's docstring (lines 57–61) claims `parent_mem`, `parent_le`, `parent_unique` "are still open goals in `Core/Parent.lean`." That file does not exist: `ARCHITECTURE_NOTES.md` ("Acts, upstream parent map, and the P0.3 interface") explicitly confirms `Core/Parent.lean` **was deleted** and every pullback now uses upstream `parentOf`. The docstring was never updated after that deletion — a dead reference, detailed in the session report.
 
 ### `Refinement/PullbackAct.lean`
 
@@ -430,8 +422,6 @@ Categories: *original result*, *connection theorem*, *nonvacuity witness*,
 | `born_expectation_of_invariance` | BornCalibration/BornExpectation.lean | Under general rationality axioms, normative local invariance, and physical null support for the canonical weight (`AxNul`), the expectation functional coincides with Born expectation, on every perspective. | `F : RationalExpectationFamily n`, `3 ≤ n`, `RefinementInvariantLocal F.V`, `‖v‖ = 1`, `AxNul (canonicalWeight F) v`. | Proved. Projective route only; `AxNorm`/`AxPos` are **derived**, not assumed; dynamically derives neither bridge premise. | original result |
 | `born_expectation_formula` | BornCalibration/BornExpectation.lean | Compatibility corollary: the same conclusion, with explicit (now redundant) `AxNorm`/`AxPos`. | As above, plus explicit `AxNorm`, `AxPos` (unused in the proof). | Proved; strictly a corollary, no extra content. | original result |
 
-**Note.** The module docstring (lines 5–20) still calls `born_expectation_of_invariance` "the closing result... stated as an open goal: a scientific result out of scope for P1." That is false since the P3/P4 resumption: the declaration is fully proved, no `sorry`. The docstring was never updated after closure — detailed in the session report. The anonymous exit-criterion `example` (line 89) is genuine and still valid; see the end-of-section note.
-
 ### `BornCalibration/NonCircularity.lean`
 
 | Declaration | File | What it asserts | Hypotheses | Scope / limitations | Category |
@@ -458,8 +448,6 @@ This file contains only an anonymous `example` (see end-of-section note); no nam
 | `exampleCoarse_cells_card`, `exampleFine_cells_card` | Rivals/NaiveBranchCounting.lean | Concrete cardinalities (`2` and `3`) of the explicit binary/three-line pair in `H 3`. | Fixed at `n = 3`. | Proved; exposed for reuse by other witness files. | auxiliary API |
 | `naiveCounting` | Rivals/NaiveBranchCounting.lean | Rival rule: every cell receives uniform weight `1/|D.cells|`, independent of any Hilbert-space content. | — | Definition, for every `n`. | definition |
 | `naiveCounting_violates_grain` | Rivals/NaiveBranchCounting.lean | Naive counting violates `AxGrain`, on the explicit binary/three-line pair in `H 3`. | Fixed at `n = 3`. | Proved. | negative result |
-
-**Note.** `docs/RIVAL_RULES.md` still calls this result a "budgeted open goal (P1... planned closure P6)," although `naiveCounting_violates_grain` has been fully proved and closed since the P3/P4 resumption (confirmed by `CLAIM_MATRIX.md`, `MILESTONES.md`). A stale reference, detailed in the session report.
 
 ### `Rivals/Nonvacuity.lean`
 
@@ -510,10 +498,10 @@ No declaration of its own: only a sequence of `#print axioms` commands on declar
 
 ### Note — anonymous `example`s carrying a witness role
 
-Two `example`s (unnamed, hence not listed above as public declarations in the strict sense) carry a significant role:
+Three `example`s (unnamed, hence not listed above as public declarations in the strict sense) carry a significant role:
 
 - `BornCalibration/BornExpectation.lean`, line 89: the P1 milestone's exit criterion — certifies that `grainCoherenceTheorem_projector` is importable with exactly the expected signature, with no definition specific to this repository. Still valid.
-- `Core/Nonvacuity.lean`, line 62: certifies that `parentOf` type-checks against a concrete nontrivial refinement. Still valid, but its adjacent docstring is the already-flagged dead reference to `Core/Parent.lean`.
+- `Core/Nonvacuity.lean`, line 62: certifies that `parentOf` type-checks against a concrete nontrivial refinement. Still valid.
 - `BornCalibration/Nonvacuity.lean`, line 24: certifies that `canonicalWeight` produces a concrete real for `uniformExpectationFamily`. Still valid.
 
 ### `Diachronic/Conditioning.lean` / `Diachronic/NonTriviality.lean`
@@ -526,7 +514,7 @@ Two `example`s (unnamed, hence not listed above as public declarations in the st
 | `conditionalWeight_sum_eq_zero_or_one`, `conditionalWeight_normalized` | Diachronic/Conditioning.lean | Conditional mass is `0` for a zero conditioning weight and `1` otherwise; the latter is the nonzero corollary. | A refinement; nonzero weight for the normalized corollary. | Proved. | original result |
 | `conditionalExpectation_pullback_eq_of_weight_ne_zero`, `conditionalExpectation_total` | Diachronic/Conditioning.lean | Recovery of the conditioning-cell consequence for a pulled-back coarse act; law of total expectation. | Rational family, local invariance and outcome injectivity; nonzero weight in the first result. | Proved. No time evolution is in the signature. | original result |
 | `conditionalWeight_trans_fiber` | Diachronic/Conditioning.lean | Conditional marginalization under composition of refinements. | `RefinementInvariantLocal`, via `canonicalWeight_grain`. | Proved. Logical chain: `RefinementInvariantLocal → canonicalWeight_grain → conditionalWeight_trans_fiber`; not an independent diachronic premise. | original result |
-| `uniformProjectiveExpectationFamily`, `uniform_conditionalWeight_trans_fiber_fails` | Diachronic/NonTriviality.lean | Abstract interface adapter for uniform expectation and its direct counter-witness. | Fixed projective example in dimension 3. | Computes `1 ≠ 4 / 3`; it does not contradict the theorem because uniform expectation lacks `RefinementInvariantLocal`. | nontriviality witness |
+| `uniformProjectiveExpectationFamily`, `uniform_conditionalWeight_trans_fiber_lhs`, `uniform_conditionalWeight_trans_fiber_rhs`, `uniform_conditionalWeight_trans_fiber_fails` | Diachronic/NonTriviality.lean | Abstract interface adapter for uniform expectation; the first two calculations yield respectively `1` and `4 / 3`, and the last derives their inequality. | Fixed projective example in dimension 3. | The counter-witness does not contradict the theorem because uniform expectation lacks `RefinementInvariantLocal`. | nontriviality witness |
 
 **FR.** P8 est clos dans sa portée formelle révisée : il ne formalise ni
 dynamique temporelle, ni continuateur, ni record accessible. L'« accord des

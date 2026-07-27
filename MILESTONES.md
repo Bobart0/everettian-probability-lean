@@ -2,7 +2,7 @@
 
 ## Français
 
-### État au 2026-07-26
+### État au 2026-07-27
 
 | Jalon | Objet | Statut | Buts fermés dans cette reprise |
 |---|---|---|---:|
@@ -163,7 +163,7 @@ Budget toujours à `0` ; aucun `sorry` introduit.
 
 ## English
 
-### Status on 2026-07-26
+### Status on 2026-07-27
 
 | Milestone | Subject | Status | Goals closed in this resumption |
 |---|---|---|---:|

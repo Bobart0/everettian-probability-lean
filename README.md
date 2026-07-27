@@ -263,7 +263,21 @@ amont.
 
 ### Structure du dépôt
 
-Voir la section anglaise ci-dessus (le contenu est identique). Les
+```
+EverettianProbability/
+├── Core/                 — actes, interface abstraite des perspectives
+├── Refinement/           — tiré-en-arrière des actes, invariance préservant les conséquences
+├── Preference/           — famille d'espérance rationnelle, théorème de représentation
+├── BornCalibration/      — poids contextuel, pont vers Grain, espérance de Born,
+│                            témoin de non-circularité (`n = 2`)
+├── Rivals/               — comptage naïf des branches (règle rivale)
+├── PhysicalRefinement/   — témoin physique de raffinement record-neutre (P6a)
+├── EffectCalibration/    — route qubit : espérance de Born côté effets pour tout `n ≥ 1`
+├── Diachronic/           — conditionnement statique sur fibres de raffinement (P8)
+└── Audit/                — audit consolidé des axiomes
+```
+
+Les
 répertoires des jalons non ouverts (`SelfLocation/`, `Confirmation/`,
 `Approximate/`) n'existent pas encore et ne sont créés
 qu'à l'ouverture de leur jalon respectif.
