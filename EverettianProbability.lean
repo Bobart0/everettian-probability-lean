@@ -32,6 +32,7 @@ import EverettianProbability.EffectCalibration.QubitWitness
 import EverettianProbability.EffectCalibration.Nonvacuity
 import EverettianProbability.EffectCalibration.NonTriviality
 import EverettianProbability.Diachronic.Conditioning
+import EverettianProbability.Diachronic.NonTriviality
 import EverettianProbability.Audit.MainResults
 
 /-!
