@@ -129,4 +129,73 @@ theorem conditionalWeight_normalized
   simpa only [if_neg hc] using
     conditionalWeight_sum_eq_zero_or_one F hinv hInjAll r c
 
+/-- **FR.** L'évaluation conditionnelle du tiré-en-arrière d'un acte grossier
+est la conséquence de sa cellule conditionnante lorsque le poids de celle-ci
+est non nul. Portée : aucun temps ni aucune dynamique ne sont formalisés ; un
+raffinement ne reçoit qu'une lecture diachronique interprétative.
+
+**EN.** Conditional evaluation of a coarse act's pullback is the consequence
+of its conditioning cell when that cell's weight is nonzero. Scope: no time
+or dynamics is formalized; a refinement receives only an interpretive
+diachronic reading. -/
+theorem conditionalExpectation_pullback_eq_of_weight_ne_zero
+    (F : RationalExpectationFamily I)
+    (hinv : RefinementInvariantLocal F.V)
+    (hInjAll : ∀ D : I.Perspective, Function.Injective (@I.outcome D))
+    {fine coarse : I.Perspective} (r : I.Refinement fine coarse)
+    (c : I.Cell coarse) (a : Act I)
+    (hc : canonicalWeight F coarse c ≠ 0) :
+    conditionalExpectation F r c (pullbackAct I r a) =
+      a (I.outcome c) := by
+  unfold conditionalExpectation
+  calc
+    ∑ i : I.Cell fine,
+        conditionalWeight F r c i * (pullbackAct I r a) (I.outcome i) =
+        ∑ i : I.Cell fine,
+          conditionalWeight F r c i * a (I.outcome (I.parentCell r i)) := by
+            apply Finset.sum_congr rfl
+            intro i _
+            unfold pullbackAct
+            rw [Function.comp_apply, I.parentOutcome_cell]
+    _ = ∑ i : I.Cell fine,
+          conditionalWeight F r c i * a (I.outcome c) := by
+            apply Finset.sum_congr rfl
+            intro i _
+            by_cases hi : I.parentCell r i = c
+            · rw [hi]
+            · rw [conditionalWeight_zero_of_not_in_fiber F r c i hi]
+              simp
+    _ = (∑ i : I.Cell fine, conditionalWeight F r c i) * a (I.outcome c) := by
+            rw [Finset.sum_mul]
+    _ = a (I.outcome c) := by
+            rw [conditionalWeight_normalized F hinv hInjAll r c hc, one_mul]
+
+/-- **FR.** Loi de totalité : l'évaluation grossière est la somme des
+évaluations conditionnelles des tirés-en-arrière, pondérées par les poids
+canoniques grossiers. Portée : aucun temps ni aucune dynamique ne sont
+formalisés ; un raffinement ne reçoit qu'une lecture diachronique
+interprétative.
+
+**EN.** Totality law: coarse evaluation is the sum of conditional evaluations
+of pullbacks, weighted by coarse canonical weights. Scope: no time or
+dynamics is formalized; a refinement receives only an interpretive diachronic
+reading. -/
+theorem conditionalExpectation_total
+    (F : RationalExpectationFamily I)
+    (hinv : RefinementInvariantLocal F.V)
+    (hInjAll : ∀ D : I.Perspective, Function.Injective (@I.outcome D))
+    {fine coarse : I.Perspective} (r : I.Refinement fine coarse)
+    (a : Act I) :
+    F.V coarse a =
+      ∑ c : I.Cell coarse,
+        canonicalWeight F coarse c *
+          conditionalExpectation F r c (pullbackAct I r a) := by
+  rw [represents F coarse (hInjAll coarse) a]
+  apply Finset.sum_congr rfl
+  intro c _
+  by_cases hc : canonicalWeight F coarse c = 0
+  · simp only [hc, zero_mul]
+  · rw [conditionalExpectation_pullback_eq_of_weight_ne_zero
+      F hinv hInjAll r c a hc]
+
 end EverettianProbability.Abstract
