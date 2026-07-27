@@ -414,3 +414,51 @@ no file of this repository, Lean or Markdown. Answering them would mean
 speculating beyond what this repository attests. The only honest answer
 is: the first non-formal decision is to document, somewhere, what this
 name refers to — exactly the same defect as P5, under a different name.
+
+## 2026-07-27 current-status correction / correction d'état courant
+
+**FR.** Cette section met à jour les lignes P8 et route qubit du relevé daté
+du 2026-07-26 ci-dessus. P8 est **clos dans sa portée formelle révisée** :
+conditionnement sur fibres de raffinement, loi de totalité et marginalisation
+conditionnelle sous composition des raffinements. Aucune dynamique temporelle,
+aucun continuateur et aucun record accessible ne sont formalisés. Les résultats
+sont `conditionalWeight_sum_eq_zero_or_one` (masse `0` si le poids
+conditionnant est nul, `1` sinon), `conditionalWeight_normalized` (cas non
+nul), `conditionalExpectation_pullback_eq_of_weight_ne_zero` (restitution de
+la conséquence conditionnante), `conditionalExpectation_total` (totalité), et
+`conditionalWeight_trans_fiber` (marginalisation). Leur chaîne logique est
+`RefinementInvariantLocal → canonicalWeight_grain →
+conditionalWeight_trans_fiber` : ce dernier résultat n'est pas une prémisse
+diachronique indépendante. L'« accord des continuateurs » est une lecture
+interprétative seulement. Le témoin
+`uniform_conditionalWeight_trans_fiber_fails` calcule directement
+`1 ≠ 4 / 3`; il ne contredit pas le théorème car la famille uniforme ne
+satisfait pas `RefinementInvariantLocal`.
+
+La route qubit / effets est également **close** :
+`effectExpectation_represents` vaut pour tout `n`, et
+`effectWeight_eq_born_of_invariance` donne, pour tout `n ≥ 1`, une conclusion
+par sortie lorsque son effet est une projection. Elle ne couvre pas les POVM
+non projectifs.
+
+**EN.** This section updates the P8 and qubit-route rows of the dated
+2026-07-26 audit above. P8 is **closed in its revised formal scope**:
+conditioning on refinement fibers, totality, and conditional marginalization
+under composition of refinements. No temporal dynamics, continuator, or
+accessible record is formalized. Its results are
+`conditionalWeight_sum_eq_zero_or_one` (mass `0` at zero conditioning weight,
+`1` otherwise), `conditionalWeight_normalized` (the nonzero case),
+`conditionalExpectation_pullback_eq_of_weight_ne_zero` (conditioning
+consequence recovery), `conditionalExpectation_total` (totality), and
+`conditionalWeight_trans_fiber` (marginalization). Their logical chain is
+`RefinementInvariantLocal → canonicalWeight_grain →
+conditionalWeight_trans_fiber`: the last result is not an independent
+diachronic premise. “Continuator agreement” is an interpretive reading only.
+The witness `uniform_conditionalWeight_trans_fiber_fails` directly computes
+`1 ≠ 4 / 3`; it does not contradict the theorem because the uniform family does
+not satisfy `RefinementInvariantLocal`.
+
+The qubit / effect route is also **closed**: `effectExpectation_represents`
+holds for every `n`, and `effectWeight_eq_born_of_invariance` gives, for every
+`n ≥ 1`, a per-outcome conclusion when its effect is a projection. It does not
+cover non-projective POVMs.

@@ -56,6 +56,15 @@ transportée par le type reçu, sans prémisse physique supplémentaire.
 `RefinementInvariantLocal` est normative; elle n'est dérivée d'aucune dynamique,
 décohérence, typicalité ou hypothèse de saturation physique.
 
+### P8 — conditionnement statique
+
+Le jalon P8 n'ajoute aucune dépendance amont : il emploie seulement, par
+l'interface aval, `Refines.refl`, `Refines.trans` et la carte parent déjà
+documentée ci-dessus. Sa dépendance logique aval est
+`RefinementInvariantLocal → canonicalWeight_grain →
+conditionalWeight_trans_fiber`. Il ne formalise ni temps, ni record
+accessible, ni continuateur.
+
 ## English
 
 Every upstream reference passes through the sole import
@@ -111,3 +120,11 @@ type, without an additional physical premise.
 `RestrictedRecordSectors` is neither imported nor used. The
 `RefinementInvariantLocal` premise is normative; it is not derived from dynamics,
 decoherence, typicality, or a physical saturation assumption.
+
+### P8 — static conditioning
+
+P8 adds no upstream dependency: through the downstream interface it uses only
+the already-listed `Refines.refl`, `Refines.trans`, and parent map. Its
+downstream logical dependency is `RefinementInvariantLocal →
+canonicalWeight_grain → conditionalWeight_trans_fiber`. It formalizes no time,
+accessible record, or continuator.

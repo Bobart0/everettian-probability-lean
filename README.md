@@ -63,6 +63,13 @@ Born expectation.
   `represents`/`canonicalWeight`/`refinement_invariant_implies_grain` to
   the abstract `PerspectiveInterface` level, with `outcome`-injectivity
   threaded as an argument rather than added as a class field.
+- **`Diachronic/`** (P8): static conditioning on refinement fibers. The
+  total conditional mass is `0` at a zero conditioning weight and `1`
+  otherwise; totality and conditional marginalization are proved. The logical
+  chain is `RefinementInvariantLocal → canonicalWeight_grain →
+  conditionalWeight_trans_fiber`, so conditional marginalization is a
+  consequence of Grain, not an independent diachronic premise. No temporal
+  dynamics, continuator, or accessible record is formalized.
 
 Every result above is proved with `SORRY_COUNT = 0`; see
 `docs/THEOREM_MAP.md` for the full dependency and scope table, and
@@ -78,7 +85,8 @@ including the ones above.
 | P6 | Exclusion of naive counting | Closed |
 | P6a | Physical witness of a record-neutral refinement | Closed (existence witness) |
 | Qubit route | Effect-side Born expectation, every `n ≥ 1`, projective outcomes | Closed (restricted to projective outcomes) |
-| P5, P6b, P7–P12, primitive-preference route | Later milestones | Not opened |
+| P8 | Static conditioning on refinement fibers | Closed (revised formal scope) |
+| P5, P6b, P7, P9–P12, primitive-preference route | Later milestones | Not opened |
 
 See `MILESTONES.md` for closure details and `docs/PROGRAM_STATUS.md` for a
 full audit of every milestone, including — for each not-yet-opened one —
@@ -106,11 +114,12 @@ EverettianProbability/
 ├── Rivals/                 — naive branch counting (a rival rule)
 ├── PhysicalRefinement/      — physical witness of a record-neutral refinement (P6a)
 ├── EffectCalibration/        — qubit route: effect-side Born expectation for every n ≥ 1
+├── Diachronic/               — static conditioning on refinement fibers (P8)
 └── Audit/                    — consolidated axiom audit
 ```
 
-Milestone directories not yet opened (`Diachronic/`, `SelfLocation/`,
-`Confirmation/`, `Approximate/`) do not exist yet and are created only
+Milestone directories not yet opened (`SelfLocation/`, `Confirmation/`,
+`Approximate/`) do not exist yet and are created only
 when their milestone opens.
 
 ### Scope and limitations
@@ -211,6 +220,14 @@ espérance de Born.
   `refinement_invariant_implies_grain` au niveau abstrait
   `PerspectiveInterface`, avec l'injectivité de `outcome` filetée en
   argument plutôt qu'ajoutée comme champ de classe.
+- **`Diachronic/`** (P8) : conditionnement statique sur les fibres de
+  raffinement. La masse conditionnelle totale vaut `0` au poids conditionnant
+  nul et `1` sinon ; la totalité et la marginalisation conditionnelle sont
+  prouvées. La chaîne logique est `RefinementInvariantLocal →
+  canonicalWeight_grain → conditionalWeight_trans_fiber` : la
+  marginalisation est un corollaire de Grain, non une prémisse diachronique
+  indépendante. Aucune dynamique temporelle, aucun continuateur et aucun
+  record accessible ne sont formalisés.
 
 Chaque résultat ci-dessus est prouvé avec `SORRY_COUNT = 0` ; voir
 `docs/THEOREM_MAP.md` pour la table complète des dépendances et de la
@@ -226,7 +243,8 @@ réserves, incluant celles ci-dessus.
 | P6 | Exclusion du comptage naïf | Clos |
 | P6a | Témoin physique de raffinement record-neutre | Clos (témoin d'existence) |
 | Route qubit | Espérance de Born côté effets, tout `n ≥ 1`, sorties projectives | Clos (restreint aux sorties projectives) |
-| P5, P6b, P7–P12, route des préférences primitives | Jalons ultérieurs | Non ouverts |
+| P8 | Conditionnement statique sur fibres de raffinement | Clos (portée formelle révisée) |
+| P5, P6b, P7, P9–P12, route des préférences primitives | Jalons ultérieurs | Non ouverts |
 
 Voir `MILESTONES.md` pour le détail des fermetures et
 `docs/PROGRAM_STATUS.md` pour un audit complet de chaque jalon, incluant —
@@ -246,8 +264,8 @@ amont.
 ### Structure du dépôt
 
 Voir la section anglaise ci-dessus (le contenu est identique). Les
-répertoires des jalons non ouverts (`Diachronic/`, `SelfLocation/`,
-`Confirmation/`, `Approximate/`) n'existent pas encore et ne sont créés
+répertoires des jalons non ouverts (`SelfLocation/`, `Confirmation/`,
+`Approximate/`) n'existent pas encore et ne sont créés
 qu'à l'ouverture de leur jalon respectif.
 
 ### Portée et limites

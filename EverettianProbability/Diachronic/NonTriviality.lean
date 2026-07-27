@@ -31,8 +31,15 @@ open EverettianProbability.Abstract EverettianProbability.Core
 open EverettianProbability.Preference EverettianProbability.Rivals
 open scoped BigOperators Classical
 
-/-- The concrete uniform expectation family, transported to the abstract
-projective interface. -/
+/-- **FR.** Famille d'espérance uniforme concrète, transportée vers
+l'interface projective abstraite. Elle sert uniquement au contre-témoin
+arithmétique de marginalisation conditionnelle ; aucune dynamique temporelle,
+aucun record accessible et aucun continuateur ne figurent dans son type.
+
+**EN.** Concrete uniform expectation family, transported to the abstract
+projective interface. It is used only for the arithmetic counter-witness to
+conditional marginalization; its type contains no temporal dynamics,
+accessible record, or continuator. -/
 noncomputable def uniformProjectiveExpectationFamily :
     RationalExpectationFamily (Projective.interface 3) where
   V := uniformExpectation

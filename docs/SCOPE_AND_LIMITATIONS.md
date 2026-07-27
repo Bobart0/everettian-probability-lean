@@ -163,3 +163,33 @@
   `AmplitudeRotation`'s amplitude mixing
   (`Complexity/Gates/AmplitudeRotation.lean`, upstream) — to be built and
   exported upstream; it does not exist today in this combined form.
+
+### P8 — conditionnement et lecture diachronique / conditioning and diachronic reading
+
+**FR.** P8 est clos dans sa portée formelle révisée : conditionnement sur
+fibres de raffinement, loi de totalité et marginalisation conditionnelle sous
+composition des raffinements. La chaîne démontrée est
+`RefinementInvariantLocal → canonicalWeight_grain →
+conditionalWeight_trans_fiber`. La dernière identité est donc un corollaire de
+Grain, et non une nouvelle prémisse diachronique indépendante. La convention de
+la définition totale attribue la masse `0` lorsque le poids conditionnant est
+nul. Aucune dynamique temporelle, aucun continuateur et aucun record accessible
+ne sont formalisés. L'« accord des continuateurs » est seulement une lecture
+interprétative : une cellule grossière peut être lue comme information
+conditionnante commune, et un raffinement ultérieur redistribue la masse sans
+modifier sa marginale. Le contre-témoin uniforme calcule directement
+`1 ≠ 4 / 3`; il ne contredit pas le théorème parce que cette famille ne satisfait
+pas `RefinementInvariantLocal`.
+
+**EN.** P8 is closed in its revised formal scope: conditioning on refinement
+fibers, totality, and conditional marginalization under composition of
+refinements. The proved chain is `RefinementInvariantLocal →
+canonicalWeight_grain → conditionalWeight_trans_fiber`. The last identity is
+therefore a Grain corollary, not a new independent diachronic premise. The total
+definition assigns mass `0` when the conditioning weight is zero. No temporal
+dynamics, continuator, or accessible record is formalized. “Continuator
+agreement” is only an interpretive reading: a coarse cell may be read as shared
+conditioning information, and a later refinement redistributes mass without
+changing its marginal. The uniform counter-witness directly computes
+`1 ≠ 4 / 3`; it does not contradict the theorem because that family does not
+satisfy `RefinementInvariantLocal`.

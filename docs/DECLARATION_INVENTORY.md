@@ -515,3 +515,28 @@ Two `example`s (unnamed, hence not listed above as public declarations in the st
 - `BornCalibration/BornExpectation.lean`, line 89: the P1 milestone's exit criterion — certifies that `grainCoherenceTheorem_projector` is importable with exactly the expected signature, with no definition specific to this repository. Still valid.
 - `Core/Nonvacuity.lean`, line 62: certifies that `parentOf` type-checks against a concrete nontrivial refinement. Still valid, but its adjacent docstring is the already-flagged dead reference to `Core/Parent.lean`.
 - `BornCalibration/Nonvacuity.lean`, line 24: certifies that `canonicalWeight` produces a concrete real for `uniformExpectationFamily`. Still valid.
+
+### `Diachronic/Conditioning.lean` / `Diachronic/NonTriviality.lean`
+
+| Declaration | File | What it asserts | Hypotheses | Scope / limitations | Category |
+|---|---|---|---|---|---|
+| `conditionalWeight` | Diachronic/Conditioning.lean | Total conditional canonical weight on a refinement fiber. | — | Defined as `0` outside the fiber and at a zero conditioning weight; no time, record, or continuator is represented. | definition |
+| `conditionalExpectation` | Diachronic/Conditioning.lean | Sum of a fine act weighted by `conditionalWeight`. | — | Static refinement only; not `F.V` on a newly constructed perspective. | definition |
+| `conditionalWeight_nonneg`, `conditionalWeight_zero_of_not_in_fiber` | Diachronic/Conditioning.lean | Nonnegativity and support on the conditioning fiber. | Canonical positivity. | Proved. | auxiliary API |
+| `conditionalWeight_sum_eq_zero_or_one`, `conditionalWeight_normalized` | Diachronic/Conditioning.lean | Conditional mass is `0` for a zero conditioning weight and `1` otherwise; the latter is the nonzero corollary. | A refinement; nonzero weight for the normalized corollary. | Proved. | original result |
+| `conditionalExpectation_pullback_eq_of_weight_ne_zero`, `conditionalExpectation_total` | Diachronic/Conditioning.lean | Recovery of the conditioning-cell consequence for a pulled-back coarse act; law of total expectation. | Rational family, local invariance and outcome injectivity; nonzero weight in the first result. | Proved. No time evolution is in the signature. | original result |
+| `conditionalWeight_trans_fiber` | Diachronic/Conditioning.lean | Conditional marginalization under composition of refinements. | `RefinementInvariantLocal`, via `canonicalWeight_grain`. | Proved. Logical chain: `RefinementInvariantLocal → canonicalWeight_grain → conditionalWeight_trans_fiber`; not an independent diachronic premise. | original result |
+| `uniformProjectiveExpectationFamily`, `uniform_conditionalWeight_trans_fiber_fails` | Diachronic/NonTriviality.lean | Abstract interface adapter for uniform expectation and its direct counter-witness. | Fixed projective example in dimension 3. | Computes `1 ≠ 4 / 3`; it does not contradict the theorem because uniform expectation lacks `RefinementInvariantLocal`. | nontriviality witness |
+
+**FR.** P8 est clos dans sa portée formelle révisée : il ne formalise ni
+dynamique temporelle, ni continuateur, ni record accessible. L'« accord des
+continuateurs » n'est qu'une lecture interprétative de
+`conditionalWeight_trans_fiber` : une cellule grossière peut être lue comme
+information conditionnante commune, et un raffinement ultérieur redistribue sa
+masse conditionnelle sans en modifier la marginale.
+
+**EN.** P8 is closed in its revised formal scope: it formalizes neither
+temporal dynamics, continuators, nor accessible records. “Continuator
+agreement” is only an interpretive reading of `conditionalWeight_trans_fiber`:
+a coarse cell may be read as shared conditioning information, and a later
+refinement redistributes its conditional mass without changing its marginal.

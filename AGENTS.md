@@ -19,14 +19,19 @@ dans `MILESTONES.md`) :
   (P0.2–P0.4). Clos.
 - **P1–P4** — clos, y compris représentation canonique et
   invariance locale ⇔ Grain ⇒ Born (équivalence). Budget de `sorry` nul.
-- **P5–P11** — non ouverts, sauf le calcul scalaire d’exclusion du comptage
-  naïf demandé avec P4. Voir `CLAIM_MATRIX.md`. Rapport de faisabilité pour
-  la route effets/qubit dans `docs/QUBIT_FEASIBILITY_REPORT.md`.
+- **P6, P6a et route qubit** — clos : exclusion du comptage naïf, témoin
+  physique existentiel, et route effets restreinte aux sorties projectives.
+- **P8** — clos dans sa portée formelle révisée : conditionnement sur fibres
+  de raffinement, loi de totalité et marginalisation conditionnelle sous
+  composition des raffinements. Aucune dynamique temporelle, aucun
+  continuateur et aucun record accessible ne sont formalisés.
+- **P5, P6b, P7, P9–P12** — non ouverts. Voir `CLAIM_MATRIX.md` et
+  `docs/PROGRAM_STATUS.md`.
 
 ## Dépendance `quantum_foundations`
 
 Le paquet `quantum_foundations` est une dépendance Lake épinglée sur le tag
-`v1.1.1-probability-api` (`lakefile.toml`). Il tire lui-même `gleason`
+`v1.1.2-probability-api` (`lakefile.toml`). Il tire lui-même `gleason`
 (`v1.0-gleason`) et `mathlib` (rev figée) : Lake les résout
 transitivement, ils ne sont **jamais** redéclarés ici. **NE JAMAIS
 re-prouver ce qui existe déjà en amont** : importer directement
@@ -157,15 +162,20 @@ that expectation into a Born expectation.
   (P0.2–P0.4). Closed.
 - **P1–P4** — closed, including canonical representation and local
   invariance ⇔ Grain ⇒ Born (equivalence). The `sorry` budget is zero.
-- **P5–P11** — not opened, except for the scalar exclusion calculation for
-  naive counting requested together with P4. See `CLAIM_MATRIX.md`. See
-  `docs/QUBIT_FEASIBILITY_REPORT.md` for the effect/qubit route
-  feasibility report.
+- **P6, P6a, and the qubit route** — closed: naive-counting exclusion, an
+  existential physical witness, and the effect route restricted to
+  projective outcomes.
+- **P8** — closed in its revised formal scope: conditioning on refinement
+  fibers, totality, and conditional marginalization under composition of
+  refinements. No temporal dynamics, continuator, or accessible record is
+  formalized.
+- **P5, P6b, P7, P9–P12** — not opened. See `CLAIM_MATRIX.md` and
+  `docs/PROGRAM_STATUS.md`.
 
 ## `quantum_foundations` dependency
 
 The `quantum_foundations` package is a Lake dependency pinned to tag
-`v1.1.1-probability-api` (`lakefile.toml`). It itself pulls `gleason`
+`v1.1.2-probability-api` (`lakefile.toml`). It itself pulls `gleason`
 (`v1.0-gleason`) and `mathlib` (fixed revision): Lake resolves them
 transitively, they are **never** redeclared here. **NEVER re-prove what
 already exists upstream**: import `Perspective`, `Refines`,

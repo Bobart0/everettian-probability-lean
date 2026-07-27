@@ -45,6 +45,17 @@ theorem effectWeight_eq_born_of_invariance {n : ℕ} (hn : 1 ≤ n)
     canonicalWeight F D i = ‖A.starProjection v‖ ^ 2
 ```
 
+### P8 — conditionnement statique / static conditioning
+
+| Déclaration / declaration | Module | Ce qui est établi / what is established | Portée / scope |
+|---|---|---|---|
+| `conditionalWeight_sum_eq_zero_or_one` | `Diachronic/Conditioning.lean` | La masse totale conditionnelle vaut `0` si le poids conditionnant est nul, `1` sinon. / Total conditional mass is `0` at zero conditioning weight and `1` otherwise. | Définition totale, convention `0` au dénominateur nul. / Total definition with the zero-denominator convention. |
+| `conditionalWeight_normalized` | `Diachronic/Conditioning.lean` | Corollaire de normalisation lorsque le poids conditionnant est non nul. / Nonzero conditioning-weight normalization corollary. | Aucun temps n'est formalisé. / No time is formalized. |
+| `conditionalExpectation_pullback_eq_of_weight_ne_zero` | `Diachronic/Conditioning.lean` | L'acte grossier tiré en arrière restitue la conséquence de la cellule conditionnante. / A pulled-back coarse act recovers the conditioning cell's consequence. | Aucun record accessible ni continuateur. / No accessible record or continuator. |
+| `conditionalExpectation_total` | `Diachronic/Conditioning.lean` | Loi de totalité. / Law of total expectation. | Raffinements statiques seulement. / Static refinements only. |
+| `conditionalWeight_trans_fiber` | `Diachronic/Conditioning.lean` | Marginalisation conditionnelle sous raffinement ultérieur. / Conditional marginalization under a later refinement. | Chaîne logique : `RefinementInvariantLocal → canonicalWeight_grain → conditionalWeight_trans_fiber`; c'est un corollaire de Grain, pas une prémisse indépendante. / It is a Grain corollary, not an independent premise. |
+| `uniform_conditionalWeight_trans_fiber_fails` | `Diachronic/NonTriviality.lean` | Échec direct `1 ≠ 4 / 3`. / Direct failure `1 ≠ 4 / 3`. | La famille uniforme ne satisfait pas `RefinementInvariantLocal`, donc ne contredit pas le théorème. / The uniform family lacks `RefinementInvariantLocal`, so it does not contradict the theorem. |
+
 ## English
 
 | Status | Declaration | Module | Direct dependencies | Scope limitation | Audit |

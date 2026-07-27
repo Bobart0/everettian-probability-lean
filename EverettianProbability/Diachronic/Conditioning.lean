@@ -22,9 +22,15 @@ open scoped BigOperators Classical
 
 variable {I : PerspectiveInterface}
 
-/-- Conditional canonical weight on a refinement fibre. The definition is
+/-- **FR.** Poids canonique conditionnel sur une fibre de raffinement. La
+définition est totale : il vaut zéro si le poids conditionnant est nul ou si
+la cellule fine n'appartient pas à la fibre. Aucun temps ni aucune dynamique
+n'est formalisé ; la lecture diachronique est seulement interprétative.
+
+**EN.** Conditional canonical weight on a refinement fibre. The definition is
 total: it is zero when the conditioning weight is zero or when the fine cell
-does not lie above the conditioning cell. -/
+does not lie above the conditioning cell. No time or dynamics is formalized;
+the diachronic reading is only interpretive. -/
 noncomputable def conditionalWeight (F : RationalExpectationFamily I)
     {fine coarse : I.Perspective} (r : I.Refinement fine coarse)
     (c : I.Cell coarse) (i : I.Cell fine) : ℝ :=
@@ -33,8 +39,13 @@ noncomputable def conditionalWeight (F : RationalExpectationFamily I)
     canonicalWeight F fine i / canonicalWeight F coarse c
   else 0
 
-/-- Conditional evaluation of a total fine act, weighted by
-`conditionalWeight` on the chosen fibre. -/
+/-- **FR.** Évaluation conditionnelle d'un acte fin total, pondérée par
+`conditionalWeight` sur la fibre choisie. Aucun temps ni aucune dynamique
+n'est formalisé ; la lecture diachronique est seulement interprétative.
+
+**EN.** Conditional evaluation of a total fine act, weighted by
+`conditionalWeight` on the chosen fibre. No time or dynamics is formalized;
+the diachronic reading is only interpretive. -/
 noncomputable def conditionalExpectation (F : RationalExpectationFamily I)
     {fine coarse : I.Perspective} (r : I.Refinement fine coarse)
     (c : I.Cell coarse) (a : Act I) : ℝ :=

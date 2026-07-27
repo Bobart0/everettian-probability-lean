@@ -12,8 +12,9 @@
 | P3 | Représentation affine canonique | Clos | 1 |
 | P4 | Invariance locale ⇔ Grain ⇒ Born (**équivalence**, pas seulement implication) | Clos, non vacueux et non trivial | 2 |
 | P6 | Exclusion du comptage naïf | Résultat scalaire clos ; **P6a close** (témoin d'existence) | 2 |
-| Route qubit | Espérance de Born côté effets (`EffectCalibration/`) | **Close** — tout `n ≥ 1`, restreint aux sorties projectives | 4 |
-| P5, P6b, P7–P12 | Jalons ultérieurs | Non ouverts | 0 |
+| Route qubit | Espérance de Born côté effets (`EffectCalibration/`) | **Clos** — tout `n ≥ 1`, restreint aux sorties projectives | 4 |
+| P8 | Conditionnement statique sur fibres de raffinement | **Clos dans sa portée formelle révisée** : conditionnement sur fibres de raffinement, loi de totalité et marginalisation conditionnelle sous composition des raffinements. Aucune dynamique temporelle, aucun continuateur et aucun record accessible ne sont formalisés. | 3 |
+| P5, P6b, P7, P9–P12 | Jalons ultérieurs | Non ouverts | 0 |
 
 ### Fermetures de la reprise P3/P4
 
@@ -173,7 +174,8 @@ Budget toujours à `0` ; aucun `sorry` introduit.
 | P4 | Local invariance ⇔ Grain ⇒ Born (**equivalence**, not just implication) | Closed, nonvacuous, and nontrivial | 2 |
 | P6 | Exclusion of naive counting | Scalar result closed; **P6a closed** (existence witness) | 2 |
 | Qubit route | Effect-side Born expectation (`EffectCalibration/`) | **Closed** — every `n ≥ 1`, restricted to projective outcomes | 4 |
-| P5, P6b, P7–P12 | Later milestones | Not opened | 0 |
+| P8 | Static conditioning on refinement fibers | **Closed in its revised formal scope**: conditioning on refinement fibers, totality, and conditional marginalization under composition of refinements. No temporal dynamics, continuator, or accessible record is formalized. | 3 |
+| P5, P6b, P7, P9–P12 | Later milestones | Not opened | 0 |
 
 ### P3/P4 resumption closures
 
