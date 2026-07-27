@@ -156,5 +156,7 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.configurationBranch_inner_eq_zero_of_ne
 #print axioms EverettianProbability.Frequency.configurationBranch_mem_frequencyCell
 #print axioms EverettianProbability.Frequency.frequencyCell_ortho
+#print axioms EverettianProbability.Frequency.frequencySitesCell_iSup
+#print axioms EverettianProbability.Frequency.frequencyCell_iSup
 
 end EverettianProbability.Audit

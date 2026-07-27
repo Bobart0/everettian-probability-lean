@@ -101,5 +101,49 @@ theorem frequencyCell_ortho {R k l : ℕ} (hkl : k ≠ l) :
   exact (frequencySitesCell_ortho hkl).map
     (sitesEquivR R).symm.toLinearIsometry
 
+/-- **FR.** Les sous-espaces de poids de Hamming couvrent tout l'espace des
+configurations par sites. L'index est ici `ℕ`; les indices supérieurs à `R`
+seront éliminés dans un sous-jalon ultérieur.
+
+**EN.** The Hamming-weight subspaces cover the whole site-configuration
+space. The index is currently `ℕ`; indices greater than `R` will be
+eliminated in a later sub-milestone. -/
+theorem frequencySitesCell_iSup (R : ℕ) :
+    (⨆ k : ℕ, frequencySitesCell R k) = ⊤ := by
+  apply top_unique
+  have hspan :
+      Submodule.span ℂ (Set.range (configurationBasis :
+        (Fin R → Fin 2) → Sites R 2)) = ⊤ := by
+    have heq :
+        (configurationBasis :
+          (Fin R → Fin 2) → Sites R 2) =
+          ⇑(EuclideanSpace.basisFun (Fin R → Fin 2) ℂ).toBasis := by
+      funext g
+      rw [OrthonormalBasis.coe_toBasis,
+        EuclideanSpace.basisFun_apply]
+      rfl
+    rw [heq]
+    exact (EuclideanSpace.basisFun
+      (Fin R → Fin 2) ℂ).toBasis.span_eq
+  rw [← hspan]
+  apply Submodule.span_le.mpr
+  rintro x ⟨g, rfl⟩
+  exact
+    (le_iSup (fun k : ℕ => frequencySitesCell R k)
+      (hammingWeight g))
+      (configurationBasis_mem_frequencySitesCell g)
+
+/-- **FR.** Après transport par `sitesEquivR`, les cellules de fréquence
+couvrent tout l'espace standard `H (2 ^ R)`.
+
+**EN.** After transport along `sitesEquivR`, the frequency cells cover the
+whole standard space `H (2 ^ R)`. -/
+theorem frequencyCell_iSup (R : ℕ) :
+    (⨆ k : ℕ, frequencyCell R k) = ⊤ := by
+  unfold frequencyCell
+  rw [← Submodule.map_iSup, frequencySitesCell_iSup]
+  rw [Submodule.map_top,
+    LinearMap.range_eq_top.mpr (sitesEquivR R).symm.surjective]
+
 end
 end EverettianProbability.Frequency
