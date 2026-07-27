@@ -43,7 +43,7 @@ parent, actes abstraits), `Refinement` (tiré-en-arrière, invariance,
 invariance abstraite), `Preference` (espérance rationnelle,
 représentation, et leurs levées abstraites), `BornCalibration` (poids
 contextuel, pont vers Grain, espérance de Born, non-circularité, et leurs
-levées abstraites), `Rivals` (comptage naïf), `PhysicalRefinement` (témoin
+levées abstraites), `Rivals` (comptage naïf et témoin de puissance quatrième), `PhysicalRefinement` (témoin
 physique du raffinement record-neutre, P6a), `EffectCalibration` (route
 qubit : empaquetage en règle d'estimation d'effets, espérance de Born
 côté effets pour tout `n ≥ 1`, témoin concret en `n = 2`), `Diachronic`
@@ -57,7 +57,7 @@ abstract acts), `Refinement` (pullback, invariance, abstract invariance),
 `Preference` (rational expectation, representation, and their abstract
 lifts), `BornCalibration` (contextual weight, bridge to Grain, Born
 expectation, non-circularity, and their abstract lifts), `Rivals` (naive
-counting), `PhysicalRefinement` (physical witness of the record-neutral
+counting and fourth-power witness), `PhysicalRefinement` (physical witness of the record-neutral
 refinement, P6a), `EffectCalibration` (qubit route: packaging into an
 effect estimation rule, effect-side Born expectation for every `n ≥ 1`,
 concrete `n = 2` witness), `Diachronic` (static conditioning on refinement

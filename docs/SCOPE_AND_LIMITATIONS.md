@@ -193,3 +193,15 @@ conditioning information, and a later refinement redistributes mass without
 changing its marginal. The uniform counter-witness directly computes
 `1 ≠ 4 / 3`; it does not contradict the theorem because that family does not
 satisfy `RefinementInvariantLocal`.
+
+### P9 — puissance quatrième / fourth power
+
+**FR.** Seul le cas `q = 4` est formalisé. Le résultat établit l'échec de
+`AxNorm` sur un témoin concret ; il ne constitue pas une classification de
+toutes les règles `q ≠ 2`. Aucune conséquence générale sur les exposants réels,
+négatifs ou non entiers n'est revendiquée.
+
+**EN.** Only the case `q = 4` is formalized. The result establishes failure of
+`AxNorm` on a concrete witness; it is not a classification of every `q ≠ 2`
+rule. No general consequence for real, negative, or non-integer exponents is
+claimed.

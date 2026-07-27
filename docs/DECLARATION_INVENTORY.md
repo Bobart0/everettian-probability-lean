@@ -205,6 +205,15 @@ Ce fichier ne contient qu'un `example` anonyme (voir note de fin de section) ; a
 | `naiveCounting` | Rivals/NaiveBranchCounting.lean | Règle rivale : chaque cellule reçoit le poids uniforme `1/|D.cells|`, indépendamment de tout contenu hilbertien. | — | Définition, pour tout `n`. | définition |
 | `naiveCounting_violates_grain` | Rivals/NaiveBranchCounting.lean | Le comptage naïf viole `AxGrain`, sur la paire binaire/trois-lignes explicite en `H 3`. | Fixé à `n = 3`. | Prouvé. | résultat négatif |
 
+### `Rivals/FourthPowerWeight.lean`
+
+| Déclaration | Fichier | Ce qu'elle affirme | Hypothèses | Portée / limitations | Catégorie |
+|---|---|---|---|---|---|
+| `fourthPowerWeight` | Rivals/FourthPowerWeight.lean | Carré du poids bornien par cellule. | — | Exposant fixé à `4`. | définition |
+| `fourthPowerWeight_axPos` | Rivals/FourthPowerWeight.lean | La règle à puissance quatrième satisfait `AxPos`. | Tout état. | Prouvé. | témoin positif |
+| `fourthPowerWeight_coarse_sum` | Rivals/FourthPowerWeight.lean | La somme sur `coarsePerspective` pour `psiBefore` vaut `337/625`. | Témoin concret dans `H 3`. | Calcul exact. | API auxiliaire |
+| `fourthPowerWeight_not_axNorm` | Rivals/FourthPowerWeight.lean | La règle à puissance quatrième viole `AxNorm`. | `psiBefore`. | Prouvé par `337/625 ≠ 1`; aucune classification des exposants. | résultat négatif |
+
 ### `Rivals/Nonvacuity.lean`
 
 | Déclaration | Fichier | Ce qu'elle affirme | Hypothèses | Portée / limitations | Catégorie |
@@ -448,6 +457,15 @@ This file contains only an anonymous `example` (see end-of-section note); no nam
 | `exampleCoarse_cells_card`, `exampleFine_cells_card` | Rivals/NaiveBranchCounting.lean | Concrete cardinalities (`2` and `3`) of the explicit binary/three-line pair in `H 3`. | Fixed at `n = 3`. | Proved; exposed for reuse by other witness files. | auxiliary API |
 | `naiveCounting` | Rivals/NaiveBranchCounting.lean | Rival rule: every cell receives uniform weight `1/|D.cells|`, independent of any Hilbert-space content. | — | Definition, for every `n`. | definition |
 | `naiveCounting_violates_grain` | Rivals/NaiveBranchCounting.lean | Naive counting violates `AxGrain`, on the explicit binary/three-line pair in `H 3`. | Fixed at `n = 3`. | Proved. | negative result |
+
+### `Rivals/FourthPowerWeight.lean`
+
+| Declaration | File | What it asserts | Hypotheses | Scope / limitations | Category |
+|---|---|---|---|---|---|
+| `fourthPowerWeight` | Rivals/FourthPowerWeight.lean | Square of the per-cell Born weight. | — | Exponent fixed at `4`. | definition |
+| `fourthPowerWeight_axPos` | Rivals/FourthPowerWeight.lean | The fourth-power rule satisfies `AxPos`. | Every state. | Proved. | positive witness |
+| `fourthPowerWeight_coarse_sum` | Rivals/FourthPowerWeight.lean | The sum on `coarsePerspective` for `psiBefore` is `337/625`. | Concrete witness in `H 3`. | Exact computation. | auxiliary API |
+| `fourthPowerWeight_not_axNorm` | Rivals/FourthPowerWeight.lean | The fourth-power rule violates `AxNorm`. | `psiBefore`. | Proved by `337/625 ≠ 1`; no classification of exponents. | negative result |
 
 ### `Rivals/Nonvacuity.lean`
 

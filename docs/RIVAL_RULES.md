@@ -5,9 +5,10 @@
 Fiche par règle rivale de pondération des branches. Consigne de rédaction
 stricte : jamais « cette règle est irrationnelle », toujours « cette règle
 viole précisément X » ou « cette règle ajoute précisément la structure
-Y ». Aucune construction Lean n'est tentée ici au-delà de
-`Rivals/NaiveBranchCounting.lean` (P1) ; les autres entrées sont des
-fiches de veille, à formaliser aux jalons qui leur seront dédiés.
+Y ». Deux règles possèdent désormais du code Lean : le comptage naïf
+(`Rivals/NaiveBranchCounting.lean`) et la puissance quatrième
+(`Rivals/FourthPowerWeight.lean`) ; les autres entrées restent des fiches de
+veille.
 
 ### Comptage naïf des branches
 
@@ -70,12 +71,12 @@ fiches de veille, à formaliser aux jalons qui leur seront dédiés.
   exposant `q` quelconque.
 - **Justification revendiquée.** Généralisation formelle, testant la
   sensibilité de la dérivation à la valeur précise de l'exposant.
-- **Prémisse violée.** Viole précisément (Norm) combinée à (Grain) dès
-  que `q ≠ 2` sur un espace de dimension `≥ 3` — c'est exactement le
-  contenu du théorème de Gleason amont (`Gleason.gleason`), qui exclut
-  toute fonction-cadre non quadratique.
-- **Statut.** Non formalisé (conséquence directe d'un théorème déjà
-  formalisé en amont ; formalisation locale à faible priorité).
+- **Prémisse violée.** Dans le seul cas formalisé `q = 4`, `AxNorm` échoue
+  sur le témoin explicite ; aucune affirmation générale sur Grain ou sur tous
+  les exposants n'est formalisée ici.
+- **Statut.** Formalisation partielle dans `Rivals/FourthPowerWeight.lean` :
+  le cas `q = 4` satisfait `AxPos` mais viole `AxNorm`. La généralisation à
+  tout `q ≠ 2` reste non formalisée.
 
 ### Poids histoire-dépendant
 
@@ -108,9 +109,9 @@ fiches de veille, à formaliser aux jalons qui leur seront dédiés.
 
 One entry per rival branch-weighting rule. Strict drafting rule: never
 "this rule is irrational," always "this rule violates precisely X" or
-"this rule adds precisely structure Y." No Lean construction is attempted
-here beyond `Rivals/NaiveBranchCounting.lean` (P1); the other entries are
-watch-list entries, to be formalized at their dedicated milestones.
+"this rule adds precisely structure Y." Two rules now have Lean code:
+naive counting (`Rivals/NaiveBranchCounting.lean`) and fourth power
+(`Rivals/FourthPowerWeight.lean`); the other entries remain watch-list notes.
 
 ### Naive branch counting
 
@@ -169,12 +170,12 @@ watch-list entries, to be formalized at their dedicated milestones.
   exponent `q`.
 - **Claimed justification.** Formal generalization, testing the
   derivation's sensitivity to the exact exponent value.
-- **Violated premise.** Violates precisely (Norm) combined with (Grain)
-  as soon as `q ≠ 2` on a space of dimension `≥ 3` — this is exactly the
-  content of the upstream Gleason theorem (`Gleason.gleason`), which
-  rules out any non-quadratic frame function.
-- **Status.** Not formalized (a direct consequence of a theorem already
-  formalized upstream; local formalization is low priority).
+- **Violated premise.** In the sole formalized case `q = 4`, `AxNorm` fails
+  on the explicit witness; no general assertion about Grain or all exponents
+  is formalized here.
+- **Status.** Partial formalization in `Rivals/FourthPowerWeight.lean`:
+  the `q = 4` case satisfies `AxPos` but violates `AxNorm`. Generalization to
+  every `q ≠ 2` remains unformalized.
 
 ### History-dependent weight
 

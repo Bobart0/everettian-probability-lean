@@ -15,7 +15,8 @@
 | Route qubit | `effectExpectation_represents`, `effectWeight_eq_born_of_invariance` | Levée abstraite de `RationalExpectationFamily`/`represents`/`canonicalWeight`/`refinement_invariant_implies_grain` (injectivité de `outcome` threadée en argument), empaquetage en `EstimationRule`, `hAi : D.effects i = Gleason.projL A` | Pour tout `n ≥ 1` (qubit compris, témoin concret en `n = 2` : `EffectCalibration/QubitWitness.lean`, `9/25`), le poids canonique d'une sortie **projective** égale sa valeur de Born ; ne couvre pas les effets POVM non projectifs (différé en amont, QB8.3) ; ne contredit pas `grain_does_not_imply_born_at_two` (Grain seul, sans structure des effets) | Clos — restreint aux sorties projectives |
 | P8 | `conditionalWeight_sum_eq_zero_or_one`, `conditionalWeight_normalized`, `conditionalExpectation_pullback_eq_of_weight_ne_zero`, `conditionalExpectation_total`, `conditionalWeight_trans_fiber` | `RefinementInvariantLocal → canonicalWeight_grain`; la normalisation et la totalité n'ajoutent aucune prémisse | Masse totale `0` ou `1`, restitution de la conséquence, loi de totalité et marginalisation conditionnelle ; pas de temps, record ni continuateur | Clos dans sa portée formelle révisée |
 | Témoin P8 | `uniform_conditionalWeight_trans_fiber_fails` | Famille uniforme, qui ne satisfait pas `RefinementInvariantLocal` | Échec direct `1 ≠ 4 / 3` : le théorème n'est pas contredit car son hypothèse d'invariance est absente | Clos |
-| P5, P6b, P7, P9–P12, route des préférences primitives | Extensions | — | — | Non ouvertes |
+| P9 | `fourthPowerWeight_axPos`, `fourthPowerWeight_not_axNorm` | `psiBefore`, `coarsePerspective` | Positivité satisfaite ; normalisation violée par `337/625 ≠ 1` | Partiel, cas `q = 4` seulement |
+| P5, P6b, P7, P10–P12, route des préférences primitives | Extensions | — | — | Non ouvertes |
 
 Décision P0.3 : l’interface commune reste en aval ; les actes sont totaux et
 les sous-types de cellules servent uniquement à l’énumération.
@@ -35,7 +36,8 @@ les sous-types de cellules servent uniquement à l’énumération.
 | Qubit route | `effectExpectation_represents`, `effectWeight_eq_born_of_invariance` | Abstract lifting of `RationalExpectationFamily`/`represents`/`canonicalWeight`/`refinement_invariant_implies_grain` (`outcome` injectivity threaded as an argument), packaging into `EstimationRule`, `hAi : D.effects i = Gleason.projL A` | For every `n ≥ 1` (including the qubit; concrete `n = 2` witness in `EffectCalibration/QubitWitness.lean`, `9/25`), the canonical weight of a **projective** outcome equals its Born value; does not cover non-projective POVM effects (deferred upstream, QB8.3); does not contradict `grain_does_not_imply_born_at_two` (Grain alone, without effect structure) | Closed — restricted to projective outcomes |
 | P8 | `conditionalWeight_sum_eq_zero_or_one`, `conditionalWeight_normalized`, `conditionalExpectation_pullback_eq_of_weight_ne_zero`, `conditionalExpectation_total`, `conditionalWeight_trans_fiber` | `RefinementInvariantLocal → canonicalWeight_grain`; normalization and totality add no premise | Total mass `0` or `1`, consequence recovery, totality, and conditional marginalization; no time, record, or continuator | Closed in its revised formal scope |
 | P8 witness | `uniform_conditionalWeight_trans_fiber_fails` | Uniform family, which does not satisfy `RefinementInvariantLocal` | Direct failure `1 ≠ 4 / 3`: it does not contradict the theorem because its invariance hypothesis is absent | Closed |
-| P5, P6b, P7, P9–P12 | Extensions | — | — | Not opened |
+| P9 | `fourthPowerWeight_axPos`, `fourthPowerWeight_not_axNorm` | `psiBefore`, `coarsePerspective` | Positivity holds; normalization fails through `337/625 ≠ 1` | Partial, `q = 4` only |
+| P5, P6b, P7, P10–P12 | Extensions | — | — | Not opened |
 
 Decision P0.3: the common interface remains downstream; acts are total and
 cell subtypes are used only for enumeration.

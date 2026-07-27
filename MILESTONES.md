@@ -2,7 +2,7 @@
 
 ## Français
 
-### État au 2026-07-27
+### État au 2026-07-28
 
 | Jalon | Objet | Statut | Buts fermés dans cette reprise |
 |---|---|---|---:|
@@ -14,7 +14,17 @@
 | P6 | Exclusion du comptage naïf | Résultat scalaire clos ; **P6a close** (témoin d'existence) | 2 |
 | Route qubit | Espérance de Born côté effets (`EffectCalibration/`) | **Clos** — tout `n ≥ 1`, restreint aux sorties projectives | 4 |
 | P8 | Conditionnement statique sur fibres de raffinement | **Clos dans sa portée formelle révisée** : conditionnement sur fibres de raffinement, loi de totalité et marginalisation conditionnelle sous composition des raffinements. Aucune dynamique temporelle, aucun continuateur et aucun record accessible ne sont formalisés. | 3 |
-| P5, P6b, P7, P9–P12 | Jalons ultérieurs | Non ouverts | 0 |
+| P9 | Règle rivale à puissance quatrième (`q = 4`) | **Partiel** — témoin positif et non normalisé | 1 |
+| P5, P6b, P7, P10–P12 | Jalons ultérieurs | Non ouverts | 0 |
+
+### Reprise du 2026-07-28 — P9, puissance quatrième
+
+- `fourthPowerWeight_axPos` prouve la positivité de la règle à puissance
+  quatrième.
+- `fourthPowerWeight_coarse_sum` calcule exactement `337/625` sur
+  `psiBefore` et `coarsePerspective`.
+- `fourthPowerWeight_not_axNorm` en déduit l'échec de `AxNorm`.
+- Portée strictement limitée à `q = 4`.
 
 ### Fermetures de la reprise P3/P4
 
@@ -163,7 +173,7 @@ Budget toujours à `0` ; aucun `sorry` introduit.
 
 ## English
 
-### Status on 2026-07-27
+### Status on 2026-07-28
 
 | Milestone | Subject | Status | Goals closed in this resumption |
 |---|---|---|---:|
@@ -175,7 +185,16 @@ Budget toujours à `0` ; aucun `sorry` introduit.
 | P6 | Exclusion of naive counting | Scalar result closed; **P6a closed** (existence witness) | 2 |
 | Qubit route | Effect-side Born expectation (`EffectCalibration/`) | **Closed** — every `n ≥ 1`, restricted to projective outcomes | 4 |
 | P8 | Static conditioning on refinement fibers | **Closed in its revised formal scope**: conditioning on refinement fibers, totality, and conditional marginalization under composition of refinements. No temporal dynamics, continuator, or accessible record is formalized. | 3 |
-| P5, P6b, P7, P9–P12 | Later milestones | Not opened | 0 |
+| P9 | Fourth-power rival rule (`q = 4`) | **Partial** — positive, unnormalized witness | 1 |
+| P5, P6b, P7, P10–P12 | Later milestones | Not opened | 0 |
+
+### 2026-07-28 resumption — P9, fourth power
+
+- `fourthPowerWeight_axPos` proves positivity of the fourth-power rule.
+- `fourthPowerWeight_coarse_sum` computes exactly `337/625` on
+  `psiBefore` and `coarsePerspective`.
+- `fourthPowerWeight_not_axNorm` derives failure of `AxNorm`.
+- Scope is strictly limited to `q = 4`.
 
 ### P3/P4 resumption closures
 

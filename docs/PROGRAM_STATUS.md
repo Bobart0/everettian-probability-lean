@@ -462,3 +462,15 @@ The qubit / effect route is also **closed**: `effectExpectation_represents`
 holds for every `n`, and `effectWeight_eq_born_of_invariance` gives, for every
 `n ≥ 1`, a per-outcome conclusion when its effect is a projection. It does not
 cover non-projective POVMs.
+
+## 2026-07-28 current-status correction / correction d'état courant
+
+**FR.** P9 est désormais partiellement ouvert pour le seul témoin `q = 4` :
+`Rivals/FourthPowerWeight.lean` prouve `AxPos` et l'échec de `AxNorm` par
+`337/625 ≠ 1` sur `psiBefore` et `coarsePerspective`. Les cinq autres règles
+de veille restent non formalisées.
+
+**EN.** P9 is now partially open for the sole `q = 4` witness:
+`Rivals/FourthPowerWeight.lean` proves `AxPos` and failure of `AxNorm` through
+`337/625 ≠ 1` on `psiBefore` and `coarsePerspective`. The other five
+watch-list rules remain unformalized.

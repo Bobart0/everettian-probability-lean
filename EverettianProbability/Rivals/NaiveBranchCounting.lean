@@ -7,16 +7,16 @@ import EverettianProbability.Core.Nonvacuity
 La règle rivale la plus simple : chaque cellule d'une perspective reçoit un
 poids `1 / |D.cells|`, indépendamment de tout contenu hilbertien. Fiche
 complète (justification revendiquée, prémisse violée, statut) dans
-`docs/RIVAL_RULES.md`. La violation de `AxGrain` est énoncée comme but ouvert :
-c'est un résultat mathématique (bien que court) hors de portée de P1.
+`docs/RIVAL_RULES.md`. La violation de `AxGrain` est prouvée et close au
+jalon P6.
 
 **EN.** # Naive branch counting (rival rule)
 
 The simplest rival rule: every cell of a perspective receives weight
 `1 / |D.cells|`, independent of any Hilbert-space content. Full entry
 (claimed justification, violated premise, status) in
-`docs/RIVAL_RULES.md`. The violation of `AxGrain` is stated as an open goal:
-this is a mathematical result (albeit a short one) out of scope for P1.
+`docs/RIVAL_RULES.md`. The `AxGrain` violation is proved and closed at
+milestone P6.
 -/
 
 namespace EverettianProbability.Rivals

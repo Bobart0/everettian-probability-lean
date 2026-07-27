@@ -70,6 +70,10 @@ Born expectation.
   conditionalWeight_trans_fiber`, so conditional marginalization is a
   consequence of Grain, not an independent diachronic premise. No temporal
   dynamics, continuator, or accessible record is formalized.
+- **`fourthPowerWeight_not_axNorm`** (`Rivals/FourthPowerWeight.lean`): a
+  P9 witness for `q = 4` only. `fourthPowerWeight_axPos` proves positivity,
+  while normalization fails on the unit witness `psiBefore` and
+  `coarsePerspective`, where the sum is `337/625 ≠ 1`.
 
 Every result above is proved with `SORRY_COUNT = 0`; see
 `docs/THEOREM_MAP.md` for the full dependency and scope table, and
@@ -86,7 +90,8 @@ including the ones above.
 | P6a | Physical witness of a record-neutral refinement | Closed (existence witness) |
 | Qubit route | Effect-side Born expectation, every `n ≥ 1`, projective outcomes | Closed (restricted to projective outcomes) |
 | P8 | Static conditioning on refinement fibers | Closed (revised formal scope) |
-| P5, P6b, P7, P9–P12, primitive-preference route | Later milestones | Not opened |
+| P9 | Fourth-power rival rule (`q = 4`) | Partially open |
+| P5, P6b, P7, P10–P12, primitive-preference route | Later milestones | Not opened |
 
 See `MILESTONES.md` for closure details and `docs/PROGRAM_STATUS.md` for a
 full audit of every milestone, including — for each not-yet-opened one —
@@ -111,7 +116,7 @@ EverettianProbability/
 ├── Preference/            — rational expectation family, representation theorem
 ├── BornCalibration/        — contextual weight, Grain bridge, Born expectation,
 │                             non-circularity witness (n = 2)
-├── Rivals/                 — naive branch counting (a rival rule)
+├── Rivals/                 — naive branch counting and the fourth-power rival rule
 ├── PhysicalRefinement/      — physical witness of a record-neutral refinement (P6a)
 ├── EffectCalibration/        — qubit route: effect-side Born expectation for every n ≥ 1
 ├── Diachronic/               — static conditioning on refinement fibers (P8)
@@ -228,6 +233,10 @@ espérance de Born.
   marginalisation est un corollaire de Grain, non une prémisse diachronique
   indépendante. Aucune dynamique temporelle, aucun continuateur et aucun
   record accessible ne sont formalisés.
+- **`fourthPowerWeight_not_axNorm`** (`Rivals/FourthPowerWeight.lean`) : un
+  témoin P9 pour `q = 4` seulement. `fourthPowerWeight_axPos` prouve la
+  positivité, tandis que la normalisation échoue sur le témoin unitaire
+  `psiBefore` et `coarsePerspective`, où la somme vaut `337/625 ≠ 1`.
 
 Chaque résultat ci-dessus est prouvé avec `SORRY_COUNT = 0` ; voir
 `docs/THEOREM_MAP.md` pour la table complète des dépendances et de la
@@ -244,7 +253,8 @@ réserves, incluant celles ci-dessus.
 | P6a | Témoin physique de raffinement record-neutre | Clos (témoin d'existence) |
 | Route qubit | Espérance de Born côté effets, tout `n ≥ 1`, sorties projectives | Clos (restreint aux sorties projectives) |
 | P8 | Conditionnement statique sur fibres de raffinement | Clos (portée formelle révisée) |
-| P5, P6b, P7, P9–P12, route des préférences primitives | Jalons ultérieurs | Non ouverts |
+| P9 | Règle rivale à puissance quatrième (`q = 4`) | Partiellement ouvert |
+| P5, P6b, P7, P10–P12, route des préférences primitives | Jalons ultérieurs | Non ouverts |
 
 Voir `MILESTONES.md` pour le détail des fermetures et
 `docs/PROGRAM_STATUS.md` pour un audit complet de chaque jalon, incluant —
@@ -270,7 +280,7 @@ EverettianProbability/
 ├── Preference/           — famille d'espérance rationnelle, théorème de représentation
 ├── BornCalibration/      — poids contextuel, pont vers Grain, espérance de Born,
 │                            témoin de non-circularité (`n = 2`)
-├── Rivals/               — comptage naïf des branches (règle rivale)
+├── Rivals/               — comptage naïf et règle rivale à puissance quatrième
 ├── PhysicalRefinement/   — témoin physique de raffinement record-neutre (P6a)
 ├── EffectCalibration/    — route qubit : espérance de Born côté effets pour tout `n ≥ 1`
 ├── Diachronic/           — conditionnement statique sur fibres de raffinement (P8)

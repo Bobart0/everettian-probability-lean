@@ -25,7 +25,8 @@ dans `MILESTONES.md`) :
   de raffinement, loi de totalité et marginalisation conditionnelle sous
   composition des raffinements. Aucune dynamique temporelle, aucun
   continuateur et aucun record accessible ne sont formalisés.
-- **P5, P6b, P7, P9–P12** — non ouverts. Voir `CLAIM_MATRIX.md` et
+- **P9** — ouvert partiellement : témoin `q = 4`, positif mais non normalisé.
+- **P5, P6b, P7, P10–P12** — non ouverts. Voir `CLAIM_MATRIX.md` et
   `docs/PROGRAM_STATUS.md`.
 
 ## Dépendance `quantum_foundations`
@@ -169,7 +170,8 @@ that expectation into a Born expectation.
   fibers, totality, and conditional marginalization under composition of
   refinements. No temporal dynamics, continuator, or accessible record is
   formalized.
-- **P5, P6b, P7, P9–P12** — not opened. See `CLAIM_MATRIX.md` and
+- **P9** — partially open: a `q = 4` witness, positive but unnormalized.
+- **P5, P6b, P7, P10–P12** — not opened. See `CLAIM_MATRIX.md` and
   `docs/PROGRAM_STATUS.md`.
 
 ## `quantum_foundations` dependency
