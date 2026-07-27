@@ -22,6 +22,7 @@ import EverettianProbability.BornCalibration.BornExpectation
 import EverettianProbability.BornCalibration.NonCircularity
 import EverettianProbability.BornCalibration.Nonvacuity
 import EverettianProbability.Rivals.NaiveBranchCounting
+import EverettianProbability.Rivals.FourthPowerWeight
 import EverettianProbability.Rivals.Nonvacuity
 import EverettianProbability.PhysicalRefinement.RecordNeutralWitness
 import EverettianProbability.PhysicalRefinement.Nonvacuity

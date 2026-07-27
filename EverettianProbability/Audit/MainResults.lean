@@ -8,6 +8,7 @@ import EverettianProbability.Refinement.GlobalPayoffVacuity
 import EverettianProbability.Preference.Nonvacuity
 import EverettianProbability.Preference.NonTriviality
 import EverettianProbability.Rivals.NaiveBranchCounting
+import EverettianProbability.Rivals.FourthPowerWeight
 import EverettianProbability.Rivals.Nonvacuity
 import EverettianProbability.PhysicalRefinement.RecordNeutralWitness
 import EverettianProbability.PhysicalRefinement.Nonvacuity
@@ -75,6 +76,9 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms born_expectation_of_invariance
 #print axioms born_expectation_formula
 #print axioms naiveCounting_violates_grain
+#print axioms fourthPowerWeight_axPos
+#print axioms fourthPowerWeight_coarse_sum
+#print axioms fourthPowerWeight_not_axNorm
 #print axioms perspective_two_cases
 #print axioms skewWeight_axPos
 #print axioms skewWeight_axNul
