@@ -1,3 +1,4 @@
+import Mathlib.Data.Fintype.Fin
 import QuantumFoundations.ProbabilityAPI
 
 /-!
@@ -232,6 +233,54 @@ theorem frequencyCell_iSup_fin (R : ℕ) :
   rw [Submodule.map_top,
     LinearMap.range_eq_top.mpr
       (sitesEquivR R).symm.surjective]
+
+/-- **FR.** Configuration canonique dont les `k` premiers sites valent `1`
+et les autres `0`.
+
+**EN.** Canonical configuration whose first `k` sites are `1` and whose
+remaining sites are `0`. -/
+def prefixConfiguration (R : ℕ) (k : Fin (R + 1)) : Fin R → Fin 2 :=
+  fun r => if r.val < k.val then 1 else 0
+
+/-- **FR.** La configuration canonique possède exactement le poids de
+Hamming `k`.
+
+**EN.** The canonical configuration has Hamming weight exactly `k`. -/
+theorem hammingWeight_prefixConfiguration
+    (R : ℕ) (k : Fin (R + 1)) :
+    hammingWeight (prefixConfiguration R k) = k.val := by
+  have hk : k.val ≤ R := Nat.lt_succ_iff.mp k.isLt
+  unfold hammingWeight
+  have hfilter :
+      Finset.univ.filter
+          (fun r : Fin R => prefixConfiguration R k r = 1) =
+        Finset.univ.filter
+          (fun r : Fin R => r.val < k.val) := by
+    apply Finset.filter_congr
+    intro r hr
+    unfold prefixConfiguration
+    by_cases h : r.val < k.val <;> simp [h]
+  rw [hfilter, Fin.card_filter_val_lt, Nat.min_eq_right hk]
+
+/-- **FR.** Chaque cellule de fréquence d'indice physiquement possible est
+non nulle. Le témoin est la branche de configuration associée à
+`prefixConfiguration R k`.
+
+**EN.** Every physically possible frequency cell is nonzero. The witness
+is the configuration branch associated with `prefixConfiguration R k`. -/
+theorem frequencyCell_ne_bot
+    (R : ℕ) (k : Fin (R + 1)) :
+    frequencyCell R k.val ≠ ⊥ := by
+  intro hbot
+  have hmem :=
+    configurationBranch_mem_frequencyCell
+      (prefixConfiguration R k)
+  rw [hammingWeight_prefixConfiguration] at hmem
+  rw [hbot] at hmem
+  exact
+    (configurationBranch_ne_zero R
+      (prefixConfiguration R k))
+      (by simpa using hmem)
 
 end
 end EverettianProbability.Frequency
