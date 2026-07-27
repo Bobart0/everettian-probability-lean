@@ -145,5 +145,93 @@ theorem frequencyCell_iSup (R : ℕ) :
   rw [Submodule.map_top,
     LinearMap.range_eq_top.mpr (sitesEquivR R).symm.surjective]
 
+/-- **FR.** Le poids de Hamming d'une configuration de `R` sites est au
+plus `R`.
+
+**EN.** The Hamming weight of a configuration on `R` sites is at most
+`R`. -/
+theorem hammingWeight_le {R : ℕ} (g : Fin R → Fin 2) :
+    hammingWeight g ≤ R := by
+  unfold hammingWeight
+  have hsub :
+      Finset.univ.filter (fun r : Fin R => g r = 1) ⊆ Finset.univ :=
+    Finset.filter_subset _ _
+  simpa using Finset.card_le_card hsub
+
+/-- **FR.** Une cellule de fréquence d'indice strictement supérieur au
+nombre de sites est nulle dans la représentation par sites.
+
+**EN.** A frequency cell whose index is strictly greater than the number
+of sites is zero in the site representation. -/
+theorem frequencySitesCell_eq_bot_of_lt {R k : ℕ} (hRk : R < k) :
+    frequencySitesCell R k = ⊥ := by
+  unfold frequencySitesCell
+  apply le_antisymm
+  · apply Submodule.span_le.mpr
+    rintro x ⟨g, hg, rfl⟩
+    have hle := hammingWeight_le g
+    change hammingWeight g = k at hg
+    exfalso
+    omega
+  · exact bot_le
+
+/-- **FR.** La même nullité après transport vers `H (2 ^ R)`.
+
+**EN.** The same vanishing result after transport to `H (2 ^ R)`. -/
+theorem frequencyCell_eq_bot_of_lt {R k : ℕ} (hRk : R < k) :
+    frequencyCell R k = ⊥ := by
+  simp [frequencyCell, frequencySitesCell_eq_bot_of_lt hRk]
+
+/-- **FR.** Les `R + 1` cellules physiquement possibles, indexées par
+`Fin (R + 1)`, couvrent l'espace des configurations par sites.
+
+**EN.** The `R + 1` physically possible cells, indexed by `Fin (R + 1)`,
+cover the site-configuration space. -/
+theorem frequencySitesCell_iSup_fin (R : ℕ) :
+    (⨆ k : Fin (R + 1), frequencySitesCell R k) = ⊤ := by
+  apply top_unique
+  have hspan :
+      Submodule.span ℂ
+          (Set.range
+            (configurationBasis :
+              (Fin R → Fin 2) → Sites R 2)) = ⊤ := by
+    have heq :
+        (configurationBasis :
+          (Fin R → Fin 2) → Sites R 2) =
+          ⇑(EuclideanSpace.basisFun
+            (Fin R → Fin 2) ℂ).toBasis := by
+      funext g
+      rw [OrthonormalBasis.coe_toBasis,
+        EuclideanSpace.basisFun_apply]
+      rfl
+    rw [heq]
+    exact
+      (EuclideanSpace.basisFun
+        (Fin R → Fin 2) ℂ).toBasis.span_eq
+  rw [← hspan]
+  apply Submodule.span_le.mpr
+  rintro x ⟨g, rfl⟩
+  let k : Fin (R + 1) :=
+    ⟨hammingWeight g,
+      Nat.lt_succ_iff.mpr (hammingWeight_le g)⟩
+  exact
+    (le_iSup
+      (fun j : Fin (R + 1) =>
+        frequencySitesCell R j) k)
+      (by
+        simpa [k] using
+          configurationBasis_mem_frequencySitesCell g)
+
+/-- **FR.** Les `R + 1` cellules transportées couvrent `H (2 ^ R)`.
+
+**EN.** The transported `R + 1` cells cover `H (2 ^ R)`. -/
+theorem frequencyCell_iSup_fin (R : ℕ) :
+    (⨆ k : Fin (R + 1), frequencyCell R k) = ⊤ := by
+  unfold frequencyCell
+  rw [← Submodule.map_iSup, frequencySitesCell_iSup_fin]
+  rw [Submodule.map_top,
+    LinearMap.range_eq_top.mpr
+      (sitesEquivR R).symm.surjective]
+
 end
 end EverettianProbability.Frequency
