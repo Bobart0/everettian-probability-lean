@@ -12,7 +12,8 @@
 | Résultat négatif original | `globalPremise_vacuous` et `uniformExpectationFamily_globalPremise_vacuous` | Ancienne lecture globale | Toute famille rationnelle satisfait la prémisse filtrée ; la famille uniforme viole Grain | Clos |
 | P6 | `naiveCounting_violates_grain` | Perspective binaire et raffinement en trois lignes | Le comptage uniforme viole Grain (`1/2 ≠ 1/3`) | Clos |
 | P6a | `recordNeutral_refines`, `recordNeutral_record_eq`, `recordNeutral_payoff_eq`, `recordNeutral_bornWeight_eq` | Couplage unitaire concret dans `H 3`, amplitudes inégales (3/5, 4/5), hypothèse nommée `RefinementNotInRecordAlgebra` | Un raffinement peut redécrire les branches plus finement sans en créer de nouvelles au sens physique ; le comptage actif y est sensible (`counting_underdetermined_by_accessible_record`), l'espérance bornienne non (`born_determined_by_accessible_record`) | Clos — témoin d'existence, pas d'universalité |
-| P5, P7–P11 | Extensions | — | — | Non ouvertes |
+| Route qubit | `effectExpectation_represents`, `effectWeight_eq_born_of_invariance` | Levée abstraite de `RationalExpectationFamily`/`represents`/`canonicalWeight`/`refinement_invariant_implies_grain` (injectivité de `outcome` threadée en argument), empaquetage en `EstimationRule`, `hAi : D.effects i = Gleason.projL A` | Pour tout `n ≥ 1` (qubit compris, témoin concret en `n = 2` : `EffectCalibration/QubitWitness.lean`, `9/25`), le poids canonique d'une sortie **projective** égale sa valeur de Born ; ne couvre pas les effets POVM non projectifs (différé en amont, QB8.3) ; ne contredit pas `grain_does_not_imply_born_at_two` (Grain seul, sans structure des effets) | Clos — restreint aux sorties projectives |
+| P5, P6b, P7–P12, route des préférences primitives | Extensions | — | — | Non ouvertes |
 
 Décision P0.3 : l’interface commune reste en aval ; les actes sont totaux et
 les sous-types de cellules servent uniquement à l’énumération.

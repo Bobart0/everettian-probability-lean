@@ -12,6 +12,11 @@ import EverettianProbability.Rivals.Nonvacuity
 import EverettianProbability.PhysicalRefinement.RecordNeutralWitness
 import EverettianProbability.PhysicalRefinement.Nonvacuity
 import EverettianProbability.PhysicalRefinement.NonTriviality
+import EverettianProbability.EffectCalibration.EstimationRulePackaging
+import EverettianProbability.EffectCalibration.EffectBornExpectation
+import EverettianProbability.EffectCalibration.QubitWitness
+import EverettianProbability.EffectCalibration.Nonvacuity
+import EverettianProbability.EffectCalibration.NonTriviality
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -86,5 +91,42 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms born_determined_by_accessible_record
 #print axioms counting_sensitive_to_recordNeutral_refinement
 #print axioms counting_underdetermined_by_accessible_record
+
+-- Abstract lift (route qubit) and its EffectCalibration instantiation.
+-- Fully qualified: several names collide with their concrete counterparts
+-- already opened above (represents, canonicalWeight_axPos/axNorm,
+-- RefinementInvariantLocal, refinementInvariantLocal_iff_pullback).
+#print axioms EverettianProbability.Abstract.Act.agreeOn_refl
+#print axioms EverettianProbability.Abstract.Act.agreeOn_symm
+#print axioms EverettianProbability.Abstract.Act.agreeOn_trans
+#print axioms EverettianProbability.Abstract.Act.indicator_self
+#print axioms EverettianProbability.Abstract.Act.indicator_of_ne
+#print axioms EverettianProbability.Abstract.Act.agreeOn_indicatorExpansion
+#print axioms EverettianProbability.Abstract.V_congr_of_agreeOn
+#print axioms EverettianProbability.Abstract.represents
+#print axioms EverettianProbability.Abstract.weights_unique_on_cells
+#print axioms EverettianProbability.Abstract.canonicalWeight_axPos
+#print axioms EverettianProbability.Abstract.canonicalWeight_axNorm
+#print axioms EverettianProbability.Abstract.refinementInvariantLocal_iff_pullback
+#print axioms EverettianProbability.Abstract.canonicalWeight_grain
+#print axioms EverettianProbability.Abstract.outcome_injective_effects
+#print axioms EverettianProbability.Abstract.canonicalWeight_familyOfEstimationRule
+#print axioms EverettianProbability.Abstract.effectExpectation_represents
+#print axioms EverettianProbability.Abstract.effectWeight_eq_born_of_invariance
+#print axioms EverettianProbability.Abstract.spinState_norm
+#print axioms EverettianProbability.Abstract.spinLine_ne_bot
+#print axioms EverettianProbability.Abstract.spinLine_ne_top
+#print axioms EverettianProbability.Abstract.spinLine_weight
+#print axioms EverettianProbability.Abstract.spinPerspective_effect_zero
+#print axioms EverettianProbability.Abstract.F0_refinementInvariantLocal
+#print axioms EverettianProbability.Abstract.F0_contextualNullSupport
+#print axioms EverettianProbability.Abstract.spinUp_weight_eq_born
+#print axioms EverettianProbability.Abstract.rationalExpectationFamily_effects_nonvacuous
+#print axioms EverettianProbability.Abstract.refinementInvariantLocal_effects_nonvacuous
+#print axioms EverettianProbability.Abstract.effectPerspective_outcomes_pos
+#print axioms EverettianProbability.Abstract.pullbackAct_effects_apply
+#print axioms EverettianProbability.Abstract.effectUniformCredence_coarse
+#print axioms EverettianProbability.Abstract.effectUniformCredence_fine
+#print axioms EverettianProbability.Abstract.effectUniform_not_refinementInvariantLocal
 
 end EverettianProbability.Audit

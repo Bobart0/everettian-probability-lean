@@ -54,6 +54,15 @@ Born expectation.
   unchanged, active-cell count increased. This is an **existence** witness
   (one construction, in a schematic model with a stipulated, not derived,
   record algebra), not a universality claim about every refinement.
+- **`EffectCalibration/`** (qubit route): `effectWeight_eq_born_of_
+  invariance` lifts the `3 ≤ n` restriction above — it covers **every**
+  `n ≥ 1`, qubit included (concrete witness at `n = 2`, amplitudes `3/5`,
+  `4/5`, canonical weight `9/25`), but **only** for outcomes whose effect
+  is a projection; genuinely non-projective POVM effects remain out of
+  scope (deferred upstream). Built by lifting `RationalExpectationFamily`/
+  `represents`/`canonicalWeight`/`refinement_invariant_implies_grain` to
+  the abstract `PerspectiveInterface` level, with `outcome`-injectivity
+  threaded as an argument rather than added as a class field.
 
 Every result above is proved with `SORRY_COUNT = 0`; see
 `docs/THEOREM_MAP.md` for the full dependency and scope table, and
@@ -68,7 +77,8 @@ including the ones above.
 | P1–P4 | Infrastructure; acts and pullback; canonical representation; invariance ⇔ Grain ⇒ Born | Closed |
 | P6 | Exclusion of naive counting | Closed |
 | P6a | Physical witness of a record-neutral refinement | Closed (existence witness) |
-| P5, P6b, P7–P12, qubit route, primitive-preference route | Later milestones | Not opened |
+| Qubit route | Effect-side Born expectation, every `n ≥ 1`, projective outcomes | Closed (restricted to projective outcomes) |
+| P5, P6b, P7–P12, primitive-preference route | Later milestones | Not opened |
 
 See `MILESTONES.md` for closure details and `docs/PROGRAM_STATUS.md` for a
 full audit of every milestone, including — for each not-yet-opened one —
@@ -95,6 +105,7 @@ EverettianProbability/
 │                             non-circularity witness (n = 2)
 ├── Rivals/                 — naive branch counting (a rival rule)
 ├── PhysicalRefinement/      — physical witness of a record-neutral refinement (P6a)
+├── EffectCalibration/        — qubit route: effect-side Born expectation for every n ≥ 1
 └── Audit/                    — consolidated axiom audit
 ```
 
@@ -190,6 +201,16 @@ espérance de Born.
   d'**existence** (une construction, dans un modèle schématique à
   l'algèbre de records stipulée, non dérivée), pas une revendication
   d'universalité sur tout raffinement.
+- **`EffectCalibration/`** (route qubit) : `effectWeight_eq_born_of_
+  invariance` lève la restriction `3 ≤ n` ci-dessus — elle couvre **tout**
+  `n ≥ 1`, qubit compris (témoin concret en `n = 2`, amplitudes `3/5`,
+  `4/5`, poids canonique `9/25`), mais **seulement** pour les sorties dont
+  l'effet est une projection ; les effets POVM authentiquement non
+  projectifs restent hors de portée (différés en amont). Construite en
+  levant `RationalExpectationFamily`/`represents`/`canonicalWeight`/
+  `refinement_invariant_implies_grain` au niveau abstrait
+  `PerspectiveInterface`, avec l'injectivité de `outcome` filetée en
+  argument plutôt qu'ajoutée comme champ de classe.
 
 Chaque résultat ci-dessus est prouvé avec `SORRY_COUNT = 0` ; voir
 `docs/THEOREM_MAP.md` pour la table complète des dépendances et de la
@@ -204,7 +225,8 @@ réserves, incluant celles ci-dessus.
 | P1–P4 | Infrastructure ; actes et tiré-en-arrière ; représentation canonique ; invariance ⇔ Grain ⇒ Born | Clos |
 | P6 | Exclusion du comptage naïf | Clos |
 | P6a | Témoin physique de raffinement record-neutre | Clos (témoin d'existence) |
-| P5, P6b, P7–P12, route qubit, route des préférences primitives | Jalons ultérieurs | Non ouverts |
+| Route qubit | Espérance de Born côté effets, tout `n ≥ 1`, sorties projectives | Clos (restreint aux sorties projectives) |
+| P5, P6b, P7–P12, route des préférences primitives | Jalons ultérieurs | Non ouverts |
 
 Voir `MILESTONES.md` pour le détail des fermetures et
 `docs/PROGRAM_STATUS.md` pour un audit complet de chaque jalon, incluant —

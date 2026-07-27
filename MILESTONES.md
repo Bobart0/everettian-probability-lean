@@ -12,7 +12,8 @@
 | P3 | Représentation affine canonique | Clos | 1 |
 | P4 | Invariance locale ⇔ Grain ⇒ Born (**équivalence**, pas seulement implication) | Clos, non vacueux et non trivial | 2 |
 | P6 | Exclusion du comptage naïf | Résultat scalaire clos ; **P6a close** (témoin d'existence) | 2 |
-| P5, P7–P11 | Jalons ultérieurs | Non ouverts (rapport de faisabilité route effets/qubit dans `docs/QUBIT_FEASIBILITY_REPORT.md`) | 0 |
+| Route qubit | Espérance de Born côté effets (`EffectCalibration/`) | **Close** — tout `n ≥ 1`, restreint aux sorties projectives | 4 |
+| P5, P6b, P7–P12 | Jalons ultérieurs | Non ouverts | 0 |
 
 ### Fermetures de la reprise P3/P4
 
@@ -112,6 +113,53 @@ Budget toujours à `0` ; aucun `sorry` introduit par cette reprise.
 
 Budget toujours à `0` ; aucun `sorry` introduit.
 
+### Reprise du 2026-07-27 — ménage documentaire, route qubit
+
+- **Ménage** (commit `docs:` distinct, `7245b5e`) : `README.md` réécrit
+  (décrivait encore un dépôt au jalon P1) ; référence morte à
+  `Core/Parent.lean` corrigée dans `Core/Nonvacuity.lean` ; docstring de
+  `BornCalibration/BornExpectation.lean` qui présentait encore le théorème
+  principal (prouvé depuis P3/P4) comme un but ouvert de P1 ; `docs/
+  RIVAL_RULES.md` qui présentait encore `naiveCounting_violates_grain`
+  comme un `sorry` budgété ; pin périmé dans `docs/REPRODUCIBILITY.md`.
+- **Reconnaissance route qubit** : le diagnostic attribué à la session
+  `a9dbafe` ne s'y trouvait pas (ce commit est un ajout d'audit trivial,
+  sans rapport) — re-dérivé indépendamment : la réciproque de Grain ⟹
+  invariance échoue au niveau abstrait faute d'injectivité de `outcome`,
+  mais les deux instances concrètes (`Subtype.val`, `Fin.val`) la
+  satisfont. Voie retenue par l'utilisateur : **abstraction**.
+- **Levée abstraite** (`Core/AbstractAct.lean`, `Preference/
+  AbstractExpectationFunctional.lean`, `Preference/AbstractRepresentation.
+  lean`, `BornCalibration/AbstractContextualWeight.lean`,
+  `BornCalibration/AbstractRefinementImpliesGrain.lean`, `Refinement/
+  AbstractPayoffPreserving.lean`) : `RationalExpectationFamily`,
+  `represents`, `canonicalWeight`, `refinement_invariant_implies_grain`
+  levés au niveau `PerspectiveInterface`, l'hypothèse d'injectivité de
+  `outcome` filetée en argument à chaque théorème qui en a besoin (jamais
+  ajoutée comme champ de classe — aucune instance existante cassée).
+- **`EffectCalibration/`** (nouveau répertoire) : `EstimationRulePackaging.
+  lean` (empaquetage du poids canonique en `EffectPerspectives.
+  EstimationRule`, puisque celle-ci bundle poids/positivité/normalisation/
+  grain simultanément) ; `EffectBornExpectation.lean`
+  (`effectExpectation_represents`, `effectWeight_eq_born_of_invariance` —
+  couvre tout `n ≥ 1`, restreint aux sorties dont l'effet est une
+  projection, `hAi`) ; `QubitWitness.lean` (témoin concret en `n = 2`,
+  amplitudes `3/5`, `4/5`, poids canonique `9/25` — construit sans
+  `binaryPerspective`/`complementEffect` amont, non réexportés) ;
+  `Nonvacuity.lean` et `NonTriviality.lean` (comptage uniforme sur toutes
+  les sorties sensible à un raffinement à sortie fantôme silencieuse,
+  `1/2 ≠ 2/3`, comme `Refinement/NonTriviality.lean` un niveau plus haut).
+- **Clarification `n = 2`** : `grain_does_not_imply_born_at_two` reste
+  vrai et ne contredit pas ce résultat — Grain seul (sans la structure des
+  effets) n'implique pas Born en `n = 2` ; Grain plus la structure des
+  effets, si. Écrite dans le docstring de `effectWeight_eq_born_of_
+  invariance` lui-même, pas seulement dans les documents de portée.
+- Pin `quantum_foundations` porté à `v1.1.2-probability-api` (export de
+  `projectionEffect_weight_eq_born`, `contextual_projection_weight_eq_born`
+  en dimension générale, `projectionEffect`, `ContextualNullSupport`).
+
+Budget toujours à `0` ; aucun `sorry` introduit.
+
 ## English
 
 ### Status on 2026-07-26
@@ -124,7 +172,8 @@ Budget toujours à `0` ; aucun `sorry` introduit.
 | P3 | Canonical affine representation | Closed | 1 |
 | P4 | Local invariance ⇔ Grain ⇒ Born (**equivalence**, not just implication) | Closed, nonvacuous, and nontrivial | 2 |
 | P6 | Exclusion of naive counting | Scalar result closed; **P6a closed** (existence witness) | 2 |
-| P5, P7–P11 | Later milestones | Not opened (effect/qubit route feasibility report in `docs/QUBIT_FEASIBILITY_REPORT.md`) | 0 |
+| Qubit route | Effect-side Born expectation (`EffectCalibration/`) | **Closed** — every `n ≥ 1`, restricted to projective outcomes | 4 |
+| P5, P6b, P7–P12 | Later milestones | Not opened | 0 |
 
 ### P3/P4 resumption closures
 
@@ -220,5 +269,53 @@ Budget still `0`; no `sorry` introduced by this resumption.
 - **Scope**: this witness establishes an **existence**, not a
   universality claim; see the dedicated caveat in
   `docs/SCOPE_AND_LIMITATIONS.md`.
+
+Budget still `0`; no `sorry` introduced.
+
+### 2026-07-27 resumption — documentation housekeeping, qubit route
+
+- **Housekeeping** (distinct `docs:` commit, `7245b5e`): `README.md`
+  rewritten (still described a P1-only skeleton); dead reference to
+  `Core/Parent.lean` fixed in `Core/Nonvacuity.lean`; the
+  `BornCalibration/BornExpectation.lean` module docstring that still
+  presented the headline theorem (proved since P3/P4) as an open P1 goal;
+  `docs/RIVAL_RULES.md` still calling `naiveCounting_violates_grain` a
+  budgeted `sorry`; a stale pin in `docs/REPRODUCIBILITY.md`.
+- **Qubit route reconnaissance**: the diagnostic attributed to session
+  `a9dbafe` was not there (that commit is a trivial, unrelated audit
+  addition) — independently re-derived: the converse of Grain ⟹
+  invariance fails at the abstract level for want of `outcome`
+  injectivity, but both concrete instances (`Subtype.val`, `Fin.val`)
+  satisfy it. Route chosen by the author: **abstraction**.
+- **Abstract lift** (`Core/AbstractAct.lean`, `Preference/
+  AbstractExpectationFunctional.lean`, `Preference/AbstractRepresentation.
+  lean`, `BornCalibration/AbstractContextualWeight.lean`,
+  `BornCalibration/AbstractRefinementImpliesGrain.lean`, `Refinement/
+  AbstractPayoffPreserving.lean`): `RationalExpectationFamily`,
+  `represents`, `canonicalWeight`, `refinement_invariant_implies_grain`
+  lifted to the `PerspectiveInterface` level, the `outcome`-injectivity
+  hypothesis threaded as an argument to every theorem that needs it
+  (never added as a class field — no existing instance broken).
+- **`EffectCalibration/`** (new directory): `EstimationRulePackaging.lean`
+  (packaging the canonical weight into `EffectPerspectives.EstimationRule`,
+  since that structure bundles weight/positivity/normalization/grain
+  simultaneously); `EffectBornExpectation.lean`
+  (`effectExpectation_represents`, `effectWeight_eq_born_of_invariance` —
+  covers every `n ≥ 1`, restricted to outcomes whose effect is a
+  projection, `hAi`); `QubitWitness.lean` (concrete witness at `n = 2`,
+  amplitudes `3/5`, `4/5`, canonical weight `9/25` — built without
+  upstream `binaryPerspective`/`complementEffect`, not re-exported);
+  `Nonvacuity.lean` and `NonTriviality.lean` (uniform counting over every
+  outcome is sensitive to a refinement with a silent phantom outcome,
+  `1/2 ≠ 2/3`, mirroring `Refinement/NonTriviality.lean` one level up).
+- **`n = 2` clarification**: `grain_does_not_imply_born_at_two` remains
+  true and does not contradict this result — Grain alone (without the
+  effect structure) does not imply Born at `n = 2`; Grain plus the effect
+  structure does. Written into the docstring of
+  `effectWeight_eq_born_of_invariance` itself, not only in the scope
+  documents.
+- `quantum_foundations` pin bumped to `v1.1.2-probability-api` (exports
+  `projectionEffect_weight_eq_born`, `contextual_projection_weight_eq_born`
+  at general dimension, `projectionEffect`, `ContextualNullSupport`).
 
 Budget still `0`; no `sorry` introduced.

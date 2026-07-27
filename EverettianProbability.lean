@@ -1,17 +1,23 @@
 import EverettianProbability.Core.Interface
 import EverettianProbability.Core.Act
+import EverettianProbability.Core.AbstractAct
 import EverettianProbability.Core.Nonvacuity
 import EverettianProbability.Refinement.PullbackAct
 import EverettianProbability.Refinement.PayoffPreserving
+import EverettianProbability.Refinement.AbstractPayoffPreserving
 import EverettianProbability.Refinement.GlobalPayoffVacuity
 import EverettianProbability.Refinement.Nonvacuity
 import EverettianProbability.Refinement.NonTriviality
 import EverettianProbability.Preference.ExpectationFunctional
+import EverettianProbability.Preference.AbstractExpectationFunctional
 import EverettianProbability.Preference.Representation
+import EverettianProbability.Preference.AbstractRepresentation
 import EverettianProbability.Preference.Nonvacuity
 import EverettianProbability.Preference.NonTriviality
 import EverettianProbability.BornCalibration.ContextualWeight
+import EverettianProbability.BornCalibration.AbstractContextualWeight
 import EverettianProbability.BornCalibration.RefinementImpliesGrain
+import EverettianProbability.BornCalibration.AbstractRefinementImpliesGrain
 import EverettianProbability.BornCalibration.BornExpectation
 import EverettianProbability.BornCalibration.NonCircularity
 import EverettianProbability.BornCalibration.Nonvacuity
@@ -20,22 +26,34 @@ import EverettianProbability.Rivals.Nonvacuity
 import EverettianProbability.PhysicalRefinement.RecordNeutralWitness
 import EverettianProbability.PhysicalRefinement.Nonvacuity
 import EverettianProbability.PhysicalRefinement.NonTriviality
+import EverettianProbability.EffectCalibration.EstimationRulePackaging
+import EverettianProbability.EffectCalibration.EffectBornExpectation
+import EverettianProbability.EffectCalibration.QubitWitness
+import EverettianProbability.EffectCalibration.Nonvacuity
+import EverettianProbability.EffectCalibration.NonTriviality
 import EverettianProbability.Audit.MainResults
 
 /-!
 **FR.** Point d'entrée du paquet `EverettianProbability`. Importe tous les
-modules du jalon P1, dans l'ordre de dépendance : `Core` (interface,
-actes, carte parent), `Refinement` (tiré-en-arrière, invariance),
-`Preference` (espérance rationnelle, représentation), `BornCalibration`
-(poids contextuel, pont vers Grain, espérance de Born, non-circularité),
-`Rivals` (comptage naïf), `PhysicalRefinement` (témoin physique du
-raffinement record-neutre, P6a), `Audit` (audit des axiomes).
+modules, dans l'ordre de dépendance : `Core` (interface, actes, carte
+parent, actes abstraits), `Refinement` (tiré-en-arrière, invariance,
+invariance abstraite), `Preference` (espérance rationnelle,
+représentation, et leurs levées abstraites), `BornCalibration` (poids
+contextuel, pont vers Grain, espérance de Born, non-circularité, et leurs
+levées abstraites), `Rivals` (comptage naïf), `PhysicalRefinement` (témoin
+physique du raffinement record-neutre, P6a), `EffectCalibration` (route
+qubit : empaquetage en règle d'estimation d'effets, espérance de Born
+côté effets pour tout `n ≥ 1`, témoin concret en `n = 2`), `Audit` (audit
+des axiomes).
 
 **EN.** Entry point of the `EverettianProbability` package. Imports every
-module of the P1 milestone, in dependency order: `Core` (interface, acts,
-parent map), `Refinement` (pullback, invariance), `Preference` (rational
-expectation, representation), `BornCalibration` (contextual weight, bridge
-to Grain, Born expectation, non-circularity), `Rivals` (naive counting),
-`PhysicalRefinement` (physical witness of the record-neutral refinement,
-P6a), `Audit` (axioms audit).
+module, in dependency order: `Core` (interface, acts, parent map,
+abstract acts), `Refinement` (pullback, invariance, abstract invariance),
+`Preference` (rational expectation, representation, and their abstract
+lifts), `BornCalibration` (contextual weight, bridge to Grain, Born
+expectation, non-circularity, and their abstract lifts), `Rivals` (naive
+counting), `PhysicalRefinement` (physical witness of the record-neutral
+refinement, P6a), `EffectCalibration` (qubit route: packaging into an
+effect estimation rule, effect-side Born expectation for every `n ≥ 1`,
+concrete `n = 2` witness), `Audit` (axioms audit).
 -/

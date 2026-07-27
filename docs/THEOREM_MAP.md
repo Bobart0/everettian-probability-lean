@@ -16,8 +16,12 @@
 | Témoin physique (P6a) | `recordNeutral_refines`, `recordNeutral_record_eq`, `recordNeutral_payoff_eq`, `recordNeutral_bornWeight_eq` | `PhysicalRefinement/RecordNeutralWitness.lean` | Couplage unitaire concret `coupleU` dans `H 3` (rotation `(3/5,4/5;4/5,-3/5)` sur un ancilla à deux niveaux), hypothèse nommée `RefinementNotInRecordAlgebra` (`refinementNotInRecordAlgebra_holds`) | **Témoin schématique** : `H 3` n'a ni factorisation tensorielle explicite système/ancilla, ni dynamique, ni décohérence ; l'algèbre de records y est *stipulée*, non dérivée. Établit une existence, pas une universalité ; brique manquante nommée pour la généraliser : une porte de rotation d'amplitude *contrôlée* (combinant le contrôle à deux sites de `ControlledBitFlip` avec le mélange de `AmplitudeRotation` en amont), à construire et exporter | `[propext, Classical.choice, Quot.sound]` |
 | Témoin de non-trivialité (P6a) | `counting_sensitive_to_recordNeutral_refinement`, `counting_underdetermined_by_accessible_record` | `PhysicalRefinement/NonTriviality.lean` | Comptage uniforme restreint aux cellules actives (`activeCells`, `uniformCredence`) sur le même témoin physique | Calcul spécifique au témoin : `1/2 ≠ 1/3` ; ne classifie pas toutes les règles de comptage, seulement celle-ci | `[propext, Classical.choice, Quot.sound]` |
 | Corollaire bornien (P6a) | `born_insensitive_to_recordNeutral_refinement`, `born_determined_by_accessible_record` | `PhysicalRefinement/Nonvacuity.lean` | `bornExpectation_pullback_eq` (`Refinement/PayoffPreserving.lean`), même témoin physique | Contraste avec le comptage sur le même témoin ; ne prétend rien au-delà de ce paiement et de cette paire de perspectives | `[propext, Classical.choice, Quot.sound]` |
+| Théorème de représentation (route qubit) | `EverettianProbability.Abstract.effectExpectation_represents` | `EffectCalibration/EffectBornExpectation.lean` | `represents` levé abstraitement, injectivité de `outcome` (`Fin.val_injective`) | Aucune restriction de dimension, aucune hypothèse de projectivité — vaut pour tout `n` | `[propext, Classical.choice, Quot.sound]` |
+| Résultat original (route qubit) | `EverettianProbability.Abstract.effectWeight_eq_born_of_invariance` | `EffectCalibration/EffectBornExpectation.lean` | Invariance locale abstraite, empaquetage en `EstimationRule` (`canonicalEstimationRule`), nullité de support contextuelle, `hAi : D.effects i = Gleason.projL A` | Vaut pour **tout** `n ≥ 1` (qubit compris) mais **seulement** pour les sorties dont l'effet est une projection ; les POVM non projectifs sont différés en amont (QB8.3) ; ne contredit pas `grain_does_not_imply_born_at_two` — voir le docstring du fichier | `[propext, Classical.choice, Quot.sound]` |
+| Témoin concret (route qubit) | `EverettianProbability.Abstract.spinUp_weight_eq_born` | `EffectCalibration/QubitWitness.lean` | Perspective d'effets explicite en `H 2`, amplitudes `3/5`, `4/5` | Calcul spécifique à ce témoin : poids canonique `= 9/25` | `[propext, Classical.choice, Quot.sound]` |
+| Témoin de non-trivialité (route qubit) | `EverettianProbability.Abstract.effectUniform_not_refinementInvariantLocal` | `EffectCalibration/NonTriviality.lean` | Comptage uniforme sur *toutes* les sorties (pas seulement actives), raffinement à sortie fantôme toujours silencieuse (`phantomZeroRefines`, construit sans `binaryPerspective`/`complementEffect` amont) | Calcul spécifique au témoin : `1/2 ≠ 2/3` ; ne classifie pas toutes les règles de comptage | `[propext, Classical.choice, Quot.sound]` |
 
-L'énoncé principal exact est :
+L'énoncé principal exact (route projective) est :
 
 ```lean
 theorem born_expectation_of_invariance (F : RationalExpectationFamily n) (hn3 : 3 ≤ n)
@@ -25,6 +29,20 @@ theorem born_expectation_of_invariance (F : RationalExpectationFamily n) (hn3 : 
     {v : H n} (hv : ‖v‖ = 1) (hNul : AxNul (canonicalWeight F) v)
     (D : Perspective n) (a : Act n) :
     F.V D a = ∑ c ∈ D.cells, ‖projL c v‖ ^ 2 * a c
+```
+
+L'énoncé principal exact (route effets, route qubit) est :
+
+```lean
+theorem effectWeight_eq_born_of_invariance {n : ℕ} (hn : 1 ≤ n)
+    (F : RationalExpectationFamily (Effects.interface n))
+    (hinv : RefinementInvariantLocal F.V)
+    {v : H n} (hv : ‖v‖ = 1)
+    (hNull : EffectPerspectives.ContextualNullSupport (canonicalEstimationRule F hinv) v)
+    (D : EffectPerspectives.EffectPerspective n) (i : Fin D.outcomes)
+    (A : Submodule ℂ (H n))
+    (hAi : (D.effects i : H n →ₗ[ℂ] H n) = Gleason.projL A) :
+    canonicalWeight F D i = ‖A.starProjection v‖ ^ 2
 ```
 
 ## English
@@ -43,8 +61,12 @@ theorem born_expectation_of_invariance (F : RationalExpectationFamily n) (hn3 : 
 | Physical witness (P6a) | `recordNeutral_refines`, `recordNeutral_record_eq`, `recordNeutral_payoff_eq`, `recordNeutral_bornWeight_eq` | `PhysicalRefinement/RecordNeutralWitness.lean` | Concrete unitary coupling `coupleU` in `H 3` (rotation `(3/5,4/5;4/5,-3/5)` on a two-level ancilla), named hypothesis `RefinementNotInRecordAlgebra` (`refinementNotInRecordAlgebra_holds`) | **Schematic witness**: `H 3` has no explicit system/ancilla tensor factorization, no dynamics, no decoherence; the record algebra is *stipulated*, not derived. Establishes an existence, not a universality claim; named missing brick to generalize it: a *controlled* amplitude-rotation gate (combining `ControlledBitFlip`'s two-site control with `AmplitudeRotation`'s mixing, upstream), to be built and exported | `[propext, Classical.choice, Quot.sound]` |
 | Nontriviality witness (P6a) | `counting_sensitive_to_recordNeutral_refinement`, `counting_underdetermined_by_accessible_record` | `PhysicalRefinement/NonTriviality.lean` | Uniform counting restricted to active cells (`activeCells`, `uniformCredence`) on the same physical witness | Calculation specific to the witness: `1/2 ≠ 1/3`; does not classify every counting rule, only this one | `[propext, Classical.choice, Quot.sound]` |
 | Born corollary (P6a) | `born_insensitive_to_recordNeutral_refinement`, `born_determined_by_accessible_record` | `PhysicalRefinement/Nonvacuity.lean` | `bornExpectation_pullback_eq` (`Refinement/PayoffPreserving.lean`), same physical witness | Contrast with counting on the same witness; claims nothing beyond this payoff and this pair of perspectives | `[propext, Classical.choice, Quot.sound]` |
+| Representation theorem (qubit route) | `EverettianProbability.Abstract.effectExpectation_represents` | `EffectCalibration/EffectBornExpectation.lean` | Abstractly lifted `represents`, `outcome` injectivity (`Fin.val_injective`) | No dimension restriction, no projectivity hypothesis — holds for every `n` | `[propext, Classical.choice, Quot.sound]` |
+| Original result (qubit route) | `EverettianProbability.Abstract.effectWeight_eq_born_of_invariance` | `EffectCalibration/EffectBornExpectation.lean` | Abstract local invariance, packaging into an `EstimationRule` (`canonicalEstimationRule`), contextual null support, `hAi : D.effects i = Gleason.projL A` | Holds for **every** `n ≥ 1` (qubit included) but **only** for outcomes whose effect is a projection; non-projective POVMs are deferred upstream (QB8.3); does not contradict `grain_does_not_imply_born_at_two` — see the file's module docstring | `[propext, Classical.choice, Quot.sound]` |
+| Concrete witness (qubit route) | `EverettianProbability.Abstract.spinUp_weight_eq_born` | `EffectCalibration/QubitWitness.lean` | Explicit effect perspective in `H 2`, amplitudes `3/5`, `4/5` | Calculation specific to this witness: canonical weight `= 9/25` | `[propext, Classical.choice, Quot.sound]` |
+| Nontriviality witness (qubit route) | `EverettianProbability.Abstract.effectUniform_not_refinementInvariantLocal` | `EffectCalibration/NonTriviality.lean` | Uniform counting over *every* outcome (not only active ones), refinement with an always-silent phantom outcome (`phantomZeroRefines`, built without upstream `binaryPerspective`/`complementEffect`) | Calculation specific to the witness: `1/2 ≠ 2/3`; does not classify every counting rule | `[propext, Classical.choice, Quot.sound]` |
 
-The exact headline statement is:
+The exact headline statement (projective route) is:
 
 ```lean
 theorem born_expectation_of_invariance (F : RationalExpectationFamily n) (hn3 : 3 ≤ n)
@@ -52,4 +74,18 @@ theorem born_expectation_of_invariance (F : RationalExpectationFamily n) (hn3 : 
     {v : H n} (hv : ‖v‖ = 1) (hNul : AxNul (canonicalWeight F) v)
     (D : Perspective n) (a : Act n) :
     F.V D a = ∑ c ∈ D.cells, ‖projL c v‖ ^ 2 * a c
+```
+
+The exact headline statement (effect route, qubit route) is:
+
+```lean
+theorem effectWeight_eq_born_of_invariance {n : ℕ} (hn : 1 ≤ n)
+    (F : RationalExpectationFamily (Effects.interface n))
+    (hinv : RefinementInvariantLocal F.V)
+    {v : H n} (hv : ‖v‖ = 1)
+    (hNull : EffectPerspectives.ContextualNullSupport (canonicalEstimationRule F hinv) v)
+    (D : EffectPerspectives.EffectPerspective n) (i : Fin D.outcomes)
+    (A : Submodule ℂ (H n))
+    (hAi : (D.effects i : H n →ₗ[ℂ] H n) = Gleason.projL A) :
+    canonicalWeight F D i = ‖A.starProjection v‖ ^ 2
 ```

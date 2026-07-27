@@ -29,9 +29,33 @@
   affine (`maxExpectation_not_affine`).
 - Lean ne tranche pas l’interprétation philosophique de l’incertitude
   personnelle ; il vérifie seulement les implications entre prémisses.
-- La conclusion projective de Born utilise `3 ≤ n`. La route effets reste
-  disponible dans l’interface abstraite, mais n’est pas substituée ici au
-  théorème projectif.
+- La conclusion projective de Born (`born_expectation_of_invariance`) utilise
+  `3 ≤ n` : elle ne couvre pas le qubit, où `grain_does_not_imply_born_at_two`
+  exhibe au contraire une règle non-bornienne cohérente sous les mêmes
+  axiomes de rationalité.
+- **Route qubit** (`EffectCalibration/`) : la phrase désormais autorisée sur
+  la couverture dimensionnelle, en remplacement de celle qu'autorisait la
+  seule route projective. `effectWeight_eq_born_of_invariance` couvre
+  **tout** `n ≥ 1`, qubit compris (témoin concret en `n = 2`,
+  `EffectCalibration/QubitWitness.lean`, amplitudes `3/5`, `4/5`) — **mais
+  seulement pour les sorties dont l'effet est une projection orthogonale**
+  (`hAi : D.effects i = Gleason.projL A`). Les effets POVM authentiquement
+  non projectifs ne sont pas couverts : la forme générale « valeur
+  d'espérance pour un effet quelconque » est explicitement différée en
+  amont (`EffectPerspectives/Main.lean`, QB8.3), faute d'une identité de
+  trace publique pour un effet non projectif. Ce n'est donc pas un théorème
+  sur route effets *tout court*, mais sur sa restriction aux perspectives
+  d'effets projectifs — une classe qui recouvre toute mesure projective
+  usuelle (Stern-Gerlach en spin-1/2 compris) mais pas les POVM génériques.
+- **Ce que `grain_does_not_imply_born_at_two` ne contredit pas.** Ce
+  théorème (`n = 2`) montre que Grain **seul** — sans la structure des
+  effets, sans le lien poids-effet que `EstimationRule` impose — n'implique
+  pas Born. `effectWeight_eq_born_of_invariance` montre que Grain **plus**
+  la structure des effets force bien Born, y compris en `n = 2`. Les deux
+  prémisses ne sont pas identiques ; seule la seconde est utilisée côté
+  effets. Cette clarification est également inscrite dans le docstring de
+  `effectWeight_eq_born_of_invariance` lui-même
+  (`EffectCalibration/EffectBornExpectation.lean`), pas seulement ici.
 - La lecture globale antérieure est formalisée uniquement comme résultat
   négatif dans `GlobalPayoffVacuity.lean`; elle ne sert plus de prémisse.
 - **P6a** (`PhysicalRefinement/`) établit qu'un raffinement peut redécrire
@@ -86,9 +110,34 @@
   (`maxExpectation_not_affine`).
 - Lean does not settle the philosophical interpretation of personal
   uncertainty; it verifies only implications between premises.
-- The projective Born conclusion uses `3 ≤ n`. The effect route remains
-  available in the abstract interface but is not substituted here for the
-  projective theorem.
+- The projective Born conclusion (`born_expectation_of_invariance`) uses
+  `3 ≤ n`: it does not cover the qubit, where
+  `grain_does_not_imply_born_at_two` instead exhibits a non-Born rule
+  coherent under the same rationality axioms.
+- **Qubit route** (`EffectCalibration/`): the sentence now licensed on
+  dimensional coverage, replacing what the projective route alone
+  licensed. `effectWeight_eq_born_of_invariance` covers **every** `n ≥ 1`,
+  qubit included (concrete witness at `n = 2`,
+  `EffectCalibration/QubitWitness.lean`, amplitudes `3/5`, `4/5`) — **but
+  only for outcomes whose effect is an orthogonal projection**
+  (`hAi : D.effects i = Gleason.projL A`). Genuinely non-projective POVM
+  effects are not covered: the general "expectation value for an
+  arbitrary effect" form is explicitly deferred upstream
+  (`EffectPerspectives/Main.lean`, QB8.3), for want of a public trace
+  identity for a non-projective effect. This is therefore not a theorem
+  about the effect route *simpliciter*, but about its restriction to
+  projective effect perspectives — a class covering every ordinary
+  projective measurement (spin-1/2 Stern-Gerlach included) but not generic
+  POVMs.
+- **What `grain_does_not_imply_born_at_two` does not contradict.** That
+  theorem (`n = 2`) shows Grain **alone** — without the effect structure,
+  without the weight-effect link `EstimationRule` imposes — does not imply
+  Born. `effectWeight_eq_born_of_invariance` shows Grain **plus** the
+  effect structure does force Born, including at `n = 2`. The two
+  premises are not the same; only the second is used on the effect side.
+  This clarification is also written into the docstring of
+  `effectWeight_eq_born_of_invariance` itself
+  (`EffectCalibration/EffectBornExpectation.lean`), not only here.
 - The former global reading is formalized only as a negative result in
   `GlobalPayoffVacuity.lean`; it is no longer used as a premise.
 - **P6a** (`PhysicalRefinement/`) establishes that a refinement can
