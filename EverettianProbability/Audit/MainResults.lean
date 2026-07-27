@@ -17,6 +17,8 @@ import EverettianProbability.EffectCalibration.EffectBornExpectation
 import EverettianProbability.EffectCalibration.QubitWitness
 import EverettianProbability.EffectCalibration.Nonvacuity
 import EverettianProbability.EffectCalibration.NonTriviality
+import EverettianProbability.Diachronic.Conditioning
+import EverettianProbability.Diachronic.NonTriviality
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -128,5 +130,18 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Abstract.effectUniformCredence_coarse
 #print axioms EverettianProbability.Abstract.effectUniformCredence_fine
 #print axioms EverettianProbability.Abstract.effectUniform_not_refinementInvariantLocal
+
+-- Static conditioning under refinement (P8): no record or temporal dynamics.
+#print axioms EverettianProbability.Abstract.conditionalWeight_zero_of_not_in_fiber
+#print axioms EverettianProbability.Abstract.conditionalWeight_nonneg
+#print axioms EverettianProbability.Abstract.conditionalWeight_sum_eq_zero_or_one
+#print axioms EverettianProbability.Abstract.conditionalWeight_normalized
+#print axioms EverettianProbability.Abstract.conditionalExpectation_pullback_eq_of_weight_ne_zero
+#print axioms EverettianProbability.Abstract.conditionalExpectation_total
+#print axioms EverettianProbability.Abstract.conditionalWeight_trans_fiber
+#print axioms EverettianProbability.Diachronic.uniformProjectiveExpectationFamily
+#print axioms EverettianProbability.Diachronic.uniform_conditionalWeight_trans_fiber_lhs
+#print axioms EverettianProbability.Diachronic.uniform_conditionalWeight_trans_fiber_rhs
+#print axioms EverettianProbability.Diachronic.uniform_conditionalWeight_trans_fiber_fails
 
 end EverettianProbability.Audit
