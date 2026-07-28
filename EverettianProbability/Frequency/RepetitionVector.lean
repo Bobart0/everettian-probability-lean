@@ -189,5 +189,54 @@ theorem repetitionVector_norm_sq_eq_sum
     (EuclideanSpace.norm_sq_eq
       (repetitionSitesVector R α β))
 
+/-- **FR.** Le poids d'une configuration se factorise en puissances des
+poids élémentaires `‖α‖²` et `‖β‖²`.
+
+**EN.** A configuration weight factors into powers of the elementary
+weights `‖α‖²` and `‖β‖²`. -/
+theorem repetitionConfigurationWeight_eq_norm_sq_powers
+    (R : ℕ) (α β : ℂ) (g : Fin R → Fin 2) :
+    repetitionConfigurationWeight R α β g =
+      (‖α‖ ^ 2) ^ (R - hammingWeight g) *
+        (‖β‖ ^ 2) ^ hammingWeight g := by
+  unfold repetitionConfigurationWeight repetitionAmplitude
+  rw [norm_mul, norm_pow, norm_pow]
+  simp only [pow_two, mul_pow]
+  ring
+
+/-- **FR.** Pour la configuration canonique de poids `k`, le poids vaut
+`(‖α‖²)^(R-k) (‖β‖²)^k`.
+
+**EN.** For the canonical configuration of weight `k`, the weight is
+`(‖α‖²)^(R-k) (‖β‖²)^k`. -/
+theorem repetitionConfigurationWeight_prefix_eq_norm_sq_powers
+    (R : ℕ) (k : Fin (R + 1)) (α β : ℂ) :
+    repetitionConfigurationWeight R α β
+        (prefixConfiguration R k) =
+      (‖α‖ ^ 2) ^ (R - k.val) *
+        (‖β‖ ^ 2) ^ k.val := by
+  rw [
+    repetitionConfigurationWeight_eq_norm_sq_powers,
+    hammingWeight_prefixConfiguration
+  ]
+
+/-- **FR.** Le carré de la norme du vecteur est la somme, sur toutes les
+configurations, des produits de puissances des poids élémentaires.
+
+**EN.** The squared norm of the vector is the sum, over all configurations,
+of the products of powers of the elementary weights. -/
+theorem repetitionVector_norm_sq_eq_sum_norm_sq_powers
+    (R : ℕ) (α β : ℂ) :
+    ‖repetitionVector R α β‖ ^ 2 =
+      ∑ g : Fin R → Fin 2,
+        (‖α‖ ^ 2) ^ (R - hammingWeight g) *
+          (‖β‖ ^ 2) ^ hammingWeight g := by
+  rw [repetitionVector_norm_sq_eq_sum]
+  apply Finset.sum_congr rfl
+  intro g hg
+  exact
+    repetitionConfigurationWeight_eq_norm_sq_powers
+      R α β g
+
 end
 end EverettianProbability.Frequency
