@@ -3,16 +3,16 @@ import EverettianProbability.Frequency.RepetitionVector
 /-!
 **FR.** # Projection du vecteur de répétition sur une cellule de fréquence
 
-La composante de poids de Hamming k est explicitement construite, égale à la
-projection orthogonale, et son carré de norme est d'abord une somme sur la
-fibre de Hamming puis la formule binomiale exacte. La concentration et la
-typicalité restent ouvertes.
+La composante projetée est explicitement construite et possède sa formule
+binomiale exacte. Sous l'hypothèse de normalisation élémentaire, les poids des
+cellules de la perspective somment à 1. La concentration et la typicalité
+restent ouvertes.
 
 **EN.** # Projection of the repetition vector onto a frequency cell
 
-The Hamming-weight k component is explicitly constructed, equals the
-orthogonal projection, and its squared norm is first a Hamming-fiber sum and
-then the exact binomial formula. Concentration and typicality remain open.
+The projected component is explicitly constructed and has its exact binomial
+formula. Under the elementary normalization hypothesis, the perspective-cell
+weights sum to 1. Concentration and typicality remain open.
 -/
 
 namespace EverettianProbability.Frequency
@@ -198,6 +198,72 @@ theorem projL_frequencyCell_repetitionVector_norm_sq_eq_binomial
         ((‖α‖ ^ 2) ^ (R - k) * (‖β‖ ^ 2) ^ k) := by
   rw [projL_frequencyCell_repetitionVector_norm_sq_eq_sum]
   exact sum_repetitionConfigurationWeight_configurationsOfWeight R k α β
+
+/-- **FR.** La somme indexée des poids projectifs de fréquence est la
+puissance R de la somme des poids élémentaires.
+
+**EN.** The indexed sum of frequency projective weights is the R-th power
+of the elementary-weight sum. -/
+theorem sum_projL_frequencyCell_repetitionVector_norm_sq_eq_elementary_sum_pow
+    (R : ℕ) (α β : ℂ) :
+    (∑ k : Fin (R + 1),
+        ‖projL (frequencyCell R k.val)
+            (repetitionVector R α β)‖ ^ 2) =
+      (‖α‖ ^ 2 + ‖β‖ ^ 2) ^ R := by
+  rw [Fin.sum_univ_eq_sum_range
+    (fun k => ‖projL (frequencyCell R k)
+      (repetitionVector R α β)‖ ^ 2) (R + 1)]
+  simp_rw [projL_frequencyCell_repetitionVector_norm_sq_eq_binomial]
+  exact (repetitionVector_norm_sq_eq_binomial_sum R α β).symm.trans
+    (repetitionVector_norm_sq_eq_elementary_sum_pow R α β)
+
+/-- **FR.** Sous normalisation élémentaire, la somme indexée vaut 1.
+
+**EN.** Under elementary normalization, the indexed sum is 1. -/
+theorem sum_projL_frequencyCell_repetitionVector_norm_sq_eq_one
+    (R : ℕ) (α β : ℂ)
+    (hnorm : ‖α‖ ^ 2 + ‖β‖ ^ 2 = 1) :
+    (∑ k : Fin (R + 1),
+        ‖projL (frequencyCell R k.val)
+            (repetitionVector R α β)‖ ^ 2) = 1 := by
+  rw [sum_projL_frequencyCell_repetitionVector_norm_sq_eq_elementary_sum_pow,
+    hnorm, one_pow]
+
+/-- **FR.** La somme sur les cellules de frequencyPerspective a la même
+valeur que la somme indexée.
+
+**EN.** The sum over frequencyPerspective cells equals the indexed sum. -/
+theorem sum_frequencyPerspective_repetitionVector_norm_sq_eq_elementary_sum_pow
+    (R : ℕ) (α β : ℂ) :
+    (∑ c ∈ (frequencyPerspective R).cells,
+        ‖projL c (repetitionVector R α β)‖ ^ 2) =
+      (‖α‖ ^ 2 + ‖β‖ ^ 2) ^ R := by
+  calc
+    (∑ c ∈ (frequencyPerspective R).cells,
+        ‖projL c (repetitionVector R α β)‖ ^ 2) =
+        ∑ k : Fin (R + 1),
+          ‖projL (frequencyCell R k.val)
+              (repetitionVector R α β)‖ ^ 2 := by
+      unfold frequencyPerspective
+      rw [Finset.sum_image
+        (s := Finset.univ)
+        (g := fun k : Fin (R + 1) => frequencyCell R k.val)
+        (frequencyCell_injective R).injOn]
+    _ = (‖α‖ ^ 2 + ‖β‖ ^ 2) ^ R :=
+      sum_projL_frequencyCell_repetitionVector_norm_sq_eq_elementary_sum_pow R α β
+
+/-- **FR.** Sous normalisation élémentaire, les poids de la perspective
+de fréquence somment à 1.
+
+**EN.** Under elementary normalization, the frequency-perspective weights
+sum to 1. -/
+theorem sum_frequencyPerspective_repetitionVector_norm_sq_eq_one
+    (R : ℕ) (α β : ℂ)
+    (hnorm : ‖α‖ ^ 2 + ‖β‖ ^ 2 = 1) :
+    (∑ c ∈ (frequencyPerspective R).cells,
+        ‖projL c (repetitionVector R α β)‖ ^ 2) = 1 := by
+  rw [sum_frequencyPerspective_repetitionVector_norm_sq_eq_elementary_sum_pow,
+    hnorm, one_pow]
 
 end
 end EverettianProbability.Frequency
