@@ -386,5 +386,76 @@ theorem frequencyPerspective_cells_card (R : ℕ) :
   · simp
   · exact frequencyCell_injective R
 
+/-- **FR.** Dans la représentation par sites, la projection d'un vecteur
+de base sur la cellule de poids `k` le conserve exactement lorsque son
+poids de Hamming vaut `k`, et l'annule sinon.
+
+**EN.** In the site representation, projecting a basis vector onto the
+weight-`k` cell preserves it exactly when its Hamming weight is `k`, and
+annihilates it otherwise. -/
+theorem frequencySitesCell_starProjection_configurationBasis
+    {R k : ℕ} (g : Fin R → Fin 2) :
+    (frequencySitesCell R k).starProjection
+        (configurationBasis g) =
+      if hammingWeight g = k then
+        configurationBasis g
+      else 0 := by
+  split_ifs with h
+  · exact
+      Submodule.starProjection_eq_self_iff.mpr
+        (by
+          rw [← h]
+          exact
+            configurationBasis_mem_frequencySitesCell g)
+  · rw [Submodule.starProjection_apply_eq_zero_iff]
+    exact
+      (frequencySitesCell_ortho
+        (R := R)
+        (k := hammingWeight g)
+        (l := k)
+        h)
+        (configurationBasis_mem_frequencySitesCell g)
+
+/-- **FR.** Après transport vers `H (2 ^ R)`, la projection d'une branche
+de configuration sur une cellule de fréquence obéit à la même formule
+indicatrice.
+
+**EN.** After transport to `H (2 ^ R)`, projecting a configuration branch
+onto a frequency cell obeys the same indicator formula. -/
+theorem frequencyCell_starProjection_configurationBranch
+    {R k : ℕ} (g : Fin R → Fin 2) :
+    (frequencyCell R k).starProjection
+        (configurationBranch R g) =
+      if hammingWeight g = k then
+        configurationBranch R g
+      else 0 := by
+  unfold frequencyCell configurationBranch
+  apply (sitesEquivR R).injective
+  rw [Submodule.starProjection_map_apply]
+  by_cases h : hammingWeight g = k
+  · simp [
+      frequencySitesCell_starProjection_configurationBasis,
+      h
+    ]
+  · simp [
+      frequencySitesCell_starProjection_configurationBasis,
+      h
+    ]
+
+/-- **FR.** Forme directement exprimée avec l'opérateur linéaire public
+`projL`.
+
+**EN.** Form stated directly with the public linear operator `projL`. -/
+theorem projL_frequencyCell_configurationBranch
+    {R k : ℕ} (g : Fin R → Fin 2) :
+    projL (frequencyCell R k)
+        (configurationBranch R g) =
+      if hammingWeight g = k then
+        configurationBranch R g
+      else 0 := by
+  simpa [projL] using
+    (frequencyCell_starProjection_configurationBranch
+      (R := R) (k := k) g)
+
 end
 end EverettianProbability.Frequency

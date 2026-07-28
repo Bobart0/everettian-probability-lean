@@ -197,4 +197,8 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.repetitionVector_norm_sq_eq_one
 #print axioms EverettianProbability.Frequency.repetitionVector_norm_eq_one
 
+#print axioms EverettianProbability.Frequency.frequencySitesCell_starProjection_configurationBasis
+#print axioms EverettianProbability.Frequency.frequencyCell_starProjection_configurationBranch
+#print axioms EverettianProbability.Frequency.projL_frequencyCell_configurationBranch
+
 end EverettianProbability.Audit
