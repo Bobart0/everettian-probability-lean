@@ -2,6 +2,35 @@
 
 ## Français
 
+### Typicalité (P10)
+
+La concentration des masses de fréquence est un résultat conditionnel à la
+pondération quadratique déjà établie. Elle ne dérive pas cette pondération.
+Les masses, moments, borne de Chebyshev et seuil quantifié sont finis ou
+quantifiés explicitement : aucune variable aléatoire mesurée, `PMF`, théorie
+de la mesure ou assertion `Tendsto` n'est introduite.
+
+### Confirmation (P11)
+
+La mise à jour bayésienne montre comment les poids déjà calibrés fonctionnent
+comme vraisemblances et modifient des priors. Elle ne fournit pas une
+justification indépendante de ces vraisemblances, ne dérive pas Born et ne
+résout pas à elle seule la circularité philosophique. Elle n'introduit aucune
+hypothèse vraie, ni consistance postérieure, ni convergence asymptotique.
+
+### Factorisation
+
+Le produit des vraisemblances pour plusieurs observations est une hypothèse de
+factorisation conditionnelle, non une conséquence prouvée de la dynamique
+quantique. Les divisions et les mises à jour itérées requièrent les témoins
+explicites de non-nullité énoncés par les théorèmes concernés.
+
+### Portée du programme complet
+
+Restent notamment ouverts une sémantique formelle de l'auto-localisation, une
+cohérence diachronique véritable avec continuateurs et records, le pont général
+de réalisabilité physique P6b, et la stabilité approximative P12.
+
 - Aucune norme de rationalité n’est dérivée de la seule dynamique unitaire.
   `RefinementInvariantLocal` est une prémisse normative assumée.
 - Le théorème principal (`born_expectation_of_invariance`) repose sur
@@ -84,6 +113,35 @@
   combinée.
 
 ## English
+
+### Typicality (P10)
+
+Concentration of frequency masses is conditional on already established
+quadratic weighting. It does not derive that weighting. The masses, moments,
+Chebyshev bound, and quantified threshold are finite or explicitly quantified:
+no measured random variable, `PMF`, measure theory, or `Tendsto` assertion is
+introduced.
+
+### Confirmation (P11)
+
+Bayesian updating shows how already calibrated weights function as likelihoods
+and modify priors. It supplies no independent justification of those
+likelihoods, does not derive Born, and does not by itself resolve philosophical
+circularity. It introduces neither a true hypothesis nor posterior consistency
+or asymptotic convergence.
+
+### Factorization
+
+The product of likelihoods for several observations is a conditional
+factorization assumption, not a consequence proved from quantum dynamics.
+Divisions and iterated updates require the explicit nonzero witnesses stated by
+the relevant theorems.
+
+### Scope of the complete programme
+
+Still open are, in particular, a formal self-location semantics, genuine
+diachronic coherence with continuators and records, the general physical
+realizability bridge P6b, and approximate stability P12.
 
 - No rationality norm is derived from unitary dynamics alone.
   `RefinementInvariantLocal` is an assumed normative premise.

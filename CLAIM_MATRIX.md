@@ -16,7 +16,9 @@
 | P8 | `conditionalWeight_sum_eq_zero_or_one`, `conditionalWeight_normalized`, `conditionalExpectation_pullback_eq_of_weight_ne_zero`, `conditionalExpectation_total`, `conditionalWeight_trans_fiber` | `RefinementInvariantLocal → canonicalWeight_grain`; la normalisation et la totalité n'ajoutent aucune prémisse | Masse totale `0` ou `1`, restitution de la conséquence, loi de totalité et marginalisation conditionnelle ; pas de temps, record ni continuateur | Clos dans sa portée formelle révisée |
 | Témoin P8 | `uniform_conditionalWeight_trans_fiber_fails` | Famille uniforme, qui ne satisfait pas `RefinementInvariantLocal` | Échec direct `1 ≠ 4 / 3` : le théorème n'est pas contredit car son hypothèse d'invariance est absente | Clos |
 | P9 | `fourthPowerWeight_axPos`, `fourthPowerWeight_not_axNorm` | `psiBefore`, `coarsePerspective` | Positivité satisfaite ; normalisation violée par `337/625 ≠ 1` | Partiel, cas `q = 4` seulement |
-| P5, P6b, P7, P10–P12, route des préférences primitives | Extensions | — | — | Non ouvertes |
+| P10 | `frequencyMass_eq_binomial`, `sum_frequencyMass_eq_one`, `frequencyRelativeVariance_eq`, `frequencyAtypicalMass_le_chebyshev`, `one_sub_delta_le_frequencyTypicalMass`, `exists_frequencyTypicality_threshold` | Poids quadratiques déjà calibrés; normalisation; hypothèses positives explicites pour concentration | Masses de fréquence finies normalisées, typicalité et seuil quantifié | **Clos dans sa portée finie et asymptotique quantifiée**; pas de `PMF`, mesure ou dérivation indépendante de Born |
+| P11 | `FiniteBayesModel.sum_posteriorWeight_eq_one`, `FiniteBayesModel.posteriorWeight_div_posteriorWeight_eq`, `FiniteBayesModel.iteratedPosteriorModel_prior_eq_finiteObservationPosteriorWeight`, `frequencyConfirmationModel_iteratedPriorOdds_eq` | Priors; masses P10 comme vraisemblances; factorisation conditionnelle; non-nullités explicites | Confirmation bayésienne finie, lots et mise à jour itérée | **Clos dans sa portée bayésienne finie et conditionnelle**; ni hypothèse vraie, ni consistance, ni justification indépendante de Born |
+| P5, P6b, P7, P12, route des préférences primitives | Extensions | — | — | Non ouvertes |
 
 Décision P0.3 : l’interface commune reste en aval ; les actes sont totaux et
 les sous-types de cellules servent uniquement à l’énumération.
@@ -37,7 +39,23 @@ les sous-types de cellules servent uniquement à l’énumération.
 | P8 | `conditionalWeight_sum_eq_zero_or_one`, `conditionalWeight_normalized`, `conditionalExpectation_pullback_eq_of_weight_ne_zero`, `conditionalExpectation_total`, `conditionalWeight_trans_fiber` | `RefinementInvariantLocal → canonicalWeight_grain`; normalization and totality add no premise | Total mass `0` or `1`, consequence recovery, totality, and conditional marginalization; no time, record, or continuator | Closed in its revised formal scope |
 | P8 witness | `uniform_conditionalWeight_trans_fiber_fails` | Uniform family, which does not satisfy `RefinementInvariantLocal` | Direct failure `1 ≠ 4 / 3`: it does not contradict the theorem because its invariance hypothesis is absent | Closed |
 | P9 | `fourthPowerWeight_axPos`, `fourthPowerWeight_not_axNorm` | `psiBefore`, `coarsePerspective` | Positivity holds; normalization fails through `337/625 ≠ 1` | Partial, `q = 4` only |
-| P5, P6b, P7, P10–P12 | Extensions | — | — | Not opened |
+| P10 | `frequencyMass_eq_binomial`, `sum_frequencyMass_eq_one`, `frequencyRelativeVariance_eq`, `frequencyAtypicalMass_le_chebyshev`, `one_sub_delta_le_frequencyTypicalMass`, `exists_frequencyTypicality_threshold` | Already calibrated quadratic weights; normalization; explicit positive hypotheses for concentration | Normalized finite frequency masses, typicality, quantified threshold | **Closed in its finite and quantified-asymptotic scope**; no `PMF`, measure, or independent Born derivation |
+| P11 | `FiniteBayesModel.sum_posteriorWeight_eq_one`, `FiniteBayesModel.posteriorWeight_div_posteriorWeight_eq`, `FiniteBayesModel.iteratedPosteriorModel_prior_eq_finiteObservationPosteriorWeight`, `frequencyConfirmationModel_iteratedPriorOdds_eq` | Priors; P10 masses as likelihoods; conditional factorization; explicit nonzero assumptions | Finite Bayesian confirmation, batches, iterated updating | **Closed in its finite conditional Bayesian scope**; no true hypothesis, consistency, or independent Born justification |
+| P5, P6b, P7, P12 | Extensions | — | — | Not opened |
 
 Decision P0.3: the common interface remains downstream; acts are total and
 cell subtypes are used only for enumeration.
+
+### P10/P11 wording audit (2026-07-28)
+
+| Claim | Status | Authorized formulation | Forbidden formulation |
+|---|---|---|---|
+| P10 frequency masses and typicality | Closed in finite and quantified-asymptotic scope | “Born-calibrated weights yield normalized finite frequency masses.” “The atypical mass admits an explicit Chebyshev bound.” | “Typicality independently derives the Born rule.” |
+| P11 finite conditional confirmation | Closed in finite conditional Bayesian scope | “Born-calibrated frequency masses can serve as finite Bayesian likelihoods.” “Sequential and batch updating agree under explicit nonzero assumptions.” | “Bayesian confirmation independently justifies the Born rule.” “Unitary dynamics alone determines epistemic probability.” “Posterior consistency has been proved.” “The self-location problem has been solved.” |
+
+### Audit des formulations P10/P11 (2026-07-28)
+
+| Revendication | Statut | Formulation autorisée | Formulation interdite |
+|---|---|---|---|
+| Masses et typicalité P10 | Clos dans la portée finie et asymptotique quantifiée | « Les poids calibrés par Born donnent des masses de fréquence finies normalisées. » « La masse atypique admet une borne de Chebyshev explicite. » | « La typicalité dérive indépendamment la règle de Born. » |
+| Confirmation finie conditionnelle P11 | Clos dans la portée bayésienne finie et conditionnelle | « Les masses de fréquence calibrées par Born peuvent servir de vraisemblances bayésiennes finies. » « Les mises à jour séquentielle et par lot coïncident sous hypothèses explicites de non-nullité. » | « La confirmation bayésienne justifie indépendamment Born. » « La dynamique unitaire seule détermine la probabilité épistémique. » « La consistance postérieure est prouvée. » « Le problème d'auto-localisation est résolu. » |

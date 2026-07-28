@@ -15,6 +15,32 @@
 
 ## Français
 
+### P4, P10 et P11 : sens de la chaîne
+
+```text
+dérivation/calibration des poids : P4
+    ↓
+conséquences fréquentielles : P10
+    ↓
+utilisation confirmatoire conditionnelle : P11
+```
+
+P4 calibre les poids dans les prémisses normatives et physiques déjà isolées.
+P10 en tire des conséquences fréquentielles : masses binomiales, moments,
+concentration et typicalité quantifiée. P11 emploie alors ces masses comme
+vraisemblances dans un modèle bayésien fini conditionnel.
+
+| Élément P11 | Classification |
+|---|---|
+| prior | épistémique |
+| likelihoods | héritées de la calibration bornienne P4/P10 |
+| factorisation | statistique/modélisatrice |
+| non-nullité | technique et substantielle selon le cas |
+
+**Ce qui n'est pas démontré :** P11 n'est pas une dérivation de P4 et ne peut
+pas être utilisé comme justification rétroactive de P4. Il ne sélectionne pas
+une hypothèse vraie et ne prouve ni convergence ni consistance.
+
 ### Méthode
 
 Chaque maillon reçoit un statut unique :
@@ -231,6 +257,32 @@ exclut : un fonctionnel monotone, normalisé, mais non affine. Complet.
    mais provablement non affine (`maxExpectation_not_affine`). »*
 
 ## English
+
+### P4, P10, and P11: direction of the chain
+
+```text
+derivation/calibration of weights: P4
+    ↓
+frequency consequences: P10
+    ↓
+conditional confirmatory use: P11
+```
+
+P4 calibrates weights under the already isolated normative and physical
+premises. P10 draws frequency consequences: binomial masses, moments,
+concentration, and quantified typicality. P11 then uses those masses as
+likelihoods in a finite conditional Bayesian model.
+
+| P11 element | Classification |
+|---|---|
+| prior | epistemic |
+| likelihoods | inherited from P4/P10 Born calibration |
+| factorization | statistical/modeling |
+| nonzero conditions | technical and substantive as applicable |
+
+**What is not proved:** P11 is not a derivation of P4 and cannot be used as a
+retroactive justification of P4. It selects no true hypothesis and proves
+neither convergence nor consistency.
 
 ### Method
 

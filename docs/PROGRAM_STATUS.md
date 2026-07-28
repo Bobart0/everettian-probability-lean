@@ -12,7 +12,27 @@
 
 ## Français
 
-### Table des jalons
+### Statut courant — 2026-07-28
+
+| Jalon | Statut courant | Portée exacte |
+|---|---|---|
+| P10 | **CLOS** | Fréquences finies, typicalité et seuil explicite quantifié; poids quadratiques déjà calibrés, sans `PMF`, mesure ni `Tendsto`. |
+| P11 | **CLOS** | Confirmation bayésienne finie conditionnelle; masses P10 utilisées comme vraisemblances, sous factorisation conditionnelle et non-nullités explicites. |
+| P5, P6b, P7, P12, route des préférences primitives | **OUVERTS** | Aucun de ces jalons n'est clos par P10/P11. |
+| P8 | **CLOS dans sa portée révisée** | Conditionnement statique sur fibres de raffinement, pas de dynamique temporelle générale. |
+| P9 | **PARTIEL** | Témoin `q = 4` seulement; pas de fermeture complète. |
+
+Les passages de diagnostic antérieurs disant que P10 ou P11 n'étaient pas
+entamés sont historiques (antérieurs à cette fermeture) et ne constituent
+pas le statut courant.
+
+### Diagnostic historique — 2026-07-26
+
+La table et les analyses qui suivent décrivent l'état constaté le 2026-07-26,
+avant l'ouverture puis la fermeture documentaire de P10/P11; elles sont
+conservées pour la traçabilité et ne constituent pas le statut courant.
+
+#### Table des jalons
 
 | Jalon | Objet | Statut | Ce qui existe | Ce qui manque | Dépendances |
 |---|---|---|---|---|---|
@@ -220,7 +240,26 @@ ce nom désigne — exactement le même défaut que P5, sous un nom différent.
 
 ## English
 
-### Milestone table
+### Current status — 2026-07-28
+
+| Milestone | Current status | Exact scope |
+|---|---|---|
+| P10 | **CLOSED — finite frequencies, typicality and explicit threshold** | Already calibrated quadratic weights; no `PMF`, measure, or `Tendsto`. |
+| P11 | **CLOSED — finite conditional Bayesian confirmation** | P10 masses used as likelihoods, under conditional factorization and explicit nonzero assumptions. |
+| P5, P6b, P7, P12, primitive-preference route | **OPEN** | None is closed by P10/P11. |
+| P8 | **CLOSED in its revised scope** | Static conditioning on refinement fibers, not general temporal dynamics. |
+| P9 | **PARTIAL** | `q = 4` witness only; not fully closed. |
+
+Earlier diagnostic passages describing P10 or P11 as unstarted are historical,
+predate this closure, and are not the current status.
+
+### Historical diagnostic — 2026-07-26
+
+The table and analysis below record the state observed on 2026-07-26, before
+P10/P11 were opened and then documented as closed; they are retained for
+traceability and are not the current status.
+
+#### Milestone table
 
 | Milestone | Subject | Status | What exists | What is missing | Dependencies |
 |---|---|---|---|---|---|

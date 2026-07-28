@@ -15,7 +15,9 @@
 | Route qubit | Espérance de Born côté effets (`EffectCalibration/`) | **Clos** — tout `n ≥ 1`, restreint aux sorties projectives | 4 |
 | P8 | Conditionnement statique sur fibres de raffinement | **Clos dans sa portée formelle révisée** : conditionnement sur fibres de raffinement, loi de totalité et marginalisation conditionnelle sous composition des raffinements. Aucune dynamique temporelle, aucun continuateur et aucun record accessible ne sont formalisés. | 3 |
 | P9 | Règle rivale à puissance quatrième (`q = 4`) | **Partiel** — témoin positif et non normalisé | 1 |
-| P5, P6b, P7, P10–P12 | Jalons ultérieurs | Non ouverts | 0 |
+| P10 | Fréquences, typicalité et seuil explicite | **Clos dans sa portée finie et asymptotique quantifiée** | 0 |
+| P11 | Confirmation bayésienne finie conditionnelle | **Clos dans sa portée bayésienne finie et conditionnelle** | 0 |
+| P5, P6b, P7, P12 | Jalons ultérieurs | Non ouverts | 0 |
 
 ### Reprise du 2026-07-28 — P9, puissance quatrième
 
@@ -25,6 +27,30 @@
   `psiBefore` et `coarsePerspective`.
 - `fourthPowerWeight_not_axNorm` en déduit l'échec de `AxNorm`.
 - Portée strictement limitée à `q = 4`.
+
+### Fermeture du 2026-07-28 — P10 et P11
+
+- **P10 — clos dans sa portée finie et asymptotique quantifiée.**
+  `Frequency/` construit les vecteurs de répétition, cellules et projecteurs
+  de fréquence, expose les masses `frequencyMass`, leur formule binomiale et
+  leur normalisation, puis établit les moments, la variance de fréquence
+  relative, Chebyshev fini, les masses typique/atypique et un seuil explicite
+  `exists_frequencyTypicality_threshold`. Les poids quadratiques sont ceux
+  déjà calibrés : P10 n'est pas une dérivation indépendante de Born. Il ne
+  requiert ni variable aléatoire mesurée, ni `PMF`, ni théorie de la mesure,
+  et son énoncé asymptotique est quantifié par seuil, sans `Tendsto`.
+- **P11 — clos dans sa portée bayésienne finie et conditionnelle.**
+  `Confirmation/` contient le modèle bayésien fini, les évidences et
+  postérieurs, les cotes, la comparaison d'hypothèses, les témoins rationnels
+  à une et deux observations, la mise à jour séquentielle, les lots finis,
+  l'équivalence lot/itération, les produits de rapports et la spécialisation
+  aux noyaux de fréquence. Il présuppose P4/P10 et emploie ces masses comme
+  vraisemblances ; il ne justifie pas Born ni la circularité philosophique,
+  n'introduit aucune hypothèse vraie et ne prouve ni consistance ni
+  convergence. La factorisation des lots et les non-nullités nécessaires aux
+  divisions et mises à jour itérées sont des hypothèses explicites.
+- `SORRY_BUDGET = 0`. Les déclarations auditées ont pour axiomes au plus
+  `[propext, Classical.choice, Quot.sound]`.
 
 ### Fermetures de la reprise P3/P4
 
@@ -186,7 +212,9 @@ Budget toujours à `0` ; aucun `sorry` introduit.
 | Qubit route | Effect-side Born expectation (`EffectCalibration/`) | **Closed** — every `n ≥ 1`, restricted to projective outcomes | 4 |
 | P8 | Static conditioning on refinement fibers | **Closed in its revised formal scope**: conditioning on refinement fibers, totality, and conditional marginalization under composition of refinements. No temporal dynamics, continuator, or accessible record is formalized. | 3 |
 | P9 | Fourth-power rival rule (`q = 4`) | **Partial** — positive, unnormalized witness | 1 |
-| P5, P6b, P7, P10–P12 | Later milestones | Not opened | 0 |
+| P10 | Finite frequencies, typicality, explicit threshold | **Closed in its finite and quantified-asymptotic scope** | 0 |
+| P11 | Finite conditional Bayesian confirmation | **Closed in its finite conditional Bayesian scope** | 0 |
+| P5, P6b, P7, P12 | Later milestones | Not opened | 0 |
 
 ### 2026-07-28 resumption — P9, fourth power
 
@@ -292,6 +320,30 @@ Budget still `0`; no `sorry` introduced by this resumption.
   `docs/SCOPE_AND_LIMITATIONS.md`.
 
 Budget still `0`; no `sorry` introduced.
+
+### 2026-07-28 closure — P10 and P11
+
+- **P10 — closed in its finite and quantified-asymptotic scope.**
+  `Frequency/` constructs repetition vectors, frequency cells and
+  projectors; exposes `frequencyMass`, its binomial formula and
+  normalization; and proves moments, relative-frequency variance, finite
+  Chebyshev, typical/atypical masses, and the explicit threshold
+  `exists_frequencyTypicality_threshold`. It uses already calibrated
+  quadratic weights, is not an independent derivation of Born, needs no
+  measured random variable, `PMF`, or measure theory, and states its
+  asymptotic result by a quantified threshold rather than `Tendsto`.
+- **P11 — closed in its finite conditional Bayesian scope.**
+  `Confirmation/` provides the finite Bayesian model, evidence and
+  posterior weights, odds, hypothesis comparison, rational one- and
+  two-observation witnesses, sequential and batch updating, their
+  equivalence, likelihood-ratio products, and frequency-kernel
+  specialization. It presupposes P4/P10, uses frequency masses as
+  likelihoods, and neither independently justifies Born nor resolves
+  philosophical circularity. Batch factorization and the nonzero
+  assumptions needed for divisions and iterated updating remain explicit;
+  no true hypothesis, consistency, or convergence is introduced.
+- `SORRY_BUDGET = 0`. Every audited declaration has axioms contained in
+  `[propext, Classical.choice, Quot.sound]`.
 
 ### 2026-07-27 resumption — documentation housekeeping, qubit route
 

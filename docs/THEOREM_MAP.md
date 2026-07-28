@@ -2,6 +2,37 @@
 
 ## Français
 
+## P10 — Fréquences et typicalité
+
+| Fichier | Déclaration Lean exacte | Prémisses importantes | Conclusion | Limites et amont |
+|---|---|---|---|---|
+| `Frequency/Distribution.lean` | `frequencyMass_eq_binomial`; `sum_frequencyMass_eq_one` | Vecteur de répétition et poids quadratiques; normalisation pour la seconde | Formule binomiale exacte et masse totale `1` | Réutilise les poids calibrés en amont; ni `PMF`, ni mesure. |
+| `Frequency/Moments.lean` | `frequencyRelativeVariance_eq` | `0 < R`, normalisation élémentaire | Variance relative `‖β‖²(1-‖β‖²)/R` | Calcul fini. |
+| `Frequency/Concentration.lean` | `frequencyAtypicalMass_le_chebyshev` | `0 < R`, `0 < ε`, normalisation | Borne finie de Chebyshev | Pas de limite. |
+| `Frequency/Typicality.lean` | `one_sub_delta_le_frequencyTypicalMass` | Borne de Chebyshev au plus `δ` | Masse typique au moins `1-δ` | Typicalité finie seulement. |
+| `Frequency/AsymptoticTypicality.lean` | `exists_frequencyTypicality_threshold` | `ε > 0`, `δ > 0`, normalisation | Seuil naturel positif explicite | Quantifié, sans `Tendsto`; ne dérive pas Born. |
+
+## P11 — Confirmation conditionnelle finie
+
+| Fichier | Déclaration Lean exacte | Prémisses importantes | Conclusion | Limites et amont |
+|---|---|---|---|---|
+| `Confirmation/FiniteBayes.lean` | `FiniteBayesModel.sum_posteriorWeight_eq_one` | Évidence non nulle | Posterieurs normalisés | Modèle fini algébrique. |
+| `Confirmation/PosteriorOdds.lean` | `FiniteBayesModel.posteriorWeight_div_posteriorWeight_eq` | Évidence, prior et vraisemblance dénominateurs non nuls | Cotes postérieures = cotes a priori × rapport de vraisemblance | Divisions conditionnelles. |
+| `Confirmation/HypothesisComparison.lean` | `frequencyConfirmationModel_posteriorWeight_lt_iff_kernel_lt_of_equal_prior` | Priors égaux positifs, évidence positive | Ordre des postérieurs = ordre des noyaux | Pas d'hypothèse vraie. |
+| `Confirmation/SequentialUpdate.lean` | `FiniteBayesModel.posteriorUpdatedModel_posteriorWeight_eq` | Évidences explicites non nulles | Mise à jour à deux observations | Factorisation conditionnelle. |
+| `Confirmation/IteratedUpdate.lean` | `FiniteBayesModel.iteratedPosteriorModel_prior_eq_finiteObservationPosteriorWeight` | Témoin séquentiel de non-nullité | Mise à jour itérée = posterior global du lot | Pas de convergence. |
+| `Confirmation/BatchPosteriorOdds.lean` | `FiniteBayesModel.iteratedPosteriorModel_priorOdds_eq_priorOdds_mul_ratioProduct` | Non-nullités des dénominateurs | Cotes finales = produit des rapports | Lot fini. |
+| `Confirmation/FrequencyBatchOdds.lean` | `frequencyConfirmationModel_iteratedPriorOdds_eq` | Noyaux dénominateurs non nuls | Spécialisation aux noyaux fréquentiels | Masses P10 comme vraisemblances. |
+| `Confirmation/RationalBatchWitness.lean` | `rationalWitnessLow_iteratedPrior_lt_high` | Témoin rationnel explicite | Comparaison stricte après deux observations | Exemple, pas consistance. |
+
+```text
+P4 Born calibration
+    ↓
+P10 frequencyMass and typicality
+    ↓
+P11 finite likelihoods and Bayesian updating
+```
+
 | Statut | Déclaration | Module | Dépendances directes | Limite de portée | Audit |
 |---|---|---|---|---|---|
 | Résultat original | `born_expectation_of_invariance` | `BornCalibration/BornExpectation.lean` | **Deux prémisses-ponts** : `RefinementInvariantLocal` (normative pure) et `AxNul (canonicalWeight F) v` (normative-physique — seul point d'entrée de l'état `v`), plus `RationalExpectationFamily`, `‖v‖ = 1`, `3 ≤ n` ; `AxNorm`/`AxPos` sur `canonicalWeight F` sont dérivées, non assumées | Route projective uniquement ; invariance sur **tous** les raffinements projectifs, sans restriction de records ; n'affirme aucune dérivation dynamique des deux prémisses-ponts | `[propext, Classical.choice, Quot.sound]` |
@@ -58,6 +89,37 @@ theorem effectWeight_eq_born_of_invariance {n : ℕ} (hn : 1 ≤ n)
 | `uniform_conditionalWeight_trans_fiber_fails` | `Diachronic/NonTriviality.lean` | Échec direct `1 ≠ 4 / 3`. / Direct failure `1 ≠ 4 / 3`. | La famille uniforme ne satisfait pas `RefinementInvariantLocal`, donc ne contredit pas le théorème. / The uniform family lacks `RefinementInvariantLocal`, so it does not contradict the theorem. |
 
 ## English
+
+## P10 — Frequency and typicality
+
+| File | Exact Lean declaration | Important premises | Conclusion | Scope limits and upstream |
+|---|---|---|---|---|
+| `Frequency/Distribution.lean` | `frequencyMass_eq_binomial`; `sum_frequencyMass_eq_one` | Repetition vector and quadratic weights; normalization for the latter | Exact binomial formula and total mass `1` | Reuses upstream-calibrated weights; no `PMF` or measure. |
+| `Frequency/Moments.lean` | `frequencyRelativeVariance_eq` | `0 < R`, elementary normalization | Relative variance `‖β‖²(1-‖β‖²)/R` | Finite calculation. |
+| `Frequency/Concentration.lean` | `frequencyAtypicalMass_le_chebyshev` | `0 < R`, `0 < ε`, normalization | Finite Chebyshev bound | No limit theorem. |
+| `Frequency/Typicality.lean` | `one_sub_delta_le_frequencyTypicalMass` | Chebyshev bound at most `δ` | Typical mass at least `1-δ` | Finite typicality only. |
+| `Frequency/AsymptoticTypicality.lean` | `exists_frequencyTypicality_threshold` | `ε > 0`, `δ > 0`, normalization | Explicit positive natural threshold | Quantified, without `Tendsto`; does not derive Born. |
+
+## P11 — Finite conditional confirmation
+
+| File | Exact Lean declaration | Important premises | Conclusion | Scope limits and upstream |
+|---|---|---|---|---|
+| `Confirmation/FiniteBayes.lean` | `FiniteBayesModel.sum_posteriorWeight_eq_one` | Nonzero evidence | Normalized posterior weights | Finite algebraic model. |
+| `Confirmation/PosteriorOdds.lean` | `FiniteBayesModel.posteriorWeight_div_posteriorWeight_eq` | Nonzero evidence, denominator prior and likelihood | Posterior odds = prior odds × likelihood ratio | Conditional divisions. |
+| `Confirmation/HypothesisComparison.lean` | `frequencyConfirmationModel_posteriorWeight_lt_iff_kernel_lt_of_equal_prior` | Equal positive priors, positive evidence | Posterior order = kernel order | No true hypothesis. |
+| `Confirmation/SequentialUpdate.lean` | `FiniteBayesModel.posteriorUpdatedModel_posteriorWeight_eq` | Explicit nonzero evidences | Two-observation update | Conditional factorization. |
+| `Confirmation/IteratedUpdate.lean` | `FiniteBayesModel.iteratedPosteriorModel_prior_eq_finiteObservationPosteriorWeight` | Sequential nonzero-evidence witness | Iterated update = global batch posterior | No convergence. |
+| `Confirmation/BatchPosteriorOdds.lean` | `FiniteBayesModel.iteratedPosteriorModel_priorOdds_eq_priorOdds_mul_ratioProduct` | Nonzero denominators | Final odds = ratio-product update | Finite batch. |
+| `Confirmation/FrequencyBatchOdds.lean` | `frequencyConfirmationModel_iteratedPriorOdds_eq` | Nonzero denominator kernels | Frequency-kernel specialization | P10 masses are likelihoods. |
+| `Confirmation/RationalBatchWitness.lean` | `rationalWitnessLow_iteratedPrior_lt_high` | Explicit rational witness | Strict comparison after two observations | Example, not consistency. |
+
+```text
+P4 Born calibration
+    ↓
+P10 frequencyMass and typicality
+    ↓
+P11 finite likelihoods and Bayesian updating
+```
 
 | Status | Declaration | Module | Direct dependencies | Scope limitation | Audit |
 |---|---|---|---|---|---|

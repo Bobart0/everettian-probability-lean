@@ -1,14 +1,17 @@
 # Everettian Probability in Lean
 
-> **Results are under construction. Nothing in this repository should be
-> cited as an established result until milestone P11 closes.** See
-> `MILESTONES.md` for exact status and `SORRY_BUDGET` for the current
-> count of open goals.
+> **P11 is closed in its finite conditional scope, but the full programme
+> remains under construction.** P6b, P7, and P12 remain open, and P8
+> currently covers only static conditioning on refinement fibers. These
+> results must not be presented as a derivation of probability from unitary
+> dynamics alone. See `MILESTONES.md` for exact status and `SORRY_BUDGET`.
 >
-> **Résultats en cours de construction. Rien dans ce dépôt ne doit être
-> cité comme un résultat établi tant que le jalon P11 n'est pas clos.**
-> Voir `MILESTONES.md` pour le statut exact et `SORRY_BUDGET` pour le
-> nombre courant de buts ouverts.
+> **P11 est clos dans sa portée finie et conditionnelle, mais le programme
+> complet reste en construction.** P6b, P7 et P12 demeurent ouverts, et P8
+> ne couvre actuellement qu'un conditionnement statique sur fibres de
+> raffinement. Ces résultats ne doivent pas être présentés comme une
+> dérivation de la probabilité à partir de la seule dynamique unitaire.
+> Voir `MILESTONES.md` pour le statut exact et `SORRY_BUDGET`.
 
 ## English
 
@@ -74,6 +77,17 @@ Born expectation.
   P9 witness for `q = 4` only. `fourthPowerWeight_axPos` proves positivity,
   while normalization fails on the unit witness `psiBefore` and
   `coarsePerspective`, where the sum is `337/625 ≠ 1`.
+- **`Frequency/` (P10):** repetition vectors, frequency cells and
+  projectors yield normalized finite masses with an exact binomial formula;
+  moments, relative-frequency variance, finite Chebyshev, typical/atypical
+  masses, and an explicit quantified threshold are proved. P10 is **closed
+  in its finite and quantified-asymptotic scope**; it uses already calibrated
+  quadratic weights and is not an independent derivation of Born.
+- **`Confirmation/` (P11):** a finite conditional Bayesian model uses
+  frequency masses as likelihoods, proves posterior-odds and batch/iterated
+  update identities under explicit nonzero assumptions, and includes
+  rational one- and two-observation witnesses. P11 is **closed in its finite
+  conditional Bayesian scope**, not a solution of philosophical circularity.
 
 Every result above is proved with `SORRY_COUNT = 0`; see
 `docs/THEOREM_MAP.md` for the full dependency and scope table, and
@@ -91,7 +105,9 @@ including the ones above.
 | Qubit route | Effect-side Born expectation, every `n ≥ 1`, projective outcomes | Closed (restricted to projective outcomes) |
 | P8 | Static conditioning on refinement fibers | Closed (revised formal scope) |
 | P9 | Fourth-power rival rule (`q = 4`) | Partially open |
-| P5, P6b, P7, P10–P12, primitive-preference route | Later milestones | Not opened |
+| P10 | Finite frequencies, typicality, explicit quantified threshold | Closed in its finite and quantified-asymptotic scope |
+| P11 | Finite conditional Bayesian confirmation | Closed in its finite conditional Bayesian scope |
+| P5, P6b, P7, P12, primitive-preference route | Later milestones | Not opened |
 
 See `MILESTONES.md` for closure details and `docs/PROGRAM_STATUS.md` for a
 full audit of every milestone, including — for each not-yet-opened one —
@@ -120,11 +136,13 @@ EverettianProbability/
 ├── PhysicalRefinement/      — physical witness of a record-neutral refinement (P6a)
 ├── EffectCalibration/        — qubit route: effect-side Born expectation for every n ≥ 1
 ├── Diachronic/               — static conditioning on refinement fibers (P8)
+├── Frequency/                 — finite frequency masses, moments, concentration, typicality (P10)
+├── Confirmation/              — finite conditional Bayesian confirmation (P11)
 └── Audit/                    — consolidated axiom audit
 ```
 
-Milestone directories not yet opened (`SelfLocation/`, `Confirmation/`,
-`Approximate/`) do not exist yet and are created only
+Milestone directories not yet opened (`SelfLocation/`, `Approximate/`)
+do not exist yet and are created only
 when their milestone opens.
 
 ### Scope and limitations
@@ -237,6 +255,18 @@ espérance de Born.
   témoin P9 pour `q = 4` seulement. `fourthPowerWeight_axPos` prouve la
   positivité, tandis que la normalisation échoue sur le témoin unitaire
   `psiBefore` et `coarsePerspective`, où la somme vaut `337/625 ≠ 1`.
+- **`Frequency/` (P10)** : les vecteurs de répétition, cellules et
+  projecteurs de fréquence donnent des masses finies normalisées de formule
+  binomiale exacte ; moments, variance de fréquence relative, Chebyshev fini,
+  masses typique/atypique et seuil quantifié sont prouvés. P10 est **clos dans
+  sa portée finie et asymptotique quantifiée** ; il utilise les poids
+  quadratiques déjà calibrés et ne dérive pas Born indépendamment.
+- **`Confirmation/` (P11)** : un modèle bayésien fini conditionnel utilise
+  les masses de fréquence comme vraisemblances, prouve les cotes et les
+  identités de mise à jour par lot/itérée sous hypothèses explicites de
+  non-nullité, et fournit des témoins rationnels à une et deux observations.
+  P11 est **clos dans sa portée bayésienne finie et conditionnelle**, et ne
+  résout pas la circularité philosophique.
 
 Chaque résultat ci-dessus est prouvé avec `SORRY_COUNT = 0` ; voir
 `docs/THEOREM_MAP.md` pour la table complète des dépendances et de la
@@ -254,7 +284,9 @@ réserves, incluant celles ci-dessus.
 | Route qubit | Espérance de Born côté effets, tout `n ≥ 1`, sorties projectives | Clos (restreint aux sorties projectives) |
 | P8 | Conditionnement statique sur fibres de raffinement | Clos (portée formelle révisée) |
 | P9 | Règle rivale à puissance quatrième (`q = 4`) | Partiellement ouvert |
-| P5, P6b, P7, P10–P12, route des préférences primitives | Jalons ultérieurs | Non ouverts |
+| P10 | Fréquences finies, typicalité, seuil asymptotique quantifié | Clos dans sa portée finie et asymptotique quantifiée |
+| P11 | Confirmation bayésienne finie conditionnelle | Clos dans sa portée bayésienne finie et conditionnelle |
+| P5, P6b, P7, P12, route des préférences primitives | Jalons ultérieurs | Non ouverts |
 
 Voir `MILESTONES.md` pour le détail des fermetures et
 `docs/PROGRAM_STATUS.md` pour un audit complet de chaque jalon, incluant —
@@ -284,12 +316,14 @@ EverettianProbability/
 ├── PhysicalRefinement/   — témoin physique de raffinement record-neutre (P6a)
 ├── EffectCalibration/    — route qubit : espérance de Born côté effets pour tout `n ≥ 1`
 ├── Diachronic/           — conditionnement statique sur fibres de raffinement (P8)
+├── Frequency/            — masses de fréquence, moments, concentration et typicalité finis (P10)
+├── Confirmation/         — confirmation bayésienne finie conditionnelle (P11)
 └── Audit/                — audit consolidé des axiomes
 ```
 
 Les
-répertoires des jalons non ouverts (`SelfLocation/`, `Confirmation/`,
-`Approximate/`) n'existent pas encore et ne sont créés
+répertoires des jalons non ouverts (`SelfLocation/`, `Approximate/`)
+n'existent pas encore et ne sont créés
 qu'à l'ouverture de leur jalon respectif.
 
 ### Portée et limites
