@@ -21,6 +21,7 @@ import EverettianProbability.EffectCalibration.NonTriviality
 import EverettianProbability.Diachronic.Conditioning
 import EverettianProbability.Diachronic.NonTriviality
 import EverettianProbability.Frequency.HammingCells
+import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector
 
 /-!
@@ -183,5 +184,11 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.repetitionConfigurationWeight_eq_norm_sq_powers
 #print axioms EverettianProbability.Frequency.repetitionConfigurationWeight_prefix_eq_norm_sq_powers
 #print axioms EverettianProbability.Frequency.repetitionVector_norm_sq_eq_sum_norm_sq_powers
+
+#print axioms EverettianProbability.Frequency.onesFinset_configurationOfOnes
+#print axioms EverettianProbability.Frequency.configurationOfOnes_onesFinset
+#print axioms EverettianProbability.Frequency.hammingWeightFiberEquiv
+#print axioms EverettianProbability.Frequency.hammingWeight_fiber_card
+#print axioms EverettianProbability.Frequency.configurationsOfWeight_card
 
 end EverettianProbability.Audit
