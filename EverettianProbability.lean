@@ -41,6 +41,7 @@ import EverettianProbability.Frequency.CellProjection
 import EverettianProbability.Frequency.Distribution
 import EverettianProbability.Frequency.Moments
 import EverettianProbability.Frequency.Concentration
+import EverettianProbability.Frequency.Typicality
 import EverettianProbability.Audit.MainResults
 
 /-!

@@ -27,6 +27,7 @@ import EverettianProbability.Frequency.CellProjection
 import EverettianProbability.Frequency.Distribution
 import EverettianProbability.Frequency.Moments
 import EverettianProbability.Frequency.Concentration
+import EverettianProbability.Frequency.Typicality
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -255,5 +256,12 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.epsilon_sq_mul_frequencyAtypicalMass_le_deviationSecondMoment
 #print axioms EverettianProbability.Frequency.frequencyAtypicalMass_le_deviationSecondMoment_div
 #print axioms EverettianProbability.Frequency.frequencyAtypicalMass_le_chebyshev
+#print axioms EverettianProbability.Frequency.frequencyTypicalMass_nonneg
+#print axioms EverettianProbability.Frequency.frequencyTypicalMass_add_frequencyAtypicalMass_eq_totalMass
+#print axioms EverettianProbability.Frequency.frequencyTypicalMass_add_frequencyAtypicalMass_eq_one
+#print axioms EverettianProbability.Frequency.frequencyTypicalMass_eq_one_sub_frequencyAtypicalMass
+#print axioms EverettianProbability.Frequency.frequencyTypicalMass_le_one
+#print axioms EverettianProbability.Frequency.one_sub_chebyshev_le_frequencyTypicalMass
+#print axioms EverettianProbability.Frequency.one_sub_delta_le_frequencyTypicalMass
 
 end EverettianProbability.Audit
