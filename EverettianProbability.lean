@@ -36,6 +36,7 @@ import EverettianProbability.Diachronic.Conditioning
 import EverettianProbability.Diachronic.NonTriviality
 import EverettianProbability.SelfLocation.RecordConditionedCredence
 import EverettianProbability.SelfLocation.CredenceUniqueness
+import EverettianProbability.SelfLocation.RecordRestrictionIndifference
 import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector
