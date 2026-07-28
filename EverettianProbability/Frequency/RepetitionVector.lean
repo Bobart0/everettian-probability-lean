@@ -1,4 +1,5 @@
 import EverettianProbability.Frequency.HammingCounting
+import Mathlib.Data.Nat.Choose.Sum
 
 /-!
 **FR.** # Vecteur d'amplitudes de répétition — noyau P10
@@ -11,10 +12,12 @@ binaire de `R` sites est définie par
 où `k` est son poids de Hamming. Le vecteur obtenu est d'abord défini dans
 la représentation par sites, puis transporté vers `H (2 ^ R)`.
 
-Ce module définit le vecteur, factorise les poids et prouve la décomposition
-binomiale exacte de sa norme. La normalisation, la concentration et la
-typicalité restent ouvertes. Aucune factorisation tensorielle explicite ni
-notion autonome d'indépendance probabiliste n'est introduite.
+Ce module définit le vecteur de répétition, factorise ses poids de
+configuration, prouve la décomposition binomiale de sa norme et sa
+normalisation lorsque `‖α‖² + ‖β‖² = 1`. Les poids projectifs des cellules,
+la concentration et la typicalité restent ouverts. Aucune factorisation
+tensorielle explicite ni notion autonome d'indépendance probabiliste n'est
+introduite.
 
 **EN.** # Repetition-amplitude vector — P10 kernel
 
@@ -26,10 +29,11 @@ configuration on `R` sites is defined as
 where `k` is its Hamming weight. The resulting vector is first defined in
 the site representation and then transported to `H (2 ^ R)`.
 
-This module defines the vector, factors its weights, and proves the exact
-binomial decomposition of its norm. Normalization, concentration, and
-typicality remain open. No explicit tensor factorization or autonomous
-notion of probabilistic independence is introduced.
+This module defines the repetition vector, factors its configuration weights,
+proves the binomial decomposition of its norm, and proves normalization when
+`‖α‖² + ‖β‖² = 1`. Projective cell weights, concentration, and typicality
+remain open. No explicit tensor factorization or autonomous notion of
+probabilistic independence is introduced.
 -/
 
 namespace EverettianProbability.Frequency
@@ -296,6 +300,77 @@ theorem repetitionVector_norm_sq_eq_binomial_sum
       intro k hk
       rw [configurationsOfWeight_card]
       simp [nsmul_eq_mul]
+
+/-- **FR.** Le carré de la norme du vecteur de répétition est la puissance
+`R` de la somme des deux poids élémentaires.
+
+**EN.** The squared norm of the repetition vector is the `R`-th power of
+the sum of the two elementary weights. -/
+theorem repetitionVector_norm_sq_eq_elementary_sum_pow
+    (R : ℕ) (α β : ℂ) :
+    ‖repetitionVector R α β‖ ^ 2 =
+      (‖α‖ ^ 2 + ‖β‖ ^ 2) ^ R := by
+  rw [repetitionVector_norm_sq_eq_binomial_sum]
+  calc
+    ∑ k ∈ Finset.range (R + 1),
+        (Nat.choose R k : ℝ) *
+          ((‖α‖ ^ 2) ^ (R - k) *
+            (‖β‖ ^ 2) ^ k) =
+        ∑ k ∈ Finset.range (R + 1),
+          (Nat.choose R k : ℝ) *
+            ((‖β‖ ^ 2) ^ k *
+              (‖α‖ ^ 2) ^ (R - k)) := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      ring
+    _ = ∑ k ∈ Finset.range (R + 1),
+          ((‖β‖ ^ 2) ^ k *
+            (‖α‖ ^ 2) ^ (R - k)) *
+            (Nat.choose R k : ℝ) := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      ring
+    _ = (‖α‖ ^ 2 + ‖β‖ ^ 2) ^ R := by
+      calc
+        ∑ k ∈ Finset.range (R + 1),
+            ((‖β‖ ^ 2) ^ k *
+              (‖α‖ ^ 2) ^ (R - k)) *
+              (Nat.choose R k : ℝ) =
+            (‖β‖ ^ 2 + ‖α‖ ^ 2) ^ R :=
+          (add_pow (‖β‖ ^ 2) (‖α‖ ^ 2) R).symm
+        _ = (‖α‖ ^ 2 + ‖β‖ ^ 2) ^ R := by
+          rw [add_comm]
+
+/-- **FR.** Si les deux poids élémentaires somment à `1`, le carré de la
+norme du vecteur de répétition vaut `1`.
+
+**EN.** If the two elementary weights sum to `1`, the squared norm of the
+repetition vector is `1`. -/
+theorem repetitionVector_norm_sq_eq_one
+    (R : ℕ) (α β : ℂ)
+    (hnorm : ‖α‖ ^ 2 + ‖β‖ ^ 2 = 1) :
+    ‖repetitionVector R α β‖ ^ 2 = 1 := by
+  rw [
+    repetitionVector_norm_sq_eq_elementary_sum_pow,
+    hnorm,
+    one_pow
+  ]
+
+/-- **FR.** Sous la même hypothèse élémentaire, le vecteur de répétition
+est normalisé.
+
+**EN.** Under the same elementary hypothesis, the repetition vector is
+normalized. -/
+theorem repetitionVector_norm_eq_one
+    (R : ℕ) (α β : ℂ)
+    (hnorm : ‖α‖ ^ 2 + ‖β‖ ^ 2 = 1) :
+    ‖repetitionVector R α β‖ = 1 := by
+  have hsq :=
+    repetitionVector_norm_sq_eq_one R α β hnorm
+  have hnonneg :
+      0 ≤ ‖repetitionVector R α β‖ :=
+    norm_nonneg _
+  nlinarith
 
 end
 end EverettianProbability.Frequency
