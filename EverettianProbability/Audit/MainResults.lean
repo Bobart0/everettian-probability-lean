@@ -28,6 +28,7 @@ import EverettianProbability.Frequency.Distribution
 import EverettianProbability.Frequency.Moments
 import EverettianProbability.Frequency.Concentration
 import EverettianProbability.Frequency.Typicality
+import EverettianProbability.Frequency.AsymptoticTypicality
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -263,5 +264,9 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.frequencyTypicalMass_le_one
 #print axioms EverettianProbability.Frequency.one_sub_chebyshev_le_frequencyTypicalMass
 #print axioms EverettianProbability.Frequency.one_sub_delta_le_frequencyTypicalMass
+#print axioms EverettianProbability.Frequency.chebyshevBound_le_delta_of_large_repetitions
+#print axioms EverettianProbability.Frequency.frequencyAtypicalMass_le_delta_of_large_repetitions
+#print axioms EverettianProbability.Frequency.one_sub_delta_le_frequencyTypicalMass_of_large_repetitions
+#print axioms EverettianProbability.Frequency.exists_frequencyTypicality_threshold
 
 end EverettianProbability.Audit
