@@ -3,19 +3,16 @@ import EverettianProbability.Frequency.RepetitionVector
 /-!
 **FR.** # Projection du vecteur de répétition sur une cellule de fréquence
 
-La composante de poids de Hamming k est explicitement construite dans la
-représentation par sites, puis transportée vers H (2 ^ R). Elle est égale à
-la projection orthogonale sur frequencyCell R k, et le carré de sa norme est
-la somme des poids de la fibre de Hamming. La simplification de cette somme
-en poids binomial reste à établir.
+La composante de poids de Hamming k est explicitement construite, égale à la
+projection orthogonale, et son carré de norme est d'abord une somme sur la
+fibre de Hamming puis la formule binomiale exacte. La concentration et la
+typicalité restent ouvertes.
 
 **EN.** # Projection of the repetition vector onto a frequency cell
 
-The Hamming-weight k component is explicitly constructed in the site
-representation and transported to H (2 ^ R). It equals the orthogonal
-projection onto frequencyCell R k, and its squared norm is the sum of the
-Hamming-fiber weights. Simplifying that sum to the binomial weight remains
-to be proved.
+The Hamming-weight k component is explicitly constructed, equals the
+orthogonal projection, and its squared norm is first a Hamming-fiber sum and
+then the exact binomial formula. Concentration and typicality remain open.
 -/
 
 namespace EverettianProbability.Frequency
@@ -137,6 +134,70 @@ theorem projL_frequencyCell_repetitionVector_norm_sq_eq_sum
         repetitionConfigurationWeight R α β g := by
   rw [projL_frequencyCell_repetitionVector]
   exact repetitionFrequencyComponent_norm_sq_eq_sum R k α β
+
+/-- **FR.** La somme des poids de la fibre de Hamming est son cardinal
+binomial multiplié par son poids commun.
+
+**EN.** The sum of Hamming-fiber weights is its binomial cardinality times
+its common weight. -/
+theorem sum_repetitionConfigurationWeight_configurationsOfWeight
+    (R k : ℕ) (α β : ℂ) :
+    (∑ g ∈ configurationsOfWeight R k,
+        repetitionConfigurationWeight R α β g) =
+      (Nat.choose R k : ℝ) *
+        ((‖α‖ ^ 2) ^ (R - k) * (‖β‖ ^ 2) ^ k) := by
+  let w : ℝ := (‖α‖ ^ 2) ^ (R - k) * (‖β‖ ^ 2) ^ k
+  have hconst :
+      ∀ g ∈ configurationsOfWeight R k,
+        repetitionConfigurationWeight R α β g = w := by
+    intro g hg
+    have hweight : hammingWeight g = k := by
+      simpa [configurationsOfWeight] using hg
+    rw [repetitionConfigurationWeight_eq_norm_sq_powers, hweight]
+  calc
+    (∑ g ∈ configurationsOfWeight R k,
+        repetitionConfigurationWeight R α β g) =
+        (configurationsOfWeight R k).card • w :=
+      Finset.sum_eq_card_nsmul hconst
+    _ = (Nat.choose R k : ℝ) *
+          ((‖α‖ ^ 2) ^ (R - k) * (‖β‖ ^ 2) ^ k) := by
+      rw [configurationsOfWeight_card]
+      simp [w, nsmul_eq_mul]
+
+/-- **FR.** La composante par sites possède la formule binomiale exacte.
+
+**EN.** The site-space component has the exact binomial formula. -/
+theorem repetitionFrequencySitesComponent_norm_sq_eq_binomial
+    (R k : ℕ) (α β : ℂ) :
+    ‖repetitionFrequencySitesComponent R k α β‖ ^ 2 =
+      (Nat.choose R k : ℝ) *
+        ((‖α‖ ^ 2) ^ (R - k) * (‖β‖ ^ 2) ^ k) := by
+  rw [repetitionFrequencySitesComponent_norm_sq_eq_sum]
+  exact sum_repetitionConfigurationWeight_configurationsOfWeight R k α β
+
+/-- **FR.** La composante transportée possède la formule binomiale exacte.
+
+**EN.** The transported component has the exact binomial formula. -/
+theorem repetitionFrequencyComponent_norm_sq_eq_binomial
+    (R k : ℕ) (α β : ℂ) :
+    ‖repetitionFrequencyComponent R k α β‖ ^ 2 =
+      (Nat.choose R k : ℝ) *
+        ((‖α‖ ^ 2) ^ (R - k) * (‖β‖ ^ 2) ^ k) := by
+  rw [repetitionFrequencyComponent_norm_sq_eq_sum]
+  exact sum_repetitionConfigurationWeight_configurationsOfWeight R k α β
+
+/-- **FR.** Formule binomiale centrale du poids projectif brut de la cellule
+contenant exactement k résultats 1 parmi R répétitions.
+
+**EN.** Central binomial formula for the raw projective weight of the cell
+containing exactly k outcomes equal to 1 among R repetitions. -/
+theorem projL_frequencyCell_repetitionVector_norm_sq_eq_binomial
+    (R k : ℕ) (α β : ℂ) :
+    ‖projL (frequencyCell R k) (repetitionVector R α β)‖ ^ 2 =
+      (Nat.choose R k : ℝ) *
+        ((‖α‖ ^ 2) ^ (R - k) * (‖β‖ ^ 2) ^ k) := by
+  rw [projL_frequencyCell_repetitionVector_norm_sq_eq_sum]
+  exact sum_repetitionConfigurationWeight_configurationsOfWeight R k α β
 
 end
 end EverettianProbability.Frequency
