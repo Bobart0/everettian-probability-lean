@@ -25,6 +25,7 @@ import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector
 import EverettianProbability.Frequency.CellProjection
 import EverettianProbability.Frequency.Distribution
+import EverettianProbability.Frequency.Moments
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -226,5 +227,9 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.sum_frequencyMass_eq_elementary_sum_pow
 #print axioms EverettianProbability.Frequency.sum_frequencyMass_eq_one
 #print axioms EverettianProbability.Frequency.frequencyMass_isProbabilityFamily
+#print axioms EverettianProbability.Frequency.sum_range_cast_mul_choose_mul_powers
+#print axioms EverettianProbability.Frequency.frequencyCountFirstMoment_nonneg
+#print axioms EverettianProbability.Frequency.frequencyCountFirstMoment_eq_general
+#print axioms EverettianProbability.Frequency.frequencyCountFirstMoment_eq
 
 end EverettianProbability.Audit
