@@ -2,14 +2,17 @@ import EverettianProbability.Frequency.Distribution
 import Mathlib.Data.Nat.Choose.Sum
 
 /-!
-**FR.** # Premier moment de la distribution des fréquences
+**FR.** # Moments de la distribution des fréquences
 
 Le premier moment du nombre de résultats égaux à `1` est défini par la
 somme finie
 
 `∑ k, k · frequencyMass R α β k`.
 
-Le module prouve d'abord l'identité binomiale pondérée générale
+Le module formalise le premier moment et le second moment factoriel, leurs
+identités binomiales générales et leurs spécialisations sous normalisation.
+
+Pour le premier moment, il prouve l'identité binomiale pondérée générale
 
 `∑ k k C(R,k) a^(R-k) b^k
    = R b (a+b)^(R-1)`,
@@ -18,17 +21,21 @@ puis l'applique aux poids projectifs des cellules de fréquence. Sous
 l'hypothèse `‖α‖² + ‖β‖² = 1`, le premier moment vaut exactement
 `R ‖β‖²`.
 
-Aucune variance, borne de concentration ou typicalité n'est encore
-introduite.
+Le second moment brut, la variance, la fréquence relative, la concentration
+et la typicalité restent ouverts.
 
-**EN.** # First moment of the frequency distribution
+**EN.** # Moments of the frequency distribution
 
 The first moment of the number of outcomes equal to `1` is defined by the
 finite sum
 
 `∑ k, k · frequencyMass R α β k`.
 
-The module first proves the general weighted binomial identity
+The module formalizes the first moment and the second factorial moment,
+their general binomial identities, and their specializations under
+normalization.
+
+For the first moment, it proves the general weighted binomial identity
 
 `∑ k k C(R,k) a^(R-k) b^k
    = R b (a+b)^(R-1)`,
@@ -37,8 +44,8 @@ and then applies it to the projective weights of the frequency cells.
 Under the hypothesis `‖α‖² + ‖β‖² = 1`, the first moment is exactly
 `R ‖β‖²`.
 
-No variance, concentration bound, or typicality statement is introduced
-yet.
+The raw second moment, variance, relative frequency, concentration, and
+typicality remain open.
 -/
 
 namespace EverettianProbability.Frequency
@@ -200,6 +207,227 @@ theorem frequencyCountFirstMoment_eq
       (R : ℝ) * (‖β‖ ^ 2) := by
   rw [
     frequencyCountFirstMoment_eq_general,
+    hnorm,
+    one_pow,
+    mul_one
+  ]
+
+/-- **FR.** Identité binomiale pondérée donnant le second moment
+factoriel brut.
+
+**EN.** Weighted binomial identity giving the raw second factorial
+moment. -/
+theorem sum_range_cast_fallingTwo_mul_choose_mul_powers
+    (R : ℕ) (a b : ℝ) :
+    (∑ k ∈ Finset.range (R + 1),
+        ((k * (k - 1) : ℕ) : ℝ) *
+          (Nat.choose R k : ℝ) *
+          (a ^ (R - k) * b ^ k)) =
+      (R : ℝ) * ((R - 1 : ℕ) : ℝ) *
+        b ^ 2 * (a + b) ^ (R - 2) := by
+  cases R with
+  | zero =>
+      simp
+  | succ R =>
+      cases R with
+      | zero =>
+          norm_num [Finset.sum_range_succ']
+      | succ n =>
+          rw [Finset.sum_range_succ', Finset.sum_range_succ']
+          norm_num
+          change
+            (∑ k ∈ Finset.range (n + 1),
+                ((k : ℝ) + 1 + 1) * ((k : ℝ) + 1) *
+                  (Nat.choose (n + 1 + 1) (k + 1 + 1) : ℝ) *
+                  (a ^ (n + 1 + 1 - (k + 1 + 1)) *
+                    b ^ (k + 1 + 1))) =
+              ((n : ℝ) + 1 + 1) * ((n : ℝ) + 1) * b ^ 2 *
+                (a + b) ^ (n + 1 + 1 - 2)
+          calc
+            (∑ k ∈ Finset.range (n + 1),
+                ((k : ℝ) + 1 + 1) * ((k : ℝ) + 1) *
+                  (Nat.choose (n + 1 + 1) (k + 1 + 1) : ℝ) *
+                  (a ^ (n + 1 + 1 - (k + 1 + 1)) *
+                    b ^ (k + 1 + 1))) =
+                ∑ k ∈ Finset.range (n + 1),
+                  ((n : ℝ) + 1 + 1) * ((n : ℝ) + 1) * b ^ 2 *
+                    ((Nat.choose n k : ℝ) *
+                      (a ^ (n - k) * b ^ k)) := by
+              apply Finset.sum_congr rfl
+              intro k hk
+              have hchoose (k : ℕ) :
+                  (k + 2) * (k + 1) *
+                      Nat.choose (n + 2) (k + 2) =
+                    (n + 2) * (n + 1) *
+                      Nat.choose n k := by
+                have hfirst :
+                    (k + 2) * Nat.choose (n + 2) (k + 2) =
+                      (n + 2) * Nat.choose (n + 1) (k + 1) := by
+                  calc
+                    (k + 2) * Nat.choose (n + 2) (k + 2) =
+                        Nat.choose (n + 2) (k + 2) * (k + 2) := by
+                      ring
+                    _ = (n + 2) * Nat.choose (n + 1) (k + 1) :=
+                      (Nat.add_one_mul_choose_eq (n + 1) (k + 1)).symm
+                have hsecond :
+                    (k + 1) * Nat.choose (n + 1) (k + 1) =
+                      (n + 1) * Nat.choose n k := by
+                  calc
+                    (k + 1) * Nat.choose (n + 1) (k + 1) =
+                        Nat.choose (n + 1) (k + 1) * (k + 1) := by
+                      ring
+                    _ = (n + 1) * Nat.choose n k :=
+                      (Nat.add_one_mul_choose_eq n k).symm
+                calc
+                  (k + 2) * (k + 1) *
+                      Nat.choose (n + 2) (k + 2) =
+                      (k + 1) *
+                        ((k + 2) * Nat.choose (n + 2) (k + 2)) := by
+                    ring
+                  _ = (k + 1) *
+                        ((n + 2) * Nat.choose (n + 1) (k + 1)) := by
+                    rw [hfirst]
+                  _ = (n + 2) *
+                        ((k + 1) * Nat.choose (n + 1) (k + 1)) := by
+                    ring
+                  _ = (n + 2) *
+                        ((n + 1) * Nat.choose n k) := by
+                    rw [hsecond]
+                  _ = (n + 2) * (n + 1) * Nat.choose n k := by
+                    ring
+              have hchooseReal :
+                  ((k : ℝ) + 1 + 1) * ((k : ℝ) + 1) *
+                      (Nat.choose (n + 1 + 1) (k + 1 + 1) : ℝ) =
+                    ((n : ℝ) + 1 + 1) * ((n : ℝ) + 1) *
+                      (Nat.choose n k : ℝ) := by
+                exact_mod_cast hchoose k
+              have hsub : n + 1 + 1 - (k + 1 + 1) = n - k := by
+                omega
+              rw [hsub, pow_succ, pow_succ]
+              rw [hchooseReal]
+              ring
+            _ =
+                ((n : ℝ) + 1 + 1) * ((n : ℝ) + 1) * b ^ 2 *
+                  (∑ k ∈ Finset.range (n + 1),
+                    (Nat.choose n k : ℝ) *
+                      (a ^ (n - k) * b ^ k)) := by
+              rw [Finset.mul_sum]
+            _ =
+                ((n : ℝ) + 1 + 1) * ((n : ℝ) + 1) * b ^ 2 *
+                  (a + b) ^ n := by
+              congr 1
+              simpa [
+                add_comm,
+                mul_comm,
+                mul_left_comm,
+                mul_assoc
+              ] using
+                (add_pow b a n).symm
+            _ =
+                ((n : ℝ) + 1 + 1) * ((n : ℝ) + 1) * b ^ 2 *
+                  (a + b) ^ (n + 1 + 1 - 2) := by
+              have hsub : n + 1 + 1 - 2 = n := by
+                omega
+              rw [hsub]
+
+/-- **FR.** Second moment factoriel brut du nombre de résultats égaux à
+`1`, c'est-à-dire la moyenne pondérée de `k(k-1)`.
+
+**EN.** Raw second factorial moment of the number of outcomes equal to
+`1`, namely the weighted mean of `k(k-1)`. -/
+def frequencyCountSecondFactorialMoment
+    (R : ℕ) (α β : ℂ) : ℝ :=
+  ∑ k : Fin (R + 1),
+    ((k.val * (k.val - 1) : ℕ) : ℝ) *
+      frequencyMass R α β k
+
+/-- **FR.** Le second moment factoriel est non négatif.
+
+**EN.** The second factorial moment is nonnegative. -/
+theorem frequencyCountSecondFactorialMoment_nonneg
+    (R : ℕ) (α β : ℂ) :
+    0 ≤ frequencyCountSecondFactorialMoment R α β := by
+  unfold frequencyCountSecondFactorialMoment
+  exact Finset.sum_nonneg fun k _ =>
+    mul_nonneg
+      (Nat.cast_nonneg
+        (k.val * (k.val - 1)))
+      (frequencyMass_nonneg R α β k)
+
+/-- **FR.** Sans hypothèse de normalisation élémentaire, le second moment
+factoriel vaut
+
+`R (R-1) ‖β‖⁴ (‖α‖² + ‖β‖²)^(R-2)`.
+
+**EN.** Without the elementary normalization hypothesis, the second
+factorial moment is
+
+`R (R-1) ‖β‖⁴ (‖α‖² + ‖β‖²)^(R-2)`. -/
+theorem frequencyCountSecondFactorialMoment_eq_general
+    (R : ℕ) (α β : ℂ) :
+    frequencyCountSecondFactorialMoment R α β =
+      (R : ℝ) * ((R - 1 : ℕ) : ℝ) *
+        (‖β‖ ^ 2) ^ 2 *
+        (‖α‖ ^ 2 + ‖β‖ ^ 2) ^ (R - 2) := by
+  classical
+  let f : ℕ → ℝ := fun k =>
+    if hk : k < R + 1 then
+      ((k * (k - 1) : ℕ) : ℝ) * frequencyMass R α β ⟨k, hk⟩
+    else 0
+  have hfin :
+      frequencyCountSecondFactorialMoment R α β =
+        ∑ k : Fin (R + 1), f k := by
+    unfold frequencyCountSecondFactorialMoment
+    apply Finset.sum_congr rfl
+    intro k hk
+    dsimp only [f]
+    rw [dif_pos k.isLt]
+  have hsum :
+      (∑ k ∈ Finset.range (R + 1), f k) =
+        ∑ k ∈ Finset.range (R + 1),
+          ((k * (k - 1) : ℕ) : ℝ) *
+            (Nat.choose R k : ℝ) *
+            ((‖α‖ ^ 2) ^ (R - k) *
+              (‖β‖ ^ 2) ^ k) := by
+    apply Finset.sum_congr rfl
+    intro k hk
+    dsimp only [f]
+    rw [dif_pos (Finset.mem_range.mp hk)]
+    rw [frequencyMass_eq_binomial]
+    ring
+  calc
+    frequencyCountSecondFactorialMoment R α β =
+        ∑ k : Fin (R + 1), f k := hfin
+    _ = ∑ k ∈ Finset.range (R + 1), f k :=
+      Fin.sum_univ_eq_sum_range f (R + 1)
+    _ = ∑ k ∈ Finset.range (R + 1),
+          ((k * (k - 1) : ℕ) : ℝ) *
+            (Nat.choose R k : ℝ) *
+            ((‖α‖ ^ 2) ^ (R - k) *
+              (‖β‖ ^ 2) ^ k) := hsum
+    _ = (R : ℝ) * ((R - 1 : ℕ) : ℝ) *
+          (‖β‖ ^ 2) ^ 2 *
+          (‖α‖ ^ 2 + ‖β‖ ^ 2) ^ (R - 2) :=
+      sum_range_cast_fallingTwo_mul_choose_mul_powers
+        R (‖α‖ ^ 2) (‖β‖ ^ 2)
+
+/-- **FR.** Sous l'hypothèse de normalisation élémentaire, le second
+moment factoriel vaut exactement
+
+`R (R-1) ‖β‖⁴`.
+
+**EN.** Under the elementary normalization hypothesis, the second
+factorial moment is exactly
+
+`R (R-1) ‖β‖⁴`. -/
+theorem frequencyCountSecondFactorialMoment_eq
+    (R : ℕ) (α β : ℂ)
+    (hnorm : ‖α‖ ^ 2 + ‖β‖ ^ 2 = 1) :
+    frequencyCountSecondFactorialMoment R α β =
+      (R : ℝ) * ((R - 1 : ℕ) : ℝ) *
+        (‖β‖ ^ 2) ^ 2 := by
+  rw [
+    frequencyCountSecondFactorialMoment_eq_general,
     hnorm,
     one_pow,
     mul_one
