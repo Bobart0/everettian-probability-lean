@@ -46,6 +46,7 @@ import EverettianProbability.Frequency.AsymptoticTypicality
 import EverettianProbability.Confirmation.FiniteBayes
 import EverettianProbability.Confirmation.FrequencyModel
 import EverettianProbability.Confirmation.PosteriorOdds
+import EverettianProbability.Confirmation.HypothesisComparison
 import EverettianProbability.Audit.MainResults
 
 /-!
