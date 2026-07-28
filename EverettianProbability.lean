@@ -38,6 +38,7 @@ import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector
 import EverettianProbability.Frequency.CellProjection
+import EverettianProbability.Frequency.Distribution
 import EverettianProbability.Audit.MainResults
 
 /-!

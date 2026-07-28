@@ -24,6 +24,7 @@ import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector
 import EverettianProbability.Frequency.CellProjection
+import EverettianProbability.Frequency.Distribution
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -219,5 +220,11 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.sum_projL_frequencyCell_repetitionVector_norm_sq_eq_one
 #print axioms EverettianProbability.Frequency.sum_frequencyPerspective_repetitionVector_norm_sq_eq_elementary_sum_pow
 #print axioms EverettianProbability.Frequency.sum_frequencyPerspective_repetitionVector_norm_sq_eq_one
+#print axioms EverettianProbability.Frequency.frequencyMass_eq_projectiveWeight
+#print axioms EverettianProbability.Frequency.frequencyMass_nonneg
+#print axioms EverettianProbability.Frequency.frequencyMass_eq_binomial
+#print axioms EverettianProbability.Frequency.sum_frequencyMass_eq_elementary_sum_pow
+#print axioms EverettianProbability.Frequency.sum_frequencyMass_eq_one
+#print axioms EverettianProbability.Frequency.frequencyMass_isProbabilityFamily
 
 end EverettianProbability.Audit
