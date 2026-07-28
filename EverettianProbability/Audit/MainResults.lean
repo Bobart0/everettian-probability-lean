@@ -31,6 +31,7 @@ import EverettianProbability.Frequency.Typicality
 import EverettianProbability.Frequency.AsymptoticTypicality
 import EverettianProbability.Confirmation.FiniteBayes
 import EverettianProbability.Confirmation.FrequencyModel
+import EverettianProbability.Confirmation.PosteriorOdds
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -282,5 +283,11 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Confirmation.frequencyConfirmationModel_evidence_eq
 #print axioms EverettianProbability.Confirmation.sum_frequencyConfirmationModel_evidence_eq_one
 #print axioms EverettianProbability.Confirmation.sum_frequencyConfirmationModel_posteriorWeight_eq_one
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.posteriorWeight_cross_mul
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.posteriorWeight_div_posteriorWeight_eq
+#print axioms EverettianProbability.Confirmation.frequencyCellKernel_nonneg
+#print axioms EverettianProbability.Confirmation.frequencyLikelihood_eq_choose_mul_kernel
+#print axioms EverettianProbability.Confirmation.frequencyLikelihood_div_eq_kernel_div
+#print axioms EverettianProbability.Confirmation.frequencyConfirmationModel_posteriorWeight_div_eq
 
 end EverettianProbability.Audit
