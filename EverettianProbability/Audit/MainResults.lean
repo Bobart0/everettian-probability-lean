@@ -23,6 +23,7 @@ import EverettianProbability.Diachronic.NonTriviality
 import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector
+import EverettianProbability.Frequency.CellProjection
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -200,5 +201,12 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.frequencySitesCell_starProjection_configurationBasis
 #print axioms EverettianProbability.Frequency.frequencyCell_starProjection_configurationBranch
 #print axioms EverettianProbability.Frequency.projL_frequencyCell_configurationBranch
+#print axioms EverettianProbability.Frequency.repetitionFrequencySitesComponent_apply
+#print axioms EverettianProbability.Frequency.repetitionFrequencySitesComponent_eq_sum
+#print axioms EverettianProbability.Frequency.repetitionSitesVector_eq_sum_configurationBasis
+#print axioms EverettianProbability.Frequency.frequencySitesCell_starProjection_repetitionSitesVector
+#print axioms EverettianProbability.Frequency.sitesEquivR_repetitionFrequencyComponent
+#print axioms EverettianProbability.Frequency.projL_frequencyCell_repetitionVector
+#print axioms EverettianProbability.Frequency.repetitionFrequencyComponent_mem_frequencyCell
 
 end EverettianProbability.Audit
