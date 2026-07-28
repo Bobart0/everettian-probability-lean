@@ -26,6 +26,7 @@ import EverettianProbability.Frequency.RepetitionVector
 import EverettianProbability.Frequency.CellProjection
 import EverettianProbability.Frequency.Distribution
 import EverettianProbability.Frequency.Moments
+import EverettianProbability.Frequency.Concentration
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -247,5 +248,12 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.frequencyRelativeVariance_eq_countVariance_div_sq
 #print axioms EverettianProbability.Frequency.frequencyRelativeVariance_eq
 #print axioms EverettianProbability.Frequency.frequencyRelativeVariance_nonneg
+#print axioms EverettianProbability.Frequency.frequencyRelativeDeviationSecondMoment_nonneg
+#print axioms EverettianProbability.Frequency.frequencyRelativeDeviationSecondMoment_eq
+#print axioms EverettianProbability.Frequency.frequencyRelativeDeviationSecondMoment_eq_variance
+#print axioms EverettianProbability.Frequency.frequencyAtypicalMass_nonneg
+#print axioms EverettianProbability.Frequency.epsilon_sq_mul_frequencyAtypicalMass_le_deviationSecondMoment
+#print axioms EverettianProbability.Frequency.frequencyAtypicalMass_le_deviationSecondMoment_div
+#print axioms EverettianProbability.Frequency.frequencyAtypicalMass_le_chebyshev
 
 end EverettianProbability.Audit

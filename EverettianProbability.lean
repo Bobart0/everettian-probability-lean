@@ -40,6 +40,7 @@ import EverettianProbability.Frequency.RepetitionVector
 import EverettianProbability.Frequency.CellProjection
 import EverettianProbability.Frequency.Distribution
 import EverettianProbability.Frequency.Moments
+import EverettianProbability.Frequency.Concentration
 import EverettianProbability.Audit.MainResults
 
 /-!
