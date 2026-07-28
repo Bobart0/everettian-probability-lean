@@ -29,6 +29,8 @@ import EverettianProbability.Frequency.Moments
 import EverettianProbability.Frequency.Concentration
 import EverettianProbability.Frequency.Typicality
 import EverettianProbability.Frequency.AsymptoticTypicality
+import EverettianProbability.Confirmation.FiniteBayes
+import EverettianProbability.Confirmation.FrequencyModel
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -268,5 +270,17 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.frequencyAtypicalMass_le_delta_of_large_repetitions
 #print axioms EverettianProbability.Frequency.one_sub_delta_le_frequencyTypicalMass_of_large_repetitions
 #print axioms EverettianProbability.Frequency.exists_frequencyTypicality_threshold
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.evidence_nonneg
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.sum_evidence_eq_one
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.posteriorWeight_nonneg
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.sum_posteriorWeight_eq_one
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.sum_posteriorWeight_eq_zero
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.posteriorWeight_mul_evidence
+#print axioms EverettianProbability.Confirmation.frequencyLikelihood_nonneg
+#print axioms EverettianProbability.Confirmation.frequencyLikelihood_eq_binomial
+#print axioms EverettianProbability.Confirmation.sum_frequencyLikelihood_eq_one
+#print axioms EverettianProbability.Confirmation.frequencyConfirmationModel_evidence_eq
+#print axioms EverettianProbability.Confirmation.sum_frequencyConfirmationModel_evidence_eq_one
+#print axioms EverettianProbability.Confirmation.sum_frequencyConfirmationModel_posteriorWeight_eq_one
 
 end EverettianProbability.Audit
