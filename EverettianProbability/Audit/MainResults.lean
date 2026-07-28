@@ -190,5 +190,8 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Frequency.hammingWeightFiberEquiv
 #print axioms EverettianProbability.Frequency.hammingWeight_fiber_card
 #print axioms EverettianProbability.Frequency.configurationsOfWeight_card
+#print axioms EverettianProbability.Frequency.hammingWeight_image_univ
+
+#print axioms EverettianProbability.Frequency.repetitionVector_norm_sq_eq_binomial_sum
 
 end EverettianProbability.Audit

@@ -1,4 +1,4 @@
-import EverettianProbability.Frequency.HammingCells
+import EverettianProbability.Frequency.HammingCounting
 
 /-!
 **FR.** # Vecteur d'amplitudes de répétition — noyau P10
@@ -11,11 +11,10 @@ binaire de `R` sites est définie par
 où `k` est son poids de Hamming. Le vecteur obtenu est d'abord défini dans
 la représentation par sites, puis transporté vers `H (2 ^ R)`.
 
-Ce module établit uniquement que les amplitudes sont constantes sur chaque
-cellule de fréquence. Il ne formalise pas encore la normalisation du vecteur,
-la formule binomiale des poids, une loi des grands nombres ou la typicalité.
-Aucune factorisation tensorielle explicite ni notion autonome d'indépendance
-probabiliste n'est introduite.
+Ce module définit le vecteur, factorise les poids et prouve la décomposition
+binomiale exacte de sa norme. La normalisation, la concentration et la
+typicalité restent ouvertes. Aucune factorisation tensorielle explicite ni
+notion autonome d'indépendance probabiliste n'est introduite.
 
 **EN.** # Repetition-amplitude vector — P10 kernel
 
@@ -27,11 +26,10 @@ configuration on `R` sites is defined as
 where `k` is its Hamming weight. The resulting vector is first defined in
 the site representation and then transported to `H (2 ^ R)`.
 
-This module proves only that amplitudes are constant on each frequency
-cell. It does not yet formalize vector normalization, the binomial weight
-formula, a law of large numbers, or typicality. No explicit tensor
-factorization or autonomous notion of probabilistic independence is
-introduced.
+This module defines the vector, factors its weights, and proves the exact
+binomial decomposition of its norm. Normalization, concentration, and
+typicality remain open. No explicit tensor factorization or autonomous
+notion of probabilistic independence is introduced.
 -/
 
 namespace EverettianProbability.Frequency
@@ -237,6 +235,67 @@ theorem repetitionVector_norm_sq_eq_sum_norm_sq_powers
   exact
     repetitionConfigurationWeight_eq_norm_sq_powers
       R α β g
+
+/-- **FR.** Le carré de la norme du vecteur de répétition possède la
+décomposition binomiale exacte obtenue en regroupant les configurations
+selon leur poids de Hamming.
+
+Ce résultat est une identité algébrique et combinatoire finie. Il ne suppose
+pas encore `‖α‖² + ‖β‖² = 1` et n'énonce donc pas encore la normalisation.
+
+**EN.** The squared norm of the repetition vector has the exact binomial
+decomposition obtained by grouping configurations according to their
+Hamming weight.
+
+This is a finite algebraic and combinatorial identity. It does not yet
+assume `‖α‖² + ‖β‖² = 1` and therefore does not yet state normalization. -/
+theorem repetitionVector_norm_sq_eq_binomial_sum
+    (R : ℕ) (α β : ℂ) :
+    ‖repetitionVector R α β‖ ^ 2 =
+      ∑ k ∈ Finset.range (R + 1),
+        (Nat.choose R k : ℝ) *
+          ((‖α‖ ^ 2) ^ (R - k) *
+            (‖β‖ ^ 2) ^ k) := by
+  rw [repetitionVector_norm_sq_eq_sum_norm_sq_powers]
+  let f : ℕ → ℝ :=
+    fun k =>
+      (‖α‖ ^ 2) ^ (R - k) *
+        (‖β‖ ^ 2) ^ k
+  change
+    (∑ g : Fin R → Fin 2,
+      f (hammingWeight g)) =
+      ∑ k ∈ Finset.range (R + 1),
+        (Nat.choose R k : ℝ) * f k
+  have hcomp :
+      (∑ g : Fin R → Fin 2,
+        f (hammingWeight g)) =
+        ∑ k ∈ Finset.range (R + 1),
+          (configurationsOfWeight R k).card •
+            f k := by
+    have h :=
+      Finset.sum_comp
+        (s :=
+          (Finset.univ :
+            Finset (Fin R → Fin 2)))
+        f
+        (fun g : Fin R → Fin 2 =>
+          hammingWeight g)
+    rw [hammingWeight_image_univ R] at h
+    simpa [configurationsOfWeight] using h
+  calc
+    (∑ g : Fin R → Fin 2,
+      f (hammingWeight g)) =
+        ∑ k ∈ Finset.range (R + 1),
+          (configurationsOfWeight R k).card •
+            f k :=
+      hcomp
+    _ =
+        ∑ k ∈ Finset.range (R + 1),
+          (Nat.choose R k : ℝ) * f k := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      rw [configurationsOfWeight_card]
+      simp [nsmul_eq_mul]
 
 end
 end EverettianProbability.Frequency

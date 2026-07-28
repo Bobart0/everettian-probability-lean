@@ -157,5 +157,36 @@ theorem configurationsOfWeight_card (R k : ℕ) :
     _ = Nat.choose R k :=
       hammingWeight_fiber_card R k
 
+/-- **FR.** L'image du poids de Hamming sur toutes les configurations
+binaires de longueur `R` est exactement `{0, ..., R}`.
+
+**EN.** The image of Hamming weight over all binary configurations of
+length `R` is exactly `{0, ..., R}`. -/
+theorem hammingWeight_image_univ (R : ℕ) :
+    Finset.univ.image
+        (hammingWeight :
+          (Fin R → Fin 2) → ℕ) =
+      Finset.range (R + 1) := by
+  ext k
+  constructor
+  · intro hk
+    obtain ⟨g, hg, rfl⟩ :=
+      Finset.mem_image.mp hk
+    exact
+      Finset.mem_range.mpr
+        (Nat.lt_succ_of_le (hammingWeight_le g))
+  · intro hk
+    have hkR : k ≤ R :=
+      Nat.lt_succ_iff.mp
+        (Finset.mem_range.mp hk)
+    let j : Fin (R + 1) :=
+      ⟨k, Nat.lt_succ_iff.mpr hkR⟩
+    refine
+      Finset.mem_image.mpr
+        ⟨prefixConfiguration R j,
+          Finset.mem_univ _, ?_⟩
+    simpa [j] using
+      hammingWeight_prefixConfiguration R j
+
 end
 end EverettianProbability.Frequency
