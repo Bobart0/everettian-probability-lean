@@ -9,10 +9,10 @@ somme finie
 
 `∑ k, k · frequencyMass R α β k`.
 
-Le module formalise le premier moment, le second moment factoriel, le second
-moment brut et la variance exacte du nombre de résultats `1` sous
-normalisation. Il établit les identités binomiales générales disponibles et
-leurs spécialisations sous normalisation.
+Le module formalise les moments du nombre de résultats `1`, la variance du
+compte, la fréquence relative, ses premier et second moments, ainsi que sa
+variance exacte pour `R > 0`. Il établit les identités binomiales générales
+disponibles et leurs spécialisations sous normalisation.
 
 Pour le premier moment, il prouve l'identité binomiale pondérée générale
 
@@ -23,8 +23,8 @@ puis l'applique aux poids projectifs des cellules de fréquence. Sous
 l'hypothèse `‖α‖² + ‖β‖² = 1`, le premier moment vaut exactement
 `R ‖β‖²`.
 
-La fréquence relative, sa variance, la concentration et la typicalité restent
-ouvertes.
+La concentration, la définition des cellules typiques et atypiques, et la
+typicalité asymptotique restent ouvertes.
 
 **EN.** # Moments of the frequency distribution
 
@@ -33,10 +33,10 @@ finite sum
 
 `∑ k, k · frequencyMass R α β k`.
 
-The module formalizes the first moment, the second factorial moment, the raw
-second moment, and the exact variance of the number of outcomes equal to `1`
-under normalization. It establishes the available general binomial identities
-and their specializations under normalization.
+The module formalizes the moments of the number of outcomes equal to `1`, the
+count variance, relative frequency, its first and second moments, and its
+exact variance for `R > 0`. It establishes the available general binomial
+identities and their specializations under normalization.
 
 For the first moment, it proves the general weighted binomial identity
 
@@ -47,7 +47,8 @@ and then applies it to the projective weights of the frequency cells.
 Under the hypothesis `‖α‖² + ‖β‖² = 1`, the first moment is exactly
 `R ‖β‖²`.
 
-Relative frequency, its variance, concentration, and typicality remain open.
+Concentration, the definition of typical and atypical cells, and asymptotic
+typicality remain open.
 -/
 
 namespace EverettianProbability.Frequency
@@ -593,6 +594,213 @@ theorem frequencyCountVariance_nonneg
         (Nat.cast_nonneg R)
         hp0)
       (sub_nonneg.mpr hp1)
+
+/-- **FR.** Fréquence relative des résultats égaux à `1` dans la cellule
+d'indice `k`.
+
+Pour `R = 0`, cette expression utilise la convention de division de
+`ℝ`, donc vaut `0`. Les résultats probabilistes ultérieurs supposent
+explicitement `0 < R`.
+
+**EN.** Relative frequency of outcomes equal to `1` in the cell indexed
+by `k`.
+
+For `R = 0`, this expression uses the division convention of `ℝ` and
+therefore equals `0`. Later probabilistic results explicitly assume
+`0 < R`. -/
+def frequencyRelativeValue
+    (R : ℕ) (k : Fin (R + 1)) : ℝ :=
+  (k.val : ℝ) / (R : ℝ)
+
+/-- **FR.** Premier moment pondéré de la fréquence relative.
+
+**EN.** Weighted first moment of the relative frequency. -/
+def frequencyRelativeFirstMoment
+    (R : ℕ) (α β : ℂ) : ℝ :=
+  ∑ k : Fin (R + 1),
+    frequencyRelativeValue R k *
+      frequencyMass R α β k
+
+/-- **FR.** Le premier moment de la fréquence relative est le premier
+moment du compte divisé par `R`.
+
+L'identité algébrique est valable avec la convention de division de
+`ℝ`, y compris pour `R = 0`.
+
+**EN.** The first moment of the relative frequency is the first moment
+of the count divided by `R`.
+
+The algebraic identity is valid with the division convention of `ℝ`,
+including when `R = 0`. -/
+theorem frequencyRelativeFirstMoment_eq_countFirstMoment_div
+    (R : ℕ) (α β : ℂ) :
+    frequencyRelativeFirstMoment R α β =
+      frequencyCountFirstMoment R α β / (R : ℝ) := by
+  unfold frequencyRelativeFirstMoment
+  unfold frequencyRelativeValue
+  unfold frequencyCountFirstMoment
+  calc
+    (∑ k : Fin (R + 1),
+        ((k.val : ℝ) / (R : ℝ)) *
+          frequencyMass R α β k) =
+        ∑ k : Fin (R + 1),
+          ((k.val : ℝ) *
+            frequencyMass R α β k) / (R : ℝ) := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      ring
+    _ =
+        (∑ k : Fin (R + 1),
+          (k.val : ℝ) *
+            frequencyMass R α β k) / (R : ℝ) := by
+      rw [Finset.sum_div]
+
+/-- **FR.** Sous normalisation élémentaire et pour `R > 0`, la fréquence
+relative moyenne des résultats `1` vaut exactement `‖β‖²`.
+
+**EN.** Under elementary normalization and for `R > 0`, the mean relative
+frequency of outcomes `1` is exactly `‖β‖²`. -/
+theorem frequencyRelativeFirstMoment_eq
+    (R : ℕ) (α β : ℂ)
+    (hR : 0 < R)
+    (hnorm : ‖α‖ ^ 2 + ‖β‖ ^ 2 = 1) :
+    frequencyRelativeFirstMoment R α β =
+      ‖β‖ ^ 2 := by
+  have hR0 : (R : ℝ) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt hR)
+  rw [
+    frequencyRelativeFirstMoment_eq_countFirstMoment_div,
+    frequencyCountFirstMoment_eq R α β hnorm
+  ]
+  field_simp [hR0]
+
+/-- **FR.** Second moment pondéré de la fréquence relative.
+
+**EN.** Weighted second moment of the relative frequency. -/
+def frequencyRelativeSecondMoment
+    (R : ℕ) (α β : ℂ) : ℝ :=
+  ∑ k : Fin (R + 1),
+    (frequencyRelativeValue R k) ^ 2 *
+      frequencyMass R α β k
+
+/-- **FR.** Le second moment de la fréquence relative est le second
+moment du compte divisé par `R²`.
+
+**EN.** The second moment of the relative frequency is the second moment
+of the count divided by `R²`. -/
+theorem frequencyRelativeSecondMoment_eq_countSecondMoment_div_sq
+    (R : ℕ) (α β : ℂ) :
+    frequencyRelativeSecondMoment R α β =
+      frequencyCountSecondMoment R α β /
+        (R : ℝ) ^ 2 := by
+  unfold frequencyRelativeSecondMoment
+  unfold frequencyRelativeValue
+  unfold frequencyCountSecondMoment
+  calc
+    (∑ k : Fin (R + 1),
+        (((k.val : ℝ) / (R : ℝ)) ^ 2) *
+          frequencyMass R α β k) =
+        ∑ k : Fin (R + 1),
+          (((k.val ^ 2 : ℕ) : ℝ) *
+            frequencyMass R α β k) /
+              (R : ℝ) ^ 2 := by
+      apply Finset.sum_congr rfl
+      intro k hk
+      simp only [Nat.cast_pow]
+      ring
+    _ =
+        (∑ k : Fin (R + 1),
+          ((k.val ^ 2 : ℕ) : ℝ) *
+            frequencyMass R α β k) /
+              (R : ℝ) ^ 2 := by
+      rw [Finset.sum_div]
+
+/-- **FR.** Variance algébrique de la fréquence relative.
+
+Cette quantité possède son interprétation probabiliste lorsque la famille
+`frequencyMass` est normalisée.
+
+**EN.** Algebraic variance of the relative frequency.
+
+This quantity has its probabilistic interpretation when the
+`frequencyMass` family is normalized. -/
+def frequencyRelativeVariance
+    (R : ℕ) (α β : ℂ) : ℝ :=
+  frequencyRelativeSecondMoment R α β -
+    (frequencyRelativeFirstMoment R α β) ^ 2
+
+/-- **FR.** Pour `R > 0`, la variance de la fréquence relative est la
+variance du compte divisée par `R²`.
+
+**EN.** For `R > 0`, the variance of the relative frequency is the count
+variance divided by `R²`. -/
+theorem frequencyRelativeVariance_eq_countVariance_div_sq
+    (R : ℕ) (α β : ℂ)
+    (hR : 0 < R) :
+    frequencyRelativeVariance R α β =
+      frequencyCountVariance R α β /
+        (R : ℝ) ^ 2 := by
+  have hR0 : (R : ℝ) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt hR)
+  unfold frequencyRelativeVariance
+  unfold frequencyCountVariance
+  rw [
+    frequencyRelativeSecondMoment_eq_countSecondMoment_div_sq,
+    frequencyRelativeFirstMoment_eq_countFirstMoment_div
+  ]
+  field_simp [hR0]
+
+/-- **FR.** Sous normalisation élémentaire et pour `R > 0`, la variance
+de la fréquence relative est exactement
+
+`‖β‖² (1 - ‖β‖²) / R`.
+
+**EN.** Under elementary normalization and for `R > 0`, the variance of
+the relative frequency is exactly
+
+`‖β‖² (1 - ‖β‖²) / R`. -/
+theorem frequencyRelativeVariance_eq
+    (R : ℕ) (α β : ℂ)
+    (hR : 0 < R)
+    (hnorm : ‖α‖ ^ 2 + ‖β‖ ^ 2 = 1) :
+    frequencyRelativeVariance R α β =
+      (‖β‖ ^ 2) * (1 - ‖β‖ ^ 2) /
+        (R : ℝ) := by
+  have hR0 : (R : ℝ) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt hR)
+  rw [
+    frequencyRelativeVariance_eq_countVariance_div_sq
+      R α β hR,
+    frequencyCountVariance_eq R α β hnorm
+  ]
+  field_simp [hR0]
+
+/-- **FR.** Sous les mêmes hypothèses, la variance de la fréquence
+relative est non négative.
+
+**EN.** Under the same hypotheses, the relative-frequency variance is
+nonnegative. -/
+theorem frequencyRelativeVariance_nonneg
+    (R : ℕ) (α β : ℂ)
+    (hR : 0 < R)
+    (hnorm : ‖α‖ ^ 2 + ‖β‖ ^ 2 = 1) :
+    0 ≤ frequencyRelativeVariance R α β := by
+  rw [
+    frequencyRelativeVariance_eq
+      R α β hR hnorm
+  ]
+  have hp0 : 0 ≤ ‖β‖ ^ 2 :=
+    sq_nonneg ‖β‖
+  have ha0 : 0 ≤ ‖α‖ ^ 2 :=
+    sq_nonneg ‖α‖
+  have hp1 : ‖β‖ ^ 2 ≤ 1 := by
+    nlinarith [hnorm]
+  have hRnonneg : 0 ≤ (R : ℝ) := by
+    positivity
+  exact
+    div_nonneg
+      (mul_nonneg hp0 (sub_nonneg.mpr hp1))
+      hRnonneg
 
 end
 end EverettianProbability.Frequency
