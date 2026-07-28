@@ -47,6 +47,7 @@ import EverettianProbability.Confirmation.FiniteBayes
 import EverettianProbability.Confirmation.FrequencyModel
 import EverettianProbability.Confirmation.PosteriorOdds
 import EverettianProbability.Confirmation.HypothesisComparison
+import EverettianProbability.Confirmation.RationalWitness
 import EverettianProbability.Audit.MainResults
 
 /-!
