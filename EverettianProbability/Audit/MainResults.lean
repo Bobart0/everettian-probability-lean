@@ -34,6 +34,7 @@ import EverettianProbability.Confirmation.FrequencyModel
 import EverettianProbability.Confirmation.PosteriorOdds
 import EverettianProbability.Confirmation.HypothesisComparison
 import EverettianProbability.Confirmation.RationalWitness
+import EverettianProbability.Confirmation.SequentialUpdate
 
 /-!
 **FR.** # Audit des axiomes — résultats principaux
@@ -311,5 +312,12 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms EverettianProbability.Confirmation.rationalWitness_bayesFactor_eq
 #print axioms EverettianProbability.Confirmation.rationalWitness_posteriorOdds_eq
 #print axioms EverettianProbability.Confirmation.rationalWitness_lowPosterior_lt_highPosterior
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.twoObservationEvidence_nonneg
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.twoObservationEvidence_comm
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.twoObservationPosteriorWeight_nonneg
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.sum_twoObservationPosteriorWeight_eq_one
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.posteriorUpdatedModel_evidence_eq
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.posteriorUpdatedModel_posteriorWeight_eq
+#print axioms EverettianProbability.Confirmation.FiniteBayesModel.sequentialPosteriorWeight_comm
 
 end EverettianProbability.Audit
