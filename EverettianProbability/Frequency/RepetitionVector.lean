@@ -127,5 +127,67 @@ theorem repetitionAmplitude_prefixConfiguration
   simp [repetitionAmplitude,
     hammingWeight_prefixConfiguration]
 
+/-- **FR.** Poids scalaire d'une configuration : carré de la norme de son
+amplitude complexe.
+
+**EN.** Scalar weight of a configuration: the squared norm of its complex
+amplitude. -/
+def repetitionConfigurationWeight
+    (R : ℕ) (α β : ℂ) (g : Fin R → Fin 2) : ℝ :=
+  ‖repetitionAmplitude R α β g‖ ^ 2
+
+/-- **FR.** Le poids d'une configuration est non négatif.
+
+**EN.** A configuration weight is nonnegative. -/
+theorem repetitionConfigurationWeight_nonneg
+    (R : ℕ) (α β : ℂ) (g : Fin R → Fin 2) :
+    0 ≤ repetitionConfigurationWeight R α β g := by
+  unfold repetitionConfigurationWeight
+  positivity
+
+/-- **FR.** Deux configurations de même poids de Hamming reçoivent le même
+poids scalaire.
+
+**EN.** Two configurations with the same Hamming weight receive the same
+scalar weight. -/
+theorem repetitionConfigurationWeight_eq_of_hammingWeight_eq
+    {R : ℕ} {α β : ℂ} {g h : Fin R → Fin 2}
+    (hweight : hammingWeight g = hammingWeight h) :
+    repetitionConfigurationWeight R α β g =
+      repetitionConfigurationWeight R α β h := by
+  unfold repetitionConfigurationWeight
+  rw [repetitionAmplitude_eq_of_hammingWeight_eq hweight]
+
+/-- **FR.** Sur la configuration canonique de poids `k`, le poids scalaire
+est le carré de la norme de `α^(R-k) β^k`.
+
+**EN.** On the canonical configuration of weight `k`, the scalar weight is
+the squared norm of `α^(R-k) β^k`. -/
+theorem repetitionConfigurationWeight_prefixConfiguration
+    (R : ℕ) (k : Fin (R + 1)) (α β : ℂ) :
+    repetitionConfigurationWeight R α β
+        (prefixConfiguration R k) =
+      ‖α ^ (R - k.val) * β ^ k.val‖ ^ 2 := by
+  unfold repetitionConfigurationWeight
+  rw [repetitionAmplitude_prefixConfiguration]
+
+/-- **FR.** Le carré de la norme du vecteur de répétition est la somme des
+poids de toutes les configurations.
+
+**EN.** The squared norm of the repetition vector is the sum of the weights
+of all configurations. -/
+theorem repetitionVector_norm_sq_eq_sum
+    (R : ℕ) (α β : ℂ) :
+    ‖repetitionVector R α β‖ ^ 2 =
+      ∑ g : Fin R → Fin 2,
+        repetitionConfigurationWeight R α β g := by
+  simpa [
+    repetitionVector,
+    repetitionConfigurationWeight,
+    repetitionSitesVector_apply
+  ] using
+    (EuclideanSpace.norm_sq_eq
+      (repetitionSitesVector R α β))
+
 end
 end EverettianProbability.Frequency
