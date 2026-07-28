@@ -49,6 +49,7 @@ import EverettianProbability.Confirmation.PosteriorOdds
 import EverettianProbability.Confirmation.HypothesisComparison
 import EverettianProbability.Confirmation.RationalWitness
 import EverettianProbability.Confirmation.SequentialUpdate
+import EverettianProbability.Confirmation.FiniteObservationBatch
 import EverettianProbability.Audit.MainResults
 
 /-!
