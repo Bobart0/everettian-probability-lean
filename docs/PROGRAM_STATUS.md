@@ -22,7 +22,7 @@
 | Physique exacte finie | Noyau etabli | Orbite unitaire et plans fins compatibles; pas de Hamiltonien naturel, decoherence emergente ni robustesse approximative. |
 | Résultat physique exact fini | **CLOS DANS SA PORTEE EXACTE, PROJECTIVE FINIE ET EXPLICITEMENT CALIBREE** / **CLOSED IN ITS EXACT FINITE-PROJECTIVE AND EXPLICITLY CALIBRATED SCOPE** | `ExactFinite/MainResults.lean` agrège CORE et CALIBRATED; voir `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`. |
 | EF0–EF9 | **AUDITÉS** | Codification : `docs/EXACT_FINITE_STAGES.md`; EF9 est audité. |
-| EF10 | **NON OUVERT** | Gel éventuel de l'API exacte finie et publication. |
+| EF10 | **FIGÉ — PUBLICATION EN ATTENTE** | Façade publique et contrat v2.0.0. |
 | P5, P6b, P12, preferences primitives | A traiter dans des jalons ulterieurs | Le noyau de richesse exacte ne declare pas automatiquement toute formulation historique de P6b resolue. |
 
 Le diagnostic date ci-dessous est un **diagnostic historique**. Il ne constitue
@@ -266,7 +266,7 @@ ce nom désigne — exactement le même défaut que P5, sous un nom différent.
 | Exact finite physics | Core established | Unitary orbit and compatible fine plans; no natural Hamiltonian, emergent decoherence, or approximate robustness. |
 | Exact finite physical result | **CLOSED IN ITS EXACT FINITE-PROJECTIVE AND EXPLICITLY CALIBRATED SCOPE** | `ExactFinite/MainResults.lean` aggregates CORE and CALIBRATED; see `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`. |
 | EF0–EF9 | **AUDITED** | Codification: `docs/EXACT_FINITE_STAGES.md`; EF9 is audited. |
-| EF10 | **NOT OPENED** | Possible exact-finite API freeze and publication. |
+| EF10 | **FROZEN — RELEASE PENDING** | Public facade and v2.0.0 contract. |
 | P5, P6b, P12, primitive preferences | Future milestones | The exact-richness core does not automatically settle every stronger historical formulation of P6b. |
 
 The dated diagnostic below is **historical status** and is not the current

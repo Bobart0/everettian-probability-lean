@@ -10,13 +10,14 @@ authors:
     country: FR
     orcid: "https://orcid.org/0009-0000-2457-375X"
 abstract: >-
-  A Lean 4 / Mathlib formalization of conditional Born results: rational
-  values are represented by Born expectation under explicit premises, and
-  record-conditioned self-locating credences over continuators are normalized
-  and satisfy total-expectation, chain, and tower laws. The stable public
-  facade is EverettianProbability.API.Conditional, for finite projective
-  dimension n >= 3. The development does not derive rational norms from
-  unitary dynamics alone and does not provide an approximate-decoherence model.
+  A Lean 4 / Mathlib formalization with stable conditional and exact-finite
+  public APIs. It represents rational values by Born expectation under
+  explicit premises, characterizes same records by unitary orbits, realizes
+  compatible fine-weight profiles while preserving present records and
+  consequences, and gives calibrated continuator credences with explicit
+  zero-parent-fibre treatment. The scope is finite-dimensional and
+  projective; it provides neither approximate decoherence nor a natural local
+  Hamiltonian, and does not derive rationality from unitary dynamics alone.
 keywords:
   - quantum foundations
   - Born rule
@@ -26,6 +27,6 @@ keywords:
   - Lean 4
   - formal verification
 license: Apache-2.0
-version: 1.0.0
+version: 2.0.0
 date-released: 2026-07-29
 repository-code: "https://github.com/Bobart0/everettian-probability-lean"

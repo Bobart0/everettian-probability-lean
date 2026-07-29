@@ -34,6 +34,8 @@ expérimentale et n'est pas couverte par cette garantie.
 
 ## English
 
+## Stable since v1.0.0
+
 ### Stable in v1.x
 
 The recommended stable entry point is:
@@ -102,3 +104,15 @@ The experimental EF9 results —
 `compatibleFineWeight_eq_zero_of_parentWeight_eq_zero`,
 `prescribedRatio_eq_zero_of_parentWeight_eq_zero`, and
 `ExactFiniteNullParentResults` — belong to this non-stable layer.
+
+## Stable since v2.0.0
+
+The recommended exact-finite stable entry point is:
+
+```lean
+import EverettianProbability.API.ExactFiniteMainResults
+```
+
+Its v2.x contract is defined by `Audit/ExactFiniteAPIContract.lean` and
+documented in `docs/EXACT_FINITE_API_STABILITY.md`. The v1.x conditional API
+and its compatibility guarantee remain unchanged.

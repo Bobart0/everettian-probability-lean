@@ -16,6 +16,27 @@
 - Permanent repository terminology guard.
 - Exact-finite stage codification.
 
+## [2.0.0] - 2026-07-29
+
+### Added
+
+- Stable exact-finite public API and independent API contract.
+- Unitary-orbit and compatible-profile realization facade.
+- Separate exact physical core and calibrated conclusions.
+- Explicit zero-weight parent-fibre treatment and permanent API boundary guard.
+- EF0–EF10 programme codification and contradictory scope audit.
+
+### Compatibility
+
+- The conditional API introduced in v1.0.0 remains unchanged; its import path
+  and stable declarations remain supported.
+
+### Scope
+
+- Exact, finite-dimensional, and projective; calibrated credence conclusions
+  require explicit P4 premises; no approximate decoherence, natural local
+  Hamiltonian, or complete personal-identity semantics.
+
 ## [1.0.0] - 2026-07-29
 
 ### Added

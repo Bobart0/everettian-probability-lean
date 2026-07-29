@@ -1,14 +1,13 @@
 # Everettian Probability in Lean
 
-> **The first conditional formal result is closed and the `v1.0.0`
-> conditional API is stable.** The exact finite physical core exists as a
-> separate experimental layer whose API is not yet frozen. Realistic and
+> **The conditional and exact-finite public APIs are stable in `v2.0.0`.**
+> Their normative, physical, and semantic premises remain explicit. Realistic and
 > approximate physical programmes remain unfinished. No rational norm is
 > claimed to follow from unitary dynamics alone.
 >
 > **Le premier resultat formel conditionnel est clos et l'API conditionnelle
-> `v1.0.0` est stable.** Le noyau physique exact fini existe comme couche
-> experimentale separee dont l'API n'est pas encore figee. Les programmes
+> `v2.0.0` sont stables.** Leurs prémisses normatives, physiques et sémantiques
+> restent explicites. Les programmes
 > physiques realistes et approximatifs restent inacheves. Aucune norme
 > rationnelle n'est derivee de la seule dynamique unitaire.
 
@@ -40,6 +39,15 @@ expectation, continuator credence equals conditional Born weight on a nonzero
 parent fibre, and diachronic total-expectation, chain, and tower laws.
 `API.ExactFinitePhysicalRichness` is present but experimental: it is outside
 the stability guarantee for `v1.x`.
+
+## Stable exact-finite API
+
+```lean
+import EverettianProbability.API.ExactFiniteMainResults
+```
+
+This facade exposes the exact finite physical result. The implementation
+modules may evolve; users should prefer the two stable facades above.
 
 ### Current status
 
@@ -90,10 +98,9 @@ the zero-parent-fibre case, and EF10 is not open.
 import EverettianProbability.ExactFinite.MainResults
 ```
 
-`MainResults` is the scientific aggregation of the experimental exact-finite
-layer; `PhysicalAdequacy` remains its detailed facade. This layer postdates
-`v1.0.0`, is not covered by the `v1.x` stability guarantee, and only organizes
-existing exact finite results. The stable conditional entry point remains
+`MainResults` remains the scientific implementation aggregation and
+`PhysicalAdequacy` its detailed facade. The stable external entry point is now
+`API.ExactFiniteMainResults`; the conditional entry point remains
 `API.ConditionalMainResults`.
 
 ### Reproducibility and citation

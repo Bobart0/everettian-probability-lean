@@ -6,7 +6,7 @@
 Ces codes décrivent l'avancement de la couche exacte finie. Ils ne remplacent
 pas automatiquement les anciens codes globaux P0–P12.
 
-| Code | Contenu | Statut après EF9 |
+| Code | Contenu | Statut après EF10 |
 |---|---|---|
 | EF0 | Définition de la portée exacte finie et architecture | AUDITÉ |
 | EF1 | Record bornien, projecteurs et invariance du record | AUDITÉ |
@@ -18,7 +18,7 @@ pas automatiquement les anciens codes globaux P0–P12.
 | EF7 | Façade stratifiée `RecordOrbit → RefinementRealization → PhysicalAdequacy` | AUDITÉ |
 | EF8 | Agrégation `MainResults` et audit de complétude | AUDITÉ |
 | EF9 | Audit contradictoire et durcissement des frontières | AUDITÉ |
-| EF10 | Gel éventuel de l’API exact-fini et publication | NON OUVERT |
+| EF10 | Gel de l’API exacte finie et préparation de publication | FIGÉ — PUBLICATION EN ATTENTE |
 
 Correspondance minimale des étapes :
 
@@ -39,7 +39,7 @@ Correspondance minimale des étapes :
 These codes describe progress in the exact-finite layer. They do not
 automatically replace the older global P0–P12 codes.
 
-| Code | Content | Status after EF9 |
+| Code | Content | Status after EF10 |
 |---|---|---|
 | EF0 | Definition of the exact-finite scope and architecture | AUDITED |
 | EF1 | Born record, projectors, and record invariance | AUDITED |
@@ -51,7 +51,7 @@ automatically replace the older global P0–P12 codes.
 | EF7 | Layered `RecordOrbit → RefinementRealization → PhysicalAdequacy` facade | AUDITED |
 | EF8 | `MainResults` aggregation and completeness audit | AUDITED |
 | EF9 | Contradictory audit and boundary hardening | AUDITED |
-| EF10 | Possible exact-finite API freeze and publication | NOT OPENED |
+| EF10 | Exact-finite API freeze and release preparation | FROZEN — RELEASE PENDING |
 
 Minimum stage correspondence:
 

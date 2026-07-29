@@ -28,6 +28,9 @@ decoherence et la preservation approximative des records ne sont pas
 formalisees; la semantique personnelle des continuateurs n'est pas derivee.
 Voir `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`.
 
+La façade stable v2.0.0 est `API/ExactFiniteMainResults.lean`; les modules
+d'implémentation peuvent évoluer sans modifier ce contrat externe.
+
 ### Fibres de poids parent nul
 
 Quand le poids bornien d'une cellule parente est nul, la compatibilité impose

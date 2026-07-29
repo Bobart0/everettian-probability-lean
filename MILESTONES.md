@@ -12,7 +12,7 @@
 | Noyau de richesse physique exacte finie | Etabli : orbite unitaire exacte, realisation de profils fins positifs compatibles et continuation physique uniforme; Hamiltonien naturel, emergence par decoherence et stabilite approximative non etablis. |
 | Résultat physique exact fini | **CLOS DANS SA PORTEE EXACTE, PROJECTIVE FINIE ET EXPLICITEMENT CALIBREE** / **CLOSED IN ITS EXACT FINITE-PROJECTIVE AND EXPLICITLY CALIBRATED SCOPE**. `ExactFinite/MainResults.lean`, `ExactFinite/PhysicalAdequacy.lean`, `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`. |
 | EF0–EF9 | **AUDITÉS**. Voir `docs/EXACT_FINITE_STAGES.md`; EF9 est audité. |
-| EF10 | **NON OUVERT**. |
+| EF10 | **FIGÉ — PUBLICATION EN ATTENTE**. Façade publique et contrat v2.0.0. |
 
 Les tableaux dates qui suivent sont conserves comme **statut historique** et
 ne remplacent pas ce statut courant.
@@ -224,7 +224,7 @@ Budget toujours à `0` ; aucun `sorry` introduit.
 | Exact finite physical-richness core | Established: exact unitary orbit, compatible positive fine-profile realization, and uniform physical continuation; natural Hamiltonian, decoherence emergence, and approximate stability are not established. |
 | Exact finite physical result | **CLOSED IN ITS EXACT FINITE-PROJECTIVE AND EXPLICITLY CALIBRATED SCOPE**. `ExactFinite/MainResults.lean`, `ExactFinite/PhysicalAdequacy.lean`, `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`. |
 | EF0–EF9 | **AUDITED**. See `docs/EXACT_FINITE_STAGES.md`; EF9 is audited. |
-| EF10 | **NOT OPENED**. |
+| EF10 | **FROZEN — RELEASE PENDING**. Public facade and v2.0.0 contract. |
 
 The dated tables below are preserved as **historical status** and do not
 replace this current status.
