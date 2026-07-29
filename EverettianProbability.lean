@@ -43,6 +43,7 @@ import EverettianProbability.SelfLocation.DecisionCredenceBridge
 import EverettianProbability.Diachronic.ContinuatorCredence
 import EverettianProbability.Diachronic.FutureActTotalExpectation
 import EverettianProbability.Diachronic.TowerProperty
+import EverettianProbability.Diachronic.ThreeLevelTowerWitness
 import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector
