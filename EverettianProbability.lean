@@ -59,6 +59,7 @@ import EverettianProbability.Diachronic.BlockDiagonalRecordOrbit
 import EverettianProbability.Diachronic.UnitaryRecordOrbit
 import EverettianProbability.Diachronic.FineBornWeightRealization
 import EverettianProbability.Diachronic.PhysicalFinePlanContinuation
+import EverettianProbability.API.ExactFinitePhysicalRichness
 import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector
