@@ -86,30 +86,24 @@ import EverettianProbability.Confirmation.RationalBatchWitness
 import EverettianProbability.Audit.MainResults
 
 /-!
-**FR.** Point d'entrée du paquet `EverettianProbability`. Importe tous les
-modules, dans l'ordre de dépendance : `Core` (interface, actes, carte
-parent, actes abstraits), `Refinement` (tiré-en-arrière, invariance,
-invariance abstraite), `Preference` (espérance rationnelle,
-représentation, et leurs levées abstraites), `BornCalibration` (poids
-contextuel, pont vers Grain, espérance de Born, non-circularité, et leurs
-levées abstraites), `Rivals` (comptage naïf et témoin de puissance quatrième), `PhysicalRefinement` (témoin
-physique du raffinement record-neutre, P6a), `EffectCalibration` (route
-qubit : empaquetage en règle d'estimation d'effets, espérance de Born
-côté effets pour tout `n ≥ 1`, témoin concret en `n = 2`), `Diachronic`
-(conditionnement statique sur fibres de raffinement : aucune dynamique
-temporelle, aucun continuateur et aucun record accessible ne sont formalisés),
-puis `Audit` (audit des axiomes).
+**FR.** Point d'entree du paquet `EverettianProbability`. Il importe, dans
+l'ordre de dependance, `Core`, `Refinement`, `Preference`, `BornCalibration`,
+`PhysicalRefinement`, `EffectCalibration`, `SelfLocation`, `Diachronic`, les
+facades API conditionnelle et physique exacte, `Frequency`, `Confirmation` et
+`Audit`. `SelfLocation` formalise une credence conditionnee par record sous
+premisses semantiques explicites. `Diachronic` formalise des continuateurs,
+l'esperance totale, la chaine, la tour, la composition et des continuations
+physiques exactes. L'API conditionnelle est stable en `v1.x`; l'API physique
+exacte reste experimentale. Aucune norme rationnelle n'est derivee de la seule
+dynamique unitaire.
 
-**EN.** Entry point of the `EverettianProbability` package. Imports every
-module, in dependency order: `Core` (interface, acts, parent map,
-abstract acts), `Refinement` (pullback, invariance, abstract invariance),
-`Preference` (rational expectation, representation, and their abstract
-lifts), `BornCalibration` (contextual weight, bridge to Grain, Born
-expectation, non-circularity, and their abstract lifts), `Rivals` (naive
-counting and fourth-power witness), `PhysicalRefinement` (physical witness of the record-neutral
-refinement, P6a), `EffectCalibration` (qubit route: packaging into an
-effect estimation rule, effect-side Born expectation for every `n ≥ 1`,
-concrete `n = 2` witness), `Diachronic` (static conditioning on refinement
-fibers: no temporal dynamics, continuator, or accessible record is
-formalized), then `Audit` (axioms audit).
+**EN.** Entry point of the `EverettianProbability` package. It imports, in
+dependency order, `Core`, `Refinement`, `Preference`, `BornCalibration`,
+`PhysicalRefinement`, `EffectCalibration`, `SelfLocation`, `Diachronic`, the
+conditional and exact-physical API facades, `Frequency`, `Confirmation`, and
+`Audit`. `SelfLocation` formalizes record-conditioned credence under explicit
+semantic premises. `Diachronic` formalizes continuators, total expectation,
+chain, tower, composition, and exact physical continuations. The conditional
+API is stable in `v1.x`; the exact-physical API remains experimental. No
+rational norm is derived from unitary dynamics alone.
 -/

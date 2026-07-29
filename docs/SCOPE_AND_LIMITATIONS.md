@@ -2,6 +2,22 @@
 
 ## Français
 
+### Portee conditionnelle stable -- 2026-07-29
+
+Le resultat conditionnel est clos dans sa portee projective finie et
+explicitement conditionnelle. Il suppose `ProjectiveBornPremises`: rationalite
+affine, invariance locale sous raffinement, etat normalise, `3 <= n` et le
+pont `AxNul`. Les continuateurs sont des cellules futures d'une fibre par
+premisse SEM; leur credence est bornienne conditionnelle sur une fibre non
+nulle. Le depot formalise normalisation, esperance totale, chaine et tour,
+mais ne derive ni les normes rationnelles de l'unitarite ni une identite
+personnelle complete.
+
+Le noyau de richesse physique exacte finie est etabli: orbite unitaire,
+realisation de profils positifs compatibles et continuations uniformes. Il ne
+prouve ni Hamiltonien local naturel, ni emergence par decoherence, ni stabilite
+approximative, et reste experimental hors du contrat `v1.x`.
+
 ### Typicalité (P10)
 
 La concentration des masses de fréquence est un résultat conditionnel à la
@@ -27,9 +43,14 @@ explicites de non-nullité énoncés par les théorèmes concernés.
 
 ### Portée du programme complet
 
-Restent notamment ouverts une sémantique formelle de l'auto-localisation, une
-cohérence diachronique véritable avec continuateurs et records, le pont général
-de réalisabilité physique P6b, et la stabilité approximative P12.
+Le formalisme fini de credence conditionnee par record et la diachronie des
+continuateurs sont maintenant etablis sous leurs premisses explicites. Restent
+hors de portee une semantique philosophique complete de l'incertitude
+personnelle, une identite personnelle complete, une realisabilite physique
+microscopique generale de chaque continuation, ainsi que la stabilite
+approximative P12. Le noyau de richesse physique exacte finie ne doit pas etre
+lu comme la resolution automatique de toute formulation historique plus forte
+de P6b.
 
 - Aucune norme de rationalité n’est dérivée de la seule dynamique unitaire.
   `RefinementInvariantLocal` est une prémisse normative assumée.
@@ -114,6 +135,21 @@ de réalisabilité physique P6b, et la stabilité approximative P12.
 
 ## English
 
+### Stable conditional scope -- 2026-07-29
+
+The conditional result is closed in its finite-projective and explicitly
+conditional scope. It assumes `ProjectiveBornPremises`: affine rationality,
+local refinement invariance, normalized state, `3 <= n`, and the `AxNul`
+bridge. Continuators are future fibre cells by a SEM premise; their credence
+is conditional Born credence on a nonzero fibre. The repository formalizes
+normalization, total expectation, chain, and tower, but derives neither
+rational norms from unitarity nor complete personal identity.
+
+The exact finite physical-richness core is established: unitary orbit,
+compatible positive-profile realization, and uniform continuations. It proves
+neither a natural local Hamiltonian, decoherence emergence, nor approximate
+stability, and remains experimental outside the `v1.x` contract.
+
 ### Typicality (P10)
 
 Concentration of frequency masses is conditional on already established
@@ -139,9 +175,12 @@ the relevant theorems.
 
 ### Scope of the complete programme
 
-Still open are, in particular, a formal self-location semantics, genuine
-diachronic coherence with continuators and records, the general physical
-realizability bridge P6b, and approximate stability P12.
+Finite record-conditioned credence formalism and continuator diachrony are now
+established under their explicit premises. Still out of scope are a complete
+philosophical semantics of personal uncertainty, complete personal identity,
+general microscopic physical realizability of every continuation, and
+approximate stability P12. The exact finite physical-richness core must not be
+read as automatically resolving every stronger historical formulation of P6b.
 
 - No rationality norm is derived from unitary dynamics alone.
   `RefinementInvariantLocal` is an assumed normative premise.
@@ -222,7 +261,7 @@ realizability bridge P6b, and approximate stability P12.
   (`Complexity/Gates/AmplitudeRotation.lean`, upstream) — to be built and
   exported upstream; it does not exist today in this combined form.
 
-### P8 — conditionnement et lecture diachronique / conditioning and diachronic reading
+### Statut historique -- P8, conditionnement et lecture diachronique / conditioning and diachronic reading
 
 **FR.** P8 est clos dans sa portée formelle révisée : conditionnement sur
 fibres de raffinement, loi de totalité et marginalisation conditionnelle sous

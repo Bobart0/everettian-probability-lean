@@ -12,7 +12,20 @@
 
 ## Français
 
-### Statut courant — 2026-07-28
+### Statut de release courant -- 2026-07-29
+
+| Jalon | Statut courant | Portee exacte |
+|---|---|---|
+| Conditional Born theorem / Saint-Graal formel conditionnel | **CLOS DANS SA PORTEE PROJECTIVE FINIE ET EXPLICITEMENT CONDITIONNELLE** | API conditionnelle stable `v1.x`; resultats statiques et diachroniques sous premisses explicites. |
+| Self-location | Etabli sous forme finie conditionnee par record | Unicite sous admissibilite; l'incertitude personnelle reste une premisse semantique. |
+| Diachronie | Formalisee dans la portee abstraite explicite | Continuateurs, normalisation, esperance totale, chaine et tour; pas d'identite personnelle complete. |
+| Physique exacte finie | Noyau etabli | Orbite unitaire et plans fins compatibles; pas de Hamiltonien naturel, decoherence emergente ni robustesse approximative. |
+| P5, P6b, P12, preferences primitives | A traiter dans des jalons ulterieurs | Le noyau de richesse exacte ne declare pas automatiquement toute formulation historique de P6b resolue. |
+
+Le diagnostic date ci-dessous est un **diagnostic historique**. Il ne constitue
+pas le statut courant de la release `v1.0.0`.
+
+### Statut historique — 2026-07-28
 
 | Jalon | Statut courant | Portée exacte |
 |---|---|---|
@@ -240,6 +253,19 @@ ce nom désigne — exactement le même défaut que P5, sous un nom différent.
 
 ## English
 
+### Current release status -- 2026-07-29
+
+| Milestone | Current status | Exact scope |
+|---|---|---|
+| Conditional Born theorem / formal conditional Saint-Graal | **CLOSED IN ITS EXPLICIT CONDITIONAL FINITE-PROJECTIVE SCOPE** | Stable `v1.x` conditional API; static and diachronic results under explicit premises. |
+| Self-location | Established as finite record-conditioned formalism | Uniqueness under admissibility; personal uncertainty remains a semantic premise. |
+| Diachrony | Formalized in its explicit abstract scope | Continuators, normalization, total expectation, chain, and tower; no complete personal identity. |
+| Exact finite physics | Core established | Unitary orbit and compatible fine plans; no natural Hamiltonian, emergent decoherence, or approximate robustness. |
+| P5, P6b, P12, primitive preferences | Future milestones | The exact-richness core does not automatically settle every stronger historical formulation of P6b. |
+
+The dated diagnostic below is **historical status** and is not the current
+status of the `v1.0.0` release.
+
 ### Current status — 2026-07-28
 
 | Milestone | Current status | Exact scope |
@@ -454,7 +480,7 @@ speculating beyond what this repository attests. The only honest answer
 is: the first non-formal decision is to document, somewhere, what this
 name refers to — exactly the same defect as P5, under a different name.
 
-## 2026-07-27 current-status correction / correction d'état courant
+## Historical status correction -- 2026-07-27 / correction de statut historique
 
 **FR.** Cette section met à jour les lignes P8 et route qubit du relevé daté
 du 2026-07-26 ci-dessus. P8 est **clos dans sa portée formelle révisée** :

@@ -2,6 +2,11 @@
 
 ## Français
 
+> **Statut historique -- 2026-07-26.** Cette feuille de route precede la
+> formalisation de SelfLocation, de la diachronie et du noyau physique exact
+> fini. Elle est conservee pour la tracabilite et ne decrit pas le statut
+> courant; voir `CONDITIONAL_BORN_SCOPE.md` et `PROGRAM_STATUS.md`.
+
 ### But prudent
 
 Le but final est de construire un théorème intégrateur montrant que, sous des
@@ -110,6 +115,11 @@ preuve.
 # Roadmap to an Integrated Everettian Probability Theorem
 
 ## English
+
+> **Historical status -- 2026-07-26.** This roadmap predates the
+> formalization of SelfLocation, diachrony, and the exact finite physical
+> core. It is retained for traceability and does not describe current status;
+> see `CONDITIONAL_BORN_SCOPE.md` and `PROGRAM_STATUS.md`.
 
 ### Cautious goal
 

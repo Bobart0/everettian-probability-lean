@@ -49,6 +49,7 @@ import EverettianProbability.API.ConditionalBorn
 import EverettianProbability.API.DiachronicBorn
 import EverettianProbability.API.ConditionalMainResults
 import EverettianProbability.API.ExactFinitePhysicalRichness
+import EverettianProbability.Audit.ConditionalAPIContract
 import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector

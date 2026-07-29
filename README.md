@@ -1,368 +1,165 @@
 # Everettian Probability in Lean
 
-> **P11 is closed in its finite conditional scope, but the full programme
-> remains under construction.** P6b, P7, and P12 remain open, and P8
-> currently covers only static conditioning on refinement fibers. These
-> results must not be presented as a derivation of probability from unitary
-> dynamics alone. See `MILESTONES.md` for exact status and `SORRY_BUDGET`.
+> **The first conditional formal result is closed and the `v1.0.0`
+> conditional API is stable.** The exact finite physical core exists as a
+> separate experimental layer whose API is not yet frozen. Realistic and
+> approximate physical programmes remain unfinished. No rational norm is
+> claimed to follow from unitary dynamics alone.
 >
-> **P11 est clos dans sa portée finie et conditionnelle, mais le programme
-> complet reste en construction.** P6b, P7 et P12 demeurent ouverts, et P8
-> ne couvre actuellement qu'un conditionnement statique sur fibres de
-> raffinement. Ces résultats ne doivent pas être présentés comme une
-> dérivation de la probabilité à partir de la seule dynamique unitaire.
-> Voir `MILESTONES.md` pour le statut exact et `SORRY_BUDGET`.
+> **Le premier resultat formel conditionnel est clos et l'API conditionnelle
+> `v1.0.0` est stable.** Le noyau physique exact fini existe comme couche
+> experimentale separee dont l'API n'est pas encore figee. Les programmes
+> physiques realistes et approximatifs restent inacheves. Aucune norme
+> rationnelle n'est derivee de la seule dynamique unitaire.
 
 ## English
 
 ### Purpose
 
-A Lean 4 / Mathlib formalization of the decision-theoretic layer of paper
-II of a two-part research program: acts, consequences, refinement
-invariance, rational expectation, and Bornian calibration, built on top of
-the grain-coherence-to-Born representation theorem already proved in the
-first installment, [`quantum-foundations-lean`](https://github.com/Bobart0/quantum-foundations-lean).
-The scientific target is to show that every coherent expectation over
-accessible consequences produces a contextual weight, that refinement
-invariance of those consequences forces the upstream Grain axiom, and that
-the upstream representation theorem then turns that expectation into a
-Born expectation.
+This Lean 4 / Mathlib repository formalizes conditional Born results from
+explicitly separated mathematical, normative, physical-bridge, and semantic
+premises. It builds on the pinned
+[`quantum-foundations-lean`](https://github.com/Bobart0/quantum-foundations-lean)
+dependency and keeps the distinction between a conditional theorem and a
+derivation of its premises explicit.
 
-### Main results, with their scope limitations
+## Stable conditional API
 
-- **`refinementInvariantLocal_iff_axGrain`**
-  (`BornCalibration/RefinementImpliesGrain.lean`): local invariance under
-  refinement is **exactly** the upstream Grain axiom on the canonical
-  weight — an equivalence, not just one direction.
-- **`born_expectation_of_invariance`**
-  (`BornCalibration/BornExpectation.lean`): the headline theorem. Rests on
-  **two bridge premises**, not one — local refinement invariance (purely
-  normative) and null canonical weight on the state's support (`AxNul`, a
-  normative-physical bridge, since it references the physical state `v`)
-  — plus `RationalExpectationFamily` and, critically, **`3 ≤ n`**: the
-  result covers Hilbert spaces of dimension at least 3 (the domain of the
-  upstream Gleason theorem), not the qubit.
-- **`grain_does_not_imply_born_at_two`**
-  (`BornCalibration/NonCircularity.lean`): at `n = 2`, an explicit
-  non-Born rule (`skewWeight`) satisfies Grain, Norm, Pos, and Null — the
-  repository's own witness that the headline premise is not the Born rule
-  in disguise, and the reason the `3 ≤ n` restriction above is load-bearing
-  rather than a formality.
-- **`naiveCounting_violates_grain`** (`Rivals/NaiveBranchCounting.lean`):
-  naive branch counting violates Grain, a concrete exclusion result for
-  the simplest rival rule.
-- **`PhysicalRefinement/`** (milestone P6a): a concrete unitary witness, in
-  `H 3`, that a refinement can redescribe branches more finely without
-  physically creating new ones — record, payoff, and Born weights
-  unchanged, active-cell count increased. This is an **existence** witness
-  (one construction, in a schematic model with a stipulated, not derived,
-  record algebra), not a universality claim about every refinement.
-- **`EffectCalibration/`** (qubit route): `effectWeight_eq_born_of_
-  invariance` lifts the `3 ≤ n` restriction above — it covers **every**
-  `n ≥ 1`, qubit included (concrete witness at `n = 2`, amplitudes `3/5`,
-  `4/5`, canonical weight `9/25`), but **only** for outcomes whose effect
-  is a projection; genuinely non-projective POVM effects remain out of
-  scope (deferred upstream). Built by lifting `RationalExpectationFamily`/
-  `represents`/`canonicalWeight`/`refinement_invariant_implies_grain` to
-  the abstract `PerspectiveInterface` level, with `outcome`-injectivity
-  threaded as an argument rather than added as a class field.
-- **`Diachronic/`** (P8): static conditioning on refinement fibers. The
-  total conditional mass is `0` at a zero conditioning weight and `1`
-  otherwise; totality and conditional marginalization are proved. The logical
-  chain is `RefinementInvariantLocal → canonicalWeight_grain →
-  conditionalWeight_trans_fiber`, so conditional marginalization is a
-  consequence of Grain, not an independent diachronic premise. No temporal
-  dynamics, continuator, or accessible record is formalized.
-- **`fourthPowerWeight_not_axNorm`** (`Rivals/FourthPowerWeight.lean`): a
-  P9 witness for `q = 4` only. `fourthPowerWeight_axPos` proves positivity,
-  while normalization fails on the unit witness `psiBefore` and
-  `coarsePerspective`, where the sum is `337/625 ≠ 1`.
-- **`Frequency/` (P10):** repetition vectors, frequency cells and
-  projectors yield normalized finite masses with an exact binomial formula;
-  moments, relative-frequency variance, finite Chebyshev, typical/atypical
-  masses, and an explicit quantified threshold are proved. P10 is **closed
-  in its finite and quantified-asymptotic scope**; it uses already calibrated
-  quadratic weights and is not an independent derivation of Born.
-- **`Confirmation/` (P11):** a finite conditional Bayesian model uses
-  frequency masses as likelihoods, proves posterior-odds and batch/iterated
-  update identities under explicit nonzero assumptions, and includes
-  rational one- and two-observation witnesses. P11 is **closed in its finite
-  conditional Bayesian scope**, not a solution of philosophical circularity.
+```lean
+import EverettianProbability.API.ConditionalMainResults
+```
 
-Every result above is proved with `SORRY_COUNT = 0`; see
-`docs/THEOREM_MAP.md` for the full dependency and scope table, and
-`docs/SCOPE_AND_LIMITATIONS.md` for the complete list of caveats,
-including the ones above.
+The stable aggregate theorem is `conditionalBornMainResults`; the one- and
+two-step packaged results are `oneStepConditionalBornResults` and
+`twoStepConditionalBornResults`. `ProjectiveBornPremises` records a finite
+projective dimension `n >= 3`, rational expectation, a normalized state,
+local refinement invariance, and the explicit null-support bridge.
 
-### Milestone status
+The API proves canonical weight equals Born weight, act value equals Born
+expectation, continuator credence equals conditional Born weight on a nonzero
+parent fibre, and diachronic total-expectation, chain, and tower laws.
+`API.ExactFinitePhysicalRichness` is present but experimental: it is outside
+the stability guarantee for `v1.x`.
 
-| Milestone | Subject | Status |
-|---|---|---|
-| P0.3, P0.4 | Interface decision; `n = 2` non-circularity witness | Closed |
-| P1–P4 | Infrastructure; acts and pullback; canonical representation; invariance ⇔ Grain ⇒ Born | Closed |
-| P6 | Exclusion of naive counting | Closed |
-| P6a | Physical witness of a record-neutral refinement | Closed (existence witness) |
-| Qubit route | Effect-side Born expectation, every `n ≥ 1`, projective outcomes | Closed (restricted to projective outcomes) |
-| P8 | Static conditioning on refinement fibers | Closed (revised formal scope) |
-| P9 | Fourth-power rival rule (`q = 4`) | Partially open |
-| P10 | Finite frequencies, typicality, explicit quantified threshold | Closed in its finite and quantified-asymptotic scope |
-| P11 | Finite conditional Bayesian confirmation | Closed in its finite conditional Bayesian scope |
-| P5, P6b, P7, P12, primitive-preference route | Later milestones | Not opened |
+### Current status
 
-See `MILESTONES.md` for closure details and `docs/PROGRAM_STATUS.md` for a
-full audit of every milestone, including — for each not-yet-opened one —
-whether reusable scaffolding exists, whether the difficulty is one of
-proof or of design, and what non-formal decisions must be made first.
-
-### Relation to `quantum-foundations-lean`
-
-`quantum-foundations-lean` is an archived, DOI-tagged artifact accompanying
-a manuscript submitted to *Foundations of Physics*. It is **never
-modified** by this repository; it is pulled in read-only, pinned to a
-specific tag, via a Lake dependency (`lakefile.toml`). See `AGENTS.md` for
-the exact pin and the rule against re-proving anything that already exists
-upstream.
+| Layer | Current status |
+|---|---|
+| P0-P4 | Closed in their stated finite-projective scope. |
+| Self-location | Finite record-conditioned credence formalism and uniqueness under explicit admissibility premises are established; personal uncertainty remains semantic. |
+| Diachronic | Continuation steps, normalized continuator credence, total expectation, chain, tower, physical composition and associativity are formalized; complete personal identity is not. |
+| Exact finite physical richness | Exact unitary orbit and compatible positive fine-weight-plan realization are established; natural Hamiltonians, decoherence emergence, and approximation are not. |
+| P10 / P11 | Closed in their documented finite conditional scopes. |
+| P9 | Partial (`q = 4` witness). |
 
 ### Repository structure
 
-```
+```text
 EverettianProbability/
-├── Core/                — acts, the abstract perspective interface
-├── Refinement/           — act pullback, payoff-preserving invariance
-├── Preference/            — rational expectation family, representation theorem
-├── BornCalibration/        — contextual weight, Grain bridge, Born expectation,
-│                             non-circularity witness (n = 2)
-├── Rivals/                 — naive branch counting and the fourth-power rival rule
-├── PhysicalRefinement/      — physical witness of a record-neutral refinement (P6a)
-├── EffectCalibration/        — qubit route: effect-side Born expectation for every n ≥ 1
-├── Diachronic/               — static conditioning on refinement fibers (P8)
-├── Frequency/                 — finite frequency masses, moments, concentration, typicality (P10)
-├── Confirmation/              — finite conditional Bayesian confirmation (P11)
-└── Audit/                    — consolidated axiom audit
+├── API/
+│   ├── ConditionalBorn.lean
+│   ├── DiachronicBorn.lean
+│   ├── ConditionalMainResults.lean
+│   └── ExactFinitePhysicalRichness.lean
+├── SelfLocation/       -- record-conditioned credence and semantic bridges
+├── Diachronic/         -- ContinuationStep, continuator credence, total
+│                         expectation, chain, tower, physical continuation,
+│                         composition, associativity, unitary orbit, and
+│                         exact fine-weight-plan realization
+├── Frequency/          -- finite frequency masses and typicality
+├── Confirmation/       -- finite conditional Bayesian confirmation
+└── Audit/              -- axiom and stable-API contracts
 ```
 
-Milestone directories not yet opened (`SelfLocation/`, `Approximate/`)
-do not exist yet and are created only
-when their milestone opens.
+The remaining limitations and the exact conditional scope are documented in
+[`docs/CONDITIONAL_BORN_SCOPE.md`](docs/CONDITIONAL_BORN_SCOPE.md). The
+compatibility contract is in [`docs/API_STABILITY.md`](docs/API_STABILITY.md).
 
-### Scope and limitations
-
-No theorem in this repository derives a rationality norm from unitary
-dynamics alone; refinement invariance is an assumed normative premise,
-never derived. The headline theorem rests on two bridge premises and a
-`3 ≤ n` dimension restriction (see above). See
-`docs/SCOPE_AND_LIMITATIONS.md` for the full list, and
-`docs/ARGUMENT_MAP.md` for an explicit audit of formulations this
-repository does and does not license.
-
-### Reproducibility
+### Reproducibility and citation
 
 ```sh
-git clone https://github.com/Bobart0/everettian-probability-lean.git
-cd everettian-probability-lean
-bash setup.sh   # lake exe cache get && lake build, plus git hooks
-```
-
-See `docs/REPRODUCIBILITY.md` for exact toolchain/revision pins and
-PowerShell-equivalent commands.
-
-### Axiom audit
-
-```sh
+lake env lean EverettianProbability/Audit/ConditionalAPIContract.lean
 lake env lean EverettianProbability/Audit/MainResults.lean
+lake build
 bash scripts/guard.sh
 ```
 
-`scripts/guard.sh` fails on any `axiom`, `native_decide`, or
-`maxHeartbeats 0`, and on an open-goal count exceeding `SORRY_BUDGET`
-(currently `0`).
+See `CITATION.cff` for *Everettian Probability in Lean:
+Refinement-Invariant Rational Expectation*, version `1.0.0`.
 
-### Citation
-
-See `CITATION.cff`. Working title: *Everettian Probability in Lean:
-Refinement-Invariant Rational Expectation*, version `0.1.0-dev`.
-
-### AI-assisted development
-
-See `docs/AI_ASSISTANCE.md`.
-
-## Français
+## Francais
 
 ### Objet
 
-Une formalisation Lean 4 / Mathlib de la couche de théorie de la décision
-de l'article II d'un programme de recherche en deux volets : actes,
-conséquences, invariance sous raffinement, espérance rationnelle et
-calibration bornienne, construite au-dessus du théorème de représentation
-« cohérence de grain vers Born » déjà prouvé dans le premier volet,
-[`quantum-foundations-lean`](https://github.com/Bobart0/quantum-foundations-lean).
-L'objectif scientifique est de montrer que toute espérance cohérente sur
-les conséquences accessibles produit un poids contextuel, que l'invariance
-sous raffinement de ces conséquences force l'axiome Grain amont, et que le
-théorème de représentation amont transforme alors cette espérance en
-espérance de Born.
+Ce depot Lean 4 / Mathlib formalise des resultats de Born conditionnels a
+partir de premisses mathematiques, normatives, physiques-ponts et semantiques
+explicitement separees. Il repose sur la dependance epinglee
+[`quantum-foundations-lean`](https://github.com/Bobart0/quantum-foundations-lean)
+et distingue toujours le theoreme conditionnel de la justification de ses
+premisses.
 
-### Résultats principaux, avec leurs limitations de portée
+## API conditionnelle stable
 
-- **`refinementInvariantLocal_iff_axGrain`**
-  (`BornCalibration/RefinementImpliesGrain.lean`) : l'invariance locale
-  sous raffinement est **exactement** l'axiome Grain amont sur le poids
-  canonique — une équivalence, pas seulement un sens.
-- **`born_expectation_of_invariance`**
-  (`BornCalibration/BornExpectation.lean`) : le théorème principal. Repose
-  sur **deux prémisses-ponts**, pas une seule — l'invariance locale sous
-  raffinement (purement normative) et la nullité du poids canonique sur le
-  support de l'état (`AxNul`, un pont normatif-physique, car elle
-  référence l'état physique `v`) — plus `RationalExpectationFamily` et,
-  point critique, **`3 ≤ n`** : le résultat couvre les espaces de Hilbert
-  de dimension au moins 3 (le domaine du théorème de Gleason amont), pas
-  le qubit.
-- **`grain_does_not_imply_born_at_two`**
-  (`BornCalibration/NonCircularity.lean`) : en `n = 2`, une règle non
-  bornienne explicite (`skewWeight`) satisfait Grain, Norm, Pos et Null —
-  le témoin propre du dépôt que la prémisse principale n'est pas la règle
-  de Born déguisée, et la raison pour laquelle la restriction `3 ≤ n`
-  ci-dessus est structurante, pas une formalité.
-- **`naiveCounting_violates_grain`** (`Rivals/NaiveBranchCounting.lean`) :
-  le comptage naïf des branches viole Grain, un résultat d'exclusion
-  concret pour la règle rivale la plus simple.
-- **`PhysicalRefinement/`** (jalon P6a) : un témoin unitaire concret, dans
-  `H 3`, qu'un raffinement peut redécrire les branches plus finement sans
-  en créer de nouvelles au sens physique — record, paiement et poids
-  borniens inchangés, nombre de cellules actives augmenté. C'est un témoin
-  d'**existence** (une construction, dans un modèle schématique à
-  l'algèbre de records stipulée, non dérivée), pas une revendication
-  d'universalité sur tout raffinement.
-- **`EffectCalibration/`** (route qubit) : `effectWeight_eq_born_of_
-  invariance` lève la restriction `3 ≤ n` ci-dessus — elle couvre **tout**
-  `n ≥ 1`, qubit compris (témoin concret en `n = 2`, amplitudes `3/5`,
-  `4/5`, poids canonique `9/25`), mais **seulement** pour les sorties dont
-  l'effet est une projection ; les effets POVM authentiquement non
-  projectifs restent hors de portée (différés en amont). Construite en
-  levant `RationalExpectationFamily`/`represents`/`canonicalWeight`/
-  `refinement_invariant_implies_grain` au niveau abstrait
-  `PerspectiveInterface`, avec l'injectivité de `outcome` filetée en
-  argument plutôt qu'ajoutée comme champ de classe.
-- **`Diachronic/`** (P8) : conditionnement statique sur les fibres de
-  raffinement. La masse conditionnelle totale vaut `0` au poids conditionnant
-  nul et `1` sinon ; la totalité et la marginalisation conditionnelle sont
-  prouvées. La chaîne logique est `RefinementInvariantLocal →
-  canonicalWeight_grain → conditionalWeight_trans_fiber` : la
-  marginalisation est un corollaire de Grain, non une prémisse diachronique
-  indépendante. Aucune dynamique temporelle, aucun continuateur et aucun
-  record accessible ne sont formalisés.
-- **`fourthPowerWeight_not_axNorm`** (`Rivals/FourthPowerWeight.lean`) : un
-  témoin P9 pour `q = 4` seulement. `fourthPowerWeight_axPos` prouve la
-  positivité, tandis que la normalisation échoue sur le témoin unitaire
-  `psiBefore` et `coarsePerspective`, où la somme vaut `337/625 ≠ 1`.
-- **`Frequency/` (P10)** : les vecteurs de répétition, cellules et
-  projecteurs de fréquence donnent des masses finies normalisées de formule
-  binomiale exacte ; moments, variance de fréquence relative, Chebyshev fini,
-  masses typique/atypique et seuil quantifié sont prouvés. P10 est **clos dans
-  sa portée finie et asymptotique quantifiée** ; il utilise les poids
-  quadratiques déjà calibrés et ne dérive pas Born indépendamment.
-- **`Confirmation/` (P11)** : un modèle bayésien fini conditionnel utilise
-  les masses de fréquence comme vraisemblances, prouve les cotes et les
-  identités de mise à jour par lot/itérée sous hypothèses explicites de
-  non-nullité, et fournit des témoins rationnels à une et deux observations.
-  P11 est **clos dans sa portée bayésienne finie et conditionnelle**, et ne
-  résout pas la circularité philosophique.
-
-Chaque résultat ci-dessus est prouvé avec `SORRY_COUNT = 0` ; voir
-`docs/THEOREM_MAP.md` pour la table complète des dépendances et de la
-portée, et `docs/SCOPE_AND_LIMITATIONS.md` pour la liste complète des
-réserves, incluant celles ci-dessus.
-
-### État des jalons
-
-| Jalon | Objet | Statut |
-|---|---|---|
-| P0.3, P0.4 | Décision d'architecture ; témoin de non-circularité en `n = 2` | Clos |
-| P1–P4 | Infrastructure ; actes et tiré-en-arrière ; représentation canonique ; invariance ⇔ Grain ⇒ Born | Clos |
-| P6 | Exclusion du comptage naïf | Clos |
-| P6a | Témoin physique de raffinement record-neutre | Clos (témoin d'existence) |
-| Route qubit | Espérance de Born côté effets, tout `n ≥ 1`, sorties projectives | Clos (restreint aux sorties projectives) |
-| P8 | Conditionnement statique sur fibres de raffinement | Clos (portée formelle révisée) |
-| P9 | Règle rivale à puissance quatrième (`q = 4`) | Partiellement ouvert |
-| P10 | Fréquences finies, typicalité, seuil asymptotique quantifié | Clos dans sa portée finie et asymptotique quantifiée |
-| P11 | Confirmation bayésienne finie conditionnelle | Clos dans sa portée bayésienne finie et conditionnelle |
-| P5, P6b, P7, P12, route des préférences primitives | Jalons ultérieurs | Non ouverts |
-
-Voir `MILESTONES.md` pour le détail des fermetures et
-`docs/PROGRAM_STATUS.md` pour un audit complet de chaque jalon, incluant —
-pour chaque jalon non ouvert — l'existence ou non d'un échafaudage
-réutilisable, la nature de la difficulté (preuve ou conception), et les
-décisions non formelles préalables requises.
-
-### Relation avec `quantum-foundations-lean`
-
-`quantum-foundations-lean` est un artefact archivé, avec DOI, accompagnant
-un manuscrit soumis à *Foundations of Physics*. Il n'est **jamais
-modifié** par ce dépôt ; il est tiré en lecture seule, épinglé à un tag
-précis, via une dépendance Lake (`lakefile.toml`). Voir `AGENTS.md` pour le
-pin exact et la règle interdisant de re-prouver ce qui existe déjà en
-amont.
-
-### Structure du dépôt
-
+```lean
+import EverettianProbability.API.ConditionalMainResults
 ```
+
+Le theoreme agrege stable est `conditionalBornMainResults`; les resultats
+empaquetes a une et deux etapes sont `oneStepConditionalBornResults` et
+`twoStepConditionalBornResults`. `ProjectiveBornPremises` rassemble une
+dimension projective finie `n >= 3`, l'esperance rationnelle, un etat
+normalise, l'invariance locale sous raffinement et le pont explicite de
+support nul.
+
+L'API prouve que le poids canonique est le poids de Born, que la valeur d'un
+acte est son esperance de Born, que la credence d'un continuateur est le poids
+bornien conditionnel sur une fibre parentale non nulle, ainsi que les lois
+diachroniques d'esperance totale, de chaine et de tour.
+`API.ExactFinitePhysicalRichness` est disponible mais experimentale : elle est
+hors de la garantie de stabilite `v1.x`.
+
+### Statut courant
+
+| Couche | Statut courant |
+|---|---|
+| P0-P4 | Clos dans leur portee projective finie indiquee. |
+| Auto-localisation | Formalisme fini de credence conditionnee par les records et unicite sous premisses d'admissibilite explicites etablis; l'incertitude personnelle reste semantique. |
+| Diachronie | Etapes de continuation, credences normalisees, esperance totale, chaine, tour, composition et associativite physiques formalisees; identite personnelle complete absente. |
+| Richesse physique exacte finie | Orbite unitaire exacte et realisation de tout plan positif compatible etablies; Hamiltonien naturel, emergence par decoherence et approximation absents. |
+| P10 / P11 | Clos dans leurs portees finies conditionnelles documentees. |
+| P9 | Partiel (temoin `q = 4`). |
+
+### Structure du depot
+
+```text
 EverettianProbability/
-├── Core/                 — actes, interface abstraite des perspectives
-├── Refinement/           — tiré-en-arrière des actes, invariance préservant les conséquences
-├── Preference/           — famille d'espérance rationnelle, théorème de représentation
-├── BornCalibration/      — poids contextuel, pont vers Grain, espérance de Born,
-│                            témoin de non-circularité (`n = 2`)
-├── Rivals/               — comptage naïf et règle rivale à puissance quatrième
-├── PhysicalRefinement/   — témoin physique de raffinement record-neutre (P6a)
-├── EffectCalibration/    — route qubit : espérance de Born côté effets pour tout `n ≥ 1`
-├── Diachronic/           — conditionnement statique sur fibres de raffinement (P8)
-├── Frequency/            — masses de fréquence, moments, concentration et typicalité finis (P10)
-├── Confirmation/         — confirmation bayésienne finie conditionnelle (P11)
-└── Audit/                — audit consolidé des axiomes
+├── API/
+│   ├── ConditionalBorn.lean
+│   ├── DiachronicBorn.lean
+│   ├── ConditionalMainResults.lean
+│   └── ExactFinitePhysicalRichness.lean
+├── SelfLocation/       -- credence conditionnee par les records et ponts semantiques
+├── Diachronic/         -- ContinuationStep, credence envers les continuateurs,
+│                         esperance totale, chaine, tour, continuations physiques,
+│                         composition, associativite, orbite unitaire et realisation
+│                         exacte de plans de poids fins
+├── Frequency/          -- masses de frequence finies et typicalite
+├── Confirmation/       -- confirmation bayesienne finie conditionnelle
+└── Audit/              -- contrats d'axiomes et d'API stable
 ```
 
-Les
-répertoires des jalons non ouverts (`SelfLocation/`, `Approximate/`)
-n'existent pas encore et ne sont créés
-qu'à l'ouverture de leur jalon respectif.
+La portee conditionnelle exacte et les limitations sont dans
+[`docs/CONDITIONAL_BORN_SCOPE.md`](docs/CONDITIONAL_BORN_SCOPE.md). Le contrat
+de compatibilite est dans [`docs/API_STABILITY.md`](docs/API_STABILITY.md).
 
-### Portée et limites
-
-Aucun théorème de ce dépôt ne dérive une norme de rationalité de la seule
-dynamique unitaire ; l'invariance sous raffinement est une prémisse
-normative assumée, jamais dérivée. Le théorème principal repose sur deux
-prémisses-ponts et une restriction de dimension `3 ≤ n` (voir ci-dessus).
-Liste complète dans `docs/SCOPE_AND_LIMITATIONS.md`, et audit explicite des
-formulations autorisées ou non dans `docs/ARGUMENT_MAP.md`.
-
-### Reproductibilité
+### Reproductibilite et citation
 
 ```sh
-git clone https://github.com/Bobart0/everettian-probability-lean.git
-cd everettian-probability-lean
-bash setup.sh   # lake exe cache get && lake build, plus les hooks git
-```
-
-Voir `docs/REPRODUCIBILITY.md` pour les épinglages exacts de la chaîne
-d'outils et des révisions, ainsi que les commandes équivalentes en
-PowerShell.
-
-### Audit des axiomes
-
-```sh
+lake env lean EverettianProbability/Audit/ConditionalAPIContract.lean
 lake env lean EverettianProbability/Audit/MainResults.lean
+lake build
 bash scripts/guard.sh
 ```
 
-`scripts/guard.sh` échoue sur tout `axiom`, `native_decide`, ou
-`maxHeartbeats 0`, et sur un nombre de buts ouverts dépassant
-`SORRY_BUDGET` (actuellement `0`).
-
-### Citation
-
-Voir `CITATION.cff`. Titre de travail : *Everettian Probability in Lean:
-Refinement-Invariant Rational Expectation*, version `0.1.0-dev`.
-
-### Assistance par intelligence artificielle
-
-Voir `docs/AI_ASSISTANCE.md`.
+Voir `CITATION.cff` pour *Everettian Probability in Lean:
+Refinement-Invariant Rational Expectation*, version `1.0.0`.

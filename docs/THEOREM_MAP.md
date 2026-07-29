@@ -2,6 +2,17 @@
 
 ## Français
 
+## Resultat conditionnel de Born -- API stable v1.x
+
+| Fichier | Declaration | Premisses | Conclusion | Limites et amont |
+|---|---|---|---|---|
+| `API/ConditionalBorn.lean` | `ProjectiveBornPremises.canonicalWeight_eq_born`; `value_eq_bornExpectation` | `F`, etat normalise, `3 <= n`, invariance locale, `AxNul` | Poids et valeurs de Born | Premisses NORM et PHYS--NORM explicites; pas de qubit projectif direct. |
+| `API/DiachronicBorn.lean` | `continuatorCredence_eq_bornRatio`; `futureDecisionValue_eq_bornTotalExpectation`; `continuatorCredence_chain_rule`; `continuatorExpectedValue_tower` | Fibre de continuateurs de poids parent non nul; SEM explicite | Ratios conditionnels, total expectation, chaine et tour | Pas d'identite personnelle complete ni de dynamique unitaire generale. |
+| `API/ConditionalMainResults.lean` | `conditionalBornMainResults` | Les premisses precedentes et deux continuations abstraites | Resultats agreges a une et deux etapes | Façade stable; la couche exacte finie est separee et experimentale. |
+
+La dependance va de P4 (calibration de Born) a P7--P8b (credence et
+diachronie conditionnelles), jamais dans le sens inverse.
+
 ## P10 — Fréquences et typicalité
 
 | Fichier | Déclaration Lean exacte | Prémisses importantes | Conclusion | Limites et amont |
@@ -77,7 +88,7 @@ theorem effectWeight_eq_born_of_invariance {n : ℕ} (hn : 1 ≤ n)
     canonicalWeight F D i = ‖A.starProjection v‖ ^ 2
 ```
 
-### P8 — conditionnement statique / static conditioning
+### Statut historique -- P8, conditionnement statique / static conditioning
 
 | Déclaration / declaration | Module | Ce qui est établi / what is established | Portée / scope |
 |---|---|---|---|
@@ -89,6 +100,17 @@ theorem effectWeight_eq_born_of_invariance {n : ℕ} (hn : 1 ≤ n)
 | `uniform_conditionalWeight_trans_fiber_fails` | `Diachronic/NonTriviality.lean` | Échec direct `1 ≠ 4 / 3`. / Direct failure `1 ≠ 4 / 3`. | La famille uniforme ne satisfait pas `RefinementInvariantLocal`, donc ne contredit pas le théorème. / The uniform family lacks `RefinementInvariantLocal`, so it does not contradict the theorem. |
 
 ## English
+
+## Conditional Born result -- stable v1.x API
+
+| File | Declaration | Premises | Conclusion | Limits and upstream |
+|---|---|---|---|---|
+| `API/ConditionalBorn.lean` | `ProjectiveBornPremises.canonicalWeight_eq_born`; `value_eq_bornExpectation` | `F`, normalized state, `3 <= n`, local invariance, `AxNul` | Born weights and values | Explicit NORM and PHYS--NORM premises; no direct projective qubit result. |
+| `API/DiachronicBorn.lean` | `continuatorCredence_eq_bornRatio`; `futureDecisionValue_eq_bornTotalExpectation`; `continuatorCredence_chain_rule`; `continuatorExpectedValue_tower` | Nonzero-parent continuator fibre; explicit SEM | Conditional ratios, total expectation, chain, tower | No complete personal identity or general unitary dynamics. |
+| `API/ConditionalMainResults.lean` | `conditionalBornMainResults` | Previous premises and two abstract continuations | Aggregated one- and two-step results | Stable facade; exact finite layer is separate and experimental. |
+
+The dependency runs from P4 Born calibration to P7--P8b conditional credence
+and diachrony, never in the reverse direction.
 
 ## P10 — Frequency and typicality
 

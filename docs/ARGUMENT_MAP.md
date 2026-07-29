@@ -15,6 +15,16 @@
 
 ## Français
 
+### Mise a jour de release -- resultat conditionnel
+
+La chaine stable ajoute explicitement : P4 calibre les poids de Born sous
+premisses NORM et PHYS--NORM; P7 choisit conditionnellement une credence de
+record sous SEM; P8b applique cette credence aux continuateurs et obtient
+normalisation, esperance totale, chaine et tour. La proportionnalite et
+l'interpretation des cellules comme continuateurs ne sont pas imposees par la
+dynamique unitaire. Le noyau physique exact fini soutient des constructions
+additionnelles, mais ne fait pas partie de la garantie d'API `v1.x`.
+
 ### P4, P10 et P11 : sens de la chaîne
 
 ```text
@@ -257,6 +267,15 @@ exclut : un fonctionnel monotone, normalisé, mais non affine. Complet.
    mais provablement non affine (`maxExpectation_not_affine`). »*
 
 ## English
+
+### Release update -- conditional result
+
+The stable chain explicitly adds: P4 calibrates Born weights under NORM and
+PHYS--NORM premises; P7 conditionally chooses record credence under SEM; P8b
+applies that credence to continuators and obtains normalization, total
+expectation, chain, and tower. Proportionality and the interpretation of cells
+as continuators are not imposed by unitary dynamics. The exact finite physical
+core supports additional constructions but is outside the `v1.x` API guarantee.
 
 ### P4, P10, and P11: direction of the chain
 

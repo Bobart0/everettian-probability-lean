@@ -2,6 +2,20 @@
 
 ## Français
 
+### Statut d'architecture courant -- 2026-07-29
+
+La frontiere stable est `EverettianProbability.API.Conditional`. Elle expose
+un resultat conditionnel fini-projectif, et non une derivation des premisses
+normatives, physiques ou semantiques. `SelfLocation/` fournit le formalisme de
+record compatible; `Diachronic/` fournit les continuateurs, les lois de chaine
+et de tour, la composition physique et l'associativite. Le noyau de richesse
+physique exacte finie est etabli mais son entree `API.ExactFinitePhysicalRichness`
+reste experimentale; la realisabilite microscopique generale et approximative
+reste hors contrat.
+
+Les notes datees qui suivent sont des **diagnostics historiques**; elles ne
+decrivent pas le statut courant de la release.
+
 ### Actes, carte parent et interface P0.3
 
 Les actes restent des fonctions totales
@@ -92,6 +106,19 @@ l'audit local des axiomes et `scripts/guard.sh`; la vérification de la CI ne
 leur est pas substituée.
 
 ## English
+
+### Current architecture status -- 2026-07-29
+
+The stable boundary is `EverettianProbability.API.Conditional`. It exposes a
+finite-projective conditional result, not a derivation of normative, physical,
+or semantic premises. `SelfLocation/` supplies compatible-record formalism;
+`Diachronic/` supplies continuators, chain and tower laws, physical composition,
+and associativity. The exact finite physical-richness core is established, but
+its `API.ExactFinitePhysicalRichness` entry remains experimental; general and
+approximate microscopic realizability remains outside the contract.
+
+The dated notes below are **historical diagnostics** and do not state the
+current release status.
 
 ### Acts, upstream parent map, and the P0.3 interface
 
