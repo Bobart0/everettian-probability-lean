@@ -5,6 +5,9 @@
 ### Added
 
 - Placeholder for future compatible additions.
+- Layered experimental exact-finite facade: `RecordOrbit`,
+  `RefinementRealization`, and `PhysicalAdequacy`.
+- Compile-time architecture contract and exact-finite layering guard.
 
 ## [1.0.0] - 2026-07-29
 

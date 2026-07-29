@@ -61,6 +61,10 @@ EverettianProbability/
 │   ├── DiachronicBorn.lean
 │   ├── ConditionalMainResults.lean
 │   └── ExactFinitePhysicalRichness.lean
+├── ExactFinite/
+│   ├── RecordOrbit.lean
+│   ├── RefinementRealization.lean
+│   └── PhysicalAdequacy.lean
 ├── SelfLocation/       -- record-conditioned credence and semantic bridges
 ├── Diachronic/         -- ContinuationStep, continuator credence, total
 │                         expectation, chain, tower, physical continuation,
@@ -74,6 +78,16 @@ EverettianProbability/
 The remaining limitations and the exact conditional scope are documented in
 [`docs/CONDITIONAL_BORN_SCOPE.md`](docs/CONDITIONAL_BORN_SCOPE.md). The
 compatibility contract is in [`docs/API_STABILITY.md`](docs/API_STABILITY.md).
+
+### Experimental exact-finite entry point
+
+```lean
+import EverettianProbability.ExactFinite.PhysicalAdequacy
+```
+
+This layered facade postdates `v1.0.0`, is not covered by the `v1.x` stability
+guarantee, and only organizes existing exact finite results. The stable
+conditional entry point remains `API.ConditionalMainResults`.
 
 ### Reproducibility and citation
 
@@ -138,6 +152,10 @@ EverettianProbability/
 │   ├── DiachronicBorn.lean
 │   ├── ConditionalMainResults.lean
 │   └── ExactFinitePhysicalRichness.lean
+├── ExactFinite/
+│   ├── RecordOrbit.lean
+│   ├── RefinementRealization.lean
+│   └── PhysicalAdequacy.lean
 ├── SelfLocation/       -- credence conditionnee par les records et ponts semantiques
 ├── Diachronic/         -- ContinuationStep, credence envers les continuateurs,
 │                         esperance totale, chaine, tour, continuations physiques,
@@ -151,6 +169,17 @@ EverettianProbability/
 La portee conditionnelle exacte et les limitations sont dans
 [`docs/CONDITIONAL_BORN_SCOPE.md`](docs/CONDITIONAL_BORN_SCOPE.md). Le contrat
 de compatibilite est dans [`docs/API_STABILITY.md`](docs/API_STABILITY.md).
+
+### Point d'entree exact fini experimental
+
+```lean
+import EverettianProbability.ExactFinite.PhysicalAdequacy
+```
+
+Cette facade stratifiee est posterieure a `v1.0.0`, n'est pas couverte par la
+garantie de stabilite `v1.x` et organise seulement des resultats exacts finis
+existants. Le point d'entree conditionnel stable reste
+`API.ConditionalMainResults`.
 
 ### Reproductibilite et citation
 

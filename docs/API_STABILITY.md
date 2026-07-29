@@ -63,3 +63,29 @@ breaks, while additive theorems are allowed. A break requires `v2.0.0` or a
 compatibility facade. Internal implementation modules are not covered.
 `API.ExactFinitePhysicalRichness` remains experimental and is outside this
 guarantee.
+
+## Facade exacte finie experimentale
+
+Le point d'entree recommande est :
+
+```lean
+import EverettianProbability.ExactFinite.PhysicalAdequacy
+```
+
+Cette facade est posterieure a `v1.0.0`, ne recoit aucune garantie de
+stabilite `v1.x`, et ses noms peuvent evoluer avant une future release majeure.
+Le developpement de cette couche n'autorise aucune modification de l'API
+conditionnelle stable : `API.ConditionalMainResults` reste son point d'entree.
+
+## Experimental exact-finite facade
+
+The recommended entry point is:
+
+```lean
+import EverettianProbability.ExactFinite.PhysicalAdequacy
+```
+
+This facade postdates `v1.0.0`, has no `v1.x` stability guarantee, and its
+names may evolve before a future major release. Developing this layer does not
+authorize a change to the stable conditional API:
+`API.ConditionalMainResults` remains its entry point.
