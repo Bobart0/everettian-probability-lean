@@ -56,6 +56,7 @@ import EverettianProbability.Diachronic.RecordWeightEquivalence
 import EverettianProbability.Diachronic.CellwiseOrbitPreparation
 import EverettianProbability.Diachronic.EqualNormLocalUnitary
 import EverettianProbability.Diachronic.BlockDiagonalRecordOrbit
+import EverettianProbability.Diachronic.UnitaryRecordOrbit
 import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector
