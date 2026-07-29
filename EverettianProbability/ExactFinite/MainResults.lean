@@ -237,6 +237,124 @@ theorem exactFiniteCalibratedResults
         P.F P.dim_ge_three P.refinement_invariant P.source_normalized
         P.target_null_support c hc i hparent
 
+/-- Every compatible fine weight in a zero-weight parent fibre is zero. -/
+theorem compatibleFineWeight_eq_zero_of_parentWeight_eq_zero
+    {future present : Perspective n}
+    {r : Refines future present}
+    {x : H n}
+    {q : (Projective.interface n).Cell future → ℝ}
+    (h : CompatibleFineWeights r x q)
+    (c : (Projective.interface n).Cell present)
+    (hc : bornRecord present x c = 0)
+    (i : (Projective.interface n).Cell future)
+    (hparent : (Projective.interface n).parentCell r i = c) :
+    q i = 0 := by
+  subst c
+  let f : (Projective.interface n).Cell future → ℝ :=
+    fun j => if (Projective.interface n).parentCell r j =
+      (Projective.interface n).parentCell r i then q j else 0
+  have hsum : (∑ j : (Projective.interface n).Cell future, f j) = 0 := by
+    rw [h.fibre_sum ((Projective.interface n).parentCell r i), hc]
+  have hnonneg :
+      ∀ j ∈ (Finset.univ : Finset ((Projective.interface n).Cell future)),
+        0 ≤ f j := by
+    intro j _
+    simp only [f]
+    split
+    · exact h.nonneg j
+    · exact le_rfl
+  have hzero : f i = 0 := by
+    exact
+    (Finset.sum_eq_zero_iff_of_nonneg hnonneg).1 hsum i (Finset.mem_univ i)
+  simpa [f] using hzero
+
+/-- The totalized prescribed ratio is zero when the parent Born weight is
+zero. This is a totalization convention, not a normalized conditional
+probability on a null event. -/
+theorem prescribedRatio_eq_zero_of_parentWeight_eq_zero
+    {future present : Perspective n}
+    {r : Refines future present}
+    {x : H n}
+    {q : (Projective.interface n).Cell future → ℝ}
+    (c : (Projective.interface n).Cell present)
+    (hc : bornRecord present x c = 0)
+    (i : (Projective.interface n).Cell future) :
+    prescribedRatio r x q c i = 0 := by
+  change
+    (if (Projective.interface n).parentCell r i = c then
+      q i / bornRecord present x c
+    else 0) = 0
+  split
+  · simp [hc]
+  · rfl
+
+namespace PhysicalRealization
+
+/-- The physical ratio is zero on a zero-weight parent fibre. No
+normalization claim is made for that fibre. -/
+theorem physicalRatio_eq_zero_of_parentWeight_eq_zero
+    {future present : Perspective n}
+    {r : Refines future present}
+    {x : H n}
+    {q : (Projective.interface n).Cell future → ℝ}
+    (R : PhysicalRealization r x q)
+    (c : (Projective.interface n).Cell present)
+    (hc : bornRecord present x c = 0)
+    (i : (Projective.interface n).Cell future) :
+    EverettianProbability.Abstract.UniformRecordRespectingProjectiveContinuation.physicalContinuatorBornRatio
+        R.toUniformContinuation x c i =
+      0 := by
+  calc
+    EverettianProbability.Abstract.UniformRecordRespectingProjectiveContinuation.physicalContinuatorBornRatio
+        R.toUniformContinuation x c i =
+      prescribedRatio r x q c i :=
+        R.physicalRatio_eq_prescribedRatio c i
+    _ = 0 := prescribedRatio_eq_zero_of_parentWeight_eq_zero c hc i
+
+end PhysicalRealization
+
+/-- Exact conclusions available on a zero-weight present fibre.
+
+The bundle deliberately contains no normalized continuator-credence field. -/
+structure ExactFiniteNullParentResults
+    {future present : Perspective n}
+    {r : Refines future present}
+    {x : H n}
+    {q : (Projective.interface n).Cell future → ℝ}
+    (h : CompatibleFineWeights r x q)
+    (c : (Projective.interface n).Cell present)
+    (hc : bornRecord present x c = 0) : Prop where
+  fine_weights_zero :
+    ∀ i : (Projective.interface n).Cell future,
+      (Projective.interface n).parentCell r i = c → q i = 0
+  prescribed_ratios_zero :
+    ∀ i : (Projective.interface n).Cell future,
+      prescribedRatio r x q c i = 0
+  physical_ratios_zero :
+    ∀ i : (Projective.interface n).Cell future,
+      EverettianProbability.Abstract.UniformRecordRespectingProjectiveContinuation.physicalContinuatorBornRatio
+          (canonicalPhysicalRealization h).toUniformContinuation x c i = 0
+
+theorem exactFiniteNullParentResults
+    {future present : Perspective n}
+    {r : Refines future present}
+    {x : H n}
+    {q : (Projective.interface n).Cell future → ℝ}
+    (h : CompatibleFineWeights r x q)
+    (c : (Projective.interface n).Cell present)
+    (hc : bornRecord present x c = 0) :
+    ExactFiniteNullParentResults h c hc := by
+  refine
+    { fine_weights_zero := ?_
+      prescribed_ratios_zero := ?_
+      physical_ratios_zero := ?_ }
+  · intro i hparent
+    exact compatibleFineWeight_eq_zero_of_parentWeight_eq_zero h c hc i hparent
+  · intro i
+    exact prescribedRatio_eq_zero_of_parentWeight_eq_zero c hc i
+  · intro i
+    exact (canonicalPhysicalRealization h).physicalRatio_eq_zero_of_parentWeight_eq_zero c hc i
+
 /-- Complete exact-finite result in its explicitly calibrated scope. -/
 structure ExactFiniteMainResults
     {future present : Perspective n}

@@ -6,7 +6,7 @@
 
 | Jalon | Resultat | Premisses | Conclusion | Statut |
 |---|---|---|---|---|
-| Saint-Graal formel conditionnel | `conditionalBornMainResults` | `ProjectiveBornPremises` : `n >= 3`, rationalite, invariance locale, etat normalise, `AxNul`; SEM explicite | Born statique et conditionnel, continuateurs, esperance totale, chaine et tour | **CLOS DANS SA PORTEE PROJECTIVE FINIE ET EXPLICITEMENT CONDITIONNELLE** |
+| Résultat conditionnel de Born | `conditionalBornMainResults` | `ProjectiveBornPremises` : `n >= 3`, rationalite, invariance locale, etat normalise, `AxNul`; SEM explicite | Born statique et conditionnel, continuateurs, esperance totale, chaine et tour | **CLOS DANS SA PORTEE PROJECTIVE FINIE ET EXPLICITEMENT CONDITIONNELLE** |
 | P7 | `recordConditionedCredence`, unicite conditionnelle | Record compatible, normalisation, pont decisionnel et invariance des cotes | Credence finie conditionnee et unicite sous admissibilite | Etabli; interpretation personnelle non derivee |
 | P8b | `ContinuationStep` et lois diachroniques | Raffinements orientes et SEM des continuateurs | Normalisation, total expectation, chaine et tour | Etabli dans la portee abstraite; identite personnelle absente |
 | Richesse physique exacte finie | orbite unitaire et plans fins | Construction exacte projective finie | Continuations uniformes et ratios prescrits | Etabli, API experimentale |
@@ -41,7 +41,7 @@ les sous-types de cellules servent uniquement à l’énumération.
 
 | Milestone | Result | Premises | Conclusion | Status |
 |---|---|---|---|---|
-| Conditional formal Saint-Graal | `conditionalBornMainResults` | `ProjectiveBornPremises`: `n >= 3`, rationality, local invariance, normalized state, `AxNul`; explicit SEM | Static and conditional Born, continuators, total expectation, chain, and tower | **CLOSED IN ITS EXPLICIT CONDITIONAL FINITE-PROJECTIVE SCOPE** |
+| Conditional Born result | `conditionalBornMainResults` | `ProjectiveBornPremises`: `n >= 3`, rationality, local invariance, normalized state, `AxNul`; explicit SEM | Static and conditional Born, continuators, total expectation, chain, and tower | **CLOSED IN ITS EXPLICIT CONDITIONAL FINITE-PROJECTIVE SCOPE** |
 | P7 | `recordConditionedCredence`, conditional uniqueness | Compatible record, normalization, decision bridge, odds invariance | Finite conditioned credence and uniqueness under admissibility | Established; personal interpretation not derived |
 | P8b | `ContinuationStep` and diachronic laws | Oriented refinements and continuator SEM | Normalization, total expectation, chain, and tower | Established in abstract scope; no personal identity |
 | Exact finite physical richness | unitary orbit and fine plans | Exact finite projective construction | Uniform continuations and prescribed ratios | Established, experimental API |

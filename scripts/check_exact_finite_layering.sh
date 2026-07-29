@@ -38,6 +38,8 @@ check_imports EverettianProbability/Audit/ExactFiniteArchitectureContract.lean \
   'import EverettianProbability.ExactFinite.PhysicalAdequacy'
 check_imports EverettianProbability/Audit/ExactFiniteCompletenessAudit.lean \
   'import EverettianProbability.ExactFinite.MainResults'
+check_imports EverettianProbability/Audit/ExactFiniteContradictoryAudit.lean \
+  'import EverettianProbability.ExactFinite.MainResults'
 
 for file in \
   EverettianProbability/ExactFinite/RecordOrbit.lean \
@@ -52,6 +54,12 @@ done
 if grep -E '^import EverettianProbability\.(Diachronic|API\.Conditional)' \
   EverettianProbability/ExactFinite/MainResults.lean >/dev/null; then
   echo 'EXACT_FINITE_LAYERING_DIAGNOSTIC=MainResults.lean: bypasses PhysicalAdequacy facade'
+  failed=1
+fi
+
+if grep -E '^import EverettianProbability\.(Diachronic|API\.Conditional|API\.ExactFinitePhysicalRichness)' \
+  EverettianProbability/Audit/ExactFiniteContradictoryAudit.lean >/dev/null; then
+  echo 'EXACT_FINITE_LAYERING_DIAGNOSTIC=ExactFiniteContradictoryAudit.lean: bypasses MainResults facade'
   failed=1
 fi
 

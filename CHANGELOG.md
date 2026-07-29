@@ -11,6 +11,10 @@
 - Aggregated exact-finite main theorem.
 - Explicit separation between physical core and P4-calibrated conclusions.
 - Exact-finite completeness audit.
+- EF9 contradictory scope audit.
+- Explicit zero-parent-fibre results.
+- Permanent repository terminology guard.
+- Exact-finite stage codification.
 
 ## [1.0.0] - 2026-07-29
 

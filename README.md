@@ -79,6 +79,10 @@ EverettianProbability/
 The remaining limitations and the exact conditional scope are documented in
 [`docs/CONDITIONAL_BORN_SCOPE.md`](docs/CONDITIONAL_BORN_SCOPE.md). The
 compatibility contract is in [`docs/API_STABILITY.md`](docs/API_STABILITY.md).
+The exact-finite stage codification is in
+[`docs/EXACT_FINITE_STAGES.md`](docs/EXACT_FINITE_STAGES.md): EF8 is the
+audited scientific aggregation, EF9 audits contradictory scope boundaries and
+the zero-parent-fibre case, and EF10 is not open.
 
 ### Experimental exact-finite entry point
 
@@ -173,6 +177,10 @@ EverettianProbability/
 La portee conditionnelle exacte et les limitations sont dans
 [`docs/CONDITIONAL_BORN_SCOPE.md`](docs/CONDITIONAL_BORN_SCOPE.md). Le contrat
 de compatibilite est dans [`docs/API_STABILITY.md`](docs/API_STABILITY.md).
+La codification des etapes exactes finies est dans
+[`docs/EXACT_FINITE_STAGES.md`](docs/EXACT_FINITE_STAGES.md) : EF8 est
+l'agregation scientifique auditee, EF9 audite les frontieres contradictoires
+et le cas de fibre parente nulle, et EF10 n'est pas ouvert.
 
 ### Point d'entree exact fini experimental
 

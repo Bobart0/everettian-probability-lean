@@ -20,13 +20,21 @@ approximative, et reste experimental hors du contrat `v1.x`.
 
 ### Resultat physique exact fini
 
-Le deuxieme Saint-Graal est clos uniquement dans sa portee exacte,
-projective finie et explicitement calibree: `ExactFinite/MainResults.lean`
+Le resultat physique exact fini est clos uniquement dans sa portee exacte,
+projective finie et explicitement calibree : `ExactFinite/MainResults.lean`
 separe un noyau physique obtenu par compatibilite des conclusions CALIBRATED
 qui exigent P4. Le realisme microscopique general n'est pas clos; la
 decoherence et la preservation approximative des records ne sont pas
 formalisees; la semantique personnelle des continuateurs n'est pas derivee.
 Voir `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`.
+
+### Fibres de poids parent nul
+
+Quand le poids bornien d'une cellule parente est nul, la compatibilité impose
+que tous les poids fins de sa fibre soient nuls. Les ratios prescrits et les
+ratios physiques totalisés sont alors nuls ; aucune normalisation
+conditionnelle, ni aucune conclusion de crédence sur cet événement nul, n'est
+revendiquée. Voir `ExactFiniteNullParentResults`.
 
 ### Typicalité (P10)
 
@@ -159,6 +167,22 @@ The exact finite physical-richness core is established: unitary orbit,
 compatible positive-profile realization, and uniform continuations. It proves
 neither a natural local Hamiltonian, decoherence emergence, nor approximate
 stability, and remains experimental outside the `v1.x` contract.
+
+### Exact finite physical result
+
+The exact finite physical result is closed only in its exact, finite-projective,
+and explicitly calibrated scope. `ExactFinite/MainResults.lean` separates a
+physical core obtained from compatibility from CALIBRATED conclusions requiring
+P4. General microscopic realism is not closed; decoherence and approximate
+record preservation are not formalized; personal continuator semantics is not
+derived.
+
+### Zero-parent-weight fibres
+
+When a parent cell has zero Born weight, compatibility forces every fine weight
+in its fibre to be zero. Prescribed and physical totalized ratios are then
+zero; no conditional normalization or credence conclusion is claimed on that
+null event. See `ExactFiniteNullParentResults`.
 
 ### Typicality (P10)
 

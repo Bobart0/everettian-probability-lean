@@ -79,6 +79,11 @@ future release majeure. Le developpement de cette couche n'autorise aucune
 modification de l'API conditionnelle stable : `API.ConditionalMainResults`
 reste son point d'entree.
 
+Les résultats expérimentaux EF9 —
+`compatibleFineWeight_eq_zero_of_parentWeight_eq_zero`,
+`prescribedRatio_eq_zero_of_parentWeight_eq_zero` et
+`ExactFiniteNullParentResults` — appartiennent à cette couche non stable.
+
 ## Experimental exact-finite facade
 
 The recommended entry point is:
@@ -92,3 +97,8 @@ remains the detailed facade. This layer postdates `v1.0.0`, has no `v1.x`
 stability guarantee, and its names may evolve before a future major release.
 Developing this layer does not authorize a change to the stable conditional
 API: `API.ConditionalMainResults` remains its entry point.
+
+The experimental EF9 results —
+`compatibleFineWeight_eq_zero_of_parentWeight_eq_zero`,
+`prescribedRatio_eq_zero_of_parentWeight_eq_zero`, and
+`ExactFiniteNullParentResults` — belong to this non-stable layer.

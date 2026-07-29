@@ -42,8 +42,8 @@ infinidimensionnelle, POVM arbitraires, dérivation de l’identité sémantique
 des continuateurs, dérivation de la rationalité depuis la dynamique, identité
 personnelle complète et accessibilité expérimentale.
 
-**Le deuxième Saint-Graal est clos uniquement dans sa portée exacte, finie,
-projective et explicitement calibrée.** Cette clôture ne vaut pas pour un
+**Le résultat physique exact fini est clos uniquement dans sa portée exacte,
+projective finie et explicitement calibrée.** Cette clôture ne vaut pas pour un
 modèle physiquement réaliste ou approximatif. `ExactFinite` reste
 expérimental et la façade conditionnelle `v1.x` reste inchangée.
 
@@ -88,7 +88,7 @@ infinite-dimensional extension, arbitrary POVMs, derivation of semantic
 continuator identity, derivation of rationality from dynamics, complete
 personal identity, and experimental accessibility.
 
-**The second Saint-Graal is closed only in its exact, finite, projective, and
-explicitly calibrated scope.** This closure does not apply to a physically
+**The exact finite physical result is closed only in its exact, finite,
+projective, and explicitly calibrated scope.** This closure does not apply to a physically
 realistic or approximate model. `ExactFinite` remains experimental and the
 conditional `v1.x` facade remains unchanged.

@@ -4,14 +4,14 @@ import EverettianProbability.API.DiachronicBorn
 /-!
 **FR.** # Resultats principaux conditionnels de Born
 
-Ce fichier est le point d'entree recommande pour le premier Saint-Graal
-formel conditionnel. Il regroupe les conclusions stables a une et deux etapes,
+Ce fichier est le point d'entree recommande pour le resultat conditionnel de
+Born. Il regroupe les conclusions stables a une et deux etapes,
 sans ajouter de premisse de realisabilite physique.
 
 **EN.** # Conditional Born main results
 
-This file is the recommended entry point for the first conditional formal
-Saint Grail. It bundles stable one- and two-step conclusions without adding a
+This file is the recommended entry point for the conditional Born result. It
+bundles stable one- and two-step conclusions without adding a
 physical-realizability premise.
 -/
 
