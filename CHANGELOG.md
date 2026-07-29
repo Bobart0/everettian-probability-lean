@@ -16,7 +16,7 @@
 - Permanent repository terminology guard.
 - Exact-finite stage codification.
 
-## [2.0.0] - 2026-07-29
+## [2.0.0] - 2026-07-30
 
 ### Added
 
