@@ -66,6 +66,7 @@ import EverettianProbability.API.ExactFinitePhysicalRichness
 import EverettianProbability.ExactFinite.RecordOrbit
 import EverettianProbability.ExactFinite.RefinementRealization
 import EverettianProbability.ExactFinite.PhysicalAdequacy
+import EverettianProbability.ExactFinite.MainResults
 import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector

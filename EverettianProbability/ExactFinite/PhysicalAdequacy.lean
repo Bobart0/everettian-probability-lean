@@ -157,6 +157,21 @@ def prescribedRatio
 
 namespace PhysicalRealization
 
+/-- The physical continuator ratio of an exact realization is the
+prescribed fine-to-parent Born ratio. -/
+theorem physicalRatio_eq_prescribedRatio
+    {future present : Perspective n}
+    {r : Refines future present}
+    {x : H n}
+    {q : (Projective.interface n).Cell future → ℝ}
+    (R : PhysicalRealization r x q)
+    (c : (Projective.interface n).Cell present)
+    (i : (Projective.interface n).Cell future) :
+    EverettianProbability.Abstract.UniformRecordRespectingProjectiveContinuation.physicalContinuatorBornRatio
+        R.toUniformContinuation x c i =
+      prescribedRatio r x q c i := by
+  exact R.physicalContinuatorBornRatio_eq_prescribed c i
+
 theorem continuatorCredence_eq_prescribedRatio
     {future present : Perspective n}
     {r : Refines future present}

@@ -18,6 +18,16 @@ realisation de profils positifs compatibles et continuations uniformes. Il ne
 prouve ni Hamiltonien local naturel, ni emergence par decoherence, ni stabilite
 approximative, et reste experimental hors du contrat `v1.x`.
 
+### Resultat physique exact fini
+
+Le deuxieme Saint-Graal est clos uniquement dans sa portee exacte,
+projective finie et explicitement calibree: `ExactFinite/MainResults.lean`
+separe un noyau physique obtenu par compatibilite des conclusions CALIBRATED
+qui exigent P4. Le realisme microscopique general n'est pas clos; la
+decoherence et la preservation approximative des records ne sont pas
+formalisees; la semantique personnelle des continuateurs n'est pas derivee.
+Voir `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`.
+
 ### Typicalité (P10)
 
 La concentration des masses de fréquence est un résultat conditionnel à la

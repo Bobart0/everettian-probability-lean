@@ -32,8 +32,12 @@ check_imports EverettianProbability/ExactFinite/RefinementRealization.lean \
 check_imports EverettianProbability/ExactFinite/PhysicalAdequacy.lean \
   'import EverettianProbability.ExactFinite.RefinementRealization' \
   'import EverettianProbability.API.ExactFinitePhysicalRichness'
+check_imports EverettianProbability/ExactFinite/MainResults.lean \
+  'import EverettianProbability.ExactFinite.PhysicalAdequacy'
 check_imports EverettianProbability/Audit/ExactFiniteArchitectureContract.lean \
   'import EverettianProbability.ExactFinite.PhysicalAdequacy'
+check_imports EverettianProbability/Audit/ExactFiniteCompletenessAudit.lean \
+  'import EverettianProbability.ExactFinite.MainResults'
 
 for file in \
   EverettianProbability/ExactFinite/RecordOrbit.lean \
@@ -44,6 +48,12 @@ for file in \
     failed=1
   fi
 done
+
+if grep -E '^import EverettianProbability\.(Diachronic|API\.Conditional)' \
+  EverettianProbability/ExactFinite/MainResults.lean >/dev/null; then
+  echo 'EXACT_FINITE_LAYERING_DIAGNOSTIC=MainResults.lean: bypasses PhysicalAdequacy facade'
+  failed=1
+fi
 
 for file in \
   EverettianProbability/API/ConditionalBorn.lean \

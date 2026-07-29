@@ -8,6 +8,9 @@
 - Layered experimental exact-finite facade: `RecordOrbit`,
   `RefinementRealization`, and `PhysicalAdequacy`.
 - Compile-time architecture contract and exact-finite layering guard.
+- Aggregated exact-finite main theorem.
+- Explicit separation between physical core and P4-calibrated conclusions.
+- Exact-finite completeness audit.
 
 ## [1.0.0] - 2026-07-29
 

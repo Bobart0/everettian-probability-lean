@@ -20,6 +20,7 @@
 | Self-location | Etabli sous forme finie conditionnee par record | Unicite sous admissibilite; l'incertitude personnelle reste une premisse semantique. |
 | Diachronie | Formalisee dans la portee abstraite explicite | Continuateurs, normalisation, esperance totale, chaine et tour; pas d'identite personnelle complete. |
 | Physique exacte finie | Noyau etabli | Orbite unitaire et plans fins compatibles; pas de Hamiltonien naturel, decoherence emergente ni robustesse approximative. |
+| Exact finite physical Saint-Graal | **CLOS DANS SA PORTEE EXACTE, PROJECTIVE FINIE ET EXPLICITEMENT CALIBREE** / **CLOSED IN ITS EXACT FINITE-PROJECTIVE AND EXPLICITLY CALIBRATED SCOPE** | `ExactFinite/MainResults.lean` agrège CORE et CALIBRATED; voir `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`. |
 | P5, P6b, P12, preferences primitives | A traiter dans des jalons ulterieurs | Le noyau de richesse exacte ne declare pas automatiquement toute formulation historique de P6b resolue. |
 
 Le diagnostic date ci-dessous est un **diagnostic historique**. Il ne constitue
@@ -261,6 +262,7 @@ ce nom désigne — exactement le même défaut que P5, sous un nom différent.
 | Self-location | Established as finite record-conditioned formalism | Uniqueness under admissibility; personal uncertainty remains a semantic premise. |
 | Diachrony | Formalized in its explicit abstract scope | Continuators, normalization, total expectation, chain, and tower; no complete personal identity. |
 | Exact finite physics | Core established | Unitary orbit and compatible fine plans; no natural Hamiltonian, emergent decoherence, or approximate robustness. |
+| Exact finite physical Saint-Graal | **CLOSED IN ITS EXACT FINITE-PROJECTIVE AND EXPLICITLY CALIBRATED SCOPE** | `ExactFinite/MainResults.lean` aggregates CORE and CALIBRATED; see `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`. |
 | P5, P6b, P12, primitive preferences | Future milestones | The exact-richness core does not automatically settle every stronger historical formulation of P6b. |
 
 The dated diagnostic below is **historical status** and is not the current

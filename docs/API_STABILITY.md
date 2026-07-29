@@ -69,23 +69,26 @@ guarantee.
 Le point d'entree recommande est :
 
 ```lean
-import EverettianProbability.ExactFinite.PhysicalAdequacy
+import EverettianProbability.ExactFinite.MainResults
 ```
 
-Cette facade est posterieure a `v1.0.0`, ne recoit aucune garantie de
-stabilite `v1.x`, et ses noms peuvent evoluer avant une future release majeure.
-Le developpement de cette couche n'autorise aucune modification de l'API
-conditionnelle stable : `API.ConditionalMainResults` reste son point d'entree.
+`MainResults` est l'agregation scientifique recommandee et `PhysicalAdequacy`
+reste la facade detaillee. Cette couche est posterieure a `v1.0.0`, ne recoit
+aucune garantie de stabilite `v1.x`, et ses noms peuvent evoluer avant une
+future release majeure. Le developpement de cette couche n'autorise aucune
+modification de l'API conditionnelle stable : `API.ConditionalMainResults`
+reste son point d'entree.
 
 ## Experimental exact-finite facade
 
 The recommended entry point is:
 
 ```lean
-import EverettianProbability.ExactFinite.PhysicalAdequacy
+import EverettianProbability.ExactFinite.MainResults
 ```
 
-This facade postdates `v1.0.0`, has no `v1.x` stability guarantee, and its
-names may evolve before a future major release. Developing this layer does not
-authorize a change to the stable conditional API:
-`API.ConditionalMainResults` remains its entry point.
+`MainResults` is the recommended scientific aggregation and `PhysicalAdequacy`
+remains the detailed facade. This layer postdates `v1.0.0`, has no `v1.x`
+stability guarantee, and its names may evolve before a future major release.
+Developing this layer does not authorize a change to the stable conditional
+API: `API.ConditionalMainResults` remains its entry point.
