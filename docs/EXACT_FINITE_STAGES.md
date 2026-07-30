@@ -18,7 +18,7 @@ pas automatiquement les anciens codes globaux P0–P12.
 | EF7 | Façade stratifiée `RecordOrbit → RefinementRealization → PhysicalAdequacy` | AUDITÉ |
 | EF8 | Agrégation `MainResults` et audit de complétude | AUDITÉ |
 | EF9 | Audit contradictoire et durcissement des frontières | AUDITÉ |
-| EF10 | Gel de l’API exacte finie et préparation de publication | FIGÉ — PUBLICATION EN ATTENTE |
+| EF10 | Gel de l’API exacte finie et publication | EF10 RELEASED / PUBLIÉ |
 
 Correspondance minimale des étapes :
 
@@ -33,6 +33,10 @@ Correspondance minimale des étapes :
   `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`
 - EF9 : `Audit/ExactFiniteContradictoryAudit.lean`,
   `docs/EXACT_FINITE_CONTRADICTORY_AUDIT.md`
+
+La release GitHub v2.0.0 est publiée. La façade stable est
+`API/ExactFiniteMainResults.lean`; les programmes de décohérence et de
+robustesse restent extérieurs au dépôt.
 
 ## English
 
@@ -51,7 +55,7 @@ automatically replace the older global P0–P12 codes.
 | EF7 | Layered `RecordOrbit → RefinementRealization → PhysicalAdequacy` facade | AUDITED |
 | EF8 | `MainResults` aggregation and completeness audit | AUDITED |
 | EF9 | Contradictory audit and boundary hardening | AUDITED |
-| EF10 | Exact-finite API freeze and release preparation | FROZEN — RELEASE PENDING |
+| EF10 | Exact-finite API freeze and publication | EF10 RELEASED / PUBLIÉ |
 
 Minimum stage correspondence:
 
@@ -66,3 +70,7 @@ Minimum stage correspondence:
   `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`
 - EF9: `Audit/ExactFiniteContradictoryAudit.lean`,
   `docs/EXACT_FINITE_CONTRADICTORY_AUDIT.md`
+
+The GitHub v2.0.0 release is published. The stable facade is
+`API/ExactFiniteMainResults.lean`; decoherence and robustness programmes
+remain outside this repository.

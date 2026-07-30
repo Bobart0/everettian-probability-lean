@@ -17,6 +17,15 @@ Les modules `ExactFinite/*` sont des implémentations, non le contrat externe.
 `API/ExactFinitePhysicalRichness.lean` reste disponible mais n'est pas le
 point d'entrée stable recommandé.
 
+### Portée sémantique de la stabilité
+
+La stabilité de l'API ne signifie pas une dérivation de Born depuis l'unitarité
+seule, la suppression de la prémisse de compatibilité, la suppression de
+`3 ≤ n` des conclusions CALIBRATED, une décohérence approximative, ni un
+Hamiltonien local naturel. Ces frontières sont précisées dans
+[`LOGICAL_DEPENDENCY_MAP.md`](LOGICAL_DEPENDENCY_MAP.md) et
+[`SCOPE_AND_LIMITATIONS.md`](SCOPE_AND_LIMITATIONS.md).
+
 ## English
 
 The stable entry point since v2.0.0 is
@@ -31,3 +40,11 @@ or a compatibility layer.
 The `ExactFinite/*` modules are implementations, not the external contract.
 `API/ExactFinitePhysicalRichness.lean` remains available but is not the
 recommended stable entry point.
+
+### Semantic scope of stability
+
+API stability does not mean a derivation of Born from unitarity alone, removal
+of the compatibility premise, removal of `3 ≤ n` from CALIBRATED conclusions,
+approximate decoherence, or a natural local Hamiltonian. These boundaries are
+specified in [`LOGICAL_DEPENDENCY_MAP.md`](LOGICAL_DEPENDENCY_MAP.md) and
+[`SCOPE_AND_LIMITATIONS.md`](SCOPE_AND_LIMITATIONS.md).

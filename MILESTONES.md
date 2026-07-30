@@ -2,7 +2,7 @@
 
 ## Français
 
-### Statut courant -- 2026-07-29
+### Statut courant -- 2026-07-30
 
 | Jalon | Statut courant |
 |---|---|
@@ -10,9 +10,11 @@
 | Self-location | Formalisme fini de credence conditionnee par les records etabli; unicite sous premisses d'admissibilite explicites etablie; interpretation philosophique de l'incertitude personnelle semantique, non derivee. |
 | Diachronie | Continuateurs, normalisation, esperance totale, chaine, tour, composition physique et associativite formalises; identite personnelle complete non formalisee. |
 | Noyau de richesse physique exacte finie | Etabli : orbite unitaire exacte, realisation de profils fins positifs compatibles et continuation physique uniforme; Hamiltonien naturel, emergence par decoherence et stabilite approximative non etablis. |
-| Résultat physique exact fini | **CLOS DANS SA PORTEE EXACTE, PROJECTIVE FINIE ET EXPLICITEMENT CALIBREE** / **CLOSED IN ITS EXACT FINITE-PROJECTIVE AND EXPLICITLY CALIBRATED SCOPE**. `ExactFinite/MainResults.lean`, `ExactFinite/PhysicalAdequacy.lean`, `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`. |
+| Résultat physique exact fini | CORE : réalisation conditionnelle à `CompatibleFineWeights`, qui contient déjà l'accord avec le record bornien présent ; CALIBRATED : conclusions de crédence sous prémisses explicites, dont `3 ≤ n`. Façade stable : `API/ExactFiniteMainResults.lean`. |
+| P10 | **CLOS DANS SA PORTÉE FINIE ET ASYMPTOTIQUE QUANTIFIÉE** : résultat aval des poids déjà calibrés, avec masses, moments, variance, Chebyshev et seuil. |
+| P11 | **CLOS DANS SA PORTÉE BAYÉSIENNE FINIE ET CONDITIONNELLE** : résultat aval des masses P10, priors, factorisation et non-nullités ; aucune justification indépendante de Born. |
 | EF0–EF9 | **AUDITÉS**. Voir `docs/EXACT_FINITE_STAGES.md`; EF9 est audité. |
-| EF10 | **FIGÉ — PUBLICATION EN ATTENTE**. Façade publique et contrat v2.0.0. |
+| EF10 | **EF10 RELEASED / PUBLIÉ**. Tag et release GitHub v2.0.0 publiés ; façade publique et contrat v2.0.0 figés. |
 
 Les tableaux dates qui suivent sont conserves comme **statut historique** et
 ne remplacent pas ce statut courant.
@@ -214,7 +216,7 @@ Budget toujours à `0` ; aucun `sorry` introduit.
 
 ## English
 
-### Current status -- 2026-07-29
+### Current status -- 2026-07-30
 
 | Milestone | Current status |
 |---|---|
@@ -222,9 +224,11 @@ Budget toujours à `0` ; aucun `sorry` introduit.
 | Self-location | Finite record-conditioned credence formalism is established; uniqueness under explicit admissibility premises is established; philosophical personal uncertainty remains semantic, not derived. |
 | Diachrony | Continuators, normalization, total expectation, chain, tower, physical composition, and associativity are formalized; complete personal identity is not. |
 | Exact finite physical-richness core | Established: exact unitary orbit, compatible positive fine-profile realization, and uniform physical continuation; natural Hamiltonian, decoherence emergence, and approximate stability are not established. |
-| Exact finite physical result | **CLOSED IN ITS EXACT FINITE-PROJECTIVE AND EXPLICITLY CALIBRATED SCOPE**. `ExactFinite/MainResults.lean`, `ExactFinite/PhysicalAdequacy.lean`, `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`. |
+| Exact finite physical result | CORE: realization conditional on `CompatibleFineWeights`, which already agrees with the present Born record; CALIBRATED: credence conclusions under explicit premises, including `3 ≤ n`. Stable facade: `API/ExactFiniteMainResults.lean`. |
+| P10 | **CLOSED IN ITS FINITE AND QUANTIFIED-ASYMPTOTIC SCOPE**: downstream of already calibrated weights, with masses, moments, variance, Chebyshev, and threshold. |
+| P11 | **CLOSED IN ITS FINITE CONDITIONAL BAYESIAN SCOPE**: downstream of P10 masses, priors, factorization, and nonzero assumptions; no independent Born justification. |
 | EF0–EF9 | **AUDITED**. See `docs/EXACT_FINITE_STAGES.md`; EF9 is audited. |
-| EF10 | **FROZEN — RELEASE PENDING**. Public facade and v2.0.0 contract. |
+| EF10 | **EF10 RELEASED / PUBLIÉ**. The v2.0.0 tag and GitHub release are published; public facade and v2.0.0 contract are frozen. |
 
 The dated tables below are preserved as **historical status** and do not
 replace this current status.

@@ -2,14 +2,17 @@
 
 ## Français
 
-### Statut courant de release -- 2026-07-29
+### Statut courant de release -- 2026-07-30
 
 | Jalon | Resultat | Premisses | Conclusion | Statut |
 |---|---|---|---|---|
 | Résultat conditionnel de Born | `conditionalBornMainResults` | `ProjectiveBornPremises` : `n >= 3`, rationalite, invariance locale, etat normalise, `AxNul`; SEM explicite | Born statique et conditionnel, continuateurs, esperance totale, chaine et tour | **CLOS DANS SA PORTEE PROJECTIVE FINIE ET EXPLICITEMENT CONDITIONNELLE** |
 | P7 | `recordConditionedCredence`, unicite conditionnelle | Record compatible, normalisation, pont decisionnel et invariance des cotes | Credence finie conditionnee et unicite sous admissibilite | Etabli; interpretation personnelle non derivee |
 | P8b | `ContinuationStep` et lois diachroniques | Raffinements orientes et SEM des continuateurs | Normalisation, total expectation, chaine et tour | Etabli dans la portee abstraite; identite personnelle absente |
-| Richesse physique exacte finie | orbite unitaire et plans fins | Construction exacte projective finie | Continuations uniformes et ratios prescrits | Etabli, API experimentale |
+| CORE exact fini | `ExactFiniteCoreResults` | `CompatibleFineWeights` seulement : non-négativité et sommes de fibres égales au record bornien présent | Réalisation unitaire conditionnelle, record présent, poids futurs, ratios, paiement et espérance bornienne | **ÉTABLI CONDITIONNELLEMENT**; aucune prémisse `3 ≤ n` propre au noyau; aucune dérivation indépendante de Born |
+| CALIBRATED exact fini | `ExactFiniteCalibratedResults` | Prémisses P4 réintroduites par `ExactFiniteCalibrationPremises`, dont `3 ≤ n`, famille rationnelle, invariance locale, normalisation et support nul | Conclusions de crédence conditionnelles : ratio prescrit, normalisation et récupération du poids fin | **ÉTABLI SOUS CALIBRATION EXPLICITE** |
+| P10 | masses, moments, variance, Chebyshev et seuil | Poids quadratiques déjà calibrés | Masses de fréquence et typicalité avales | **CLOS CONDITIONNELLEMENT**; pas une dérivation indépendante de Born |
+| P11 | vraisemblances, postérieurs, cotes et lot/itération | Masses P10, priors, factorisation et non-nullités | Confirmation bayésienne avale conditionnelle | **CLOS CONDITIONNELLEMENT**; ne justifie pas indépendamment Born |
 
 La matrice datee restante est conservee comme **statut historique**; elle ne
 remplace pas les lignes de release ci-dessus.
@@ -37,14 +40,17 @@ les sous-types de cellules servent uniquement à l’énumération.
 
 ## English
 
-### Current release status -- 2026-07-29
+### Current release status -- 2026-07-30
 
 | Milestone | Result | Premises | Conclusion | Status |
 |---|---|---|---|---|
 | Conditional Born result | `conditionalBornMainResults` | `ProjectiveBornPremises`: `n >= 3`, rationality, local invariance, normalized state, `AxNul`; explicit SEM | Static and conditional Born, continuators, total expectation, chain, and tower | **CLOSED IN ITS EXPLICIT CONDITIONAL FINITE-PROJECTIVE SCOPE** |
 | P7 | `recordConditionedCredence`, conditional uniqueness | Compatible record, normalization, decision bridge, odds invariance | Finite conditioned credence and uniqueness under admissibility | Established; personal interpretation not derived |
 | P8b | `ContinuationStep` and diachronic laws | Oriented refinements and continuator SEM | Normalization, total expectation, chain, and tower | Established in abstract scope; no personal identity |
-| Exact finite physical richness | unitary orbit and fine plans | Exact finite projective construction | Uniform continuations and prescribed ratios | Established, experimental API |
+| Exact-finite CORE | `ExactFiniteCoreResults` | `CompatibleFineWeights` only: non-negativity and fibre sums equal to the present Born record | Conditional unitary realization, present record, future weights, ratios, payoff, and Born expectation | **CONDITIONALLY ESTABLISHED**; no core-specific `3 ≤ n` premise; no independent Born derivation |
+| Exact-finite CALIBRATED | `ExactFiniteCalibratedResults` | P4 premises reintroduced by `ExactFiniteCalibrationPremises`, including `3 ≤ n`, rational family, local invariance, normalization, and null support | Conditional credence conclusions: prescribed ratio, normalization, and fine-weight recovery | **ESTABLISHED UNDER EXPLICIT CALIBRATION** |
+| P10 | masses, moments, variance, Chebyshev, and threshold | Already calibrated quadratic weights | Downstream frequency masses and typicality | **CONDITIONALLY CLOSED**; not an independent Born derivation |
+| P11 | likelihoods, posteriors, odds, and batch/iteration | P10 masses, priors, factorization, and nonzero assumptions | Conditional downstream Bayesian confirmation | **CONDITIONALLY CLOSED**; does not independently justify Born |
 
 The remaining dated matrix is preserved as **historical status**; it does not
 replace the release rows above.

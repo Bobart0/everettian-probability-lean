@@ -2,7 +2,7 @@
 
 ## Français
 
-### Portee conditionnelle stable -- 2026-07-29
+### Portee conditionnelle stable -- 2026-07-30
 
 Le resultat conditionnel est clos dans sa portee projective finie et
 explicitement conditionnelle. Il suppose `ProjectiveBornPremises`: rationalite
@@ -16,7 +16,8 @@ personnelle complete.
 Le noyau de richesse physique exacte finie est etabli: orbite unitaire,
 realisation de profils positifs compatibles et continuations uniformes. Il ne
 prouve ni Hamiltonien local naturel, ni emergence par decoherence, ni stabilite
-approximative, et reste experimental hors du contrat `v1.x`.
+approximative. Son point d'entrée public stable depuis v2.0.0 est
+`API.ExactFiniteMainResults`.
 
 ### Resultat physique exact fini
 
@@ -30,6 +31,26 @@ Voir `docs/EXACT_FINITE_COMPLETENESS_AUDIT.md`.
 
 La façade stable v2.0.0 est `API/ExactFiniteMainResults.lean`; les modules
 d'implémentation peuvent évoluer sans modifier ce contrat externe.
+
+### Direction logique et non-indépendance
+
+La calibration projective principale identifie Born sous ses prémisses
+explicites, dont `3 ≤ n`. CORE est un théorème conditionnel de réalisation à
+partir de `CompatibleFineWeights`, qui exige déjà l'accord des sommes de
+fibres fines avec le record bornien présent ; il ne dérive pas Born de manière
+indépendante. CALIBRATED ajoute `ExactFiniteCalibrationPremises` et donne les
+conclusions de crédence. P10 construit ensuite les masses de fréquence à partir
+de poids déjà calibrés, et P11 utilise ces masses P10 comme vraisemblances.
+Ainsi, ni P10 ni P11 ne dérivent ou ne justifient indépendamment les
+vraisemblances de Born.
+
+### Portée dimensionnelle
+
+La calibration projective principale exige `3 ≤ n`. CORE peut être plus
+général comme théorème conditionnel de réalisation, mais ne sélectionne pas
+Born de façon dimensionnellement générale. La route effets couvre `n ≥ 1`
+pour les sorties projectives. Aucune comparaison globale disant cette portée
+plus forte ou plus faible qu'un résultat externe n'est revendiquée ici.
 
 ### Fibres de poids parent nul
 
@@ -87,11 +108,9 @@ de P6b.
   entre les deux. `AxNorm` et `AxPos` sur `canonicalWeight F`, en
   revanche, sont **dérivées** des axiomes de `RationalExpectationFamily`,
   pas assumées séparément.
-- La prémisse adoptée quantifie sur **tous** les raffinements projectifs. Elle
-  est la *branching indifference* de Wallace transposée au cadre projectif :
-  ni plus faible, ni plus neutre. Le dépôt ne revendique pas une prémisse
-  affaiblie, mais son isolement, sa formalisation, et la démonstration qu’elle
-  suffit.
+- La prémisse adoptée quantifie sur **tous** les raffinements projectifs. Le
+  dépôt revendique son isolement, sa formalisation et la démonstration qu'elle
+  suffit dans la portée déclarée, sans comparaison avec une dérivation externe.
 - L’affinité de `RationalExpectationFamily` est une hypothèse forte. Les
   théories non linéaires de l’utilité espérée (dépendantes du rang :
   Quiggin 1982, Yaari 1987) restent hors de portée — `maxExpectation`
@@ -156,7 +175,7 @@ de P6b.
 
 ## English
 
-### Stable conditional scope -- 2026-07-29
+### Stable conditional scope -- 2026-07-30
 
 The conditional result is closed in its finite-projective and explicitly
 conditional scope. It assumes `ProjectiveBornPremises`: affine rationality,
@@ -169,7 +188,8 @@ rational norms from unitarity nor complete personal identity.
 The exact finite physical-richness core is established: unitary orbit,
 compatible positive-profile realization, and uniform continuations. It proves
 neither a natural local Hamiltonian, decoherence emergence, nor approximate
-stability, and remains experimental outside the `v1.x` contract.
+stability. Its stable public entry point since v2.0.0 is
+`API.ExactFiniteMainResults`.
 
 ### Exact finite physical result
 
@@ -179,6 +199,25 @@ physical core obtained from compatibility from CALIBRATED conclusions requiring
 P4. General microscopic realism is not closed; decoherence and approximate
 record preservation are not formalized; personal continuator semantics is not
 derived.
+
+### Logical direction and non-independence
+
+The main projective calibration identifies Born under its explicit premises,
+including `3 ≤ n`. CORE is a conditional realization theorem from
+`CompatibleFineWeights`, which already requires the fine-fibre sums to agree
+with the present Born record; it does not independently derive Born.
+CALIBRATED adds `ExactFiniteCalibrationPremises` and gives the credence
+conclusions. P10 then constructs frequency masses from already calibrated
+weights, and P11 uses those P10 masses as likelihoods. Thus neither P10 nor
+P11 independently derives or justifies Born likelihoods.
+
+### Dimensional scope
+
+The main projective calibration requires `3 ≤ n`. CORE can be more general as
+a conditional realization theorem, but is not a dimensionally general
+selection of Born. The effect route covers `n ≥ 1` for projective outcomes.
+No global claim that this scope is stronger or weaker than an external result
+is made here.
 
 ### Zero-parent-weight fibres
 
@@ -232,10 +271,9 @@ read as automatically resolving every stronger historical formulation of P6b.
   physical, but a normative-physical bridge between the two. `AxNorm` and
   `AxPos` on `canonicalWeight F`, by contrast, are **derived** from
   `RationalExpectationFamily`'s axioms, not separately assumed.
-- The adopted premise quantifies over **all** projective refinements. It is
-  Wallace’s *branching indifference* transposed to the projective setting:
-  neither weaker nor more neutral. The repository claims not a weakened
-  premise, but its isolation, formalization, and a proof that it suffices.
+- The adopted premise quantifies over **all** projective refinements. The
+  repository claims its isolation, formalization, and a proof that it suffices
+  in the stated scope, without comparison to an external derivation.
 - Affinity of `RationalExpectationFamily` is a strong assumption. Nonlinear
   (rank-dependent: Quiggin 1982, Yaari 1987) expected-utility theories
   remain outside the scope — `maxExpectation`

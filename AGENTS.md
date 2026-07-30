@@ -26,8 +26,14 @@ dans `MILESTONES.md`) :
   composition des raffinements. Aucune dynamique temporelle, aucun
   continuateur et aucun record accessible ne sont formalisés.
 - **P9** — ouvert partiellement : témoin `q = 4`, positif mais non normalisé.
-- **P5, P6b, P7, P10–P12** — non ouverts. Voir `CLAIM_MATRIX.md` et
-  `docs/PROGRAM_STATUS.md`.
+- **P10 et P11** — clos dans leurs portées finies conditionnelles documentées :
+  P10 est aval des poids quadratiques déjà calibrés, et P11 est aval des
+  masses P10 utilisées comme vraisemblances. **P5, P6b, P7 et P12** restent
+  non ouverts. Voir `CLAIM_MATRIX.md`, `docs/PROGRAM_STATUS.md` et
+  `docs/LOGICAL_DEPENDENCY_MAP.md`.
+- **EF10** — `EF10 RELEASED / PUBLIÉ` : le tag v2.0.0 existe, la release
+  GitHub v2.0.0 est publiée et l'API exacte finie stable est figée. Les
+  programmes de décohérence et de robustesse restent extérieurs au dépôt.
 
 ## Dépendance `quantum_foundations`
 
@@ -171,8 +177,14 @@ that expectation into a Born expectation.
   refinements. No temporal dynamics, continuator, or accessible record is
   formalized.
 - **P9** — partially open: a `q = 4` witness, positive but unnormalized.
-- **P5, P6b, P7, P10–P12** — not opened. See `CLAIM_MATRIX.md` and
-  `docs/PROGRAM_STATUS.md`.
+- **P10 and P11** — closed in their documented finite conditional scopes:
+  P10 is downstream of already calibrated quadratic weights, and P11 is
+  downstream of P10 masses used as likelihoods. **P5, P6b, P7, and P12**
+  remain not opened. See `CLAIM_MATRIX.md`, `docs/PROGRAM_STATUS.md`, and
+  `docs/LOGICAL_DEPENDENCY_MAP.md`.
+- **EF10** — `EF10 RELEASED / PUBLIÉ`: the v2.0.0 tag exists, the GitHub
+  v2.0.0 release is published, and the stable exact-finite API is frozen.
+  Decoherence and robustness programmes remain outside this repository.
 
 ## `quantum_foundations` dependency
 

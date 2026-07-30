@@ -4,6 +4,13 @@
 
 ### Added
 
+- Documentation post-v2.0.0 : clarification des dépendances CORE/CALIBRATED,
+  de la direction logique P10 → P11 et des statuts de release ; ajout de la
+  carte bilingue des dépendances logiques. Aucun code ni aucune API n'a été
+  modifié.
+- Documentation post-v2.0.0: clarified CORE/CALIBRATED dependencies, the P10
+  → P11 logical direction, and release statuses; added the bilingual logical
+  dependency map. No code or API was modified.
 - Placeholder for future compatible additions.
 - Layered experimental exact-finite facade: `RecordOrbit`,
   `RefinementRealization`, and `PhysicalAdequacy`.

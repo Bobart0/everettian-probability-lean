@@ -1,15 +1,14 @@
 # Everettian Probability in Lean
 
 > **The conditional and exact-finite public APIs are stable in `v2.0.0`.**
-> Their normative, physical, and semantic premises remain explicit. Realistic and
-> approximate physical programmes remain unfinished. No rational norm is
-> claimed to follow from unitary dynamics alone.
+> Their normative, physical, and semantic premises remain explicit. Realistic
+> and approximate physical programmes remain outside this repository. No
+> rational norm is claimed to follow from unitary dynamics alone.
 >
-> **Le premier resultat formel conditionnel est clos et l'API conditionnelle
-> `v2.0.0` sont stables.** Leurs prémisses normatives, physiques et sémantiques
-> restent explicites. Les programmes
-> physiques realistes et approximatifs restent inacheves. Aucune norme
-> rationnelle n'est derivee de la seule dynamique unitaire.
+> **Les API publiques conditionnelle et exacte finie sont stables en `v2.0.0`.**
+> Leurs prémisses normatives, physiques et sémantiques restent explicites. Les
+> programmes physiques réalistes et approximatifs restent extérieurs à ce
+> dépôt. Aucune norme rationnelle n'est dérivée de la seule dynamique unitaire.
 
 ## English
 
@@ -22,193 +21,167 @@ premises. It builds on the pinned
 dependency and keeps the distinction between a conditional theorem and a
 derivation of its premises explicit.
 
-## Stable conditional API
+### Stable public APIs
 
 ```lean
 import EverettianProbability.API.ConditionalMainResults
-```
-
-The stable aggregate theorem is `conditionalBornMainResults`; the one- and
-two-step packaged results are `oneStepConditionalBornResults` and
-`twoStepConditionalBornResults`. `ProjectiveBornPremises` records a finite
-projective dimension `n >= 3`, rational expectation, a normalized state,
-local refinement invariance, and the explicit null-support bridge.
-
-The API proves canonical weight equals Born weight, act value equals Born
-expectation, continuator credence equals conditional Born weight on a nonzero
-parent fibre, and diachronic total-expectation, chain, and tower laws.
-`API.ExactFinitePhysicalRichness` is present but experimental: it is outside
-the stability guarantee for `v1.x`.
-
-## Stable exact-finite API
-
-```lean
 import EverettianProbability.API.ExactFiniteMainResults
 ```
 
-This facade exposes the exact finite physical result. The implementation
-modules may evolve; users should prefer the two stable facades above.
+`ConditionalMainResults` is the stable conditional-Born facade. Its aggregate
+theorem is `conditionalBornMainResults`; it packages canonical Born weights,
+Born expectations, conditional Born credence on nonzero parent fibres, and the
+conditional diachronic laws.
+
+`ExactFiniteMainResults` is the stable exact-finite facade since v2.0.0. The
+older `API.ExactFinitePhysicalRichness` facade remains available for existing
+users but is not the recommended entry point. Implementation modules are not
+the stable contract.
+
+### Logical direction
+
+Calibration premises, including `3 ≤ n`, local refinement invariance, a
+normalized state, and the `AxNul` bridge, identify Born in the main projective
+route. A `CompatibleFineWeights` hypothesis already assumes that each future
+fibre sums to the present Born record; from it, the exact-finite CORE realizes
+the compatible profile. CORE plus the explicit calibration premises gives the
+CALIBRATED credence conclusions. Calibrated weights determine P10 frequency
+masses; P10 masses serve as likelihoods in P11.
+
+“One measure” therefore means downstream propagation of a measure identified
+upstream, not several independent derivations of Born. See
+[`docs/LOGICAL_DEPENDENCY_MAP.md`](docs/LOGICAL_DEPENDENCY_MAP.md).
 
 ### Current status
 
 | Layer | Current status |
 |---|---|
-| P0-P4 | Closed in their stated finite-projective scope. |
-| Self-location | Finite record-conditioned credence formalism and uniqueness under explicit admissibility premises are established; personal uncertainty remains semantic. |
-| Diachronic | Continuation steps, normalized continuator credence, total expectation, chain, tower, physical composition and associativity are formalized; complete personal identity is not. |
-| Exact finite physical richness | Exact unitary orbit and compatible positive fine-weight-plan realization are established; natural Hamiltonians, decoherence emergence, and approximation are not. |
-| P10 / P11 | Closed in their documented finite conditional scopes. |
+| P0–P4 | Closed in their stated finite-projective, explicitly conditional scope. |
+| Qubit/effect route | Closed for `n ≥ 1` when outcomes have orthogonal-projector effects; genuinely non-projective POVM effects are not covered. |
+| Exact-finite CORE | Conditional exact realization from `CompatibleFineWeights`; it is not an independent Born derivation. |
+| Exact-finite CALIBRATED | Closed under explicit calibration premises, including `3 ≤ n`. |
+| P10 / P11 | Closed in their documented finite conditional scopes; P10 is downstream of calibrated weights and P11 is downstream of P10 masses. |
 | P9 | Partial (`q = 4` witness). |
+| EF10 | **EF10 RELEASED / PUBLIÉ** — stable exact-finite API frozen in v2.0.0. |
 
 ### Repository structure
 
 ```text
 EverettianProbability/
 ├── API/
-│   ├── ConditionalBorn.lean
-│   ├── DiachronicBorn.lean
 │   ├── ConditionalMainResults.lean
-│   └── ExactFinitePhysicalRichness.lean
-├── ExactFinite/
-│   ├── RecordOrbit.lean
-│   ├── RefinementRealization.lean
-│   ├── PhysicalAdequacy.lean
-│   └── MainResults.lean
-├── SelfLocation/       -- record-conditioned credence and semantic bridges
-├── Diachronic/         -- ContinuationStep, continuator credence, total
-│                         expectation, chain, tower, physical continuation,
-│                         composition, associativity, unitary orbit, and
-│                         exact fine-weight-plan realization
-├── Frequency/          -- finite frequency masses and typicality
-├── Confirmation/       -- finite conditional Bayesian confirmation
-└── Audit/              -- axiom and stable-API contracts
+│   ├── ExactFiniteMainResults.lean
+│   └── ExactFinitePhysicalRichness.lean   # legacy, not recommended
+├── ExactFinite/                            # implementation modules
+├── Frequency/                              # finite frequency masses and typicality
+├── Confirmation/                           # finite conditional Bayesian confirmation
+└── Audit/                                  # axiom and stable-API contracts
 ```
 
-The remaining limitations and the exact conditional scope are documented in
-[`docs/CONDITIONAL_BORN_SCOPE.md`](docs/CONDITIONAL_BORN_SCOPE.md). The
-compatibility contract is in [`docs/API_STABILITY.md`](docs/API_STABILITY.md).
-The exact-finite stage codification is in
-[`docs/EXACT_FINITE_STAGES.md`](docs/EXACT_FINITE_STAGES.md): EF8 is the
-audited scientific aggregation, EF9 audits contradictory scope boundaries and
-the zero-parent-fibre case, and EF10 is not open.
-
-### Experimental exact-finite entry point
-
-```lean
-import EverettianProbability.ExactFinite.MainResults
-```
-
-`MainResults` remains the scientific implementation aggregation and
-`PhysicalAdequacy` its detailed facade. The stable external entry point is now
-`API.ExactFiniteMainResults`; the conditional entry point remains
-`API.ConditionalMainResults`.
+The exact scope and limitations are in
+[`docs/CONDITIONAL_BORN_SCOPE.md`](docs/CONDITIONAL_BORN_SCOPE.md) and
+[`docs/SCOPE_AND_LIMITATIONS.md`](docs/SCOPE_AND_LIMITATIONS.md). Stable API
+contracts are described in [`docs/API_STABILITY.md`](docs/API_STABILITY.md) and
+[`docs/EXACT_FINITE_API_STABILITY.md`](docs/EXACT_FINITE_API_STABILITY.md).
 
 ### Reproducibility and citation
 
 ```sh
 lake env lean EverettianProbability/Audit/ConditionalAPIContract.lean
+lake env lean EverettianProbability/Audit/ExactFiniteAPIContract.lean
 lake env lean EverettianProbability/Audit/MainResults.lean
 lake build
 bash scripts/guard.sh
 ```
 
 See `CITATION.cff` for *Everettian Probability in Lean:
-Refinement-Invariant Rational Expectation*, version `1.0.0`.
+Refinement-Invariant Rational Expectation*, version `2.0.0`.
 
-## Francais
+## Français
 
 ### Objet
 
-Ce depot Lean 4 / Mathlib formalise des resultats de Born conditionnels a
-partir de premisses mathematiques, normatives, physiques-ponts et semantiques
-explicitement separees. Il repose sur la dependance epinglee
+Ce dépôt Lean 4 / Mathlib formalise des résultats conditionnels de Born à
+partir de prémisses mathématiques, normatives, de pont physique et sémantiques
+explicitement séparées. Il s'appuie sur la dépendance épinglée
 [`quantum-foundations-lean`](https://github.com/Bobart0/quantum-foundations-lean)
-et distingue toujours le theoreme conditionnel de la justification de ses
-premisses.
+et conserve la distinction entre un théorème conditionnel et une dérivation de
+ses prémisses.
 
-## API conditionnelle stable
+### API publiques stables
 
 ```lean
 import EverettianProbability.API.ConditionalMainResults
+import EverettianProbability.API.ExactFiniteMainResults
 ```
 
-Le theoreme agrege stable est `conditionalBornMainResults`; les resultats
-empaquetes a une et deux etapes sont `oneStepConditionalBornResults` et
-`twoStepConditionalBornResults`. `ProjectiveBornPremises` rassemble une
-dimension projective finie `n >= 3`, l'esperance rationnelle, un etat
-normalise, l'invariance locale sous raffinement et le pont explicite de
-support nul.
+`ConditionalMainResults` est la façade stable du résultat conditionnel de
+Born. Son théorème agrégé est `conditionalBornMainResults` : il regroupe les
+poids de Born canoniques, les espérances de Born, la crédence bornienne
+conditionnelle sur les fibres parentes non nulles et les lois diachroniques
+conditionnelles.
 
-L'API prouve que le poids canonique est le poids de Born, que la valeur d'un
-acte est son esperance de Born, que la credence d'un continuateur est le poids
-bornien conditionnel sur une fibre parentale non nulle, ainsi que les lois
-diachroniques d'esperance totale, de chaine et de tour.
-`API.ExactFinitePhysicalRichness` est disponible mais experimentale : elle est
-hors de la garantie de stabilite `v1.x`.
+`ExactFiniteMainResults` est la façade exacte finie stable depuis v2.0.0.
+L'ancienne façade `API.ExactFinitePhysicalRichness` reste disponible pour les
+utilisateurs existants, mais n'est pas le point d'entrée recommandé. Les
+modules d'implémentation ne constituent pas le contrat stable.
+
+### Direction logique
+
+Les prémisses de calibration — notamment `3 ≤ n`, l'invariance locale sous
+raffinement, un état normalisé et le pont `AxNul` — identifient Born dans la
+route projective principale. Une hypothèse `CompatibleFineWeights` suppose déjà
+que chaque fibre future somme au record bornien présent ; le CORE exact fini
+réalise alors ce profil compatible. CORE plus les prémisses explicites de
+calibration donne les conclusions de crédence CALIBRATED. Les poids calibrés
+déterminent les masses de fréquence P10 ; les masses P10 servent de
+vraisemblances dans P11.
+
+« Une même mesure » signifie donc la propagation aval d'une mesure identifiée
+en amont, et non plusieurs dérivations indépendantes de Born. Voir
+[`docs/LOGICAL_DEPENDENCY_MAP.md`](docs/LOGICAL_DEPENDENCY_MAP.md).
 
 ### Statut courant
 
 | Couche | Statut courant |
 |---|---|
-| P0-P4 | Clos dans leur portee projective finie indiquee. |
-| Auto-localisation | Formalisme fini de credence conditionnee par les records et unicite sous premisses d'admissibilite explicites etablis; l'incertitude personnelle reste semantique. |
-| Diachronie | Etapes de continuation, credences normalisees, esperance totale, chaine, tour, composition et associativite physiques formalisees; identite personnelle complete absente. |
-| Richesse physique exacte finie | Orbite unitaire exacte et realisation de tout plan positif compatible etablies; Hamiltonien naturel, emergence par decoherence et approximation absents. |
-| P10 / P11 | Clos dans leurs portees finies conditionnelles documentees. |
-| P9 | Partiel (temoin `q = 4`). |
+| P0–P4 | Clos dans leur portée projective finie et explicitement conditionnelle. |
+| Route qubit/effets | Close pour `n ≥ 1` lorsque les sorties ont des effets projecteurs orthogonaux ; les effets POVM authentiquement non projectifs ne sont pas couverts. |
+| CORE exact fini | Réalisation exacte conditionnelle à `CompatibleFineWeights` ; ce n'est pas une dérivation indépendante de Born. |
+| CALIBRATED exact fini | Clos sous prémisses explicites de calibration, y compris `3 ≤ n`. |
+| P10 / P11 | Clos dans leurs portées finies conditionnelles documentées ; P10 est aval des poids calibrés et P11 aval des masses P10. |
+| P9 | Partiel (témoin `q = 4`). |
+| EF10 | **EF10 RELEASED / PUBLIÉ** — API exacte finie stable figée dans v2.0.0. |
 
-### Structure du depot
+### Structure du dépôt
 
 ```text
 EverettianProbability/
 ├── API/
-│   ├── ConditionalBorn.lean
-│   ├── DiachronicBorn.lean
 │   ├── ConditionalMainResults.lean
-│   └── ExactFinitePhysicalRichness.lean
-├── ExactFinite/
-│   ├── RecordOrbit.lean
-│   ├── RefinementRealization.lean
-│   ├── PhysicalAdequacy.lean
-│   └── MainResults.lean
-├── SelfLocation/       -- credence conditionnee par les records et ponts semantiques
-├── Diachronic/         -- ContinuationStep, credence envers les continuateurs,
-│                         esperance totale, chaine, tour, continuations physiques,
-│                         composition, associativite, orbite unitaire et realisation
-│                         exacte de plans de poids fins
-├── Frequency/          -- masses de frequence finies et typicalite
-├── Confirmation/       -- confirmation bayesienne finie conditionnelle
-└── Audit/              -- contrats d'axiomes et d'API stable
+│   ├── ExactFiniteMainResults.lean
+│   └── ExactFinitePhysicalRichness.lean   # ancienne façade, non recommandée
+├── ExactFinite/                            # modules d'implémentation
+├── Frequency/                              # masses de fréquence finies et typicalité
+├── Confirmation/                           # confirmation bayésienne finie conditionnelle
+└── Audit/                                  # contrats d'axiomes et d'API stables
 ```
 
-La portee conditionnelle exacte et les limitations sont dans
-[`docs/CONDITIONAL_BORN_SCOPE.md`](docs/CONDITIONAL_BORN_SCOPE.md). Le contrat
-de compatibilite est dans [`docs/API_STABILITY.md`](docs/API_STABILITY.md).
-La codification des etapes exactes finies est dans
-[`docs/EXACT_FINITE_STAGES.md`](docs/EXACT_FINITE_STAGES.md) : EF8 est
-l'agregation scientifique auditee, EF9 audite les frontieres contradictoires
-et le cas de fibre parente nulle, et EF10 n'est pas ouvert.
+La portée exacte et les limitations sont dans
+[`docs/CONDITIONAL_BORN_SCOPE.md`](docs/CONDITIONAL_BORN_SCOPE.md) et
+[`docs/SCOPE_AND_LIMITATIONS.md`](docs/SCOPE_AND_LIMITATIONS.md). Les contrats
+d'API stables sont décrits dans [`docs/API_STABILITY.md`](docs/API_STABILITY.md)
+et [`docs/EXACT_FINITE_API_STABILITY.md`](docs/EXACT_FINITE_API_STABILITY.md).
 
-### Point d'entree exact fini experimental
-
-```lean
-import EverettianProbability.ExactFinite.MainResults
-```
-
-`MainResults` est l'agregation scientifique de la couche exacte finie
-experimentale; `PhysicalAdequacy` demeure sa facade detaillee. Cette couche
-est posterieure a `v1.0.0`, n'est pas couverte par la garantie de stabilite
-`v1.x` et organise seulement des resultats exacts finis existants. Le point
-d'entree conditionnel stable reste `API.ConditionalMainResults`.
-
-### Reproductibilite et citation
+### Reproductibilité et citation
 
 ```sh
 lake env lean EverettianProbability/Audit/ConditionalAPIContract.lean
+lake env lean EverettianProbability/Audit/ExactFiniteAPIContract.lean
 lake env lean EverettianProbability/Audit/MainResults.lean
 lake build
 bash scripts/guard.sh
 ```
 
 Voir `CITATION.cff` pour *Everettian Probability in Lean:
-Refinement-Invariant Rational Expectation*, version `1.0.0`.
+Refinement-Invariant Rational Expectation*, version `2.0.0`.

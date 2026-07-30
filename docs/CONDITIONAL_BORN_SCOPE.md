@@ -56,11 +56,16 @@ physique exacte, ni règlement définitif du débat everettien.
 
 ### Relation avec la couche exacte finie
 
-Le dépôt contient une couche physique exacte finie, dont le point d'entrée est
-`EverettianProbability.API.ExactFinitePhysicalRichness`. Elle est postérieure
-au théorème conditionnel, ne fait pas partie du contrat de stabilité `v1.x`,
-peut évoluer avant un futur jalon majeur et n'est pas importée par
-`ConditionalMainResults.lean`.
+Depuis v2.0.0, le point d'entrée stable de la couche exacte finie est
+`EverettianProbability.API.ExactFiniteMainResults`. L'ancienne façade
+`API.ExactFinitePhysicalRichness` reste disponible mais n'est pas le point
+d'entrée recommandé. La façade exacte finie n'est pas importée par
+`ConditionalMainResults.lean` : les deux contrats restent séparés.
+
+Dans cette couche, CORE assume `CompatibleFineWeights`, donc déjà la
+compatibilité des sommes de fibres avec le record bornien présent. CALIBRATED
+ajoute les prémisses explicites de calibration. Ces précisions ne changent
+aucune conclusion du résultat conditionnel.
 
 # Exact Scope of the Conditional Born Result
 
@@ -118,8 +123,13 @@ debate.
 
 ### Relation to the exact finite layer
 
-The repository contains an exact finite physical layer, entered through
-`EverettianProbability.API.ExactFinitePhysicalRichness`. It postdates the
-conditional theorem, is not part of the `v1.x` stability contract, may evolve
-before a future major milestone, and is not imported by
-`ConditionalMainResults.lean`.
+Since v2.0.0, the stable entry point for the exact-finite layer is
+`EverettianProbability.API.ExactFiniteMainResults`. The legacy
+`API.ExactFinitePhysicalRichness` facade remains available but is not the
+recommended entry point. The exact-finite facade is not imported by
+`ConditionalMainResults.lean`: the two contracts remain separate.
+
+Within that layer, CORE assumes `CompatibleFineWeights`, hence already the
+compatibility of fibre sums with the present Born record. CALIBRATED adds the
+explicit calibration premises. These clarifications change none of the
+conditional result's mathematical conclusions.
