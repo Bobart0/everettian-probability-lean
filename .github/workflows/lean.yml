@@ -41,6 +41,11 @@ jobs:
       - name: Consolidated axiom audit
         run: lake env lean EverettianProbability/Audit/MainResults.lean
 
+      - name: Upstream QuantumFoundations stable API contract
+        run: |
+          lake env lean EverettianProbability/API/UpstreamQuantumFoundations.lean
+          lake env lean EverettianProbability/Audit/UpstreamQuantumFoundationsAPI.lean
+
       - name: Source guard (no axiom, no native_decide, no maxHeartbeats 0, open-goal budget respected)
         run: bash scripts/guard.sh
 

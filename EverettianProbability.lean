@@ -68,6 +68,7 @@ import EverettianProbability.ExactFinite.RefinementRealization
 import EverettianProbability.ExactFinite.PhysicalAdequacy
 import EverettianProbability.ExactFinite.MainResults
 import EverettianProbability.API.ExactFiniteMainResults
+import EverettianProbability.API.UpstreamQuantumFoundations
 import EverettianProbability.Frequency.HammingCells
 import EverettianProbability.Frequency.HammingCounting
 import EverettianProbability.Frequency.RepetitionVector
@@ -88,6 +89,7 @@ import EverettianProbability.Confirmation.IteratedUpdate
 import EverettianProbability.Confirmation.BatchPosteriorOdds
 import EverettianProbability.Confirmation.FrequencyBatchOdds
 import EverettianProbability.Confirmation.RationalBatchWitness
+import EverettianProbability.Audit.UpstreamQuantumFoundationsAPI
 import EverettianProbability.Audit.MainResults
 
 /-!

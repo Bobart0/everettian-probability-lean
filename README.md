@@ -21,6 +21,11 @@ premises. It builds on the pinned
 dependency and keeps the distinction between a conditional theorem and a
 derivation of its premises explicit.
 
+The upstream dependency is pinned to `v1.2.1-everettian-api`.
+`EverettianProbability.API.UpstreamQuantumFoundations` is the local import
+boundary for its stable Everettian-facing bundle. It does not identify `NSNC1`,
+ancilla neutrality, and residual neutrality, and no preferred tensor
+factorization is derived.
 ### Stable public APIs
 
 ```lean
@@ -108,6 +113,11 @@ explicitement séparées. Il s'appuie sur la dépendance épinglée
 et conserve la distinction entre un théorème conditionnel et une dérivation de
 ses prémisses.
 
+La dépendance amont est épinglée sur `v1.2.1-everettian-api`.
+`EverettianProbability.API.UpstreamQuantumFoundations` est la frontière d'import
+locale pour son ensemble stable orienté Everett. Elle n'identifie ni `NSNC1`,
+ni la neutralité d'ancilla, ni la neutralité résiduelle, et aucune
+factorisation tensorielle préférée n'est dérivée.
 ### API publiques stables
 
 ```lean
