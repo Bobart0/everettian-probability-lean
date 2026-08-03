@@ -2,6 +2,63 @@
 
 ## [Unreleased]
 
+## [2.2.0-journal-audit] - 2026-08-03
+
+### Added
+
+- Dépendance amont `quantum_foundations` mise à jour vers le tag
+  `v1.3.0-journal-audit` (résolu `747d8f441b5cd7beaa579662a535366030efe322`),
+  transitivement `gleason` vers `v1.1.0-journal-audit` (résolu
+  `5c5bc40d2e4a31a0d1b3112fcc9a3e92b2000ec5`).
+- Contre-modèle niveau décision `EverettianProbability.BornCalibration.
+  decision_premises_do_not_imply_born_at_two` (`BornCalibration/
+  DecisionNonCircularity.lean`) : les prémisses employées par
+  `born_expectation_of_invariance` (famille d'espérance rationnelle,
+  invariance locale sous raffinement, nullité physique du poids canonique)
+  n'impliquent pas, à elles seules, les poids de Born en dimension 2 ;
+  complète le contre-modèle niveau poids déjà existant
+  (`grain_does_not_imply_born_at_two`).
+- Petit lemme numérique public `witnessLine_skewWeight_ne_born`
+  (`BornCalibration/NonCircularity.lean`), extrait pour être réutilisé par le
+  nouveau contre-modèle sans dupliquer ni exposer la construction privée
+  `skewF`.
+- Audit de publication ciblé `EverettianProbability.Audit.JournalCore`
+  (`#check`/`#print axioms` sur l'infrastructure de représentation, le pont
+  Grain, les deux contre-modèles, les témoins de poids rivaux et l'agrégat
+  d'API conditionnelle stable — sans régression).
+- Corrections documentaires distinguant explicitement contre-modèle niveau
+  poids et niveau décision, et précisant que le regroupement des prémisses
+  dans `ProjectiveBornPremises` est un choix d'API, non une nécessité
+  logique (`README.md`, `CLAIM_MATRIX.md`, `docs/CONDITIONAL_BORN_SCOPE.md`,
+  `docs/SCOPE_AND_LIMITATIONS.md`).
+
+- Upstream `quantum_foundations` dependency updated to tag
+  `v1.3.0-journal-audit` (resolved
+  `747d8f441b5cd7beaa579662a535366030efe322`), transitively `gleason` to
+  `v1.1.0-journal-audit` (resolved
+  `5c5bc40d2e4a31a0d1b3112fcc9a3e92b2000ec5`).
+- Decision-level countermodel `EverettianProbability.BornCalibration.
+  decision_premises_do_not_imply_born_at_two` (`BornCalibration/
+  DecisionNonCircularity.lean`): the premises used by
+  `born_expectation_of_invariance` (rational expectation family, local
+  refinement invariance, physical null support of the canonical weight) do
+  not, by themselves, imply Born weights in dimension 2; complements the
+  already-existing weight-level countermodel
+  (`grain_does_not_imply_born_at_two`).
+- Small public numeric lemma `witnessLine_skewWeight_ne_born`
+  (`BornCalibration/NonCircularity.lean`), extracted for reuse by the new
+  countermodel without duplicating or exposing the private `skewF`
+  construction.
+- Focused publication audit `EverettianProbability.Audit.JournalCore`
+  (`#check`/`#print axioms` on the representation infrastructure, the Grain
+  bridge, both countermodels, the rival-weight witnesses, and the stable
+  conditional API aggregate — with no regression).
+- Documentation corrections explicitly distinguishing the weight-level and
+  decision-level countermodels, and clarifying that bundling premises into
+  `ProjectiveBornPremises` is an API design choice, not a logical necessity
+  (`README.md`, `CLAIM_MATRIX.md`, `docs/CONDITIONAL_BORN_SCOPE.md`,
+  `docs/SCOPE_AND_LIMITATIONS.md`).
+
 ## [2.1.0] - 2026-08-03
 
 ### Added

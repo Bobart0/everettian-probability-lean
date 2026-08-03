@@ -146,6 +146,37 @@ de P6b.
   effets. Cette clarification est également inscrite dans le docstring de
   `effectWeight_eq_born_of_invariance` lui-même
   (`EffectCalibration/EffectBornExpectation.lean`), pas seulement ici.
+- **Contre-modèle niveau poids contre contre-modèle niveau décision.**
+  `grain_does_not_imply_born_at_two` (`NonCircularity.lean`) est un
+  contre-modèle **niveau poids** : une règle d'estimation
+  `Perspective 2 → Submodule ℂ (H 2) → ℝ` cohérente sous `AxGrain`/`AxNorm`/
+  `AxPos`/`AxNul` qui n'est pas `‖·‖²`. `decision_premises_do_not_imply_born_at_two`
+  (`DecisionNonCircularity.lean`) est le contre-modèle **niveau décision**
+  analogue, formulé directement sur les prémisses employées par
+  `born_expectation_of_invariance` (`RationalExpectationFamily`,
+  `RefinementInvariantLocal F.V`, `AxNul (canonicalWeight F) v`) plutôt que
+  sur un poids nu : il construit explicitement une `RationalExpectationFamily`
+  (`skewExpectationFamily`) dont le poids canonique reproduit `skewWeight
+  witnessState` (`refinementInvariantLocal_iff_axGrain` relie l'invariance
+  sous raffinement de `F.V` à `AxGrain` du poids canonique QU'ELLE INDUIT,
+  pas d'un poids arbitraire — le pont ne vaut donc que via cette famille
+  explicitement construite, non par un argument générique). Les deux
+  contre-modèles portent sur la même dimension (`n = 2`) et le même témoin
+  (`witnessState`, `witnessLine`), mais réfutent des énoncés distincts : le
+  premier réfute « Grain+Norm+Pos+Null (poids) ⟹ Born », le second réfute
+  « Grain+Norm+Pos+Null (décision, via une famille d'espérance rationnelle) ⟹
+  Born ».
+- La restriction de dimension (`3 ≤ n` dans `born_expectation_of_invariance`)
+  est une hypothèse **explicite et indispensable**, distincte des prémisses
+  normatives elles-mêmes : c'est précisément ce que les deux contre-modèles
+  ci-dessus établissent en dimension 2. Le regroupement des prémisses dans
+  `ProjectiveBornPremises` (`API/ConditionalBorn.lean`) est un choix de
+  conception d'API, pas une nécessité logique — aucun champ de cette
+  structure n'est affirmé impossible à retirer ; les arguments séparés,
+  au niveau théorème (`born_expectation_of_invariance`, les deux
+  contre-modèles ci-dessus), permettent précisément l'analyse individuelle
+  des prémisses et la construction de contre-modèles ciblés que le
+  regroupement en structure ne facilite pas.
 - La lecture globale antérieure est formalisée uniquement comme résultat
   négatif dans `GlobalPayoffVacuity.lean`; elle ne sert plus de prémisse.
 - **P6a** (`PhysicalRefinement/`) établit qu'un raffinement peut redécrire
@@ -310,6 +341,37 @@ read as automatically resolving every stronger historical formulation of P6b.
   This clarification is also written into the docstring of
   `effectWeight_eq_born_of_invariance` itself
   (`EffectCalibration/EffectBornExpectation.lean`), not only here.
+- **Weight-level countermodel vs. decision-level countermodel.**
+  `grain_does_not_imply_born_at_two` (`NonCircularity.lean`) is a
+  **weight-level** countermodel: an estimation rule
+  `Perspective 2 → Submodule ℂ (H 2) → ℝ` coherent under `AxGrain`/`AxNorm`/
+  `AxPos`/`AxNul` that is not `‖·‖²`. `decision_premises_do_not_imply_born_at_two`
+  (`DecisionNonCircularity.lean`) is the analogous **decision-level**
+  countermodel, stated directly on the premises used by
+  `born_expectation_of_invariance` (`RationalExpectationFamily`,
+  `RefinementInvariantLocal F.V`, `AxNul (canonicalWeight F) v`) rather than
+  on a bare weight: it explicitly constructs a `RationalExpectationFamily`
+  (`skewExpectationFamily`) whose canonical weight reproduces `skewWeight
+  witnessState` (`refinementInvariantLocal_iff_axGrain` connects refinement
+  invariance of `F.V` to `AxGrain` of the canonical weight IT INDUCES, not of
+  an arbitrary weight — the bridge therefore only holds via this explicitly
+  constructed family, not through a generic argument). Both countermodels
+  target the same dimension (`n = 2`) and the same witness (`witnessState`,
+  `witnessLine`), but refute distinct statements: the first refutes
+  "Grain+Norm+Pos+Null (weight) ⟹ Born", the second refutes
+  "Grain+Norm+Pos+Null (decision, via a rational expectation family) ⟹
+  Born".
+- The dimension restriction (`3 ≤ n` in `born_expectation_of_invariance`) is
+  an **explicit and indispensable** hypothesis, distinct from the normative
+  premises themselves: this is exactly what the two countermodels above
+  establish in dimension 2. Bundling the premises into
+  `ProjectiveBornPremises` (`API/ConditionalBorn.lean`) is an API design
+  choice, not a logical necessity — no field of that structure is claimed
+  impossible to remove; the separate theorem-level arguments
+  (`born_expectation_of_invariance`, the two countermodels above) are
+  precisely what enable individual premise analysis and the construction of
+  targeted countermodels that the bundled structure does not itself
+  facilitate.
 - The former global reading is formalized only as a negative result in
   `GlobalPayoffVacuity.lean`; it is no longer used as a premise.
 - **P6a** (`PhysicalRefinement/`) establishes that a refinement can

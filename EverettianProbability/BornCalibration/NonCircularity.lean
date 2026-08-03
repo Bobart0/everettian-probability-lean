@@ -415,6 +415,27 @@ theorem witness_x : ‖projL witnessLine witnessState‖ ^ 2 = 9 / 25 := by
   rw [witness_projL, norm_smul, basis0_norm]
   norm_num
 
+/-- **FR.** Corollaire numérique nommé de `witness_x` : le poids rival
+diffère effectivement du poids de Born sur `witnessLine`, pour la
+perspective binaire canonique qui lui est associée. Extrait comme lemme
+public afin d'être réutilisé tel quel par
+`BornCalibration/DecisionNonCircularity.lean`, sans dupliquer la
+construction géométrique de ce fichier.
+
+**EN.** Named numeric corollary of `witness_x`: the rival weight genuinely
+differs from the Born weight on `witnessLine`, for the associated canonical
+binary perspective. Extracted as a public lemma so that
+`BornCalibration/DecisionNonCircularity.lean` can reuse it directly, without
+duplicating this file's geometric construction. -/
+theorem witnessLine_skewWeight_ne_born :
+    skewWeight witnessState
+      (Perspective.binary witnessLine witnessLine_ne_bot witnessLine_ne_top) witnessLine ≠
+    ‖projL witnessLine witnessState‖ ^ 2 := by
+  show skewF (‖projL witnessLine witnessState‖ ^ 2) ≠ ‖projL witnessLine witnessState‖ ^ 2
+  rw [witness_x]
+  unfold skewF
+  norm_num
+
 /-- **FR.** `NON-CIRCULARITY WITNESS`. En dimension 2, où le théorème de
 Gleason échoue, `AxGrain`, `AxNorm`, `AxPos` et `AxNul` n'impliquent pas les
 poids de Born. La prémisse d'invariance sous raffinement n'est donc pas la
@@ -442,9 +463,6 @@ theorem grain_does_not_imply_born_at_two :
     Perspective.binary witnessLine witnessLine_ne_bot witnessLine_ne_top, witnessLine,
     ?_, ?_⟩
   · exact Finset.mem_insert_self _ _
-  · show skewF (‖projL witnessLine witnessState‖ ^ 2) ≠ ‖projL witnessLine witnessState‖ ^ 2
-    rw [witness_x]
-    unfold skewF
-    norm_num
+  · exact witnessLine_skewWeight_ne_born
 
 end EverettianProbability.BornCalibration

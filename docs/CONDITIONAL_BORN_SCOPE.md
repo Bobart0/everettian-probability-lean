@@ -54,6 +54,17 @@ naturel, dynamique microscopique réaliste générale, extension projective
 directe au qubit, dimension infinie, POVM arbitraire, unicité de la réalisation
 physique exacte, ni règlement définitif du débat everettien.
 
+`dim_ge_three` n'est pas une clause de confort dans `ProjectiveBornPremises` :
+`BornCalibration/NonCircularity.lean` (`grain_does_not_imply_born_at_two`,
+niveau poids) et `BornCalibration/DecisionNonCircularity.lean`
+(`decision_premises_do_not_imply_born_at_two`, niveau décision, formulé
+directement sur les mêmes prémisses que `born_expectation_of_invariance`)
+montrent chacun un contre-modèle explicite en `n = 2` satisfaisant toutes les
+autres prémisses. Le regroupement de ces prémisses dans `ProjectiveBornPremises`
+est un choix d'API ; aucun de ses champs n'est affirmé irréductible, et les
+deux contre-modèles ci-dessus reposent précisément sur les arguments séparés
+au niveau théorème, pas sur la structure empaquetée.
+
 ### Relation avec la couche exacte finie
 
 Depuis v2.0.0, le point d'entrée stable de la couche exacte finie est
@@ -120,6 +131,17 @@ natural local Hamiltonian, general realistic microscopic dynamics, direct
 projective qubit extension, infinite dimension, arbitrary POVM effect,
 uniqueness of exact physical realization, or final settlement of the Everett
 debate.
+
+`dim_ge_three` is not a convenience clause in `ProjectiveBornPremises`:
+`BornCalibration/NonCircularity.lean` (`grain_does_not_imply_born_at_two`,
+weight level) and `BornCalibration/DecisionNonCircularity.lean`
+(`decision_premises_do_not_imply_born_at_two`, decision level, stated
+directly on the same premises as `born_expectation_of_invariance`) each
+exhibit an explicit countermodel at `n = 2` satisfying every other premise.
+Bundling these premises into `ProjectiveBornPremises` is an API choice; none
+of its fields is claimed irreducible, and both countermodels above rely
+precisely on the separate theorem-level arguments, not on the bundled
+structure.
 
 ### Relation to the exact finite layer
 

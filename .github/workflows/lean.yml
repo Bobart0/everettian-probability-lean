@@ -46,6 +46,9 @@ jobs:
           lake env lean EverettianProbability/API/UpstreamQuantumFoundations.lean
           lake env lean EverettianProbability/Audit/UpstreamQuantumFoundationsAPI.lean
 
+      - name: Journal audit (decision-level non-Born countermodel)
+        run: lake env lean EverettianProbability/Audit/JournalCore.lean
+
       - name: Source guard (no axiom, no native_decide, no maxHeartbeats 0, open-goal budget respected)
         run: bash scripts/guard.sh
 
