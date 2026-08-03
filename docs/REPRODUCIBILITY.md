@@ -5,8 +5,8 @@
 ### Épinglages exacts
 
 - Toolchain Lean : `leanprover/lean4:v4.32.0-rc1` (`lean-toolchain`).
-- `quantum_foundations` : tag `v1.3.0-journal-audit`, résolu
-  `747d8f441b5cd7beaa579662a535366030efe322`
+- `quantum_foundations` : tag `v1.3.1-journal-audit`, résolu
+  `f773ed5694c610af055b82427da27a69d528b776`
   (`https://github.com/Bobart0/quantum-foundations-lean.git`).
 - `gleason` et `mathlib` : résolus **transitivement** par Lake à travers
   `quantum_foundations`, jamais redéclarés dans `lakefile.toml` de ce
@@ -67,8 +67,8 @@ Doit afficher `GUARD_RESULT=PASS`, avec `AXIOM_HITS=0`,
 ### Exact pins
 
 - Lean toolchain: `leanprover/lean4:v4.32.0-rc1` (`lean-toolchain`).
-- `quantum_foundations`: tag `v1.3.0-journal-audit`, resolved
-  `747d8f441b5cd7beaa579662a535366030efe322`
+- `quantum_foundations`: tag `v1.3.1-journal-audit`, resolved
+  `f773ed5694c610af055b82427da27a69d528b776`
   (`https://github.com/Bobart0/quantum-foundations-lean.git`).
 - `gleason` and `mathlib`: resolved **transitively** by Lake through
   `quantum_foundations`, never redeclared in this repository's
