@@ -2,8 +2,16 @@
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-08-03
+
 ### Added
 
+- Frontiere locale stable `EverettianProbability.API.UpstreamQuantumFoundations`, qui reexporte le paquet amont `QuantumFoundations.EverettianAPI` sans API locale plate.
+- Contrat de compilation des API amont stables de probabilite, factorisation tensorielle, pont des selecteurs et implementation Naimark.
+- Stable local import boundary `EverettianProbability.API.UpstreamQuantumFoundations`, re-exporting the upstream `QuantumFoundations.EverettianAPI` bundle without a flat local API.
+- Compile-time contract for the stable upstream quantum-foundations APIs, including the probability, finite-tensor, selector-bridge, and Naimark implementation declarations.
+
+### Further additions
 - Documentation post-v2.0.0 : clarification des dépendances CORE/CALIBRATED,
   de la direction logique P10 → P11 et des statuts de release ; ajout de la
   carte bilingue des dépendances logiques. Aucun code ni aucune API n'a été
@@ -22,7 +30,17 @@
 - Explicit zero-parent-fibre results.
 - Permanent repository terminology guard.
 - Exact-finite stage codification.
+### Changed
 
+- Dependence `quantum-foundations-lean` epinglee sur `v1.2.1-everettian-api`.
+- Pinned `quantum-foundations-lean` to `v1.2.1-everettian-api`.
+
+### Compatibility and scope
+
+- Les signatures publiques conditionnelle et exacte-finie existantes restent inchangees.
+- La frontiere amont n identifie ni `NSNC1`, ni neutralite d ancilla, ni neutralite residuelle, et ne derive aucune factorisation tensorielle preferee.
+- Existing conditional and exact-finite public signatures are unchanged.
+- The upstream boundary does not identify `NSNC1`, ancilla neutrality, and residual neutrality; it derives no preferred tensor factorization.
 ## [2.0.0] - 2026-07-30
 
 ### Added
