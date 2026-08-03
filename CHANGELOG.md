@@ -1,6 +1,24 @@
 # Changelog
 
 ## [Unreleased]
+## [2.2.2-journal-audit] - 2026-08-04
+
+### Corrigé
+
+- Dépendance amont `quantum_foundations` repinnée vers
+  `v1.3.1-journal-audit` (résolu `f773ed5694c610af055b82427da27a69d528b776`).
+- La façade aval reflète désormais le résultat amont : l’indépendance complète
+  de contexte découle de `AxGrain` seul, tandis que `AxNorm` reste nécessaire
+  pour la normalisation probabiliste aval.
+
+### Fixed
+
+- Pinned upstream `quantum_foundations` to
+  `v1.3.1-journal-audit` (resolved
+  `f773ed5694c610af055b82427da27a69d528b776`).
+- Downstream documentation now reflects that full context independence follows
+  from `AxGrain` alone, while `AxNorm` remains required for downstream
+  probability normalization.
 
 ## [2.2.0-journal-audit] - 2026-08-03
 
