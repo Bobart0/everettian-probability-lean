@@ -16,20 +16,36 @@ on:
 # commit (« Unable to reserve cache ... another job may be creating this
 # cache »), ce qui échoue de façon cosmétique (toutes les étapes réussissent,
 # seule la sauvegarde du cache entre en conflit) mais fait passer le run à
-# `failure`. Un groupe de concurrence partagé avec `lean.yml`, clé sur le
-# SHA, les sérialise sans en annuler aucun (`cancel-in-progress` reste à
-# `false`).
+# `failure`. Les deux workflows partagent donc volontairement le même groupe
+# de concurrence, clé sur le SHA, pour sérialiser ces écritures de cache.
+# `cancel-in-progress: false` empêche l'annulation du run déjà en cours
+# d'exécution. Par défaut, GitHub n'autorise qu'un seul run EN ATTENTE par
+# groupe : dès qu'un second run attend, tout run antérieur non démarré dans
+# le même groupe est annulé — ce qui s'est produit ici lorsque plusieurs
+# évènements `push` pour le même SHA (branche et tag) arrivaient presque
+# simultanément. `queue: max` lève cette limite (jusqu'à 100 runs en attente
+# par groupe) : plusieurs runs peuvent désormais attendre leur tour sans que
+# le plus récent ne remplace un run antérieur encore en attente.
 #
 # **EN.** `ci.yml` and `lean.yml` both build the project via
 # `leanprover/lean-action@v1` on the same push; without coordination,
 # their `build` jobs race to create the same Lake cache for the same
 # commit ("Unable to reserve cache ... another job may be creating this
 # cache"), which fails cosmetically (every step succeeds, only the cache
-# save conflicts) but still flips the run to `failure`. A concurrency
-# group shared with `lean.yml`, keyed on the SHA, serializes them without
-# cancelling either (`cancel-in-progress` stays `false`).
+# save conflicts) but still flips the run to `failure`. Both workflows
+# therefore deliberately share the same concurrency group, keyed on the
+# SHA, to serialize these cache writes. `cancel-in-progress: false`
+# prevents the already-running run from being cancelled. By default,
+# GitHub only allows a single PENDING run per group: as soon as a second
+# run becomes pending, any earlier not-yet-started run in the same group is
+# cancelled — which is what happened here when several `push` events for
+# the same SHA (branch and tag) arrived nearly simultaneously. `queue: max`
+# lifts that limit (up to 100 pending runs per group): several runs can now
+# wait their turn without the newest one replacing an earlier pending run.
 concurrency:
   group: lean-build-${{ github.sha }}
+  cancel-in-progress: false
+  queue: max
 
 jobs:
   guard:

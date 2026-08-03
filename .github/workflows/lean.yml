@@ -24,8 +24,15 @@ on:
 # See ci.yml for why this concurrency group (shared with that workflow,
 # keyed on the commit SHA) exists: it serializes the two workflows' Lake
 # cache saves for the same commit instead of letting them race.
+# `cancel-in-progress: false` never cancels a run already executing;
+# `queue: max` allows several runs to wait their turn in this shared group
+# (up to 100) instead of a newly pending run cancelling an earlier pending
+# one — which previously happened when branch-push and tag-push events for
+# the same SHA arrived nearly simultaneously.
 concurrency:
   group: lean-build-${{ github.sha }}
+  cancel-in-progress: false
+  queue: max
 
 jobs:
   build:
@@ -47,7 +54,9 @@ jobs:
           lake env lean EverettianProbability/Audit/UpstreamQuantumFoundationsAPI.lean
 
       - name: Journal audit (decision-level non-Born countermodel)
-        run: lake env lean EverettianProbability/Audit/JournalCore.lean
+        run: |
+          lake build EverettianProbability.Audit.JournalCore
+          lake env lean EverettianProbability/Audit/JournalCore.lean
 
       - name: Source guard (no axiom, no native_decide, no maxHeartbeats 0, open-goal budget respected)
         run: bash scripts/guard.sh

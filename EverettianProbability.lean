@@ -20,6 +20,7 @@ import EverettianProbability.BornCalibration.RefinementImpliesGrain
 import EverettianProbability.BornCalibration.AbstractRefinementImpliesGrain
 import EverettianProbability.BornCalibration.BornExpectation
 import EverettianProbability.BornCalibration.NonCircularity
+import EverettianProbability.BornCalibration.DecisionNonCircularity
 import EverettianProbability.BornCalibration.Nonvacuity
 import EverettianProbability.Rivals.NaiveBranchCounting
 import EverettianProbability.Rivals.FourthPowerWeight
@@ -101,8 +102,10 @@ facades API conditionnelle et physique exacte, `Frequency`, `Confirmation` et
 premisses semantiques explicites. `Diachronic` formalise des continuateurs,
 l'esperance totale, la chaine, la tour, la composition et des continuations
 physiques exactes. L'API conditionnelle est stable en `v1.x`; l'API physique
-exacte reste experimentale. Aucune norme rationnelle n'est derivee de la seule
-dynamique unitaire.
+exacte reste experimentale. `BornCalibration` inclut desormais le contre-modele
+niveau decision (`DecisionNonCircularity`), dans la fermeture du build public
+principal aux cotes du contre-modele niveau poids (`NonCircularity`). Aucune
+norme rationnelle n'est derivee de la seule dynamique unitaire.
 
 **EN.** Entry point of the `EverettianProbability` package. It imports, in
 dependency order, `Core`, `Refinement`, `Preference`, `BornCalibration`,
@@ -111,6 +114,9 @@ conditional and exact-physical API facades, `Frequency`, `Confirmation`, and
 `Audit`. `SelfLocation` formalizes record-conditioned credence under explicit
 semantic premises. `Diachronic` formalizes continuators, total expectation,
 chain, tower, composition, and exact physical continuations. The conditional
-API is stable in `v1.x`; the exact-physical API remains experimental. No
-rational norm is derived from unitary dynamics alone.
+API is stable in `v1.x`; the exact-physical API remains experimental.
+`BornCalibration` now includes the decision-level countermodel
+(`DecisionNonCircularity`), in the main public build closure alongside the
+weight-level countermodel (`NonCircularity`). No rational norm is derived
+from unitary dynamics alone.
 -/
