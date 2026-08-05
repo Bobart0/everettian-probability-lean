@@ -1,6 +1,6 @@
 {
   "title": "Everettian Probability in Lean: Refinement-Invariant Rational Expectation",
-  "description": "A Lean 4 and Mathlib formalization of a decision-theoretic layer built on top of the grain-coherence-to-Born representation theorem of quantum-foundations-lean: acts, consequences, refinement invariance, rational expectation, and Bornian calibration. Results are under construction; see MILESTONES.md for status. Not to be cited as established until milestone P11 closes.",
+  "description": "A Lean 4 and Mathlib formalization of a decision-theoretic layer for finite-dimensional Everettian quantum mechanics. The archived release formalizes acts, refinement invariance, rational expectation, Born calibration, typed premise audits, and explicit weight-level and decision-level countermodels. It does not derive rationality from unitary dynamics alone. This record archives GitHub tag v2.2.2-journal-audit at commit 7d0bcda60d2276e20f4be9c4b605bab779adc76f. Quantum Foundations is pinned to tag v1.3.1-journal-audit at commit f773ed5694c610af055b82427da27a69d528b776, and the transitive Gleason dependency is pinned to tag v1.1.0-journal-audit at commit 5c5bc40d2e4a31a0d1b3112fcc9a3e92b2000ec5.",
   "creators": [
     {
       "name": "Dalimier, Bertrand",
@@ -10,7 +10,7 @@
   ],
   "license": "Apache-2.0",
   "upload_type": "software",
-  "version": "0.1.0-dev",
+  "version": "2.2.2",
   "keywords": [
     "quantum foundations",
     "Born rule",
@@ -22,7 +22,12 @@
   ],
   "related_identifiers": [
     {
-      "identifier": "https://github.com/Bobart0/quantum-foundations-lean",
+      "identifier": "https://github.com/Bobart0/everettian-probability-lean",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/Bobart0/everettian-probability-lean/releases/tag/v2.2.2-journal-audit",
       "relation": "isDerivedFrom",
       "scheme": "url"
     }
