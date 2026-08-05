@@ -28,7 +28,7 @@
     },
     {
       "identifier": "https://github.com/Bobart0/everettian-probability-lean/releases/tag/v2.2.2-journal-audit",
-      "relation": "isSourceOf",
+      "relation": "isDerivedFrom",
       "scheme": "url"
     }
   ]
