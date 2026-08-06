@@ -68,7 +68,7 @@ upstream, not several independent derivations of Born. See
 | P10 / P11 | Closed in their documented finite conditional scopes; P10 is downstream of calibrated weights and P11 is downstream of P10 masses. |
 | P9 | Partial (`q = 4` witness). |
 | EF10 | **EF10 RELEASED / PUBLIÉ** — stable exact-finite API frozen in v2.0.0. |
-| Non-circularity countermodels (`n = 2`) | Closed. Weight-level (`grain_does_not_imply_born_at_two`, `BornCalibration/NonCircularity.lean`) and decision-level (`decision_premises_do_not_imply_born_at_two`, `BornCalibration/DecisionNonCircularity.lean`) countermodels; each shows `3 ≤ n` in `born_expectation_of_invariance` is indispensable, not a convenience clause. |
+| Non-circularity countermodels (`n = 2`) | Closed. Weight-level (`grain_does_not_imply_born_at_two`, `BornCalibration/NonCircularity.lean`), decision-level (`decision_premises_do_not_imply_born_at_two`, `BornCalibration/DecisionNonCircularity.lean`), and projection-measure-level (`skewProjMeasure_not_representable`, `BornCalibration/NonCircularity.lean`) countermodels; each shows `3 ≤ n` in `born_expectation_of_invariance` is indispensable, not a convenience clause. The measure-level result is a pointwise witness (one non-representable `ProjMeasure 2`), not a claim that no dimension-two measure is representable. |
 
 ### Repository structure
 
@@ -163,7 +163,7 @@ en amont, et non plusieurs dérivations indépendantes de Born. Voir
 | P10 / P11 | Clos dans leurs portées finies conditionnelles documentées ; P10 est aval des poids calibrés et P11 aval des masses P10. |
 | P9 | Partiel (témoin `q = 4`). |
 | EF10 | **EF10 RELEASED / PUBLIÉ** — API exacte finie stable figée dans v2.0.0. |
-| Contre-modèles de non-circularité (`n = 2`) | Clos. Niveau poids (`grain_does_not_imply_born_at_two`, `BornCalibration/NonCircularity.lean`) et niveau décision (`decision_premises_do_not_imply_born_at_two`, `BornCalibration/DecisionNonCircularity.lean`) ; chacun montre que `3 ≤ n` dans `born_expectation_of_invariance` est indispensable, pas une clause de confort. |
+| Contre-modèles de non-circularité (`n = 2`) | Clos. Niveau poids (`grain_does_not_imply_born_at_two`, `BornCalibration/NonCircularity.lean`), niveau décision (`decision_premises_do_not_imply_born_at_two`, `BornCalibration/DecisionNonCircularity.lean`) et niveau mesure-de-projection (`skewProjMeasure_not_representable`, `BornCalibration/NonCircularity.lean`) ; chacun montre que `3 ≤ n` dans `born_expectation_of_invariance` est indispensable, pas une clause de confort. Le résultat niveau mesure est un témoin ponctuel (une `ProjMeasure 2` non représentable), pas une affirmation qu'aucune mesure en dimension 2 n'est représentable. |
 
 ### Structure du dépôt
 
