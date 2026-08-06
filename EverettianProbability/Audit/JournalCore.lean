@@ -22,10 +22,16 @@ and the results it composes:
 - the Grain bridge (`refinementInvariantLocal_iff_axGrain`) and the headline
   conditional theorem it feeds (`born_expectation_of_invariance`);
 - the weight-level countermodel (`grain_does_not_imply_born_at_two`);
-- the new decision-level infrastructure and countermodel
+- the decision-level infrastructure and countermodel
   (`skewExpectationFamily`, `skewExpectationFamily_canonicalWeight_eq`,
   `skewExpectationFamily_refinementInvariantLocal`,
   `decision_premises_do_not_imply_born_at_two`);
+- the new projection-measure-level countermodel (`skewProjMeasure`,
+  `skewProjMeasure_not_representable`,
+  `exists_nonrepresentable_projMeasure_two`): a dimension-two
+  `Gleason.ProjMeasure` representable by no density operator via
+  `Gleason.bornValue`, completing the weight-level and decision-level
+  countermodels with a third, measure-level witness;
 - the two rival-weight witnesses (`globalPremise_vacuous`,
   `uniformExpectationFamily_globalPremise_vacuous`,
   `naiveCounting_violates_grain`, `fourthPowerWeight_not_axNorm`);
@@ -49,10 +55,16 @@ niveau décision et des résultats qu'il compose :
 - le pont vers Grain (`refinementInvariantLocal_iff_axGrain`) et le théorème
   conditionnel principal qu'il alimente (`born_expectation_of_invariance`) ;
 - le contre-modèle niveau poids (`grain_does_not_imply_born_at_two`) ;
-- la nouvelle infrastructure et le contre-modèle niveau décision
+- l'infrastructure et le contre-modèle niveau décision
   (`skewExpectationFamily`, `skewExpectationFamily_canonicalWeight_eq`,
   `skewExpectationFamily_refinementInvariantLocal`,
   `decision_premises_do_not_imply_born_at_two`) ;
+- le nouveau contre-modèle niveau mesure-de-projection (`skewProjMeasure`,
+  `skewProjMeasure_not_representable`,
+  `exists_nonrepresentable_projMeasure_two`) : une `Gleason.ProjMeasure` en
+  dimension 2 représentable par aucun opérateur densité au sens de
+  `Gleason.bornValue`, complétant les contre-modèles niveau poids et niveau
+  décision par un troisième témoin, niveau mesure ;
 - les deux témoins de poids rivaux (`globalPremise_vacuous`,
   `uniformExpectationFamily_globalPremise_vacuous`,
   `naiveCounting_violates_grain`, `fourthPowerWeight_not_axNorm`) ;
@@ -83,6 +95,9 @@ open EverettianProbability.API.Conditional
 #check @skewExpectationFamily_canonicalWeight_eq
 #check @skewExpectationFamily_refinementInvariantLocal
 #check @decision_premises_do_not_imply_born_at_two
+#check @skewProjMeasure
+#check @skewProjMeasure_not_representable
+#check @exists_nonrepresentable_projMeasure_two
 #check @globalPremise_vacuous
 #check @uniformExpectationFamily_globalPremise_vacuous
 #check @naiveCounting_violates_grain
@@ -101,6 +116,9 @@ open EverettianProbability.API.Conditional
 #print axioms EverettianProbability.BornCalibration.skewExpectationFamily_canonicalWeight_eq
 #print axioms EverettianProbability.BornCalibration.skewExpectationFamily_refinementInvariantLocal
 #print axioms EverettianProbability.BornCalibration.decision_premises_do_not_imply_born_at_two
+#print axioms EverettianProbability.BornCalibration.skewProjMeasure
+#print axioms EverettianProbability.BornCalibration.skewProjMeasure_not_representable
+#print axioms EverettianProbability.BornCalibration.exists_nonrepresentable_projMeasure_two
 #print axioms EverettianProbability.Refinement.globalPremise_vacuous
 #print axioms EverettianProbability.Refinement.uniformExpectationFamily_globalPremise_vacuous
 #print axioms EverettianProbability.Rivals.naiveCounting_violates_grain

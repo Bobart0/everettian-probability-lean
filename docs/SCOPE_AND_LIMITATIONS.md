@@ -166,6 +166,21 @@ de P6b.
   premier réfute « Grain+Norm+Pos+Null (poids) ⟹ Born », le second réfute
   « Grain+Norm+Pos+Null (décision, via une famille d'espérance rationnelle) ⟹
   Born ».
+- **Contre-modèle niveau mesure-de-projection.** `skewProjMeasure`
+  (`NonCircularity.lean`) promeut `skewWeight witnessState` en
+  `Gleason.ProjMeasure 2` (`μ A := skewF (‖projL A witnessState‖²)`),
+  légitime puisque `skewWeight` ne dépend déjà pas de la perspective.
+  `skewProjMeasure_not_representable` montre que cette mesure n'est
+  représentable par AUCUN opérateur densité au sens de `Gleason.bornValue` :
+  toute tentative de représentation force, par un argument d'annihilation du
+  noyau puis d'épinglage (`eq_projL_of_vanishes_on_orthogonal`, valable ici
+  sans `3 ≤ n`), `ρ = projL (ℂ∙witnessState)` — qui contredit ensuite
+  `witnessLine_skewWeight_ne_born` (`81/337 ≠ 9/25`) sur `witnessLine`. Ce
+  résultat est un **témoin ponctuel** : il n'affirme pas qu'aucune mesure
+  projective en dimension 2 n'est représentable, seulement que
+  `skewProjMeasure` spécifiquement ne l'est pas — exactement comme les deux
+  contre-modèles ci-dessus ne réfutent qu'une conjonction précise de
+  prémisses, pas la formule de Born elle-même en dimension 2.
 - La restriction de dimension (`3 ≤ n` dans `born_expectation_of_invariance`)
   est une hypothèse **explicite et indispensable**, distincte des prémisses
   normatives elles-mêmes : c'est précisément ce que les deux contre-modèles
@@ -361,6 +376,21 @@ read as automatically resolving every stronger historical formulation of P6b.
   "Grain+Norm+Pos+Null (weight) ⟹ Born", the second refutes
   "Grain+Norm+Pos+Null (decision, via a rational expectation family) ⟹
   Born".
+- **Projection-measure-level countermodel.** `skewProjMeasure`
+  (`NonCircularity.lean`) promotes `skewWeight witnessState` to a
+  `Gleason.ProjMeasure 2` (`μ A := skewF (‖projL A witnessState‖²)`),
+  legitimate since `skewWeight` already does not depend on the perspective.
+  `skewProjMeasure_not_representable` shows this measure is representable by
+  NO density operator in the sense of `Gleason.bornValue`: any attempted
+  representation forces, via a kernel-annihilation argument followed by
+  pinning (`eq_projL_of_vanishes_on_orthogonal`, valid here without
+  `3 ≤ n`), `ρ = projL (ℂ∙witnessState)` — which then contradicts
+  `witnessLine_skewWeight_ne_born` (`81/337 ≠ 9/25`) on `witnessLine`. This
+  result is a **pointwise witness**: it does not claim that no projective
+  measure in dimension 2 is representable, only that `skewProjMeasure`
+  specifically is not — exactly as the two countermodels above refute only
+  a precise conjunction of premises, not the Born formula itself at
+  dimension 2.
 - The dimension restriction (`3 ≤ n` in `born_expectation_of_invariance`) is
   an **explicit and indispensable** hypothesis, distinct from the normative
   premises themselves: this is exactly what the two countermodels above

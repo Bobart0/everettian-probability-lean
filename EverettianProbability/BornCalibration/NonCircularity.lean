@@ -68,6 +68,7 @@ namespace EverettianProbability.BornCalibration
 open QuantumFoundations.ProbabilityAPI
 open QuantumFoundations.Uhlhorn (projL_singleton_unit)
 open scoped Classical
+open scoped InnerProductSpace
 
 /-! ## Structural classification of perspectives in `H 2` -/
 
@@ -464,5 +465,181 @@ theorem grain_does_not_imply_born_at_two :
     ?_, ?_⟩
   · exact Finset.mem_insert_self _ _
   · exact witnessLine_skewWeight_ne_born
+
+/-! ## A dimension-two projective measure not representable by any density operator -/
+
+/-- **FR.** Le poids rival `skewWeight witnessState`, promu en mesure
+projective de Gleason (`Gleason.ProjMeasure 2`) en oubliant la dépendance en
+la perspective — ce qui est légitime puisque `skewWeight` ne dépend déjà pas
+de son deuxième argument. `add_isOrtho` se prouve par disjonction `⊥ / ⊤ /
+propre-non-nul`, le dernier cas forçant `B = Aᗮ` par égalité de dimension
+puis se concluant par l'identité pythagoricienne (via
+`Perspective.binary A hA0 hA2`, comme dans `skewWeight_axNorm`) et
+`skewF_add_symm`.
+
+**EN.** The rival weight `skewWeight witnessState`, promoted to a Gleason
+projective measure (`Gleason.ProjMeasure 2`) by forgetting the perspective
+argument — legitimate since `skewWeight` already does not depend on its
+second argument. `add_isOrtho` is proved by a `⊥ / ⊤ / proper-nonzero` case
+split, the last case forcing `B = Aᗮ` by dimension equality and then closing
+via the Pythagorean identity (through `Perspective.binary A hA0 hA2`, as in
+`skewWeight_axNorm`) and `skewF_add_symm`. -/
+noncomputable def skewProjMeasure : Gleason.ProjMeasure 2 where
+  μ A := skewF (‖projL A witnessState‖ ^ 2)
+  nonneg _ := skewF_nonneg _
+  top_eq_one := by
+    show skewF (‖projL (⊤ : Submodule ℂ (H 2)) witnessState‖ ^ 2) = 1
+    rw [projL_top_id]
+    simp [witnessState_norm, skewF_one]
+  add_isOrtho A B hAB := by
+    show skewF (‖projL (A ⊔ B) witnessState‖ ^ 2)
+        = skewF (‖projL A witnessState‖ ^ 2) + skewF (‖projL B witnessState‖ ^ 2)
+    rcases eq_or_ne A ⊥ with hA0 | hA0
+    · subst hA0
+      simp [projL, Submodule.starProjection_bot, skewF_zero]
+    · rcases eq_or_ne A ⊤ with hA2 | hA2
+      · subst hA2
+        have hBorthtop : Bᗮ = (⊤ : Submodule ℂ (H 2)) := top_unique hAB
+        have hB0 : B = ⊥ := by
+          have hcong := congrArg Submodule.orthogonal hBorthtop
+          rwa [Submodule.orthogonal_orthogonal, Submodule.top_orthogonal_eq_bot] at hcong
+        subst hB0
+        simp [projL, Submodule.starProjection_bot, skewF_zero]
+      · rcases eq_or_ne B ⊥ with hB0 | hB0
+        · subst hB0
+          simp [projL, Submodule.starProjection_bot, skewF_zero]
+        · have hBleAorth : B ≤ Aᗮ := hAB.symm
+          have hfinAorth : Module.finrank ℂ Aᗮ = 1 := orthogonal_finrank_eq_one hA0 hA2
+          have hfinBpos : 0 < Module.finrank ℂ B := finrank_pos_of_ne_bot hB0
+          have hBeq : B = Aᗮ := Submodule.eq_of_le_of_finrank_le hBleAorth (by omega)
+          subst hBeq
+          have hAne : A ≠ Aᗮ := ne_orthogonal_of_proper hA0 hA2
+          have htop : (Perspective.binary A hA0 hA2).cells.sup id = (⊤ : Submodule ℂ (H 2)) := by
+            rw [Finset.sup_id_eq_sSup]; exact (Perspective.binary A hA0 hA2).span
+          have hpyth := QuantumFoundations.BornRule.sum_sq_projL_of_pairwise_isOrtho
+            (Perspective.binary A hA0 hA2).cells (Perspective.binary A hA0 hA2).ortho
+            witnessState
+          rw [htop, projL_top_id] at hpyth
+          simp only [LinearMap.id_coe, id_eq, witnessState_norm, one_pow] at hpyth
+          have hcells : (Perspective.binary A hA0 hA2).cells = {A, Aᗮ} := rfl
+          rw [hcells, Finset.sum_insert (by simpa using hAne), Finset.sum_singleton] at hpyth
+          rw [show A ⊔ Aᗮ = (⊤ : Submodule ℂ (H 2)) from
+            Submodule.sup_orthogonal_of_hasOrthogonalProjection]
+          rw [projL_top_id]
+          simp only [LinearMap.id_coe, id_eq, witnessState_norm, one_pow]
+          rw [skewF_one,
+            show ‖projL Aᗮ witnessState‖ ^ 2 = 1 - ‖projL A witnessState‖ ^ 2 from by
+              linarith [hpyth]]
+          exact (skewF_add_symm _).symm
+
+/-- **FR.** `⟪P_A v, v⟫.re = ‖P_A v‖²` pour toute projection orthogonale
+`P_A` : décomposition `v = (v - P_A v) + P_A v` avec `P_A v ∈ A` et
+`v - P_A v ∈ Aᗮ` (orthogonaux), donc `⟪P_A v, v⟫ = ⟪P_A v, P_A v⟫ = ‖P_A v‖²`.
+
+**EN.** `⟪P_A v, v⟫.re = ‖P_A v‖²` for any orthogonal projection `P_A`:
+decompose `v = (v - P_A v) + P_A v` with `P_A v ∈ A` and `v - P_A v ∈ Aᗮ`
+(orthogonal), so `⟪P_A v, v⟫ = ⟪P_A v, P_A v⟫ = ‖P_A v‖²`. -/
+private theorem inner_projL_self_re_eq_normSq (A : Submodule ℂ (H 2)) (v : H 2) :
+    (⟪projL A v, v⟫_ℂ).re = ‖projL A v‖ ^ 2 := by
+  have hp : projL A v = A.starProjection v := by
+    unfold projL; rw [ContinuousLinearMap.coe_coe]
+  rw [hp]
+  have hmem : A.starProjection v ∈ A := Submodule.starProjection_apply_mem A v
+  have hcompl : v - A.starProjection v ∈ Aᗮ := Submodule.sub_starProjection_mem_orthogonal v
+  have horth : ⟪A.starProjection v, v - A.starProjection v⟫_ℂ = 0 :=
+    (Submodule.mem_orthogonal A (v - A.starProjection v)).mp hcompl (A.starProjection v) hmem
+  have hsplit : v = (v - A.starProjection v) + A.starProjection v := by abel
+  have hval : ⟪A.starProjection v, v⟫_ℂ = (‖A.starProjection v‖ : ℂ) ^ 2 := by
+    calc ⟪A.starProjection v, v⟫_ℂ
+        = ⟪A.starProjection v, (v - A.starProjection v) + A.starProjection v⟫_ℂ := by
+          rw [← hsplit]
+      _ = ⟪A.starProjection v, v - A.starProjection v⟫_ℂ
+          + ⟪A.starProjection v, A.starProjection v⟫_ℂ := by rw [inner_add_right]
+      _ = ⟪A.starProjection v, A.starProjection v⟫_ℂ := by rw [horth, zero_add]
+      _ = (‖A.starProjection v‖ : ℂ) ^ 2 := inner_self_eq_norm_sq_to_K _
+  rw [hval, ← Complex.ofReal_pow, Complex.ofReal_re]
+
+/-- **FR.** **Témoin de non-représentabilité en dimension 2.** `skewProjMeasure`
+n'est représentable par AUCUN opérateur densité au sens de `Gleason.bornValue`.
+Preuve : (1) `hker`, une annihilation du noyau reconstruite localement par
+redimensionnement (même schéma que `hker_derivation`, mais partant
+directement de `hrep` plutôt que de `AxNul`/`g`, donc valable sans `3 ≤ n`) ;
+(2) épinglage via `eq_projL_of_vanishes_on_orthogonal` (utilisable en
+dimension 2) donnant `ρ = projL (ℂ∙witnessState)` ; (3) contradiction
+rationnelle exacte sur `witnessLine`, via `witnessLine_skewWeight_ne_born` et
+`witness_x`.
+
+**EN.** **Non-representability witness in dimension 2.** `skewProjMeasure`
+is representable by NO density operator in the sense of `Gleason.bornValue`.
+Proof: (1) `hker`, a kernel-annihilation fact locally reconstructed by
+rescaling (same scheme as `hker_derivation`, but starting directly from
+`hrep` rather than `AxNul`/`g`, hence valid without `3 ≤ n`); (2) pinning via
+`eq_projL_of_vanishes_on_orthogonal` (usable in dimension 2) giving
+`ρ = projL (ℂ∙witnessState)`; (3) exact rational contradiction on
+`witnessLine`, via `witnessLine_skewWeight_ne_born` and `witness_x`. -/
+theorem skewProjMeasure_not_representable :
+    ¬ ∃ ρ : H 2 →ₗ[ℂ] H 2, Gleason.IsDensityOperator ρ ∧
+      ∀ A : Submodule ℂ (H 2), skewProjMeasure.μ A = Gleason.bornValue ρ A := by
+  rintro ⟨ρ, hρ, hrep⟩
+  have hker : ∀ w : H 2, ⟪witnessState, w⟫_ℂ = 0 → ρ w = 0 := by
+    intro w hw
+    rcases eq_or_ne w 0 with hw0 | hw0
+    · simp [hw0]
+    · set u : H 2 := (‖w‖⁻¹ : ℂ) • w with hu_def
+      have hwnorm_ne : (‖w‖ : ℂ) ≠ 0 := by exact_mod_cast norm_ne_zero_iff.mpr hw0
+      have hwu : w = (‖w‖ : ℂ) • u := by
+        rw [hu_def, smul_smul, mul_inv_cancel₀ hwnorm_ne, one_smul]
+      have hu_norm : ‖u‖ = 1 := by
+        rw [hu_def, norm_smul, norm_inv, Complex.norm_real, Real.norm_eq_abs,
+          abs_of_nonneg (norm_nonneg w), inv_mul_cancel₀ (norm_ne_zero_iff.mpr hw0)]
+      have hline_eq : (ℂ ∙ w : Submodule ℂ (H 2)) = ℂ ∙ u := by
+        rw [hwu]; exact Submodule.span_singleton_smul_eq (isUnit_iff_ne_zero.mpr hwnorm_ne) u
+      have hwitness_perp : witnessState ∈ (ℂ ∙ w : Submodule ℂ (H 2))ᗮ :=
+        Submodule.mem_orthogonal_singleton_iff_inner_left.mpr hw
+      have hu_perp : witnessState ∈ (ℂ ∙ u : Submodule ℂ (H 2))ᗮ := hline_eq ▸ hwitness_perp
+      have hmu0 : skewProjMeasure.μ (ℂ ∙ u) = 0 := by
+        show skewF (‖projL (ℂ ∙ u) witnessState‖ ^ 2) = 0
+        have hzero : projL (ℂ ∙ u) witnessState = 0 :=
+          (Submodule.starProjection_apply_eq_zero_iff (K := (ℂ ∙ u : Submodule ℂ (H 2)))).mpr
+            hu_perp
+        rw [hzero]; simp [skewF_zero]
+      have hgu0 : (⟪ρ u, u⟫_ℂ).re = 0 := by
+        rw [← Gleason.bornValue_span_singleton ρ u hu_norm, ← hrep (ℂ ∙ u), hmu0]
+      have him_u : (⟪ρ u, u⟫_ℂ).im = 0 := by
+        have hconj : (starRingEnd ℂ) ⟪ρ u, u⟫_ℂ = ⟪u, ρ u⟫_ℂ := inner_conj_symm _ _
+        rw [← hρ.symmetric u u] at hconj
+        exact Complex.conj_eq_iff_im.mp hconj
+      have hρuu0 : ⟪ρ u, u⟫_ℂ = 0 := Complex.ext (by rw [hgu0]; simp) (by rw [him_u]; simp)
+      have hscale : ⟪ρ w, w⟫_ℂ = (((‖w‖ : ℝ) ^ 2 : ℝ) : ℂ) * ⟪ρ u, u⟫_ℂ := by
+        conv_lhs => rw [hwu]
+        rw [map_smul, inner_smul_left, inner_smul_right, Complex.conj_ofReal]
+        push_cast; ring
+      have hρww0 : ⟪ρ w, w⟫_ℂ = 0 := by rw [hscale, hρuu0, mul_zero]
+      exact Gleason.positive_inner_self_eq_zero hρ.symmetric hρ.nonneg hρww0
+  have hpin : ρ = projL (ℂ ∙ witnessState) :=
+    QuantumFoundations.BornRule.eq_projL_of_vanishes_on_orthogonal hρ witnessState_norm hker
+  have hbv : Gleason.bornValue ρ witnessLine = ‖projL witnessLine witnessState‖ ^ 2 := by
+    have hstep : Gleason.bornValue ρ witnessLine
+        = Gleason.bornValue (projL witnessLine) (ℂ ∙ witnessState) := by
+      rw [hpin]
+      unfold Gleason.bornValue
+      rw [LinearMap.trace_comp_comm' (projL witnessLine) (projL (ℂ ∙ witnessState))]
+    rw [hstep, Gleason.bornValue_span_singleton (projL witnessLine) witnessState witnessState_norm]
+    exact inner_projL_self_re_eq_normSq witnessLine witnessState
+  have hcontra : skewProjMeasure.μ witnessLine = ‖projL witnessLine witnessState‖ ^ 2 := by
+    rw [hrep witnessLine, hbv]
+  exact witnessLine_skewWeight_ne_born hcontra
+
+/-- **FR.** Forme existentielle de `skewProjMeasure_not_representable` :
+il existe, en dimension 2, une mesure projective de Gleason qui n'est
+représentable par aucun opérateur densité.
+
+**EN.** Existential form of `skewProjMeasure_not_representable`: in
+dimension 2, there exists a Gleason projective measure representable by no
+density operator. -/
+theorem exists_nonrepresentable_projMeasure_two :
+    ∃ m : Gleason.ProjMeasure 2, ¬∃ ρ : H 2 →ₗ[ℂ] H 2, Gleason.IsDensityOperator ρ ∧
+      ∀ A : Submodule ℂ (H 2), m.μ A = Gleason.bornValue ρ A :=
+  ⟨skewProjMeasure, skewProjMeasure_not_representable⟩
 
 end EverettianProbability.BornCalibration

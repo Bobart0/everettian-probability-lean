@@ -146,6 +146,9 @@ open EverettianProbability.Rivals EverettianProbability.PhysicalRefinement
 #print axioms skewWeight_axNorm
 #print axioms skewWeight_axGrain
 #print axioms grain_does_not_imply_born_at_two
+#print axioms skewProjMeasure
+#print axioms skewProjMeasure_not_representable
+#print axioms exists_nonrepresentable_projMeasure_two
 #print axioms maxExpectation_monotone
 #print axioms maxExpectation_normalized_const
 #print axioms maxExpectation_not_affine
