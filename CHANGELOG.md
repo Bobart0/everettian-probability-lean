@@ -1,6 +1,62 @@
 # Changelog
 
 ## [Unreleased]
+## [2.3.0-journal-audit] - 2026-08-06
+
+### Ajouté
+
+- Contre-modèle niveau mesure-de-projection `EverettianProbability.
+  BornCalibration.skewProjMeasure_not_representable` et sa forme
+  existentielle `exists_nonrepresentable_projMeasure_two`
+  (`BornCalibration/NonCircularity.lean`) : `skewProjMeasure`, une
+  `Gleason.ProjMeasure 2` construite à partir de `skewWeight witnessState`,
+  n'est représentable par aucun opérateur densité au sens de
+  `Gleason.bornValue`. Preuve par annihilation locale du noyau (schéma
+  rescalé, sans `3 ≤ n`), épinglage via
+  `QuantumFoundations.BornRule.eq_projL_of_vanishes_on_orthogonal`
+  (utilisable en dimension 2) et contradiction rationnelle exacte sur
+  `witnessLine` (`81/337 ≠ 9/25`, via `witnessLine_skewWeight_ne_born` et
+  `witness_x`). Complète les contre-modèles niveau poids
+  (`grain_does_not_imply_born_at_two`) et niveau décision
+  (`decision_premises_do_not_imply_born_at_two`) déjà existants par un
+  troisième témoin, niveau mesure. Ce résultat est un témoin ponctuel : il
+  n'affirme pas qu'aucune mesure projective en dimension 2 n'est
+  représentable.
+- Audits de publication `Audit/JournalCore.lean` et `Audit/MainResults.lean`
+  étendus (`#check`/`#print axioms`) au nouveau contre-modèle niveau mesure,
+  sans régression sur la base de confiance existante
+  (`[propext, Classical.choice, Quot.sound]`).
+- Documentation (`README.md`, `CLAIM_MATRIX.md`,
+  `docs/SCOPE_AND_LIMITATIONS.md`) mise à jour pour distinguer les trois
+  niveaux de contre-modèle (poids, décision, mesure-de-projection).
+
+### Added
+
+- Projection-measure-level countermodel `EverettianProbability.
+  BornCalibration.skewProjMeasure_not_representable` and its existential
+  form `exists_nonrepresentable_projMeasure_two`
+  (`BornCalibration/NonCircularity.lean`): `skewProjMeasure`, a
+  `Gleason.ProjMeasure 2` built from `skewWeight witnessState`, is
+  representable by no density operator in the sense of
+  `Gleason.bornValue`. Proved via local kernel annihilation (a rescaling
+  argument, without `3 ≤ n`), pinning through
+  `QuantumFoundations.BornRule.eq_projL_of_vanishes_on_orthogonal` (usable
+  at dimension 2), and an exact rational contradiction on `witnessLine`
+  (`81/337 ≠ 9/25`, via `witnessLine_skewWeight_ne_born` and `witness_x`).
+  Completes the already-existing weight-level
+  (`grain_does_not_imply_born_at_two`) and decision-level
+  (`decision_premises_do_not_imply_born_at_two`) countermodels with a
+  third, measure-level witness. This result is a pointwise witness: it
+  does not claim that no projective measure in dimension 2 is
+  representable.
+- Publication audits `Audit/JournalCore.lean` and `Audit/MainResults.lean`
+  extended (`#check`/`#print axioms`) to cover the new measure-level
+  countermodel, with no regression to the existing trust base
+  (`[propext, Classical.choice, Quot.sound]`).
+- Documentation (`README.md`, `CLAIM_MATRIX.md`,
+  `docs/SCOPE_AND_LIMITATIONS.md`) updated to distinguish the three
+  countermodel levels (weight, decision, projection-measure).
+
 ## [2.2.2-journal-audit] - 2026-08-04
 
 ### Corrigé

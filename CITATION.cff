@@ -27,6 +27,6 @@ keywords:
   - Lean 4
   - formal verification
 license: Apache-2.0
-version: 2.2.2
-date-released: 2026-08-03
+version: 2.3.0
+date-released: 2026-08-06
 repository-code: "https://github.com/Bobart0/everettian-probability-lean"
