@@ -175,10 +175,14 @@ theorem l0Fine_refines_l0Coarse : Refines l0Fine l0Coarse := by
   · refine ⟨l0Line0, l0Line0_mem_coarse, ?_⟩
     rw [h0, l0Basis3_line_zero]
   · refine ⟨l0Line0ᗮ, l0Line0orth_mem_coarse, ?_⟩
-    rw [h1, l0Basis3_line_one, Submodule.span_singleton_le_iff_mem]
+    rw [h1, l0Basis3_line_one]
+    unfold l0Line1
+    rw [Submodule.span_singleton_le_iff_mem]
     exact l0e1_mem_l0Line0_orthogonal
   · refine ⟨l0Line0ᗮ, l0Line0orth_mem_coarse, ?_⟩
-    rw [h2, l0Basis3_line_two, Submodule.span_singleton_le_iff_mem]
+    rw [h2, l0Basis3_line_two]
+    unfold l0Line2
+    rw [Submodule.span_singleton_le_iff_mem]
     exact l0e2_mem_l0Line0_orthogonal
 
 /-- Unit state with three nonzero amplitudes `3/5`, `12/25`, and `16/25`. -/
