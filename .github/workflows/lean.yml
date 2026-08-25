@@ -47,8 +47,13 @@ jobs:
 
       - name: Consolidated axiom audit
         run: |
+          set -o pipefail
           lake env lean EverettianProbability/Audit/MainResults.lean
-          lake env lean EverettianProbability/Audit/PremiseNecessity.lean
+          lake env lean EverettianProbability/Audit/PremiseNecessity.lean 2>&1 | tee /tmp/premise-necessity-axioms.log
+          if grep -q 'sorryAx' /tmp/premise-necessity-axioms.log; then
+            echo '::error::L0 premise-necessity audit depends on sorryAx'
+            exit 1
+          fi
 
       - name: Upstream QuantumFoundations stable API contract
         run: |
