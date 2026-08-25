@@ -1,0 +1,27 @@
+import EverettianProbability.BornCalibration.DimensionNecessity
+
+/-!
+# L0 premise-necessity audit
+
+This audit closes the JAR L0 countermodel campaign at the level of theorem
+dependencies.  `W1`--`W5` are relative-necessity witnesses for the five
+non-dimensional premises exposed by
+`QuantumFoundations.BornRule.grainCoherenceTheorem_projector`; `W0` separately
+audits sharpness of the ambient-dimension boundary by an explicit model on
+`H 2`.
+
+Each declaration is compiled in the public package closure.  The `#print
+axioms` commands below make any accidental dependence on an open goal visible
+in the same way as the main audit file.
+-/
+
+namespace EverettianProbability.Audit
+
+#print axioms EverettianProbability.BornCalibration.w0_dimension_two_countermodel
+#print axioms EverettianProbability.BornCalibration.w1_remove_axNorm
+#print axioms EverettianProbability.BornCalibration.w2_remove_axNul
+#print axioms EverettianProbability.BornCalibration.w3_remove_unit_norm
+#print axioms EverettianProbability.BornCalibration.w4_remove_axGrain
+#print axioms EverettianProbability.BornCalibration.w5_remove_axPos
+
+end EverettianProbability.Audit
