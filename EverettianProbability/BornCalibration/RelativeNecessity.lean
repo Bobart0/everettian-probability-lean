@@ -57,6 +57,11 @@ theorem l0Line0_ne_top : l0Line0 ≠ ⊤ := by
   rw [h, finrank_top] at h1
   simp at h1
 
+private theorem inner_l0e0_l0e1 : ⟪l0e0, l0e1⟫_ℂ = 0 := by
+  unfold l0e0 l0e1
+  rw [EuclideanSpace.inner_single_left]
+  norm_num
+
 private theorem projL_l0Line0_l0e0 : projL l0Line0 l0e0 = l0e0 := by
   unfold l0Line0
   rw [QuantumFoundations.Uhlhorn.projL_singleton_unit _ _ l0e0_norm]
@@ -64,8 +69,9 @@ private theorem projL_l0Line0_l0e0 : projL l0Line0 l0e0 = l0e0 := by
 
 private theorem projL_l0Line0_l0e1 : projL l0Line0 l0e1 = 0 := by
   unfold l0Line0
-  rw [QuantumFoundations.Uhlhorn.projL_singleton_unit _ _ l0e0_norm]
-  simp [l0e0, l0e1]
+  rw [QuantumFoundations.Uhlhorn.projL_singleton_unit _ _ l0e0_norm,
+    inner_l0e0_l0e1]
+  simp
 
 theorem l0e1_mem_l0Line0_orthogonal : l0e1 ∈ l0Line0ᗮ := by
   have hzero := projL_l0Line0_l0e1
@@ -300,9 +306,9 @@ theorem rhoWeight3_axNorm : AxNorm rhoWeight3 := by
 private theorem rankOne_comp_projL (a b : H 3) (c : Submodule ℂ (H 3)) :
     (InnerProductSpace.rankOne ℂ a b : H 3 →ₗ[ℂ] H 3) ∘ₗ projL c =
       (InnerProductSpace.rankOne ℂ a (projL c b) : H 3 →ₗ[ℂ] H 3) := by
-  ext z
-  simp only [LinearMap.comp_apply, InnerProductSpace.rankOne_apply]
-  change ⟪b, c.starProjection z⟫_ℂ • a = ⟪c.starProjection b, z⟫_ℂ • a
+  ext1 z
+  simp only [LinearMap.comp_apply, projL, ContinuousLinearMap.coe_coe,
+    InnerProductSpace.rankOne_apply]
   rw [(Submodule.starProjection_isSymmetric c b z).symm]
 
 theorem rhoWeight3_axNul : AxNul rhoWeight3 l0e0 := by
@@ -342,9 +348,11 @@ private theorem l0u_one : l0u 1 = (-4 / 5 : ℂ) := by
   norm_num [l0u, l0e0, l0e1]
 
 private theorem l0u_two : l0u 2 = 0 := by
-  norm_num [l0u, l0e0, l0e1]
+  simp [l0u, l0e0, l0e1,
+    show (2 : Fin 3) ≠ (0 : Fin 3) by decide,
+    show (2 : Fin 3) ≠ (1 : Fin 3) by decide]
 
-theorem l0u_norm : ‖l0u‖ = 1 := by
+ theorem l0u_norm : ‖l0u‖ = 1 := by
   rw [EuclideanSpace.norm_eq, Fin.sum_univ_three, l0u_zero, l0u_one, l0u_two]
   norm_num
 
@@ -360,8 +368,8 @@ private theorem inner_l0e1_l0u : ⟪l0e1, l0u⟫_ℂ = (-4 / 5 : ℂ) := by
 
 private theorem l0Rho_quadratic_u :
     (⟪l0Rho l0u, l0u⟫_ℂ).re = -3 / 5 := by
-  simp only [l0Rho, LinearMap.add_apply, InnerProductSpace.rankOne_apply,
-    inner_add_left, inner_smul_left]
+  simp only [l0Rho, LinearMap.add_apply, ContinuousLinearMap.coe_coe,
+    InnerProductSpace.rankOne_apply, inner_add_left, inner_smul_left]
   rw [inner_l0e0_l0u, inner_l0e1_l0u]
   norm_num
 
@@ -386,7 +394,9 @@ private theorem l0x_one : l0x 1 = (4 / 5 : ℂ) := by
   norm_num [l0x, l0e0, l0e1]
 
 private theorem l0x_two : l0x 2 = 0 := by
-  norm_num [l0x, l0e0, l0e1]
+  simp [l0x, l0e0, l0e1,
+    show (2 : Fin 3) ≠ (0 : Fin 3) by decide,
+    show (2 : Fin 3) ≠ (1 : Fin 3) by decide]
 
 theorem l0x_norm : ‖l0x‖ = 1 := by
   rw [EuclideanSpace.norm_eq, Fin.sum_univ_three, l0x_zero, l0x_one, l0x_two]
@@ -403,14 +413,15 @@ private theorem inner_l0e1_l0x : ⟪l0e1, l0x⟫_ℂ = (4 / 5 : ℂ) := by
   norm_num
 
 private theorem inner_l0x_l0e0 : ⟪l0x, l0e0⟫_ℂ = (3 / 5 : ℂ) := by
-  rw [show ⟪l0x, l0e0⟫_ℂ = starRingEnd ℂ ⟪l0e0, l0x⟫_ℂ from inner_conj_symm _ _]
+  rw [show ⟪l0x, l0e0⟫_ℂ = starRingEnd ℂ ⟪l0e0, l0x⟫_ℂ from
+    (inner_conj_symm l0x l0e0).symm]
   rw [inner_l0e0_l0x]
   norm_num
 
 private theorem l0Rho_quadratic_x :
     (⟪l0Rho l0x, l0x⟫_ℂ).re = 33 / 25 := by
-  simp only [l0Rho, LinearMap.add_apply, InnerProductSpace.rankOne_apply,
-    inner_add_left, inner_smul_left]
+  simp only [l0Rho, LinearMap.add_apply, ContinuousLinearMap.coe_coe,
+    InnerProductSpace.rankOne_apply, inner_add_left, inner_smul_left]
   rw [inner_l0e0_l0x, inner_l0e1_l0x]
   norm_num
 
