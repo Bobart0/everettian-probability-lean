@@ -170,14 +170,15 @@ theorem l0Fine_refines_l0Coarse : Refines l0Fine l0Coarse := by
     (fun i : Fin 3 => ℂ ∙ (l0Basis3 i : H 3)) at hc
   rw [Finset.mem_image] at hc
   obtain ⟨i, hi, rfl⟩ := hc
-  fin_cases i
+  have hi_cases : i = 0 ∨ i = 1 ∨ i = 2 := by omega
+  rcases hi_cases with h0 | h1 | h2
   · refine ⟨l0Line0, l0Line0_mem_coarse, ?_⟩
-    rw [l0Basis3_line_zero]
+    rw [h0, l0Basis3_line_zero]
   · refine ⟨l0Line0ᗮ, l0Line0orth_mem_coarse, ?_⟩
-    rw [l0Basis3_line_one, Submodule.span_singleton_le_iff_mem]
+    rw [h1, l0Basis3_line_one, Submodule.span_singleton_le_iff_mem]
     exact l0e1_mem_l0Line0_orthogonal
   · refine ⟨l0Line0ᗮ, l0Line0orth_mem_coarse, ?_⟩
-    rw [l0Basis3_line_two, Submodule.span_singleton_le_iff_mem]
+    rw [h2, l0Basis3_line_two, Submodule.span_singleton_le_iff_mem]
     exact l0e2_mem_l0Line0_orthogonal
 
 /-- Unit state with three nonzero amplitudes `3/5`, `12/25`, and `16/25`. -/
@@ -277,8 +278,8 @@ private theorem l0Line0_ne_l0Line0orth : l0Line0 ≠ l0Line0ᗮ := by
 
 private theorem amplitudeDenom_l0Coarse :
     amplitudeDenom l0vGrain l0Coarse = 7 / 5 := by
-  change (∑ c in ({l0Line0, l0Line0ᗮ} : Finset (Submodule ℂ (H 3))),
-    ‖projL c l0vGrain‖) = 7 / 5
+  change Finset.sum ({l0Line0, l0Line0ᗮ} : Finset (Submodule ℂ (H 3)))
+    (fun c => ‖projL c l0vGrain‖) = 7 / 5
   have hnotmem : l0Line0 ∉ ({l0Line0ᗮ} : Finset (Submodule ℂ (H 3))) := by
     simpa using l0Line0_ne_l0Line0orth
   rw [Finset.sum_insert hnotmem, Finset.sum_singleton,
@@ -287,8 +288,9 @@ private theorem amplitudeDenom_l0Coarse :
 
 private theorem amplitudeDenom_l0Fine :
     amplitudeDenom l0vGrain l0Fine = 43 / 25 := by
-  change (∑ c in Finset.univ.image
-      (fun i : Fin 3 => ℂ ∙ (l0Basis3 i : H 3)), ‖projL c l0vGrain‖) = 43 / 25
+  change Finset.sum (Finset.univ.image
+      (fun i : Fin 3 => ℂ ∙ (l0Basis3 i : H 3)))
+      (fun c => ‖projL c l0vGrain‖) = 43 / 25
   rw [Finset.sum_image (QuantumFoundations.BornRule.line_injective l0Basis3)]
   rw [Fin.sum_univ_three]
   rw [l0Basis3_line_zero, l0Basis3_line_one, l0Basis3_line_two,
