@@ -221,6 +221,242 @@ theorem w3_remove_unit_norm :
     Perspective.binary l0Line0 l0Line0_ne_bot l0Line0_ne_top, l0Line0,
     Finset.mem_insert_self _ _, bornE0_not_born_for_l0v2_on_line0⟩
 
+/-! ## W5 — remove `AxPos` -/
+
+private theorem span_ne_bot_of_norm_one {z : H 3} (hz : ‖z‖ = 1) :
+    (ℂ ∙ z : Submodule ℂ (H 3)) ≠ ⊥ := by
+  have hz0 : z ≠ 0 := by
+    intro h
+    rw [h, norm_zero] at hz
+    norm_num at hz
+  rw [Submodule.ne_bot_iff]
+  exact ⟨z, Submodule.mem_span_singleton_self z, hz0⟩
+
+private theorem span_ne_top_of_norm_one {z : H 3} (hz : ‖z‖ = 1) :
+    (ℂ ∙ z : Submodule ℂ (H 3)) ≠ ⊤ := by
+  have hz0 : z ≠ 0 := by
+    intro h
+    rw [h, norm_zero] at hz
+    norm_num at hz
+  intro htop
+  have h1 : Module.finrank ℂ (ℂ ∙ z : Submodule ℂ (H 3)) = 1 :=
+    finrank_span_singleton hz0
+  rw [htop, finrank_top] at h1
+  simp at h1
+
+/-- Hermitian trace-one but non-positive operator used by `W5`.
+On `span(l0e0,l0e1)` its matrix is `[[1,1],[1,0]]`. -/
+def l0Rho : H 3 →ₗ[ℂ] H 3 :=
+  (InnerProductSpace.rankOne ℂ l0e0 l0e0 : H 3 →ₗ[ℂ] H 3) +
+  (InnerProductSpace.rankOne ℂ l0e0 l0e1 : H 3 →ₗ[ℂ] H 3) +
+  (InnerProductSpace.rankOne ℂ l0e1 l0e0 : H 3 →ₗ[ℂ] H 3)
+
+/-- Context-independent weight induced by `l0Rho`. -/
+def rhoWeight3 : Perspective 3 → Submodule ℂ (H 3) → ℝ :=
+  fun _ c => Gleason.bornValue l0Rho c
+
+theorem rhoWeight3_axGrain : AxGrain rhoWeight3 := by
+  intro D' D hRefines c hc
+  show Gleason.bornValue l0Rho c =
+    ∑ c' ∈ D'.cells.filter (· ≤ c), Gleason.bornValue l0Rho c'
+  have hsum := Gleason.bornValue_sum_of_pairwise_isOrtho l0Rho
+    (D'.cells.filter (· ≤ c)) id
+    (fun c' hc' c'' hc'' hne =>
+      D'.ortho c' (Finset.mem_filter.mp hc').1
+        c'' (Finset.mem_filter.mp hc'').1 hne)
+  have hsup := refine_filter_sup_eq D' D hRefines c hc
+  rw [hsup] at hsum
+  simpa using hsum
+
+private theorem l0Rho_trace_one : LinearMap.trace ℂ (H 3) l0Rho = 1 := by
+  unfold l0Rho
+  simp only [map_add, InnerProductSpace.trace_rankOne]
+  simp [l0e0, l0e1, EuclideanSpace.inner_single_left]
+
+private theorem l0Rho_bornValue_top :
+    Gleason.bornValue l0Rho (⊤ : Submodule ℂ (H 3)) = 1 := by
+  unfold Gleason.bornValue
+  have hproj : projL (⊤ : Submodule ℂ (H 3)) = LinearMap.id := by
+    unfold projL
+    rw [Submodule.starProjection_top]
+    rfl
+  rw [hproj]
+  have hcomp : l0Rho ∘ₗ (LinearMap.id : H 3 →ₗ[ℂ] H 3) = l0Rho := by
+    ext z
+    rfl
+  rw [hcomp, l0Rho_trace_one]
+  norm_num
+
+theorem rhoWeight3_axNorm : AxNorm rhoWeight3 := by
+  intro D
+  have htop : D.cells.sup id = (⊤ : Submodule ℂ (H 3)) := by
+    rw [Finset.sup_id_eq_sSup]
+    exact D.span
+  have hsum := Gleason.bornValue_sum_of_pairwise_isOrtho l0Rho D.cells id
+    (fun c hc c' hc' hne => D.ortho c hc c' hc' hne)
+  rw [htop, l0Rho_bornValue_top] at hsum
+  simpa [rhoWeight3] using hsum.symm
+
+private theorem rankOne_comp_projL (a b : H 3) (c : Submodule ℂ (H 3)) :
+    (InnerProductSpace.rankOne ℂ a b : H 3 →ₗ[ℂ] H 3) ∘ₗ projL c =
+      (InnerProductSpace.rankOne ℂ a (projL c b) : H 3 →ₗ[ℂ] H 3) := by
+  ext z
+  simp only [LinearMap.comp_apply, InnerProductSpace.rankOne_apply]
+  change ⟪b, c.starProjection z⟫_ℂ • a = ⟪c.starProjection b, z⟫_ℂ • a
+  rw [(Submodule.starProjection_isSymmetric c b z).symm]
+
+theorem rhoWeight3_axNul : AxNul rhoWeight3 l0e0 := by
+  intro D c hc hv
+  show Gleason.bornValue l0Rho c = 0
+  have hpv : projL c l0e0 = 0 := by
+    change c.starProjection l0e0 = 0
+    exact (Submodule.starProjection_apply_eq_zero_iff c).mpr hv
+  have hpw_mem : projL c l0e1 ∈ c := by
+    change c.starProjection l0e1 ∈ c
+    exact Submodule.starProjection_apply_mem c l0e1
+  have hcross : ⟪projL c l0e1, l0e0⟫_ℂ = 0 :=
+    (Submodule.mem_orthogonal c l0e0).mp hv _ hpw_mem
+  unfold Gleason.bornValue
+  have hcomp :
+      l0Rho ∘ₗ projL c =
+        ((InnerProductSpace.rankOne ℂ l0e0 l0e0 : H 3 →ₗ[ℂ] H 3) ∘ₗ projL c) +
+        ((InnerProductSpace.rankOne ℂ l0e0 l0e1 : H 3 →ₗ[ℂ] H 3) ∘ₗ projL c) +
+        ((InnerProductSpace.rankOne ℂ l0e1 l0e0 : H 3 →ₗ[ℂ] H 3) ∘ₗ projL c) := by
+    ext z
+    simp [l0Rho, LinearMap.comp_apply]
+  rw [hcomp,
+    rankOne_comp_projL l0e0 l0e0 c,
+    rankOne_comp_projL l0e0 l0e1 c,
+    rankOne_comp_projL l0e1 l0e0 c]
+  simp only [map_add, InnerProductSpace.trace_rankOne, Complex.add_re]
+  rw [hpv, hcross]
+  simp
+
+/-- Unit vector at which the W5 operator has negative quadratic form. -/
+def l0u : H 3 := (3 / 5 : ℂ) • l0e0 - (4 / 5 : ℂ) • l0e1
+
+private theorem l0u_zero : l0u 0 = (3 / 5 : ℂ) := by
+  norm_num [l0u, l0e0, l0e1]
+
+private theorem l0u_one : l0u 1 = (-4 / 5 : ℂ) := by
+  norm_num [l0u, l0e0, l0e1]
+
+private theorem l0u_two : l0u 2 = 0 := by
+  norm_num [l0u, l0e0, l0e1]
+
+theorem l0u_norm : ‖l0u‖ = 1 := by
+  rw [EuclideanSpace.norm_eq, Fin.sum_univ_three, l0u_zero, l0u_one, l0u_two]
+  norm_num
+
+private theorem inner_l0e0_l0u : ⟪l0e0, l0u⟫_ℂ = (3 / 5 : ℂ) := by
+  unfold l0e0
+  rw [EuclideanSpace.inner_single_left, l0u_zero]
+  norm_num
+
+private theorem inner_l0e1_l0u : ⟪l0e1, l0u⟫_ℂ = (-4 / 5 : ℂ) := by
+  unfold l0e1
+  rw [EuclideanSpace.inner_single_left, l0u_one]
+  norm_num
+
+private theorem l0Rho_quadratic_u :
+    (⟪l0Rho l0u, l0u⟫_ℂ).re = -3 / 5 := by
+  simp only [l0Rho, LinearMap.add_apply, InnerProductSpace.rankOne_apply,
+    inner_add_left, inner_smul_left]
+  rw [inner_l0e0_l0u, inner_l0e1_l0u]
+  norm_num
+
+theorem rhoWeight3_not_axPos : ¬ AxPos rhoWeight3 := by
+  intro hPos
+  have h := hPos
+    (Perspective.binary (ℂ ∙ l0u) (span_ne_bot_of_norm_one l0u_norm)
+      (span_ne_top_of_norm_one l0u_norm))
+    (ℂ ∙ l0u) (Finset.mem_insert_self _ _)
+  change 0 ≤ Gleason.bornValue l0Rho (ℂ ∙ l0u) at h
+  rw [Gleason.bornValue_span_singleton l0Rho l0u l0u_norm,
+    l0Rho_quadratic_u] at h
+  norm_num at h
+
+/-- Unit vector giving an explicit mismatch with the Born weight of `l0e0`. -/
+def l0x : H 3 := (3 / 5 : ℂ) • l0e0 + (4 / 5 : ℂ) • l0e1
+
+private theorem l0x_zero : l0x 0 = (3 / 5 : ℂ) := by
+  norm_num [l0x, l0e0, l0e1]
+
+private theorem l0x_one : l0x 1 = (4 / 5 : ℂ) := by
+  norm_num [l0x, l0e0, l0e1]
+
+private theorem l0x_two : l0x 2 = 0 := by
+  norm_num [l0x, l0e0, l0e1]
+
+theorem l0x_norm : ‖l0x‖ = 1 := by
+  rw [EuclideanSpace.norm_eq, Fin.sum_univ_three, l0x_zero, l0x_one, l0x_two]
+  norm_num
+
+private theorem inner_l0e0_l0x : ⟪l0e0, l0x⟫_ℂ = (3 / 5 : ℂ) := by
+  unfold l0e0
+  rw [EuclideanSpace.inner_single_left, l0x_zero]
+  norm_num
+
+private theorem inner_l0e1_l0x : ⟪l0e1, l0x⟫_ℂ = (4 / 5 : ℂ) := by
+  unfold l0e1
+  rw [EuclideanSpace.inner_single_left, l0x_one]
+  norm_num
+
+private theorem inner_l0x_l0e0 : ⟪l0x, l0e0⟫_ℂ = (3 / 5 : ℂ) := by
+  rw [show ⟪l0x, l0e0⟫_ℂ = starRingEnd ℂ ⟪l0e0, l0x⟫_ℂ from inner_conj_symm _ _]
+  rw [inner_l0e0_l0x]
+  norm_num
+
+private theorem l0Rho_quadratic_x :
+    (⟪l0Rho l0x, l0x⟫_ℂ).re = 33 / 25 := by
+  simp only [l0Rho, LinearMap.add_apply, InnerProductSpace.rankOne_apply,
+    inner_add_left, inner_smul_left]
+  rw [inner_l0e0_l0x, inner_l0e1_l0x]
+  norm_num
+
+private theorem projL_l0x_l0e0 :
+    projL (ℂ ∙ l0x) l0e0 = (3 / 5 : ℂ) • l0x := by
+  rw [QuantumFoundations.Uhlhorn.projL_singleton_unit l0x l0e0 l0x_norm,
+    inner_l0x_l0e0]
+
+private theorem born_l0x_for_l0e0 :
+    ‖projL (ℂ ∙ l0x) l0e0‖ ^ 2 = 9 / 25 := by
+  rw [projL_l0x_l0e0, norm_smul, l0x_norm]
+  norm_num
+
+theorem rhoWeight3_not_born_on_l0x :
+    rhoWeight3
+        (Perspective.binary (ℂ ∙ l0x) (span_ne_bot_of_norm_one l0x_norm)
+          (span_ne_top_of_norm_one l0x_norm))
+        (ℂ ∙ l0x) ≠
+      ‖projL (ℂ ∙ l0x) l0e0‖ ^ 2 := by
+  change Gleason.bornValue l0Rho (ℂ ∙ l0x) ≠ ‖projL (ℂ ∙ l0x) l0e0‖ ^ 2
+  rw [Gleason.bornValue_span_singleton l0Rho l0x l0x_norm,
+    l0Rho_quadratic_x, born_l0x_for_l0e0]
+  norm_num
+
+/--
+`W5`. Relative necessity of positivity at the exact weight-level interface.
+The trace rule induced by `l0Rho` is Grain-coherent and normalized, has null
+support at the unit state `l0e0`, but is explicitly negative on `l0u` and
+differs from the Born weight of `l0e0` on the explicit line `span(l0x)`.
+-/
+theorem w5_remove_axPos :
+    ∃ (Est : Perspective 3 → Submodule ℂ (H 3) → ℝ) (v : H 3),
+      3 ≤ (3 : ℕ) ∧
+      AxGrain Est ∧
+      AxNorm Est ∧
+      ‖v‖ = 1 ∧
+      AxNul Est v ∧
+      ¬ AxPos Est ∧
+      ∃ (D : Perspective 3) (c : Submodule ℂ (H 3)),
+        c ∈ D.cells ∧ Est D c ≠ ‖projL c v‖ ^ 2 := by
+  refine ⟨rhoWeight3, l0e0, by norm_num, rhoWeight3_axGrain,
+    rhoWeight3_axNorm, l0e0_norm, rhoWeight3_axNul, rhoWeight3_not_axPos,
+    Perspective.binary (ℂ ∙ l0x) (span_ne_bot_of_norm_one l0x_norm)
+      (span_ne_top_of_norm_one l0x_norm),
+    (ℂ ∙ l0x), Finset.mem_insert_self _ _, rhoWeight3_not_born_on_l0x⟩
+
 end
 
 end EverettianProbability.BornCalibration
