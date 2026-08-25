@@ -309,7 +309,11 @@ private theorem rankOne_comp_projL (a b : H 3) (c : Submodule ℂ (H 3)) :
   ext1 z
   simp only [LinearMap.comp_apply, projL, ContinuousLinearMap.coe_coe,
     InnerProductSpace.rankOne_apply]
-  rw [(Submodule.starProjection_isSymmetric c b z).symm]
+  have hsymm :
+      ⟪b, c.starProjection z⟫_ℂ = ⟪c.starProjection b, z⟫_ℂ := by
+    simpa only [ContinuousLinearMap.coe_coe] using
+      (Submodule.starProjection_isSymmetric c b z).symm
+  rw [hsymm]
 
 theorem rhoWeight3_axNul : AxNul rhoWeight3 l0e0 := by
   intro D c hc hv
@@ -352,7 +356,7 @@ private theorem l0u_two : l0u 2 = 0 := by
     show (2 : Fin 3) ≠ (0 : Fin 3) by decide,
     show (2 : Fin 3) ≠ (1 : Fin 3) by decide]
 
- theorem l0u_norm : ‖l0u‖ = 1 := by
+theorem l0u_norm : ‖l0u‖ = 1 := by
   rw [EuclideanSpace.norm_eq, Fin.sum_univ_three, l0u_zero, l0u_one, l0u_two]
   norm_num
 
@@ -371,7 +375,7 @@ private theorem l0Rho_quadratic_u :
   simp only [l0Rho, LinearMap.add_apply, ContinuousLinearMap.coe_coe,
     InnerProductSpace.rankOne_apply, inner_add_left, inner_smul_left]
   rw [inner_l0e0_l0u, inner_l0e1_l0u]
-  norm_num
+  simp <;> norm_num
 
 theorem rhoWeight3_not_axPos : ¬ AxPos rhoWeight3 := by
   intro hPos
@@ -416,14 +420,14 @@ private theorem inner_l0x_l0e0 : ⟪l0x, l0e0⟫_ℂ = (3 / 5 : ℂ) := by
   rw [show ⟪l0x, l0e0⟫_ℂ = starRingEnd ℂ ⟪l0e0, l0x⟫_ℂ from
     (inner_conj_symm l0x l0e0).symm]
   rw [inner_l0e0_l0x]
-  norm_num
+  simp <;> norm_num
 
 private theorem l0Rho_quadratic_x :
     (⟪l0Rho l0x, l0x⟫_ℂ).re = 33 / 25 := by
   simp only [l0Rho, LinearMap.add_apply, ContinuousLinearMap.coe_coe,
     InnerProductSpace.rankOne_apply, inner_add_left, inner_smul_left]
   rw [inner_l0e0_l0x, inner_l0e1_l0x]
-  norm_num
+  simp <;> norm_num
 
 private theorem projL_l0x_l0e0 :
     projL (ℂ ∙ l0x) l0e0 = (3 / 5 : ℂ) • l0x := by
