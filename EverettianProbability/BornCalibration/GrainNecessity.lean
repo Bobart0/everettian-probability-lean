@@ -110,10 +110,9 @@ def l0Line2 : Submodule ℂ (H 3) := ℂ ∙ l0e2
 theorem l0e2_norm : ‖l0e2‖ = 1 := by
   simp [l0e2]
 
-/-- Canonical orthonormal basis of `H 3`, presented through the identity
-isometry so that its vectors reduce definitionally to the computational basis. -/
+/-- Canonical orthonormal basis of `H 3`. -/
 def l0Basis3 : OrthonormalBasis (Fin 3) ℂ (H 3) :=
-  OrthonormalBasis.ofRepr (LinearIsometryEquiv.refl ℂ (H 3))
+  EuclideanSpace.basisFun (Fin 3) ℂ
 
 private theorem l0Basis3_apply (i : Fin 3) :
     (l0Basis3 i : H 3) = EuclideanSpace.single i (1 : ℂ) := by
@@ -133,7 +132,7 @@ private theorem l0Basis3_line_two :
 
 /-- Fine context resolving all three computational lines. -/
 def l0Fine : Perspective 3 :=
-  QuantumFoundations.BornRule.Perspective.basisPerspective l0Basis3
+  QuantumFoundations.BornRule.basisPerspective l0Basis3
 
 /-- Coarse context resolving only the first computational line and its
 orthogonal complement. -/
@@ -155,14 +154,14 @@ private theorem l0Line0orth_mem_coarse : l0Line0ᗮ ∈ l0Coarse.cells := by
 private theorem inner_l0e0_l0e2 : ⟪l0e0, l0e2⟫_ℂ = 0 := by
   unfold l0e0 l0e2
   rw [EuclideanSpace.inner_single_left]
-  norm_num
+  norm_num [show (0 : Fin 3) ≠ (2 : Fin 3) by decide]
 
 private theorem l0e2_mem_l0Line0_orthogonal : l0e2 ∈ l0Line0ᗮ := by
   unfold l0Line0
   rw [Submodule.mem_orthogonal]
   intro x hx
   obtain ⟨a, rfl⟩ := Submodule.mem_span_singleton.mp hx
-  rw [inner_smul_right, inner_l0e0_l0e2, mul_zero]
+  rw [inner_smul_left, inner_l0e0_l0e2, mul_zero]
 
 /-- The standard three-line perspective refines the binary perspective. -/
 theorem l0Fine_refines_l0Coarse : Refines l0Fine l0Coarse := by
@@ -186,13 +185,19 @@ def l0vGrain : H 3 :=
   (3 / 5 : ℂ) • l0e0 + (12 / 25 : ℂ) • l0e1 + (16 / 25 : ℂ) • l0e2
 
 private theorem l0vGrain_zero : l0vGrain 0 = (3 / 5 : ℂ) := by
-  norm_num [l0vGrain, l0e0, l0e1, l0e2]
+  norm_num [l0vGrain, l0e0, l0e1, l0e2,
+    show (0 : Fin 3) ≠ (1 : Fin 3) by decide,
+    show (0 : Fin 3) ≠ (2 : Fin 3) by decide]
 
 private theorem l0vGrain_one : l0vGrain 1 = (12 / 25 : ℂ) := by
-  norm_num [l0vGrain, l0e0, l0e1, l0e2]
+  norm_num [l0vGrain, l0e0, l0e1, l0e2,
+    show (1 : Fin 3) ≠ (0 : Fin 3) by decide,
+    show (1 : Fin 3) ≠ (2 : Fin 3) by decide]
 
 private theorem l0vGrain_two : l0vGrain 2 = (16 / 25 : ℂ) := by
-  norm_num [l0vGrain, l0e0, l0e1, l0e2]
+  norm_num [l0vGrain, l0e0, l0e1, l0e2,
+    show (2 : Fin 3) ≠ (0 : Fin 3) by decide,
+    show (2 : Fin 3) ≠ (1 : Fin 3) by decide]
 
 theorem l0vGrain_norm : ‖l0vGrain‖ = 1 := by
   rw [EuclideanSpace.norm_eq, Fin.sum_univ_three,
@@ -266,19 +271,23 @@ private theorem l0Line0_ne_l0Line0orth : l0Line0 ≠ l0Line0ᗮ := by
   have hz : ⟪l0e0, l0e0⟫_ℂ = 0 :=
     (Submodule.mem_orthogonal l0Line0 l0e0).mp horth l0e0 hmem
   have he0 : l0e0 = 0 := inner_self_eq_zero.mp hz
-  rw [he0, norm_zero] at l0e0_norm
-  norm_num at l0e0_norm
+  have hnorm := l0e0_norm
+  rw [he0, norm_zero] at hnorm
+  norm_num at hnorm
 
 private theorem amplitudeDenom_l0Coarse :
     amplitudeDenom l0vGrain l0Coarse = 7 / 5 := by
-  simp [amplitudeDenom, l0Coarse, l0Line0_ne_l0Line0orth,
+  change (∑ c in ({l0Line0, l0Line0ᗮ} : Finset (Submodule ℂ (H 3))),
+    ‖projL c l0vGrain‖) = 7 / 5
+  have hnotmem : l0Line0 ∉ ({l0Line0ᗮ} : Finset (Submodule ℂ (H 3))) := by
+    simpa using l0Line0_ne_l0Line0orth
+  rw [Finset.sum_insert hnotmem, Finset.sum_singleton,
     projL_l0Line0_l0vGrain_norm, projL_l0Line0orth_l0vGrain_norm]
   norm_num
 
 private theorem amplitudeDenom_l0Fine :
     amplitudeDenom l0vGrain l0Fine = 43 / 25 := by
-  unfold amplitudeDenom l0Fine
-  change (∑ c ∈ Finset.univ.image
+  change (∑ c in Finset.univ.image
       (fun i : Fin 3 => ℂ ∙ (l0Basis3 i : H 3)), ‖projL c l0vGrain‖) = 43 / 25
   rw [Finset.sum_image (QuantumFoundations.BornRule.line_injective l0Basis3)]
   rw [Fin.sum_univ_three]
