@@ -26,8 +26,14 @@ noncomputable section
 /-- First computational-basis vector in `H 3`. -/
 def l0e0 : H 3 := EuclideanSpace.single (0 : Fin 3) (1 : ℂ)
 
+/-- Second computational-basis vector in `H 3`. -/
+def l0e1 : H 3 := EuclideanSpace.single (1 : Fin 3) (1 : ℂ)
+
 theorem l0e0_norm : ‖l0e0‖ = 1 := by
   simp [l0e0]
+
+theorem l0e1_norm : ‖l0e1‖ = 1 := by
+  simp [l0e1]
 
 private theorem l0e0_ne_zero : l0e0 ≠ 0 := by
   intro h
@@ -55,6 +61,17 @@ private theorem projL_l0Line0_l0e0 : projL l0Line0 l0e0 = l0e0 := by
   unfold l0Line0
   rw [QuantumFoundations.Uhlhorn.projL_singleton_unit _ _ l0e0_norm]
   simp [l0e0]
+
+private theorem projL_l0Line0_l0e1 : projL l0Line0 l0e1 = 0 := by
+  unfold l0Line0
+  rw [QuantumFoundations.Uhlhorn.projL_singleton_unit _ _ l0e0_norm]
+  simp [l0e0, l0e1]
+
+theorem l0e1_mem_l0Line0_orthogonal : l0e1 ∈ l0Line0ᗮ := by
+  have hzero := projL_l0Line0_l0e1
+  unfold projL at hzero
+  rw [ContinuousLinearMap.coe_coe] at hzero
+  exact (Submodule.starProjection_apply_eq_zero_iff l0Line0).mp hzero
 
 /-! ## W1 — remove `AxNorm` -/
 
@@ -108,6 +125,101 @@ theorem w1_remove_axNorm :
     zeroWeight3_not_axNorm,
     Perspective.binary l0Line0 l0Line0_ne_bot l0Line0_ne_top, l0Line0,
     Finset.mem_insert_self _ _, zeroWeight3_not_born_on_line0⟩
+
+/-! ## W2 — remove `AxNul` -/
+
+/-- The Born weight of `l0e0` violates null support relative to the orthogonal
+unit state `l0e1`. -/
+theorem bornE0_not_axNul_l0e1 : ¬ AxNul (E₀ l0e0) l0e1 := by
+  intro hNul
+  have h := hNul
+    (Perspective.binary l0Line0 l0Line0_ne_bot l0Line0_ne_top)
+    l0Line0 (Finset.mem_insert_self _ _) l0e1_mem_l0Line0_orthogonal
+  change ‖projL l0Line0 l0e0‖ ^ 2 = 0 at h
+  rw [projL_l0Line0_l0e0, l0e0_norm] at h
+  norm_num at h
+
+theorem bornE0_not_born_for_l0e1_on_line0 :
+    E₀ l0e0
+        (Perspective.binary l0Line0 l0Line0_ne_bot l0Line0_ne_top) l0Line0 ≠
+      ‖projL l0Line0 l0e1‖ ^ 2 := by
+  change ‖projL l0Line0 l0e0‖ ^ 2 ≠ ‖projL l0Line0 l0e1‖ ^ 2
+  rw [projL_l0Line0_l0e0, projL_l0Line0_l0e1, l0e0_norm]
+  norm_num
+
+/--
+`W2`. Relative necessity of the exposed canonical null-support premise.
+The retained Grain/Norm/Pos premises are supplied by the ordinary Born weight
+of `l0e0`, while the tested state is the orthogonal unit vector `l0e1`.
+-/
+theorem w2_remove_axNul :
+    ∃ (Est : Perspective 3 → Submodule ℂ (H 3) → ℝ) (v : H 3),
+      3 ≤ (3 : ℕ) ∧
+      AxGrain Est ∧
+      AxNorm Est ∧
+      AxPos Est ∧
+      ‖v‖ = 1 ∧
+      ¬ AxNul Est v ∧
+      ∃ (D : Perspective 3) (c : Submodule ℂ (H 3)),
+        c ∈ D.cells ∧ Est D c ≠ ‖projL c v‖ ^ 2 := by
+  refine ⟨E₀ l0e0, l0e1, by norm_num, E₀_isGrain l0e0,
+    E₀_isNorm l0e0 l0e0_norm, E₀_isPos l0e0, l0e1_norm,
+    bornE0_not_axNul_l0e1,
+    Perspective.binary l0Line0 l0Line0_ne_bot l0Line0_ne_top, l0Line0,
+    Finset.mem_insert_self _ _, bornE0_not_born_for_l0e1_on_line0⟩
+
+/-! ## W3 — remove `‖v‖ = 1` -/
+
+/-- A deliberately non-unit test vector with the same support line as `l0e0`. -/
+def l0v2 : H 3 := (2 : ℂ) • l0e0
+
+theorem l0v2_norm : ‖l0v2‖ = 2 := by
+  simp [l0v2, norm_smul, l0e0_norm]
+
+theorem l0v2_not_unit : ‖l0v2‖ ≠ 1 := by
+  rw [l0v2_norm]
+  norm_num
+
+/-- Null support for the Born weight of `l0e0` is unchanged when the tested
+vector is rescaled by the nonzero scalar `2`. -/
+theorem bornE0_axNul_l0v2 : AxNul (E₀ l0e0) l0v2 := by
+  intro D c hc hv
+  apply E₀_isNul l0e0 D c hc
+  have h := cᗮ.smul_mem (1 / 2 : ℂ) hv
+  simpa [l0v2, smul_smul] using h
+
+private theorem projL_l0Line0_l0v2 : projL l0Line0 l0v2 = l0v2 := by
+  rw [l0v2, map_smul, projL_l0Line0_l0e0]
+
+theorem bornE0_not_born_for_l0v2_on_line0 :
+    E₀ l0e0
+        (Perspective.binary l0Line0 l0Line0_ne_bot l0Line0_ne_top) l0Line0 ≠
+      ‖projL l0Line0 l0v2‖ ^ 2 := by
+  change ‖projL l0Line0 l0e0‖ ^ 2 ≠ ‖projL l0Line0 l0v2‖ ^ 2
+  rw [projL_l0Line0_l0e0, projL_l0Line0_l0v2, l0e0_norm, l0v2_norm]
+  norm_num
+
+/--
+`W3`. Relative necessity of the exposed unit-norm premise. The weight rule is
+Born for the unit vector `l0e0`; the theorem is tested instead at `2 • l0e0`.
+All other exposed premises hold, the norm premise explicitly fails, and the
+exact projector conclusion gives `1 ≠ 4` on `l0Line0`.
+-/
+theorem w3_remove_unit_norm :
+    ∃ (Est : Perspective 3 → Submodule ℂ (H 3) → ℝ) (v : H 3),
+      3 ≤ (3 : ℕ) ∧
+      AxGrain Est ∧
+      AxNorm Est ∧
+      AxPos Est ∧
+      AxNul Est v ∧
+      ‖v‖ ≠ 1 ∧
+      ∃ (D : Perspective 3) (c : Submodule ℂ (H 3)),
+        c ∈ D.cells ∧ Est D c ≠ ‖projL c v‖ ^ 2 := by
+  refine ⟨E₀ l0e0, l0v2, by norm_num, E₀_isGrain l0e0,
+    E₀_isNorm l0e0 l0e0_norm, E₀_isPos l0e0, bornE0_axNul_l0v2,
+    l0v2_not_unit,
+    Perspective.binary l0Line0 l0Line0_ne_bot l0Line0_ne_top, l0Line0,
+    Finset.mem_insert_self _ _, bornE0_not_born_for_l0v2_on_line0⟩
 
 end
 
