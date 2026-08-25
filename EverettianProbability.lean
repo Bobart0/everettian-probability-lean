@@ -23,6 +23,7 @@ import EverettianProbability.BornCalibration.NonCircularity
 import EverettianProbability.BornCalibration.DecisionNonCircularity
 import EverettianProbability.BornCalibration.RelativeNecessity
 import EverettianProbability.BornCalibration.GrainNecessity
+import EverettianProbability.BornCalibration.DimensionNecessity
 import EverettianProbability.BornCalibration.Nonvacuity
 import EverettianProbability.Rivals.NaiveBranchCounting
 import EverettianProbability.Rivals.FourthPowerWeight
