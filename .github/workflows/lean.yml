@@ -46,7 +46,9 @@ jobs:
         run: lake build EverettianProbability
 
       - name: Consolidated axiom audit
-        run: lake env lean EverettianProbability/Audit/MainResults.lean
+        run: |
+          lake env lean EverettianProbability/Audit/MainResults.lean
+          lake env lean EverettianProbability/Audit/PremiseNecessity.lean
 
       - name: Upstream QuantumFoundations stable API contract
         run: |
