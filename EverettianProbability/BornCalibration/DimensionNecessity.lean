@@ -52,10 +52,10 @@ def w0BornMeasure : Gleason.ProjMeasure 2 :=
 private theorem w0_sup_eq_top_of_isOrtho {A B : Submodule ℂ (H 2)}
     (hA : A ≠ ⊥) (hB : B ≠ ⊥) (hAB : A ⟂ B) : A ⊔ B = ⊤ := by
   have hApos : 0 < Module.finrank ℂ A := by
-    rw [finrank_pos_iff]
+    rw [Module.finrank_pos_iff_of_free]
     exact Submodule.nontrivial_iff_ne_bot.mpr hA
   have hBpos : 0 < Module.finrank ℂ B := by
-    rw [finrank_pos_iff]
+    rw [Module.finrank_pos_iff_of_free]
     exact Submodule.nontrivial_iff_ne_bot.mpr hB
   have hdim : Module.finrank ℂ (H 2) ≤ Module.finrank ℂ A + Module.finrank ℂ B := by
     simp
@@ -74,7 +74,6 @@ def w0NonBornMeasure : Gleason.ProjMeasure 2 where
       w0BornMeasure.μ A ^ 2 * (3 - 2 * w0BornMeasure.μ A) by ring]
     exact mul_nonneg (sq_nonneg _) (by linarith)
   top_eq_one := by
-    change w0Smoothstep (w0BornMeasure.μ ⊤) = 1
     rw [w0BornMeasure.top_eq_one]
     norm_num [w0Smoothstep]
   add_isOrtho A B hAB := by
@@ -193,7 +192,7 @@ private theorem inner_w0x_w0e0 : ⟪w0x, w0e0⟫_ℂ = (3 / 5 : ℂ) := by
   rw [show ⟪w0x, w0e0⟫_ℂ = starRingEnd ℂ ⟪w0e0, w0x⟫_ℂ from
     (inner_conj_symm w0x w0e0).symm]
   rw [inner_w0e0_w0x]
-  simp only [starRingEnd_apply, star_natCast]
+  simp only [starRingEnd_apply]
   norm_num
 
 private theorem projL_w0LineX_w0e0_norm : ‖projL w0LineX w0e0‖ = 3 / 5 := by
