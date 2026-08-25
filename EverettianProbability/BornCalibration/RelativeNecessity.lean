@@ -375,7 +375,8 @@ private theorem l0Rho_quadratic_u :
   simp only [l0Rho, LinearMap.add_apply, ContinuousLinearMap.coe_coe,
     InnerProductSpace.rankOne_apply, inner_add_left, inner_smul_left]
   rw [inner_l0e0_l0u, inner_l0e1_l0u]
-  simp <;> norm_num
+  simp only [starRingEnd_apply, star_natCast]
+  norm_num
 
 theorem rhoWeight3_not_axPos : ¬ AxPos rhoWeight3 := by
   intro hPos
@@ -420,14 +421,16 @@ private theorem inner_l0x_l0e0 : ⟪l0x, l0e0⟫_ℂ = (3 / 5 : ℂ) := by
   rw [show ⟪l0x, l0e0⟫_ℂ = starRingEnd ℂ ⟪l0e0, l0x⟫_ℂ from
     (inner_conj_symm l0x l0e0).symm]
   rw [inner_l0e0_l0x]
-  simp <;> norm_num
+  simp only [starRingEnd_apply, star_natCast]
+  norm_num
 
 private theorem l0Rho_quadratic_x :
     (⟪l0Rho l0x, l0x⟫_ℂ).re = 33 / 25 := by
   simp only [l0Rho, LinearMap.add_apply, ContinuousLinearMap.coe_coe,
     InnerProductSpace.rankOne_apply, inner_add_left, inner_smul_left]
   rw [inner_l0e0_l0x, inner_l0e1_l0x]
-  simp <;> norm_num
+  simp only [starRingEnd_apply, star_natCast]
+  norm_num
 
 private theorem projL_l0x_l0e0 :
     projL (ℂ ∙ l0x) l0e0 = (3 / 5 : ℂ) • l0x := by
