@@ -68,6 +68,9 @@ private def l2A : Proj1 2 :=
 private def l2B : Proj1 2 :=
   ⟨ℂ ∙ (l2e0 + l2e1), finrank_span_singleton l2e0_add_l2e1_ne_zero⟩
 
+private def l2Aorth : Proj1 2 := orthogonalProj1Two l2A
+private def l2Borth : Proj1 2 := orthogonalProj1Two l2B
+
 private theorem l2A_ne_l2B : l2A ≠ l2B := by
   intro hAB
   have hsub : (ℂ ∙ l2e0 : Submodule ℂ (H 2)) =
@@ -79,6 +82,22 @@ private theorem l2A_ne_l2B : l2A ≠ l2B := by
   have h1 := congrArg (fun x : H 2 => x (1 : Fin 2)) ha
   norm_num [l2e0, l2e1,
     show (1 : Fin 2) ≠ (0 : Fin 2) by decide] at h1
+
+private theorem l2A_ne_l2Borth : l2A ≠ l2Borth := by
+  intro hABo
+  have hsub : (ℂ ∙ l2e0 : Submodule ℂ (H 2)) =
+      (ℂ ∙ (l2e0 + l2e1) : Submodule ℂ (H 2))ᗮ := by
+    change (l2A : Submodule ℂ (H 2)) =
+      (l2B : Submodule ℂ (H 2))ᗮ
+    exact congrArg Subtype.val hABo
+  have he0orth : l2e0 ∈
+      (ℂ ∙ (l2e0 + l2e1) : Submodule ℂ (H 2))ᗮ := by
+    rw [← hsub]
+    exact Submodule.mem_span_singleton_self l2e0
+  have hz : ⟪l2e0 + l2e1, l2e0⟫_ℂ = 0 :=
+    Submodule.mem_orthogonal_singleton_iff_inner_right.mp he0orth
+  norm_num [l2e0, l2e1,
+    show (0 : Fin 2) ≠ (1 : Fin 2) by decide] at hz
 
 end
 end EverettianProbability.Audit
