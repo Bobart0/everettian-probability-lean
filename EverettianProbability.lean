@@ -96,6 +96,7 @@ import EverettianProbability.Confirmation.FrequencyBatchOdds
 import EverettianProbability.Confirmation.RationalBatchWitness
 import EverettianProbability.Audit.UpstreamQuantumFoundationsAPI
 import EverettianProbability.Audit.PremiseNecessity
+import EverettianProbability.Audit.UhlhornDimensionTwo
 import EverettianProbability.Audit.MainResults
 
 /-!
