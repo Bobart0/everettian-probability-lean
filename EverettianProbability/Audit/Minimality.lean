@@ -103,6 +103,7 @@ theorem normalizedConst_iff_zero_one_of_affine {n : ℕ}
   · rintro ⟨hZero, hOne⟩ D k
     have h := hAffine D k (Act.const 1) (Act.const 0)
     rw [hOne D, hZero D] at h
+    change V D (fun _ => k) = k
     simpa [Act.const] using h
 
 end
