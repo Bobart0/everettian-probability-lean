@@ -21,11 +21,13 @@ premises. It builds on the pinned
 dependency and keeps the distinction between a conditional theorem and a
 derivation of its premises explicit.
 
-The upstream dependency is pinned to `v1.2.1-everettian-api`.
+The upstream dependency is pinned to `v1.3.1-journal-audit` at commit
+`f773ed5694c610af055b82427da27a69d528b776`.
 `EverettianProbability.API.UpstreamQuantumFoundations` is the local import
 boundary for its stable Everettian-facing bundle. It does not identify `NSNC1`,
 ancilla neutrality, and residual neutrality, and no preferred tensor
 factorization is derived.
+
 ### Stable public APIs
 
 ```lean
@@ -68,6 +70,8 @@ upstream, not several independent derivations of Born. See
 | P10 / P11 | Closed in their documented finite conditional scopes; P10 is downstream of calibrated weights and P11 is downstream of P10 masses. |
 | P9 | Partial (`q = 4` witness). |
 | EF10 | **EF10 RELEASED / PUBLIÉ** — stable exact-finite API frozen in v2.0.0. |
+| Journal premise audit | `W0`–`W5` audit dimension sharpness and relative necessity of the separately exposed weight-level Born-calibration premises; `D1`–`D3` lift deletion tests to the rational-expectation interface; L3 audits two formulation-minimality questions. These are relative-necessity/formulation results for fixed interfaces, not a claim of global axiom independence. |
+| Dimension-two Uhlhorn boundary | `Audit/UhlhornDimensionTwo.lean` supplies a one-way orthogonality-preserving map on `Proj1 2` that is not injective. It is a boundary witness for the public one-way/non-bijective interface, not a classification of all dimension-two preservers. |
 | Non-circularity countermodels (`n = 2`) | Closed. Weight-level (`grain_does_not_imply_born_at_two`, `BornCalibration/NonCircularity.lean`), decision-level (`decision_premises_do_not_imply_born_at_two`, `BornCalibration/DecisionNonCircularity.lean`), and projection-measure-level (`skewProjMeasure_not_representable`, `BornCalibration/NonCircularity.lean`) countermodels; each shows `3 ≤ n` in `born_expectation_of_invariance` is indispensable, not a convenience clause. The measure-level result is a pointwise witness (one non-representable `ProjMeasure 2`), not a claim that no dimension-two measure is representable. |
 
 ### Repository structure
@@ -96,12 +100,15 @@ contracts are described in [`docs/API_STABILITY.md`](docs/API_STABILITY.md) and
 lake env lean EverettianProbability/Audit/ConditionalAPIContract.lean
 lake env lean EverettianProbability/Audit/ExactFiniteAPIContract.lean
 lake env lean EverettianProbability/Audit/MainResults.lean
+lake env lean EverettianProbability/Audit/PremiseNecessity.lean
+lake env lean EverettianProbability/Audit/UhlhornDimensionTwo.lean
+lake env lean EverettianProbability/Audit/JournalCore.lean
 lake build
 bash scripts/guard.sh
 ```
 
 See `CITATION.cff` for *Everettian Probability in Lean:
-Refinement-Invariant Rational Expectation*, version `2.0.0`.
+Refinement-Invariant Rational Expectation*, version `2.4.0`.
 
 ## Français
 
@@ -114,11 +121,13 @@ explicitement séparées. Il s'appuie sur la dépendance épinglée
 et conserve la distinction entre un théorème conditionnel et une dérivation de
 ses prémisses.
 
-La dépendance amont est épinglée sur `v1.2.1-everettian-api`.
+La dépendance amont est épinglée sur `v1.3.1-journal-audit` au commit
+`f773ed5694c610af055b82427da27a69d528b776`.
 `EverettianProbability.API.UpstreamQuantumFoundations` est la frontière d'import
 locale pour son ensemble stable orienté Everett. Elle n'identifie ni `NSNC1`,
 ni la neutralité d'ancilla, ni la neutralité résiduelle, et aucune
 factorisation tensorielle préférée n'est dérivée.
+
 ### API publiques stables
 
 ```lean
@@ -163,6 +172,8 @@ en amont, et non plusieurs dérivations indépendantes de Born. Voir
 | P10 / P11 | Clos dans leurs portées finies conditionnelles documentées ; P10 est aval des poids calibrés et P11 aval des masses P10. |
 | P9 | Partiel (témoin `q = 4`). |
 | EF10 | **EF10 RELEASED / PUBLIÉ** — API exacte finie stable figée dans v2.0.0. |
+| Audit des prémisses pour le journal | `W0`–`W5` auditent la netteté dimensionnelle et la nécessité relative des prémisses séparément exposées au niveau poids ; `D1`–`D3` portent les tests de suppression à l'interface d'espérance rationnelle ; L3 audite deux questions de minimalité de formulation. Il s'agit de résultats relatifs à des interfaces fixées, pas d'une indépendance axiomatique globale. |
+| Frontière Uhlhorn en dimension deux | `Audit/UhlhornDimensionTwo.lean` fournit une application de `Proj1 2` qui préserve l'orthogonalité dans un sens mais n'est pas injective. C'est un témoin de frontière pour l'interface publique one-way/non-bijective, pas une classification des preserveurs en dimension deux. |
 | Contre-modèles de non-circularité (`n = 2`) | Clos. Niveau poids (`grain_does_not_imply_born_at_two`, `BornCalibration/NonCircularity.lean`), niveau décision (`decision_premises_do_not_imply_born_at_two`, `BornCalibration/DecisionNonCircularity.lean`) et niveau mesure-de-projection (`skewProjMeasure_not_representable`, `BornCalibration/NonCircularity.lean`) ; chacun montre que `3 ≤ n` dans `born_expectation_of_invariance` est indispensable, pas une clause de confort. Le résultat niveau mesure est un témoin ponctuel (une `ProjMeasure 2` non représentable), pas une affirmation qu'aucune mesure en dimension 2 n'est représentable. |
 
 ### Structure du dépôt
@@ -191,9 +202,12 @@ et [`docs/EXACT_FINITE_API_STABILITY.md`](docs/EXACT_FINITE_API_STABILITY.md).
 lake env lean EverettianProbability/Audit/ConditionalAPIContract.lean
 lake env lean EverettianProbability/Audit/ExactFiniteAPIContract.lean
 lake env lean EverettianProbability/Audit/MainResults.lean
+lake env lean EverettianProbability/Audit/PremiseNecessity.lean
+lake env lean EverettianProbability/Audit/UhlhornDimensionTwo.lean
+lake env lean EverettianProbability/Audit/JournalCore.lean
 lake build
 bash scripts/guard.sh
 ```
 
 Voir `CITATION.cff` pour *Everettian Probability in Lean:
-Refinement-Invariant Rational Expectation*, version `2.0.0`.
+Refinement-Invariant Rational Expectation*, version `2.4.0`.

@@ -51,7 +51,7 @@ jobs:
           lake env lean EverettianProbability/Audit/MainResults.lean
           lake env lean EverettianProbability/Audit/PremiseNecessity.lean 2>&1 | tee /tmp/premise-necessity-axioms.log
           if grep -q 'sorryAx' /tmp/premise-necessity-axioms.log; then
-            echo '::error::L0 premise-necessity audit depends on sorryAx'
+            echo '::error::L0/L3 premise audit depends on sorryAx'
             exit 1
           fi
 
@@ -60,10 +60,15 @@ jobs:
           lake env lean EverettianProbability/API/UpstreamQuantumFoundations.lean
           lake env lean EverettianProbability/Audit/UpstreamQuantumFoundationsAPI.lean
 
-      - name: Journal audit (decision-level non-Born countermodel)
+      - name: Journal audit (publication-facing L0/L2/L3 interfaces)
         run: |
+          set -o pipefail
           lake build EverettianProbability.Audit.JournalCore
-          lake env lean EverettianProbability/Audit/JournalCore.lean
+          lake env lean EverettianProbability/Audit/JournalCore.lean 2>&1 | tee /tmp/journal-core-axioms.log
+          if grep -q 'sorryAx' /tmp/journal-core-axioms.log; then
+            echo '::error::publication-facing journal audit depends on sorryAx'
+            exit 1
+          fi
 
       - name: Source guard (no axiom, no native_decide, no maxHeartbeats 0, open-goal budget respected)
         run: bash scripts/guard.sh

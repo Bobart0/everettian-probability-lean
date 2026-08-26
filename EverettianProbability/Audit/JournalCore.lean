@@ -7,74 +7,57 @@ import EverettianProbability.Refinement.GlobalPayoffVacuity
 import EverettianProbability.Rivals.NaiveBranchCounting
 import EverettianProbability.Rivals.FourthPowerWeight
 import EverettianProbability.API.ConditionalMainResults
+import EverettianProbability.Audit.PremiseNecessity
+import EverettianProbability.Audit.UhlhornDimensionTwo
 
 /-!
-# Journal audit: decision-level non-Born countermodel and its infrastructure
+# Journal audit: publication-facing theorem interfaces
 
-**EN.** This publication-facing module is a focused corrective audit for the
-coordinated journal-audit release. It checks, independently of the
-repository's broader audit surface (`Audit/MainResults.lean`), the exact
-public-contract shape and trust base of the new decision-level countermodel
-and the results it composes:
+**EN.** This publication-facing module is the consolidated trust-base audit for
+the journal-revision release. It checks public signatures (`#check`) and
+invokes `#print axioms` on the declarations used by the manuscript, without
+modifying any theorem body.
 
-- the representation/uniqueness infrastructure (`represents`,
-  `canonicalWeight_axPos`, `canonicalWeight_axNorm`);
-- the Grain bridge (`refinementInvariantLocal_iff_axGrain`) and the headline
-  conditional theorem it feeds (`born_expectation_of_invariance`);
-- the weight-level countermodel (`grain_does_not_imply_born_at_two`);
-- the decision-level infrastructure and countermodel
-  (`skewExpectationFamily`, `skewExpectationFamily_canonicalWeight_eq`,
-  `skewExpectationFamily_refinementInvariantLocal`,
-  `decision_premises_do_not_imply_born_at_two`);
-- the new projection-measure-level countermodel (`skewProjMeasure`,
-  `skewProjMeasure_not_representable`,
-  `exists_nonrepresentable_projMeasure_two`): a dimension-two
-  `Gleason.ProjMeasure` representable by no density operator via
-  `Gleason.bornValue`, completing the weight-level and decision-level
-  countermodels with a third, measure-level witness;
-- the two rival-weight witnesses (`globalPremise_vacuous`,
-  `uniformExpectationFamily_globalPremise_vacuous`,
-  `naiveCounting_violates_grain`, `fourthPowerWeight_not_axNorm`);
-- the unchanged stable conditional API aggregate
-  (`conditionalBornMainResults`), audited here only to confirm this release
-  introduces no regression to it.
+It retains the earlier checks for representation/uniqueness infrastructure,
+the Grain bridge, the weight-, decision-, and projection-measure-level
+countermodels, the rival-weight witnesses, and the stable conditional API
+aggregate. The journal-revision campaign adds four groups:
 
-This module does not modify any theorem body; it only checks public
-signatures (`#check`) and invokes `#print axioms` on already-proved
-declarations. Every declaration below is expected to depend only on the
-standard Lean/Mathlib kernel trio `[propext, Classical.choice, Quot.sound]`.
+- `W0`--`W5`, the weight-level dimension-sharpness and relative-necessity
+  witnesses for the exposed Born-calibration premises;
+- `D1`--`D3`, the corresponding deletion tests at the
+  `RationalExpectationFamily` interface;
+- the two L3 formulation-minimality results, one for weight normalization
+  under Grain and one for constant normalization of a raw affine valuation;
+- the L2 dimension-two one-way Uhlhorn boundary witness
+  `dimensionTwo_orthogonality_not_injective`.
 
-**FR.** Ce module, destiné à la publication, est un audit correctif ciblé
-pour la release coordonnée d'audit pré-journal. Il vérifie, indépendamment de
-la surface d'audit plus large du dépôt (`Audit/MainResults.lean`), la forme
-exacte du contrat public et la base de confiance du nouveau contre-modèle
-niveau décision et des résultats qu'il compose :
+Every declaration below is expected to be free of `sorryAx`; the ordinary
+Lean/Mathlib logical axioms reported by `#print axioms` are not project axioms.
 
-- l'infrastructure de représentation/unicité (`represents`,
-  `canonicalWeight_axPos`, `canonicalWeight_axNorm`) ;
-- le pont vers Grain (`refinementInvariantLocal_iff_axGrain`) et le théorème
-  conditionnel principal qu'il alimente (`born_expectation_of_invariance`) ;
-- le contre-modèle niveau poids (`grain_does_not_imply_born_at_two`) ;
-- l'infrastructure et le contre-modèle niveau décision
-  (`skewExpectationFamily`, `skewExpectationFamily_canonicalWeight_eq`,
-  `skewExpectationFamily_refinementInvariantLocal`,
-  `decision_premises_do_not_imply_born_at_two`) ;
-- le nouveau contre-modèle niveau mesure-de-projection (`skewProjMeasure`,
-  `skewProjMeasure_not_representable`,
-  `exists_nonrepresentable_projMeasure_two`) : une `Gleason.ProjMeasure` en
-  dimension 2 représentable par aucun opérateur densité au sens de
-  `Gleason.bornValue`, complétant les contre-modèles niveau poids et niveau
-  décision par un troisième témoin, niveau mesure ;
-- les deux témoins de poids rivaux (`globalPremise_vacuous`,
-  `uniformExpectationFamily_globalPremise_vacuous`,
-  `naiveCounting_violates_grain`, `fourthPowerWeight_not_axNorm`) ;
-- l'agrégat d'API conditionnelle stable inchangé
-  (`conditionalBornMainResults`), audité ici seulement pour confirmer que
-  cette release ne lui introduit aucune régression.
+**FR.** Ce module destiné à la publication constitue l'audit consolidé de la
+base de confiance pour la release de révision du journal. Il vérifie les
+signatures publiques (`#check`) et invoque `#print axioms` sur les déclarations
+utilisées par le manuscrit, sans modifier aucun corps de preuve.
 
-Ce module ne modifie aucun corps de preuve ; il ne fait que vérifier des
-signatures publiques (`#check`) et invoquer `#print axioms` sur des
-déclarations déjà démontrées.
+Il conserve les contrôles antérieurs sur l'infrastructure de
+représentation/unicité, le pont Grain, les contre-modèles aux niveaux poids,
+décision et mesure de projection, les poids rivaux et l'agrégat d'API
+conditionnelle stable. La campagne de révision ajoute quatre groupes :
+
+- `W0`--`W5`, témoins de netteté dimensionnelle et de nécessité relative au
+  niveau poids pour les prémisses exposées de calibration de Born ;
+- `D1`--`D3`, tests de suppression correspondants à l'interface
+  `RationalExpectationFamily` ;
+- les deux résultats L3 de minimalité de formulation, pour la normalisation
+  des poids sous Grain et pour la normalisation des constantes d'une valuation
+  affine brute ;
+- le témoin L2 de frontière Uhlhorn one-way en dimension deux
+  `dimensionTwo_orthogonality_not_injective`.
+
+Toutes les déclarations ci-dessous doivent être exemptes de `sorryAx`; les
+axiomes logiques ordinaires Lean/Mathlib rapportés par `#print axioms` ne sont
+pas des axiomes propres au projet.
 -/
 
 open EverettianProbability.Preference
@@ -83,7 +66,7 @@ open EverettianProbability.Refinement
 open EverettianProbability.Rivals
 open EverettianProbability.API.Conditional
 
--- ── Public-contract visibility ──────────────────────────────────────
+-- ── Public-contract visibility: previously released surface ──────────
 
 #check @represents
 #check @canonicalWeight_axPos
@@ -104,7 +87,22 @@ open EverettianProbability.API.Conditional
 #check @fourthPowerWeight_not_axNorm
 #check @conditionalBornMainResults
 
--- ── Trust-base audit ─────────────────────────────────────────────────
+-- ── Public-contract visibility: JAR L0/L2/L3 campaign ────────────────
+
+#check @EverettianProbability.BornCalibration.w0_dimension_two_countermodel
+#check @EverettianProbability.BornCalibration.w1_remove_axNorm
+#check @EverettianProbability.BornCalibration.w2_remove_axNul
+#check @EverettianProbability.BornCalibration.w3_remove_unit_norm
+#check @EverettianProbability.BornCalibration.w4_remove_axGrain
+#check @EverettianProbability.BornCalibration.w5_remove_axPos
+#check @EverettianProbability.BornCalibration.d1_remove_canonical_null_support
+#check @EverettianProbability.BornCalibration.d2_remove_unit_norm
+#check @EverettianProbability.BornCalibration.d3_remove_refinementInvariantLocal
+#check @EverettianProbability.Audit.axNorm_iff_singletonTop_of_axGrain
+#check @EverettianProbability.Audit.normalizedConst_iff_zero_one_of_affine
+#check @EverettianProbability.Audit.dimensionTwo_orthogonality_not_injective
+
+-- ── Trust-base audit: previously released surface ────────────────────
 
 #print axioms EverettianProbability.Preference.represents
 #print axioms EverettianProbability.Preference.canonicalWeight_axPos
@@ -124,3 +122,18 @@ open EverettianProbability.API.Conditional
 #print axioms EverettianProbability.Rivals.naiveCounting_violates_grain
 #print axioms EverettianProbability.Rivals.fourthPowerWeight_not_axNorm
 #print axioms EverettianProbability.API.Conditional.conditionalBornMainResults
+
+-- ── Trust-base audit: JAR L0/L2/L3 campaign ──────────────────────────
+
+#print axioms EverettianProbability.BornCalibration.w0_dimension_two_countermodel
+#print axioms EverettianProbability.BornCalibration.w1_remove_axNorm
+#print axioms EverettianProbability.BornCalibration.w2_remove_axNul
+#print axioms EverettianProbability.BornCalibration.w3_remove_unit_norm
+#print axioms EverettianProbability.BornCalibration.w4_remove_axGrain
+#print axioms EverettianProbability.BornCalibration.w5_remove_axPos
+#print axioms EverettianProbability.BornCalibration.d1_remove_canonical_null_support
+#print axioms EverettianProbability.BornCalibration.d2_remove_unit_norm
+#print axioms EverettianProbability.BornCalibration.d3_remove_refinementInvariantLocal
+#print axioms EverettianProbability.Audit.axNorm_iff_singletonTop_of_axGrain
+#print axioms EverettianProbability.Audit.normalizedConst_iff_zero_one_of_affine
+#print axioms EverettianProbability.Audit.dimensionTwo_orthogonality_not_injective

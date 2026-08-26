@@ -1,6 +1,51 @@
 # Changelog
 
 ## [Unreleased]
+
+## [2.4.0-journal-audit] - 2026-08-26
+
+### Ajouté
+
+- Campagne L0 de nécessité relative au niveau poids : `W0` audite la borne de
+  dimension et `W1`--`W5` fournissent des témoins de suppression typés pour
+  chacune des prémisses séparément exposées par le théorème public de
+  calibration de Born.
+- Tests décisionnels `D1`--`D3`, obtenus via `expectationFamilyOfWeight`, qui
+  portent la suppression de prémisses à l'interface publique
+  `RationalExpectationFamily`.
+- Audit L2 de la frontière Uhlhorn en dimension deux :
+  `dimensionTwo_orthogonality_not_injective` fournit une application
+  préservant l'orthogonalité dans un sens mais non injective.
+- Deux résultats L3 de minimalité de formulation : réduction de `AxNorm` à la
+  perspective singleton-top sous Grain, et réduction de la normalisation des
+  constantes d'une valuation affine brute aux constantes `0` et `1`.
+- `Audit/JournalCore.lean` étendu à l'ensemble publication-facing L0/L2/L3 ;
+  la CI échoue désormais si cet audit consolidé rapporte `sorryAx`.
+- Les dépendances amont restent inchangées : Quantum Foundations
+  `v1.3.1-journal-audit` à `f773ed5694c610af055b82427da27a69d528b776`,
+  transitivement Gleason `v1.1.0-journal-audit` à
+  `5c5bc40d2e4a31a0d1b3112fcc9a3e92b2000ec5`.
+
+### Added
+
+- L0 relative-necessity campaign at the weight interface: `W0` audits the
+  dimension boundary and `W1`--`W5` provide typed deletion witnesses for each
+  separately exposed premise of the public Born-calibration theorem.
+- Decision-level tests `D1`--`D3`, via `expectationFamilyOfWeight`, lifting
+  premise deletion to the public `RationalExpectationFamily` interface.
+- L2 dimension-two Uhlhorn boundary audit:
+  `dimensionTwo_orthogonality_not_injective` gives a one-way
+  orthogonality-preserving map that is not injective.
+- Two L3 formulation-minimality results: reduction of `AxNorm` to the
+  singleton-top perspective under Grain, and reduction of full constant
+  normalization for a raw affine valuation to constants `0` and `1`.
+- `Audit/JournalCore.lean` extended to the publication-facing L0/L2/L3
+  declarations; CI now fails if the consolidated journal audit reports
+  `sorryAx`.
+- Upstream pins are unchanged: Quantum Foundations `v1.3.1-journal-audit` at
+  `f773ed5694c610af055b82427da27a69d528b776`, transitively Gleason
+  `v1.1.0-journal-audit` at `5c5bc40d2e4a31a0d1b3112fcc9a3e92b2000ec5`.
+
 ## [2.3.0-journal-audit] - 2026-08-06
 
 ### Ajouté

@@ -15,7 +15,10 @@ abstract: >-
   explicit premises, characterizes same records by unitary orbits, realizes
   compatible fine-weight profiles while preserving present records and
   consequences, and gives calibrated continuator credences with explicit
-  zero-parent-fibre treatment. The scope is finite-dimensional and
+  zero-parent-fibre treatment. The journal-audit layer additionally supplies
+  typed relative-necessity witnesses for exposed Born-calibration premises,
+  formulation-minimality lemmas, and a dimension-two boundary witness for the
+  one-directional Uhlhorn interface. The scope is finite-dimensional and
   projective; it provides neither approximate decoherence nor a natural local
   Hamiltonian, and does not derive rationality from unitary dynamics alone.
 keywords:
@@ -27,6 +30,6 @@ keywords:
   - Lean 4
   - formal verification
 license: Apache-2.0
-version: 2.3.0
-date-released: 2026-08-06
+version: 2.4.0
+date-released: 2026-08-26
 repository-code: "https://github.com/Bobart0/everettian-probability-lean"
