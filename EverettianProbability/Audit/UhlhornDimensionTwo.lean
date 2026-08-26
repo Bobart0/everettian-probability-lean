@@ -62,5 +62,8 @@ private theorem l2e0_add_l2e1_ne_zero : l2e0 + l2e1 ≠ 0 := by
   norm_num [l2e0, l2e1,
     show (0 : Fin 2) ≠ (1 : Fin 2) by decide] at h0
 
+private def l2A : Proj1 2 :=
+  ⟨ℂ ∙ l2e0, finrank_span_singleton l2e0_ne_zero⟩
+
 end
 end EverettianProbability.Audit
