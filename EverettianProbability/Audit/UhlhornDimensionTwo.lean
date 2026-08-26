@@ -42,16 +42,6 @@ theorem orthogonalProj1Two_involutive (P : Proj1 2) :
   apply Subtype.ext
   simp [orthogonalProj1Two]
 
-private theorem orthogonalProj1Two_injective :
-    Function.Injective orthogonalProj1Two := by
-  intro P Q hPQ
-  calc
-    P = orthogonalProj1Two (orthogonalProj1Two P) :=
-      (orthogonalProj1Two_involutive P).symm
-    _ = orthogonalProj1Two (orthogonalProj1Two Q) :=
-      congrArg orthogonalProj1Two hPQ
-    _ = Q := orthogonalProj1Two_involutive Q
-
 private theorem orthogonalProj1Two_ne_self (P : Proj1 2) :
     orthogonalProj1Two P ≠ P := by
   intro h
@@ -130,8 +120,8 @@ private theorem l2A_ne_l2Borth : l2A ≠ l2Borth := by
     show (0 : Fin 2) ≠ (1 : Fin 2) by decide] at hz
 
 private theorem l2B_ne_l2Borth : l2B ≠ l2Borth := by
-  unfold l2Borth
-  exact (orthogonalProj1Two_ne_self l2B).symm
+  intro h
+  exact orthogonalProj1Two_ne_self l2B h.symm
 
 /-- Collapse the orthogonal pair `B, Bᗮ` onto `A, Aᗮ`, fixing every other
 rank-one projection. -/
@@ -155,6 +145,29 @@ private theorem l2OrthogonalityCollapse_A :
     l2OrthogonalityCollapse l2A = l2A := by
   simp [l2OrthogonalityCollapse, l2A_ne_l2B, l2A_ne_l2Borth]
 
+/-- The collapse commutes with the unique rank-one orthogonal partner in
+`H 2`. -/
+private theorem l2OrthogonalityCollapse_orthogonal (P : Proj1 2) :
+    l2OrthogonalityCollapse (orthogonalProj1Two P) =
+      orthogonalProj1Two (l2OrthogonalityCollapse P) := by
+  by_cases hPB : P = l2B
+  · subst P
+    simp [l2Borth, l2Aorth]
+  · by_cases hPBo : P = l2Borth
+    · subst P
+      simp [l2Borth, l2Aorth]
+    · have horthB : orthogonalProj1Two P ≠ l2B := by
+        intro h
+        have hh := congrArg orthogonalProj1Two h
+        simp [l2Borth] at hh
+        exact hPBo hh
+      have horthBo : orthogonalProj1Two P ≠ l2Borth := by
+        intro h
+        have hh := congrArg orthogonalProj1Two h
+        simp [l2Borth] at hh
+        exact hPB hh
+      simp [l2OrthogonalityCollapse, hPB, hPBo, horthB, horthBo]
+
 /-- The collapse preserves orthogonality in exactly the one-direction sense of
 `QuantumFoundations.Uhlhorn.PreservesOrthogonality`. -/
 theorem l2OrthogonalityCollapse_preservesOrthogonality :
@@ -162,39 +175,12 @@ theorem l2OrthogonalityCollapse_preservesOrthogonality :
   intro P Q hPQ
   have hQorth : Q = orthogonalProj1Two P :=
     proj1Two_eq_orthogonal_of_isOrtho P Q hPQ
-  by_cases hPB : P = l2B
-  · subst P
-    have hQ : Q = l2Borth := by
-      simpa [l2Borth] using hQorth
-    subst Q
-    rw [l2OrthogonalityCollapse_B, l2OrthogonalityCollapse_Borth]
-    exact Submodule.isOrtho_orthogonal_right (l2A : Submodule ℂ (H 2))
-  · by_cases hPBo : P = l2Borth
-    · subst P
-      have hQ : Q = l2B := by
-        calc
-          Q = orthogonalProj1Two l2Borth := hQorth
-          _ = l2B := by
-            simp [l2Borth]
-      subst Q
-      rw [l2OrthogonalityCollapse_Borth, l2OrthogonalityCollapse_B]
-      exact Submodule.isOrtho_orthogonal_left (l2A : Submodule ℂ (H 2))
-    · have hQB : Q ≠ l2B := by
-        intro h
-        subst Q
-        have h := hQorth
-        have hh := congrArg orthogonalProj1Two h
-        simp [l2Borth] at hh
-        exact hPBo hh.symm
-      have hQBo : Q ≠ l2Borth := by
-        intro h
-        subst Q
-        have h := hQorth
-        have hh := congrArg orthogonalProj1Two h
-        simp [l2Borth] at hh
-        exact hPB hh.symm
-      simp [l2OrthogonalityCollapse, hPB, hPBo, hQB, hQBo]
-      exact hPQ
+  subst Q
+  rw [l2OrthogonalityCollapse_orthogonal]
+  change (l2OrthogonalityCollapse P : Submodule ℂ (H 2)) ⟂
+    (l2OrthogonalityCollapse P : Submodule ℂ (H 2))ᗮ
+  exact Submodule.isOrtho_orthogonal_right
+    (l2OrthogonalityCollapse P : Submodule ℂ (H 2))
 
 /-- The same map is not injective: both `A` and `B` are sent to `A`. -/
 theorem l2OrthogonalityCollapse_not_injective :
