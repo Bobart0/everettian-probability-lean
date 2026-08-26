@@ -1,4 +1,5 @@
 import EverettianProbability.API.UpstreamQuantumFoundations
+import EverettianProbability.Audit.UhlhornDimensionTwo
 
 /-!
 **FR.** Contrat de compilation de la frontiere amont stable. Les controles
@@ -28,3 +29,8 @@ API and conflates neither `NSNC1`, ancilla neutrality, nor residual neutrality.
 #print axioms QuantumFoundations.BornRule.lemma4_noncontextual
 #print axioms QuantumFoundations.SelectorBridgeAPI.tSelectors_tensorMultiplicative_iff
 #print axioms QuantumFoundations.NaimarkImplementationAPI.implementationIndependent_of_residualNeutral
+
+-- Local sharpness witness over the upstream Uhlhorn interface: in dimension 2,
+-- one-direction preservation of rank-one orthogonality does not force injectivity.
+#check EverettianProbability.Audit.dimensionTwo_orthogonality_not_injective
+#print axioms EverettianProbability.Audit.dimensionTwo_orthogonality_not_injective
