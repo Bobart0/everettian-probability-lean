@@ -119,5 +119,44 @@ private theorem l2A_ne_l2Borth : l2A ≠ l2Borth := by
   rw [inner_l2e0_add_l2e1_l2e0] at hz
   norm_num at hz
 
+/-- Collapse one orthogonal pair onto another while respecting complements. -/
+private def l2Collapse (P : Proj1 2) : Proj1 2 :=
+  if P = l2B then l2A
+  else if P = l2Borth then l2Aorth
+  else P
+
+private theorem l2Collapse_commutes_orthogonal (P : Proj1 2) :
+    l2Collapse (orthogonalProj1Two P) =
+      orthogonalProj1Two (l2Collapse P) := by
+  by_cases hB : P = l2B
+  · subst P
+    have hBoB : l2Borth ≠ l2B := by
+      exact orthogonalProj1Two_ne_self l2B
+    simp [l2Collapse, l2Borth, l2Aorth, hBoB]
+  · by_cases hBo : P = l2Borth
+    · subst P
+      have hBoB : l2Borth ≠ l2B := by
+        exact orthogonalProj1Two_ne_self l2B
+      simp [l2Collapse, l2Borth, l2Aorth, hBoB]
+    · have horth_ne_B : orthogonalProj1Two P ≠ l2B := by
+        intro h
+        apply hBo
+        calc
+          P = orthogonalProj1Two (orthogonalProj1Two P) := by
+            symm
+            exact orthogonalProj1Two_involutive P
+          _ = orthogonalProj1Two l2B := by rw [h]
+          _ = l2Borth := rfl
+      have horth_ne_Borth : orthogonalProj1Two P ≠ l2Borth := by
+        intro h
+        apply hB
+        calc
+          P = orthogonalProj1Two (orthogonalProj1Two P) := by
+            symm
+            exact orthogonalProj1Two_involutive P
+          _ = orthogonalProj1Two l2Borth := by rw [h]
+          _ = l2B := by simp [l2Borth]
+      simp [l2Collapse, hB, hBo, horth_ne_B, horth_ne_Borth]
+
 end
 end EverettianProbability.Audit
