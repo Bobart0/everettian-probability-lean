@@ -48,5 +48,25 @@ theorem proj1Two_eq_orthogonal_of_isOrtho (P Q : Proj1 2)
   apply Submodule.eq_of_le_of_finrank_eq hle
   exact Q.2.trans (orthogonalProj1Two P).2.symm
 
+private def l2e0 : H 2 := EuclideanSpace.single (0 : Fin 2) (1 : ℂ)
+private def l2e1 : H 2 := EuclideanSpace.single (1 : Fin 2) (1 : ℂ)
+
+private theorem l2e0_ne_zero : l2e0 ≠ 0 := by
+  intro h
+  have h0 := congrFun h (0 : Fin 2)
+  norm_num [l2e0] at h0
+
+private theorem l2e0_add_l2e1_ne_zero : l2e0 + l2e1 ≠ 0 := by
+  intro h
+  have h0 := congrFun h (0 : Fin 2)
+  norm_num [l2e0, l2e1,
+    show (0 : Fin 2) ≠ (1 : Fin 2) by decide] at h0
+
+private def l2A : Proj1 2 :=
+  ⟨ℂ ∙ l2e0, finrank_span_singleton l2e0_ne_zero⟩
+
+private def l2B : Proj1 2 :=
+  ⟨ℂ ∙ (l2e0 + l2e1), finrank_span_singleton l2e0_add_l2e1_ne_zero⟩
+
 end
 end EverettianProbability.Audit
