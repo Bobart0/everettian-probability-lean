@@ -68,5 +68,17 @@ private def l2A : Proj1 2 :=
 private def l2B : Proj1 2 :=
   ⟨ℂ ∙ (l2e0 + l2e1), finrank_span_singleton l2e0_add_l2e1_ne_zero⟩
 
+private theorem l2A_ne_l2B : l2A ≠ l2B := by
+  intro hAB
+  have hsub : (ℂ ∙ l2e0 : Submodule ℂ (H 2)) =
+      ℂ ∙ (l2e0 + l2e1) := congrArg Subtype.val hAB
+  have hmem : l2e0 + l2e1 ∈ (ℂ ∙ l2e0 : Submodule ℂ (H 2)) := by
+    rw [hsub]
+    exact Submodule.mem_span_singleton_self (l2e0 + l2e1)
+  obtain ⟨a, ha⟩ := Submodule.mem_span_singleton.mp hmem
+  have h1 := congrArg (fun x : H 2 => x (1 : Fin 2)) ha
+  norm_num [l2e0, l2e1,
+    show (1 : Fin 2) ≠ (0 : Fin 2) by decide] at h1
+
 end
 end EverettianProbability.Audit
