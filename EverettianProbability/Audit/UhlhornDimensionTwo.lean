@@ -177,5 +177,36 @@ private theorem l2Collapse_commutes_orthogonal (P : Proj1 2) :
       rw [l2Collapse_eq_self horth_ne_B horth_ne_Borth,
         l2Collapse_eq_self hB hBo]
 
+private theorem l2Collapse_preservesOrthogonality :
+    PreservesOrthogonality l2Collapse := by
+  intro P Q hPQ
+  have hQ : Q = orthogonalProj1Two P :=
+    proj1Two_eq_orthogonal_of_isOrtho P Q hPQ
+  subst Q
+  change (l2Collapse P : Submodule ℂ (H 2)) ⟂
+    (l2Collapse (orthogonalProj1Two P) : Submodule ℂ (H 2))
+  rw [l2Collapse_commutes_orthogonal]
+  exact Submodule.isOrtho_orthogonal_right
+    (l2Collapse P : Submodule ℂ (H 2))
+
+private theorem l2Collapse_not_injective :
+    ¬ Function.Injective l2Collapse := by
+  intro hinj
+  apply l2A_ne_l2B
+  apply hinj
+  rw [l2Collapse_eq_self l2A_ne_l2B l2A_ne_l2Borth,
+    l2Collapse_B]
+
+/--
+In dimension two, one-way preservation of orthogonality does not force
+injectivity: an orthogonal pair can be collapsed onto a distinct orthogonal
+pair while commuting with orthogonal complementation.
+-/
+theorem dimensionTwo_orthogonality_not_injective :
+    ∃ φ : Proj1 2 → Proj1 2,
+      PreservesOrthogonality φ ∧ ¬ Function.Injective φ := by
+  exact ⟨l2Collapse, l2Collapse_preservesOrthogonality,
+    l2Collapse_not_injective⟩
+
 end
 end EverettianProbability.Audit
