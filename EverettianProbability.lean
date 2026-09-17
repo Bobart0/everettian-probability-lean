@@ -101,6 +101,8 @@ import EverettianProbability.Audit.PremiseNecessity
 import EverettianProbability.Audit.UhlhornDimensionTwo
 import EverettianProbability.Audit.MainResults
 import EverettianProbability.Audit.BornAgreement
+import EverettianProbability.Confirmation.BornVersusRenormalizedFourthPower
+import EverettianProbability.Audit.BornVersusRenormalizedFourthPower
 
 /-!
 **FR.** Point d'entree du paquet `EverettianProbability`. Il importe, dans

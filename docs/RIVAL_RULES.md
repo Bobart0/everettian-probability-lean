@@ -245,3 +245,66 @@ notes.
 - **Nonzero condition.** The condition `v ≠ 0` is explicit for denominator
   positivity, `AxPos`, and `AxNorm`; at `v = 0`, the definition gives
   `0/0 = 0`, so `AxNorm` cannot be asserted.
+
+## E2 -- comparaison bayesienne conditionnelle / conditional Bayesian comparison
+
+### Français
+
+Le module `Confirmation/BornVersusRenormalizedFourthPower.lean` construit un
+`FiniteBayesModel` a deux hypotheses, avec un a priori uniforme. Born fournit
+ses propres vraisemblances par `bornWeight`; la rivale fournit ses propres
+vraisemblances par `renormalizedFourthPower`. Aucune vraisemblance des deux
+hypotheses n'est engendree a partir de Born seul. Les resultats sont
+conditionnels au principe CW qualitatif de Greaves--Myrvold ; ils ne
+l'etablissent pas et ne portent aucun jugement de rationalite.
+
+Sous la condition d'accord de `Rivals/BornAgreement.lean`, E2.3a prouve
+l'identite des vraisemblances sur toute cellule, des produits de
+vraisemblances, des contributions d'evidence et des poids posterieurs pour
+toute liste, y compris les cellules de poids nul. E2.3b ajoute la non-nullite
+des observations seulement pour definir le facteur de Bayes et les cotes par
+division. Quand toute la perspective est de support non nul, le temoin
+singleton `agreementPerspective` illustre E2.3c sans restriction de liste.
+
+Sur le temoin rationnel de `H 3`, les facteurs Born/rivale sont `337/225`
+pour `label0Line` et `337/400` pour `label1Space`; ils sont respectivement
+strictement superieur et strictement inferieur a `1`. Pour deux puis trois
+observations `label0Line`, les facteurs de lot sont exactement
+`113569/50625` et `38272753/11390625`. Cela mesure seulement la comparaison
+algebrique des deux vraisemblances propres ; cela n'etablit ni CW, ni une
+conclusion decisionnelle, ni un taux de discrimination general.
+
+**Statut.** E2.2--E2.5 sont formalises et audites par
+`Audit/BornVersusRenormalizedFourthPower.lean`. La condition de support de
+E2.3b est une condition de definition du conditionnement bayesien, pas un
+affaiblissement de l'identite observationnelle inconditionnelle E2.3a.
+
+### English
+
+`Confirmation/BornVersusRenormalizedFourthPower.lean` builds a
+`FiniteBayesModel` with two hypotheses and a uniform prior. Born supplies its
+own likelihoods through `bornWeight`; the rival supplies its own likelihoods
+through `renormalizedFourthPower`. Neither hypothesis is assigned
+likelihoods generated from Born alone. The results are conditional on the
+qualitative Greaves--Myrvold CW principle; they do not establish it and make
+no rationality judgment.
+
+Under the agreement condition from `Rivals/BornAgreement.lean`, E2.3a proves
+identity of likelihoods on every cell, likelihood products, evidence
+contributions, and posterior weights for every list, including zero-weight
+cells. E2.3b adds nonzero observations only to define Bayes factors and odds
+by division. When the whole perspective has nonzero support, the singleton
+`agreementPerspective` witness illustrates E2.3c without a list restriction.
+
+On the rational `H 3` witness, the Born/rival factors are `337/225` for
+`label0Line` and `337/400` for `label1Space`; they are respectively strictly
+above and strictly below `1`. For two and then three observations of
+`label0Line`, the exact batch factors are `113569/50625` and
+`38272753/11390625`. This is only an algebraic comparison of the two proper
+likelihoods; it establishes neither CW, nor a decision-theoretic conclusion,
+nor a general discrimination rate.
+
+**Status.** E2.2--E2.5 are formalized and audited by
+`Audit/BornVersusRenormalizedFourthPower.lean`. The E2.3b support condition is
+a condition for defining Bayesian conditioning, not a weakening of the
+unconditional observational identity in E2.3a.

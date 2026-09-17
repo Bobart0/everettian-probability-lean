@@ -487,3 +487,66 @@ DOI 10.1093/acprof:oso/9780199560561.003.0011. The repository does not
 claim to establish that principle. The present increment compares cell
 weights only; it establishes no frequency, finite-sample discrimination rate,
 or additional Bayesian result.
+
+## E2 -- Born contre la puissance quatrieme renormalisee / Born versus renormalized fourth power
+
+### Français
+
+E2 formalise une comparaison bayesienne finie conditionnelle au principe CW
+qualitatif de Greaves--Myrvold. Cette condition figure dans les docstrings des
+resultats principaux ; le depot ne pretend pas etablir CW. Le modele a deux
+hypotheses donne a Born les vraisemblances `bornWeight` et a la rivale les
+vraisemblances `renormalizedFourthPower`, separement. La section `Frequency/`
+n'est ni reutilisee comme source de vraisemblances ni modifiee.
+
+E2.3a est inconditionnel quant au support : sous `‖v‖ = 1` et la condition
+d'accord de `BornAgreement.lean`, les vraisemblances coïncident sur toutes les
+cellules, puis les produits, les contributions d'evidence et les poids
+posterieurs coïncident pour toute liste finie. E2.3b ajoute la non-nullite des
+observations pour les divisions qui definissent le facteur de Bayes et les
+cotes ; cette hypothese est la condition usuelle de definition du
+conditionnement bayesien, non un affaiblissement de E2.3a. Si toute cellule de
+la perspective a un poids non nul, le temoin explicite singleton
+`agreementPerspective` illustre le cas E2.3c sans restriction de support.
+
+E2.4 et E2.5 calculent seulement des facteurs exacts sur le temoin rationnel
+de `H 3` : `337/225`, `337/400`, puis les produits pour deux et trois
+observations. Aucun resultat asymptotique, taux de discrimination general,
+modele frequentiel, hypothese vraie ou revendication decisionnelle n'est
+introduit. La factorisation des produits de vraisemblances reste la
+construction conditionnellement independante du modele fini.
+
+**Statut.** E2.2--E2.5 sont formalises ; l'audit correspondant est
+`Audit/BornVersusRenormalizedFourthPower.lean`. La distinction entre
+formalise, audite et publie est maintenue : ces resultats sont formalises et
+audites dans le depot, mais aucune publication externe n'est revendiquee.
+
+### English
+
+E2 formalizes a finite Bayesian comparison conditional on the qualitative
+Greaves--Myrvold CW principle. This condition appears in the docstrings of
+the main results; the repository does not claim to establish CW. The
+two-hypothesis model gives Born the `bornWeight` likelihoods and the rival the
+`renormalizedFourthPower` likelihoods separately. The `Frequency/` section is
+neither reused as a likelihood source nor modified.
+
+E2.3a is unconditional with respect to support: under `‖v‖ = 1` and the
+agreement condition from `BornAgreement.lean`, likelihoods agree on every
+cell, and products, evidence contributions, and posterior weights agree for
+every finite list. E2.3b adds nonzero observations for the divisions that
+define Bayes factors and odds; this is the usual condition for defining
+Bayesian conditioning, not a weakening of E2.3a. If every cell of the
+perspective has nonzero weight, the explicit singleton `agreementPerspective`
+witness illustrates E2.3c without a support restriction.
+
+E2.4 and E2.5 compute only exact factors on the rational `H 3` witness:
+`337/225`, `337/400`, and then the products for two and three observations.
+No asymptotic result, general discrimination rate, frequency model, true
+hypothesis, or decision claim is introduced. Likelihood-product
+factorization remains the conditionally independent construction of the
+finite model.
+
+**Status.** E2.2--E2.5 are formalized; the corresponding audit is
+`Audit/BornVersusRenormalizedFourthPower.lean`. The distinction between
+formalized, audited, and published is preserved: these results are
+formalized and audited in the repository, with no external publication claim.

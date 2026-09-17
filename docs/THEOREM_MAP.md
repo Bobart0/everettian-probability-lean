@@ -44,6 +44,40 @@ P10 frequencyMass and typicality
 P11 finite likelihoods and Bayesian updating
 ```
 
+## E2 -- Comparaison finie Born / puissance quatrieme renormalisee
+
+### Français
+
+| Statut | Declaration exacte | Module | Hypotheses | Conclusion et limites |
+|---|---|---|---|---|
+| Formalise et audite | `bornVersusRenormalizedFourthPowerModel`; `..._likelihood_nonneg`; `..._likelihood_sum_eq_one` | `Confirmation/BornVersusRenormalizedFourthPower.lean` | `‖v‖ = 1`, perspective fixee; prior uniforme | Modele a deux hypotheses ; Born et la rivale fournissent leurs vraisemblances propres. Conditionnel a CW, non-modifiant `Frequency/`. |
+| Formalise et audite — E2.3a | `model_likelihood_eq_of_bornAgreement`; `model_observationLikelihoodProduct_eq_of_bornAgreement`; `model_evidence_term_eq_of_bornAgreement`; `model_posteriorWeight_eq_of_bornAgreement` | `Confirmation/BornVersusRenormalizedFourthPower.lean` | Condition d'accord de `Rivals/BornAgreement.lean` | Identite observationnelle pour toute cellule et toute liste, y compris les poids nuls ; pas de division bayesienne. |
+| Formalise et audite — E2.3b | `finiteObservationBayesFactor_eq_one_of_bornAgreement`; `finiteObservationPosteriorOdds_eq_priorOdds_of_bornAgreement` | `Confirmation/BornVersusRenormalizedFourthPower.lean` | Non-nullite Born des observations de la liste | Facteur `1` et cotes posterieures egales aux cotes a priori ; condition usuelle de definition du conditionnement. |
+| Formalise et audite — E2.4 | `coarse_label0_bayesFactor_eq`; `coarse_label1_bayesFactor_eq`; `coarse_label0_posteriorOdds_eq`; `coarse_label1_posteriorOdds_eq` | meme module | Temoin `psiAfter`, `coarsePerspective` | Rapports exacts `337/225 > 1` et `337/400 < 1`. |
+| Formalise et audite — E2.5 | `coarse_label0_batch_bayesFactor_two_eq`; `coarse_label0_batch_bayesFactor_three_eq` | meme module | Listes explicites de longueur 2 et 3 | Facteurs `113569/50625` et `38272753/11390625`; aucune borne generale en `N` ajoutee. |
+| Audite | `#print axioms` des declarations E2 | `Audit/BornVersusRenormalizedFourthPower.lean` | — | Dependances ordinaires `[propext, Classical.choice, Quot.sound]`; aucun `axiom`, `sorry` ou `native_decide`. |
+
+E2.3c est illimite sur une perspective sans cellule de poids nul ; le temoin
+singleton `agreementPerspective` de `Rivals/Nonvacuity.lean` suffit et aucun
+theoreme separe n'est necessaire. La condition CW de Greaves--Myrvold est une
+condition de portee, pas une conclusion du graphe.
+
+### English
+
+| Status | Exact declaration | Module | Assumptions | Conclusion and limits |
+|---|---|---|---|---|
+| Formalized and audited | `bornVersusRenormalizedFourthPowerModel`; `..._likelihood_nonneg`; `..._likelihood_sum_eq_one` | `Confirmation/BornVersusRenormalizedFourthPower.lean` | `‖v‖ = 1`, fixed perspective; uniform prior | Two-hypothesis model; Born and the rival supply their own likelihoods. Conditional on CW; `Frequency/` is not modified. |
+| Formalized and audited — E2.3a | `model_likelihood_eq_of_bornAgreement`; `model_observationLikelihoodProduct_eq_of_bornAgreement`; `model_evidence_term_eq_of_bornAgreement`; `model_posteriorWeight_eq_of_bornAgreement` | `Confirmation/BornVersusRenormalizedFourthPower.lean` | Agreement condition from `Rivals/BornAgreement.lean` | Observational identity for every cell and list, including zero weights; no Bayesian division. |
+| Formalized and audited — E2.3b | `finiteObservationBayesFactor_eq_one_of_bornAgreement`; `finiteObservationPosteriorOdds_eq_priorOdds_of_bornAgreement` | `Confirmation/BornVersusRenormalizedFourthPower.lean` | Nonzero Born likelihood for every observation in the list | Factor `1` and posterior odds equal prior odds; usual condition for defining conditioning. |
+| Formalized and audited — E2.4 | `coarse_label0_bayesFactor_eq`; `coarse_label1_bayesFactor_eq`; `coarse_label0_posteriorOdds_eq`; `coarse_label1_posteriorOdds_eq` | same module | `psiAfter`, `coarsePerspective` witness | Exact ratios `337/225 > 1` and `337/400 < 1`. |
+| Formalized and audited — E2.5 | `coarse_label0_batch_bayesFactor_two_eq`; `coarse_label0_batch_bayesFactor_three_eq` | same module | Explicit lists of lengths 2 and 3 | Factors `113569/50625` and `38272753/11390625`; no general bound in `N` added. |
+| Audited | `#print axioms` for E2 declarations | `Audit/BornVersusRenormalizedFourthPower.lean` | — | Ordinary dependencies `[propext, Classical.choice, Quot.sound]`; no `axiom`, `sorry`, or `native_decide`. |
+
+E2.3c is unrestricted on a perspective with no zero-weight cell; the
+singleton `agreementPerspective` witness from `Rivals/Nonvacuity.lean` is
+sufficient and no separate theorem is needed. Greaves--Myrvold's CW principle
+is a scope condition, not a conclusion of this dependency graph.
+
 | Statut | Déclaration | Module | Dépendances directes | Limite de portée | Audit |
 |---|---|---|---|---|---|
 | Résultat original | `born_expectation_of_invariance` | `BornCalibration/BornExpectation.lean` | **Deux prémisses-ponts** : `RefinementInvariantLocal` (normative pure) et `AxNul (canonicalWeight F) v` (normative-physique — seul point d'entrée de l'état `v`), plus `RationalExpectationFamily`, `‖v‖ = 1`, `3 ≤ n` ; `AxNorm`/`AxPos` sur `canonicalWeight F` sont dérivées, non assumées | Route projective uniquement ; invariance sur **tous** les raffinements projectifs, sans restriction de records ; n'affirme aucune dérivation dynamique des deux prémisses-ponts | `[propext, Classical.choice, Quot.sound]` |
