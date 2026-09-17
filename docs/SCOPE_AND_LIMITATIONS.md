@@ -550,3 +550,33 @@ finite model.
 `Audit/BornVersusRenormalizedFourthPower.lean`. The distinction between
 formalized, audited, and published is preserved: these results are
 formalized and audited in the repository, with no external publication claim.
+
+## E3 — Français
+
+Le taux de discrimination formalisé dans `Confirmation/DiscriminationRate.lean`
+est une divergence logarithmique finie entre les vraisemblances propres de
+Born et de la règle rivale. Les théorèmes de positivité et d'égalité sont
+formulés pour `‖v‖ = 1`; l'égalité des supports et l'invariance d'échelle sont
+formulées pour `v ≠ 0`. E3.6, la linéarité en un nombre d'observations, reste
+non formalisé faute de loi produit sur les suites.
+
+Comme pour E2, toute lecture confirmationnelle future est conditionnelle au
+principe CW qualitatif de Greaves--Myrvold. Le dépôt ne formalise ni
+n'établit ce principe. Les valeurs décimales de taux sont des calculs externes
+indicatifs, non vérifiés par le noyau. Aucun résultat de concentration,
+asymptotique, décisionnel ou de rationalité n'est revendiqué.
+
+## E3 — English
+
+The discrimination rate formalized in `Confirmation/DiscriminationRate.lean`
+is a finite logarithmic divergence between the proper Born and rival
+likelihoods. Positivity and equality theorems use `‖v‖ = 1`; support equality
+and scale invariance use `v ≠ 0`. E3.6, linearity in the number of
+observations, remains not formalized because no product law on sequences is
+constructed.
+
+As in E2, any future confirmation-theoretic reading is conditional on
+Greaves--Myrvold's qualitative CW principle. The repository neither
+formalizes nor establishes that principle. Decimal rate values are external
+indicative calculations, not kernel-verified. No concentration, asymptotic,
+decision-theoretic, or rationality result is claimed.

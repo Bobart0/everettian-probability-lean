@@ -215,6 +215,30 @@ P11 finite likelihoods and Bayesian updating
 | Formalized: complete equivalence | `renormalizedFourthPower_agrees_iff` | `Rivals/BornAgreement.lean` | `‖v‖ = 1`, fixed perspective `D` | Cellwise agreement with Born iff all nonzero Born weights are equal. |
 | Audited | `renormalizedFourthPower_agreement_witness`, `renormalizedFourthPower_disagreement_witness` | `Rivals/Nonvacuity.lean`, `Audit/BornAgreement.lean` | Explicit rational witnesses | Agreement on a singleton perspective; disagreement with `81/337`, `9/25`, and gap `-1008/8425`. |
 
+## E3 -- discrimination rate
+
+### Français
+
+| Statut | Déclaration | Module | Hypothèses | Portée |
+|---|---|---|---|---|
+| Formalisé | `renormalizedFourthPower_eq_zero_iff_bornWeight_eq_zero` | `Rivals/SupportAgreement.lean` | `v ≠ 0`, cellule d'une perspective | Égalité exacte des supports; aucun ratio nul sur un seul côté. |
+| Formalisé | `renormalizedFourthPower_smul`, `bornWeight_smul` | `Rivals/SupportAgreement.lean` | Scalaire complexe non nul | Différence structurelle de normalisation sous changement d'échelle. |
+| Formalisé | `bornDiscriminationRate_nonneg`, `rivalDiscriminationRate_nonneg` | `Confirmation/DiscriminationRate.lean` | `‖v‖ = 1`, perspective fixée | Positivité par Gibbs, avec traitement explicite des cellules nulles. |
+| Formalisé : équivalence complète | `bornDiscriminationRate_eq_zero_iff`, `bornDiscriminationRate_eq_zero_iff_bornAgreement` | `Confirmation/DiscriminationRate.lean` | `‖v‖ = 1` | Le taux de Born est nul exactement lorsque les deux règles coïncident; fermeture par E1.4. |
+| Formalisé | `coarse_bornDiscriminationRate_eq`, `coarse_bornDiscriminationRate_pos` | `Confirmation/DiscriminationRate.lean` | Témoin rationnel `psiAfter`, perspective grossière | Forme exacte sous les logarithmes et positivité stricte. |
+| Non formalisé | E3.6 | — | Loi produit sur les suites non construite | Aucune linéarité en `N`, concentration ou asymptotique. |
+
+### English
+
+| Status | Declaration | Module | Assumptions | Scope |
+|---|---|---|---|---|
+| Formalized | `renormalizedFourthPower_eq_zero_iff_bornWeight_eq_zero` | `Rivals/SupportAgreement.lean` | `v ≠ 0`, cell of a perspective | Exact support equality; no one-sided zero ratio. |
+| Formalized | `renormalizedFourthPower_smul`, `bornWeight_smul` | `Rivals/SupportAgreement.lean` | Nonzero complex scalar | Structural normalization difference under rescaling. |
+| Formalized | `bornDiscriminationRate_nonneg`, `rivalDiscriminationRate_nonneg` | `Confirmation/DiscriminationRate.lean` | `‖v‖ = 1`, fixed perspective | Gibbs positivity with explicit treatment of zero cells. |
+| Formalized: complete equivalence | `bornDiscriminationRate_eq_zero_iff`, `bornDiscriminationRate_eq_zero_iff_bornAgreement` | `Confirmation/DiscriminationRate.lean` | `‖v‖ = 1` | Born rate is zero exactly when the rules agree; closed using E1.4. |
+| Formalized | `coarse_bornDiscriminationRate_eq`, `coarse_bornDiscriminationRate_pos` | `Confirmation/DiscriminationRate.lean` | Rational `psiAfter` witness, coarse perspective | Exact logarithmic form and strict positivity. |
+| Not formalized | E3.6 | — | Product law on sequences not constructed | No linearity in `N`, concentration, or asymptotic statement. |
+
 The exact headline statement (projective route) is:
 
 ```lean

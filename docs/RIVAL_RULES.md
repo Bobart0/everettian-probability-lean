@@ -308,3 +308,62 @@ nor a general discrimination rate.
 `Audit/BornVersusRenormalizedFourthPower.lean`. The E2.3b support condition is
 a condition for defining Bayesian conditioning, not a weakening of the
 unconditional observational identity in E2.3a.
+
+## E3 -- taux de discrimination / discrimination rate
+
+### Français
+
+**Formalisé.** `Rivals/SupportAgreement.lean` prouve, pour `v ≠ 0`, que la
+règle de Born et la règle à puissance quatrième renormalisée ont exactement
+le même support. Il prouve aussi l'invariance d'échelle de la règle
+renormalisée et la loi `bornWeight (t • v) D c = ‖t‖² * bornWeight v D c`.
+La renormalisation rend la règle rivale automatiquement normalisée sur tout
+état non nul, tandis que la règle de Born est utilisée ici sur les états
+unitaires.
+
+**Formalisé.** `Confirmation/DiscriminationRate.lean` définit les deux taux
+comme des sommes finies de log-facteurs de Bayes, chaque hypothèse fournissant
+ses propres vraisemblances. Sous `‖v‖ = 1`, l'inégalité de Gibbs est prouvée
+pour les deux sens. Le taux de Born est nul si et seulement si les deux
+règles coïncident cellule par cellule, donc si et seulement si la condition
+de `BornAgreement.lean` est satisfaite.
+
+Le témoin `psiAfter`/`coarsePerspective` donne exactement
+`(9/25) * log (337/225) + (16/25) * log (337/400)` et sa stricte positivité
+est prouvée par le théorème d'égalité et le témoin de désaccord. La valeur
+décimale est seulement indicative et externe au noyau.
+
+**Non formalisé.** E3.6, la linéarité d'un log-facteur de Bayes espéré en
+fonction de `N`, demanderait une loi produit explicite sur les suites. Aucun
+résultat de concentration, asymptotique ou décisionnel n'est ajouté.
+
+Tous les résultats E3 restent conditionnels au principe CW de
+Greaves--Myrvold ; ils ne l'établissent pas et ne portent aucun jugement de
+rationalité.
+
+### English
+
+**Formalized.** `Rivals/SupportAgreement.lean` proves, for `v ≠ 0`, that the
+Born rule and the renormalized fourth-power rule have exactly the same
+support. It also proves scale invariance of the rival rule and the law
+`bornWeight (t • v) D c = ‖t‖² * bornWeight v D c`. Renormalization makes the
+rival rule automatically normalized on every nonzero state, whereas the Born
+rule is used here on unit states.
+
+**Formalized.** `Confirmation/DiscriminationRate.lean` defines both rates as
+finite sums of log Bayes factors, with each hypothesis supplying its own
+likelihoods. Under `‖v‖ = 1`, Gibbs' inequality is proved in both directions.
+The Born rate is zero iff the two rules agree cellwise, hence iff the
+condition from `BornAgreement.lean` holds.
+
+The `psiAfter`/`coarsePerspective` witness gives exactly
+`(9/25) * log (337/225) + (16/25) * log (337/400)`, and strict positivity is
+proved from the equality theorem and the disagreement witness. The decimal
+value is only indicative and external to the kernel.
+
+**Not formalized.** E3.6, linearity of an expected log Bayes factor in `N`,
+would require an explicit product law on sequences. No concentration,
+asymptotic, or decision-theoretic result is added.
+
+All E3 results remain conditional on Greaves--Myrvold's CW principle; they do
+not establish it and make no rationality judgment.

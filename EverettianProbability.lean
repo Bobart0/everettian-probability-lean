@@ -103,6 +103,9 @@ import EverettianProbability.Audit.MainResults
 import EverettianProbability.Audit.BornAgreement
 import EverettianProbability.Confirmation.BornVersusRenormalizedFourthPower
 import EverettianProbability.Audit.BornVersusRenormalizedFourthPower
+import EverettianProbability.Rivals.SupportAgreement
+import EverettianProbability.Confirmation.DiscriminationRate
+import EverettianProbability.Audit.DiscriminationRate
 
 /-!
 **FR.** Point d'entree du paquet `EverettianProbability`. Il importe, dans
