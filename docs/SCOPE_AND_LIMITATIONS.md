@@ -469,3 +469,21 @@ négatifs ou non entiers n'est revendiquée.
 `AxNorm` on a concrete witness; it is not a classification of every `q ≠ 2`
 rule. No general consequence for real, negative, or non-integer exponents is
 claimed.
+
+## E1 -- comparaison confirmationnelle future
+
+**FR.** Toute comparaison confirmationnelle future entre Born et une regle
+rivale sera conditionnelle au principe CW qualitatif de Greaves et Myrvold,
+« Everett and Evidence », dans *Many Worlds?*, OUP 2010, p. 264–304,
+DOI 10.1093/acprof:oso/9780199560561.003.0011. Le depot ne pretend pas
+etablir ce principe. Le present increment compare seulement des poids de
+cellules ; il n'etablit ni frequence, ni taux de discrimination en
+echantillon fini, ni resultat bayesien supplementaire.
+
+**EN.** Any future confirmation-theoretic comparison between Born and a rival
+rule will be conditional on the qualitative CW principle of Greaves and
+Myrvold, “Everett and Evidence,” in *Many Worlds?*, OUP 2010, pp. 264–304,
+DOI 10.1093/acprof:oso/9780199560561.003.0011. The repository does not
+claim to establish that principle. The present increment compares cell
+weights only; it establishes no frequency, finite-sample discrimination rate,
+or additional Bayesian result.

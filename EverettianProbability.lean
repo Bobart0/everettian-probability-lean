@@ -28,6 +28,8 @@ import EverettianProbability.BornCalibration.DecisionNecessity
 import EverettianProbability.BornCalibration.Nonvacuity
 import EverettianProbability.Rivals.NaiveBranchCounting
 import EverettianProbability.Rivals.FourthPowerWeight
+import EverettianProbability.Rivals.RenormalizedFourthPower
+import EverettianProbability.Rivals.BornAgreement
 import EverettianProbability.Rivals.Nonvacuity
 import EverettianProbability.PhysicalRefinement.RecordNeutralWitness
 import EverettianProbability.PhysicalRefinement.Nonvacuity
@@ -98,6 +100,7 @@ import EverettianProbability.Audit.UpstreamQuantumFoundationsAPI
 import EverettianProbability.Audit.PremiseNecessity
 import EverettianProbability.Audit.UhlhornDimensionTwo
 import EverettianProbability.Audit.MainResults
+import EverettianProbability.Audit.BornAgreement
 
 /-!
 **FR.** Point d'entree du paquet `EverettianProbability`. Il importe, dans

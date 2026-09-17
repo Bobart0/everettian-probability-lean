@@ -5,10 +5,10 @@
 Fiche par règle rivale de pondération des branches. Consigne de rédaction
 stricte : jamais « cette règle est irrationnelle », toujours « cette règle
 viole précisément X » ou « cette règle ajoute précisément la structure
-Y ». Deux règles possèdent désormais du code Lean : le comptage naïf
-(`Rivals/NaiveBranchCounting.lean`) et la puissance quatrième
-(`Rivals/FourthPowerWeight.lean`) ; les autres entrées restent des fiches de
-veille.
+Y ». Le comptage naïf et les deux variantes de puissance quatrième
+possèdent désormais du code Lean (`Rivals/NaiveBranchCounting.lean`,
+`Rivals/FourthPowerWeight.lean` et `Rivals/RenormalizedFourthPower.lean`) ;
+les autres entrées restent des fiches de veille.
 
 ### Comptage naïf des branches
 
@@ -109,9 +109,11 @@ veille.
 
 One entry per rival branch-weighting rule. Strict drafting rule: never
 "this rule is irrational," always "this rule violates precisely X" or
-"this rule adds precisely structure Y." Two rules now have Lean code:
-naive counting (`Rivals/NaiveBranchCounting.lean`) and fourth power
-(`Rivals/FourthPowerWeight.lean`); the other entries remain watch-list notes.
+"this rule adds precisely structure Y." Naive counting and both fourth-power
+variants now have Lean code (`Rivals/NaiveBranchCounting.lean`,
+`Rivals/FourthPowerWeight.lean`, and
+`Rivals/RenormalizedFourthPower.lean`); the other entries remain watch-list
+notes.
 
 ### Naive branch counting
 
@@ -202,3 +204,44 @@ naive counting (`Rivals/NaiveBranchCounting.lean`) and fourth power
   a combinatorial degree of freedom that (Grain) alone does not force
   away.
 - **Status.** Not formalized. Watch-list entry.
+
+### E1.1--E1.5 : comptage indexe et puissance quatrieme renormalisee
+
+- **Comptage indexe.** Reference exacte : Khawaja, “Conquering Mount Everett:
+  Branch Counting Versus the Born Rule,” *British Journal for the Philosophy
+  of Science* 77(2), 313–344, 2026, DOI 10.1086/726282. Statut : non
+  formalise, fiche de veille. Aucune formalisation de cette regle n'est
+  entreprise dans cet increment.
+- **Puissance quatrieme renormalisee.** Pour `v ≠ 0`, le denominateur est
+  strictement positif et la regle satisfait `AxPos` et `AxNorm`. Le temoin
+  explicite en `H 3` etablit une violation precise de `AxGrain` : le poids de
+  `label0Line` est `81/337` sur la perspective binaire et `50625/136897` sur le
+  raffinement en trois lignes.
+- **Accord avec Born.** A perspective fixee et pour `‖v‖ = 1`,
+  `renormalizedFourthPower_agrees_iff` prouve l'equivalence complete avec
+  l'egalite des poids de Born non nuls. Le resultat est formalise et audite
+  dans `Rivals/RenormalizedFourthPower.lean`, `Rivals/BornAgreement.lean` et
+  `Audit/BornAgreement.lean`.
+- **Condition de non-nullite.** La condition `v ≠ 0` est explicite pour la
+  positivite du denominateur, `AxPos` et `AxNorm`; a `v = 0`, la definition
+  donne `0/0 = 0`, donc `AxNorm` ne peut pas etre affirme.
+
+## E1.1--E1.5: indexed counting and renormalized fourth power
+
+- **Indexed counting.** Exact reference: Khawaja, “Conquering Mount Everett:
+  Branch Counting Versus the Born Rule,” *British Journal for the Philosophy
+  of Science* 77(2), 313–344, 2026, DOI 10.1086/726282. Status: not
+  formalized, watch-list entry. This increment does not formalize that rule.
+- **Renormalized fourth power.** For `v ≠ 0`, the denominator is strictly
+  positive and the rule satisfies `AxPos` and `AxNorm`. The explicit `H 3`
+  witness establishes a precise `AxGrain` violation: the weight of
+  `label0Line` is `81/337` on the binary perspective and `50625/136897` on the
+  three-line refinement.
+- **Agreement with Born.** At a fixed perspective and for `‖v‖ = 1`,
+  `renormalizedFourthPower_agrees_iff` proves the complete equivalence with
+  equality of the nonzero Born weights. The result is formalized and audited
+  in `Rivals/RenormalizedFourthPower.lean`, `Rivals/BornAgreement.lean`, and
+  `Audit/BornAgreement.lean`.
+- **Nonzero condition.** The condition `v ≠ 0` is explicit for denominator
+  positivity, `AxPos`, and `AxNorm`; at `v = 0`, the definition gives
+  `0/0 = 0`, so `AxNorm` cannot be asserted.

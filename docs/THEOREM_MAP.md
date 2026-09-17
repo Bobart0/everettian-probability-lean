@@ -163,6 +163,24 @@ P11 finite likelihoods and Bayesian updating
 | Nontriviality witness (qubit route) | `EverettianProbability.Abstract.effectUniform_not_refinementInvariantLocal` | `EffectCalibration/NonTriviality.lean` | Uniform counting over *every* outcome (not only active ones), refinement with an always-silent phantom outcome (`phantomZeroRefines`, built without upstream `binaryPerspective`/`complementEffect`) | Calculation specific to the witness: `1/2 ≠ 2/3`; does not classify every counting rule | `[propext, Classical.choice, Quot.sound]` |
 | P9 witness | `fourthPowerWeight_axPos`, `fourthPowerWeight_coarse_sum`, `fourthPowerWeight_not_axNorm` | `Rivals/FourthPowerWeight.lean` | `psiBefore`, `coarsePerspective` | Concrete projective witness in `H 3`, exponent fixed at `4`: positivity, sum `337/625`, then failure of `AxNorm`. No classification of exponents. | `[propext, Classical.choice, Quot.sound]` |
 
+## E1 -- comparaison exacte avec la puissance quatrieme renormalisee
+
+| Statut | Resultat | Module | Hypotheses | Portee |
+|---|---|---|---|---|
+| Formalise | `fourthPowerDenominator_pos`, `renormalizedFourthPower_axPos`, `renormalizedFourthPower_axNorm` | `Rivals/RenormalizedFourthPower.lean` | `v ≠ 0` | Denominateur positif; `AxPos` et `AxNorm` satisfaites. La regle depend explicitement de la perspective. |
+| Formalise | `renormalizedFourthPower_not_axGrain` | `Rivals/BornAgreement.lean` | `psiAfter`, `coarsePerspective`, `finePerspective` | Violation precise de `AxGrain`; le poids de `label0Line` change de `81/337` a `50625/136897`. |
+| Formalise : equivalence complete | `renormalizedFourthPower_agrees_iff` | `Rivals/BornAgreement.lean` | `‖v‖ = 1`, perspective `D` fixee | Accord cellule par cellule avec Born si et seulement si les poids de Born non nuls sont tous egaux. |
+| Audite | `renormalizedFourthPower_agreement_witness`, `renormalizedFourthPower_disagreement_witness` | `Rivals/Nonvacuity.lean`, `Audit/BornAgreement.lean` | Temoins rationnels explicites | Accord sur une perspective singleton; desaccord avec `81/337`, `9/25` et ecart `-1008/8425`. |
+
+## E1 -- exact agreement with the renormalized fourth power
+
+| Status | Result | Module | Assumptions | Scope |
+|---|---|---|---|---|
+| Formalized | `fourthPowerDenominator_pos`, `renormalizedFourthPower_axPos`, `renormalizedFourthPower_axNorm` | `Rivals/RenormalizedFourthPower.lean` | `v ≠ 0` | Positive denominator; `AxPos` and `AxNorm` hold. The rule explicitly depends on the perspective. |
+| Formalized | `renormalizedFourthPower_not_axGrain` | `Rivals/BornAgreement.lean` | `psiAfter`, `coarsePerspective`, `finePerspective` | Precise `AxGrain` violation; the weight of `label0Line` changes from `81/337` to `50625/136897`. |
+| Formalized: complete equivalence | `renormalizedFourthPower_agrees_iff` | `Rivals/BornAgreement.lean` | `‖v‖ = 1`, fixed perspective `D` | Cellwise agreement with Born iff all nonzero Born weights are equal. |
+| Audited | `renormalizedFourthPower_agreement_witness`, `renormalizedFourthPower_disagreement_witness` | `Rivals/Nonvacuity.lean`, `Audit/BornAgreement.lean` | Explicit rational witnesses | Agreement on a singleton perspective; disagreement with `81/337`, `9/25`, and gap `-1008/8425`. |
+
 The exact headline statement (projective route) is:
 
 ```lean
