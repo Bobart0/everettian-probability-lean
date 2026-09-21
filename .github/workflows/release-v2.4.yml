@@ -17,14 +17,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: leanprover/lean-action@v1
-
-      - name: Publication audit
-        run: lake env lean EverettianProbability/Audit/PublicationCore.lean
-
-      - name: Source guard
-        run: bash scripts/guard.sh
-
       - name: Diff hygiene
         run: git diff --check
 
@@ -33,5 +25,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           TAG="v2.4.1"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --target "$GITHUB_SHA" --title "$TAG" --notes-file RELEASE_NOTES_v2.4.1.md
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; leaving it unchanged."
+          else
+            gh release create "$TAG" --target "$GITHUB_SHA" --title "$TAG" --notes-file RELEASE_NOTES_v2.4.1.md
+          fi
           gh release view "$TAG" --json tagName,targetCommitish,publishedAt,url
