@@ -21,7 +21,7 @@ premises. It builds on the pinned
 dependency and keeps the distinction between a conditional theorem and a
 derivation of its premises explicit.
 
-The default development branch uses the upstream revision recorded in `lakefile.toml` and `lake-manifest.json`. For reproducible use by the theorem-centered representation article, use the neutral maintenance release `v2.4.1`, which depends on `quantum-foundations-lean` `v1.4.3`.
+The default development branch uses the upstream revision recorded in `lakefile.toml` and `lake-manifest.json`. For reproducible use by the theorem-centered representation article, use the neutral maintenance release `v2.4.1` (commit `17dff198ac1ea885594a9dcd9c5d72523f645ed1`, Zenodo DOI `10.5281/zenodo.22884032`), which depends on `quantum-foundations-lean` `v1.4.3`.
 `EverettianProbability.API.UpstreamQuantumFoundations` is the local import
 boundary for its stable Everettian-facing bundle. It does not identify `NSNC1`,
 ancilla neutrality, and residual neutrality, and no preferred tensor
@@ -119,7 +119,7 @@ explicitement séparées. Il s'appuie sur la dépendance épinglée
 et conserve la distinction entre un théorème conditionnel et une dérivation de
 ses prémisses.
 
-La branche de développement utilise la révision amont enregistrée dans `lakefile.toml` et `lake-manifest.json`. Pour l'utilisation reproductible dans l'article centré sur les théorèmes de représentation, utiliser la release de maintenance neutre `v2.4.1`, qui dépend de `quantum-foundations-lean` `v1.4.3`.
+La branche de développement utilise la révision amont enregistrée dans `lakefile.toml` et `lake-manifest.json`. Pour l'utilisation reproductible dans l'article centré sur les théorèmes de représentation, utiliser la release de maintenance neutre `v2.4.1` (commit `17dff198ac1ea885594a9dcd9c5d72523f645ed1`, DOI Zenodo `10.5281/zenodo.22884032`), qui dépend de `quantum-foundations-lean` `v1.4.3`.
 `EverettianProbability.API.UpstreamQuantumFoundations` est la frontière d'import
 locale pour son ensemble stable orienté Everett. Elle n'identifie ni `NSNC1`,
 ni la neutralité d'ancilla, ni la neutralité résiduelle, et aucune
